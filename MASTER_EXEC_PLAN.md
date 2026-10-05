@@ -36,10 +36,10 @@ Current V4 candidate: app/gateway internal only; immutable trusted proxy interna
 
 No privileged file has been executed. No DEV deployment request has been written. DEV still has the original WordPress baseline. Production has never been accessed or modified. Human installation/Plesk configuration is an action pending review, not a whole-project blocker.
 
-Human action details: .ops/ACTION_REQUIRED.md and the V3 review artifacts. The second human review is HOLD; no installation, privileged execution, deployment request or automatic PHP deployment is authorized. The runtime watcher has no WordPress write capability. The third review must assess the root-owned archive trust transition and separately approved plugin artifact workflow. No root/Plesk/Docker authority is granted to the agent.
+Human action details: .ops/ACTION_REQUIRED.md and V4 review artifacts. Third human review is HOLD; installation, privileged execution, deployment requests and automatic PHP deployment remain unauthorized. Review the immutable image/proxy/gateway/dependency boundaries, offline artifact builder, dedicated networks, separated secrets and verified host denial. No root/Plesk/Docker authority is granted to the agent.
 
 Acceptance: REQUIREMENTS.md remains pending for deployed items. Current checks do not satisfy the complete DEV Definition of Done.
-Next recommended action: finish local V3 quality/hash/archive checks, commit/push the remediation source and review handoff, then stop at READY FOR THIRD SECURITY REVIEW. No privileged execution or deployment request. Original app work and SSRF/sandbox/limits/queue/rollback controls are preserved.
+Next action: hand off the exact V4 source/archive/hash evidence, commit/push metadata and stop at READY FOR FOURTH SECURITY REVIEW. No privileged execution or deployment request. Deployed acceptance remains pending.
 
 ## Latest refinements
 
@@ -58,3 +58,7 @@ Third-review candidate source 10dcabfe5642207486af7646bef489b83108fb17 is commit
 ## Third review HOLD / fourth-review remediation
 
 Third review preserved accepted V3 controls and requested immutable trusted egress, offline builds, frozen dependencies, dedicated verified egress network, isolated ingress/master secret, verified self-host deny, artifact source identity and clean root interpreter startup. Local checks pass:46 Python tests (12 original,21 V3,13 V4),26 TypeScript tests and4 gateway socket tests, clean pinned npm install, formatting/lint/typecheck/application build/trusted proxy compile, PHP contract/lint and shell syntax. Exact committed source/archive validation and V4 handoff follow. No privileged component, Docker or deployment trigger has been executed. README describes current candidate; earlier ledger entries and bundles remain historical. Complete DEV acceptance remains pending. Stop after source/handoff commit and fourth review preparation.
+
+## Fourth-review source and archive evidence
+
+Source commit 8217aa4a13c0265efd8cb81473dd7f00c68d2c34 preserves V3 history. All46 Python/26 TypeScript/4 gateway tests pass; PHP, shell and Node gates pass. Fresh canonical archive source extraction passes offline clean install and the same gates, including trusted proxy compilation. Archive SHA256 ecef5a23ef175096cc6312ca99dc0b306ecd76dc3cd4af8aca7de94c6e0443a7;82 regular entries match committed blobs+marker; repeated export bytes identical. V4 manifest covers78 immutable files, excluding only three mutable state ledgers and the new self-referencing handoff bundle/manifest. State READY FOR FOURTH SECURITY REVIEW with HOLD. Handoff-only metadata does not change privileged/runtime inputs. Stop after push; DEV deployment is not complete.

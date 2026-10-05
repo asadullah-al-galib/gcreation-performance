@@ -1,64 +1,54 @@
-# Execution state
+# Current execution ledger
 
-Objective: complete gCreation Website Performance Doctor MVP v0.1 on DEV only.
-Version: 0.1.0. Current milestone: third-review HOLD remediations; fourth security review handoff preparation.
+Authoritative execution order: [PROJECT_TIMELINE.md](PROJECT_TIMELINE.md). Product intent remains [docs/MASTER_PRODUCT_SPEC.md](docs/MASTER_PRODUCT_SPEC.md). The later [human P0 governance request](docs/P0_GOVERNANCE_FREEZE_REQUEST.md) controls sequencing and review gates. [REQUIREMENTS.md](REQUIREMENTS.md) is the D01–D31 evidence cross-map; [.ops/PROJECT_STATUS.md](.ops/PROJECT_STATUS.md) is the compact current status.
 
-## Preserved and completed work
+## Current gate
 
-- Existing history preserved: c724ac3, 6fbcc8b, 8cf5296, 55a342f. DEV probe remains intact.
-- M0.1–M0.4: full authoritative specification, durable rules/docs, 31-item acceptance ledger; pushed as 212f4a6. Implementation foundation pushed as be74524.
-- M0.5: reviewable DEV kit files, root controller path defenses, locking/status/rollback, isolated non-root runtime configuration, proxy example; 33 unprivileged Python tests and shell syntax checks pass. Privileged behavior remains unverified.
-- M0.6–M0.12 local foundation: pinned Node/TypeScript/lockfile; Fastify health; SQLite migrations v1/v2/v3/v4; persistent jobs and one-running-job constraint; IP/DNS/redirect security; bounded sitemap/index discovery and page classification.
-- Local code exists for M0.13–M0.30: Playwright/Lighthouse adapters, proxy/bridge, observed metrics, 16 deterministic rules, persisted events/SSE, free reports, WP gateway/UI, trusted pricing, commerce synchronization, paid reports/Fix Center, retests/comparison, expert requests/admin states, analytics and resource telemetry. Code presence is not deployed feature acceptance.
+P0 governance documentation is REVIEW_READY; completion state remains IN_PROGRESS pending human review. P1–P7 are NOT_STARTED. No automatic next-Part execution. The next allowed action is human P0 governance acceptance. Even after P0 human PASS/FROZEN, P1 needs an explicit human start and separate approval of its privileged human actions.
 
-## Test evidence and scope
+V4 static security review: **PASS**, as supplied by the human in the P0 request. This approves static security design and controlled DEV installation preparation only. Installation: **HOLD pending P1 explicit human start**. DEV installation/runtime/browser/Lighthouse/WordPress/WooCommerce/E2E acceptance remains pending. Production is untouched.
 
-Pinned Node 24.21.0 clean npm ci, formatting, lint, typecheck, 24 TypeScript tests and build pass. A temporary loopback service returned HTTP 200 on 127.0.0.1:3101/health with the required structured JSON; it was then closed. This is local evidence, not deployed DEV health. 33 Python deployment-boundary/security tests and PHP lint/commerce harness pass. UI tests use jsdom with controlled data; browser tests use injected scanner metrics. No unrelated customer site is scanned.
+| Part | Completion state | Workflow state | Cycle record                              |
+| ---- | ---------------- | -------------- | ----------------------------------------- |
+| P0   | IN_PROGRESS      | REVIEW_READY   | Initial cycle; repair 1/repair 2 not used |
+| P1   | NOT_STARTED      | NOT_STARTED    | No cycle started                          |
+| P2   | NOT_STARTED      | NOT_STARTED    | No cycle started                          |
+| P3   | NOT_STARTED      | NOT_STARTED    | No cycle started                          |
+| P4   | NOT_STARTED      | NOT_STARTED    | No cycle started                          |
+| P5   | NOT_STARTED      | NOT_STARTED    | No cycle started                          |
+| P6   | NOT_STARTED      | NOT_STARTED    | No cycle started                          |
+| P7   | NOT_STARTED      | NOT_STARTED    | No cycle started                          |
 
-Verified locally: SSRF rejects unsafe URL schemes, credentials/internal hosts/private/reserved IPs and redirect-to-private destinations; HTTP/CONNECT proxy socket rejection; persistent SQLite reopen/recovery; priority and concurrency=1; actual SSE event output; trusted price boundaries; paid order uniqueness; token+order+contact authorization; fixed claims are unverified; expert request idempotency; UI escaping and token-fragment removal. Full dependency audit reports zero vulnerabilities after pinned test-tool updates on 2026-10-05.
+## Preserved baseline and evidence
 
-## Remaining work / known limits
+- Approved implementation source: `8217aa4a13c0265efd8cb81473dd7f00c68d2c34`.
+- V4 review handoff: `5c44cb3549aebf02ddef84d8f4a04c5f82ae7f7d`.
+- Deterministic source archive SHA-256: `ecef5a23ef175096cc6312ca99dc0b306ecd76dc3cd4af8aca7de94c6e0443a7`.
+- [V4 review bundle](ops/dev/SECURITY_REVIEW_BUNDLE_V4.md): 46 Python, 26 TypeScript and 4 gateway socket tests; PHP/shell/format/lint/typecheck/build/trusted-proxy compilation; offline fresh-source validation;82 regular archive entries and78 immutable source hashes. These are previously recorded local/static results, not tests rerun for P0 or deployed proof.
+- Full prior-source validation output is `.ops/test-artifacts/V4_SOURCE_VALIDATION.log`. The bundle records its hash. Retain evidence privately without secrets.
+- Original .git is read-only; use scripts/repo-git.sh with .ops/git-metadata. Only develop is committed/pushed. Work stays inside this project.
+- P0 changes governance/state Markdown only. Application/runtime/tests/toolchain/privileged kit remain at the accepted baseline. Historical V4 manifests attest the original source archive, not subsequent governance Markdown bytes.
 
-- Actual official-runtime Chromium sandbox and Lighthouse execution, effective cgroups, browser cleanup/egress bypass tests are not verified on DEV. Host glibc 2.28 is not the official Noble runtime; no arbitrary privileged dependencies are installed.
-- Real DEV WordPress plugin activation, WooCommerce session/checkout/manual payment, report delivery and all controlled public E2E gates remain pending.
-- Deployed source snapshot/build/rollback/status must be exercised after human installation; local boundary tests do not prove privilege/runtime behavior.
-- Added local tests for all 16 rule families, bounded resource waits, expert review/admin transitions, inventory truncation and paid retest/comparison. Fresh nonprivileged deployment snapshot install/format/lint/typecheck/test/build passed. Browser/DEV E2E remains required.
-- Privacy/log retention and actual scanner resource telemetry require deployed measurement. Raw screenshots/traces/Lighthouse JSON are not persisted by default.
-- Inventory is bounded at 2001 URLs/20 sitemaps; full scope deeply scans at most eight representative pages, major scope five, free two. Truncation is disclosed; >2000 requires expert review.
+## P0 exit assessment
 
-## Constraints and decisions
+One fixed eight-Part timeline,32 original milestone assignments and31 acceptance mappings; scope freeze, state machine, two-repair cap, exact handoff/stop rule, human gates and consistent current documentation are prepared for review. P0 verification is limited to diff/content/mapping/unchanged-code checks and clean pushed Git state. Do not run the application suite for this documentation-only Part.
 
-Project-only development; original .git is read-only. Isolated metadata now lives in .ops/git-metadata; scripts/repo-git.sh preserves develop history. Host Plesk npm shebang forces Node 26; scripts/npm-dev.sh invokes npm with exact Node 24.21.0. Runtime pins: Playwright 1.63.0 and matching official Noble image, Lighthouse 13.5.0. No paid AI runtime dependency.
+## P0 verification record
 
-Current V4 candidate: app/gateway internal only; immutable trusted proxy internal plus dedicated egress network; builder offline. Proxy pins public DNS/IPs per connection. Containers drop all capabilities, use no-new-privileges, official pinned seccomp, PID limits, read-only app mounts and bounded logs/tmpfs. App3.4 CPU/1400 MiB + proxy0.5 CPU/150 MiB + gateway0.1 CPU/100 MiB; aggregate slice 4 CPU/1700 MiB. Browser concurrency one. DENIED_IPS must include server public addresses; controller rejects unset list.
+- Documentation formatting and git diff whitespace checks: PASS.
+- Timeline coverage:8 Parts with16 required fields each;32/32 milestone intents copied from the unchanged specification and uniquely assigned.
+- Acceptance cross-map:31/31 original requirement wordings retained, with owner Part/M0/local evidence/remaining DEV evidence; all DEV_ACCEPTANCE PENDING.
+- Current operational documentation consistency:9/9 checked; V4 static PASS, P0 review, installation HOLD, P1 NOT_STARTED and no automatic next-Part execution agree.
+- Changed scope:14 governance Markdown files only;72 other baseline files unchanged, including all application/runtime/test/toolchain/privileged kit and historical review artifacts. Original V4 manifest78/78 verified against approved source, not the changed governance tree.
+- Historical PROJECT_STATE body and the human governance request text are preserved. No deployment request or privileged/production operation occurred; application suite was not rerun.
+- Exact documentation commit, clean working tree and origin/develop equality are verified at final handoff; no self-referencing or guessed commit ID is embedded here.
 
-## Deployment / Git / human actions
+## Remaining evidence by gate
 
-No privileged file has been executed. No DEV deployment request has been written. DEV still has the original WordPress baseline. Production has never been accessed or modified. Human installation/Plesk configuration is an action pending review, not a whole-project blocker.
+P1: human-approved controlled installation and actual immutable-image/network/secret/resource/health/deploy/rollback evidence. P2: real controlled browser/Lighthouse/discovery/metrics/rules/jobs/progress/free API evidence. P3: separately approved plugin plus actual customer/session/pricing/DEV checkout evidence. P4: actual idempotent paid audit/secure report/Fix Center/retest/expert/analytics flow. P5: cumulative D01–D29 security/E2E/resource acceptance and D30/D31 release-readiness checks. P6: exact reviewed DEV release candidate, final D30/D31 proof and reconfirmation of all31 criteria. P7: privacy-conscious first 100 consenting DEV customers and measured observations. These Part names describe ordered remaining validation, not missing implementations to rebuild.
 
-Human action details: .ops/ACTION_REQUIRED.md and V4 review artifacts. Third human review is HOLD; installation, privileged execution, deployment requests and automatic PHP deployment remain unauthorized. Review the immutable image/proxy/gateway/dependency boundaries, offline artifact builder, dedicated networks, separated secrets and verified host denial. No root/Plesk/Docker authority is granted to the agent.
+## Historical review facts — no current authorization
 
-Acceptance: REQUIREMENTS.md remains pending for deployed items. Current checks do not satisfy the complete DEV Definition of Done.
-Next action: hand off the exact V4 source/archive/hash evidence, commit/push metadata and stop at READY FOR FOURTH SECURITY REVIEW. No privileged execution or deployment request. Deployed acceptance remains pending.
+V2 source 7887fca/handoff 826a622 and V3 source 10dcabfe/handoff 02edd2da were HOLD checkpoints. Their findings and review bundles remain unchanged historical evidence. V4 remediation source 8217aa4/handoff 5c44cb3 preserved prior work and subsequently received human static PASS. Older third/fourth-review stop/install instructions in historical bundles are historical. Current authorization comes only from PROJECT_TIMELINE.md and the P0 human gate, not an old continuation or installation recipe.
 
-## Latest refinements
-
-Atomic persisted scan admission (5/client/hour and 50 pending jobs), trusted privacy-preserving client keys, session-bound WP CSRF nonce, DNS deadline and additional cloud-internal IP rejection, partial metric persistence, per-page pressure checks, bounded retest reuse/quota, representative page-kind coverage, observed redirect counts, per-rule detailed fix templates behind an explanation interface, focused WP admin tables/evidence, real package-selection analytics without quote inflation, and same-page secure report refresh. Retest query regression was caught by integration tests and fixed with the required sites join. No legitimate test was removed. Full dependency audit is clean after updating pinned tsx/eslint/typescript-eslint.
-
-Latest local milestone: browser lifecycle controls covered by mocked driver tests; test-process concurrency capped at two; rollback backup preserves generated private config and ordinary file permissions plus original plugin ownership; shared backup budgets and failed-release retention are bounded. Fresh current-source nonprivileged snapshot build passed all Node gates before these final Python refinements; eleven Python helper tests pass after the refinements. No privileged controller execution or actual browser scan was used as test evidence.
-
-Controller success and forced final-health failure are now exercised in unprivileged simulations: source digest/status, request cleanup, prior plugin/config/permissions and runtime rollback pass. Host commands, runtime launch and ownership changes are mocked; this is not installed/deployed evidence. Milestone 4af71f6 is pushed; main remains c724ac3.
-
-## Second human security review remediation
-
-Historical source 7887fca/handoff826a622 is HOLD (docs/SECOND_SECURITY_REVIEW_RESULT.md). Root inputs now cross a deterministic reviewed archive/data/hash/safe-extraction boundary and execute from immutable root-owned snapshots with isolated Python. Installer preflight checks ownership/hash/paths, Docker/systemd/configuration and stale triggers before changes and before enable. Auto watcher deploys only Node/browser; human-approved PHP artifact writes drop to the verified DEV PHP owner and generate config.php0600. Requests are atomically claimed, new requests survive cleanup; internal Docker network identity/configuration is verified before runtime start. Public nginx health is GET-only with no forwarded client headers/secret. Both FROM images are registry digest-pinned with recorded index/amd64 provenance. No privileged component was installed/executed. Full V3 gates and final source/handoff IDs are recorded in the V3 bundle.
-
-Third-review candidate source 10dcabfe5642207486af7646bef489b83108fb17 is committed/pushed.33 Python and24 TypeScript tests plus full local/fresh snapshot gates pass. Exact archive hash/file lists are in ops/dev/SECURITY_REVIEW_BUNDLE_V3.md and SECURITY_REVIEW_SHA256SUMS_V3. Status READY FOR THIRD SECURITY REVIEW; HOLD still prohibits installation/execution/deployment requests. The handoff-only descendant changes metadata, not source inputs. Stop at this checkpoint; DEV acceptance remains incomplete.
-
-## Third review HOLD / fourth-review remediation
-
-Third review preserved accepted V3 controls and requested immutable trusted egress, offline builds, frozen dependencies, dedicated verified egress network, isolated ingress/master secret, verified self-host deny, artifact source identity and clean root interpreter startup. Local checks pass:46 Python tests (12 original,21 V3,13 V4),26 TypeScript tests and4 gateway socket tests, clean pinned npm install, formatting/lint/typecheck/application build/trusted proxy compile, PHP contract/lint and shell syntax. Exact committed source/archive validation and V4 handoff follow. No privileged component, Docker or deployment trigger has been executed. README describes current candidate; earlier ledger entries and bundles remain historical. Complete DEV acceptance remains pending. Stop after source/handoff commit and fourth review preparation.
-
-## Fourth-review source and archive evidence
-
-Source commit 8217aa4a13c0265efd8cb81473dd7f00c68d2c34 preserves V3 history. All46 Python/26 TypeScript/4 gateway tests pass; PHP, shell and Node gates pass. Fresh canonical archive source extraction passes offline clean install and the same gates, including trusted proxy compilation. Archive SHA256 ecef5a23ef175096cc6312ca99dc0b306ecd76dc3cd4af8aca7de94c6e0443a7;82 regular entries match committed blobs+marker; repeated export bytes identical. V4 manifest covers78 immutable files, excluding only three mutable state ledgers and the new self-referencing handoff bundle/manifest. State READY FOR FOURTH SECURITY REVIEW with HOLD. Handoff-only metadata does not change privileged/runtime inputs. Stop after push; DEV deployment is not complete.
+Next action: human review of P0 governance. Stop. Do not start P1, write a deployment request, execute privileged components or change production.

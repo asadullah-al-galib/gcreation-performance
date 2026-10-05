@@ -1,9 +1,11 @@
-# Working plans
+# Working plan rules
 
-Use Inspect → Plan → Implement → Static Check → Test → Fix → Retest → Document → Commit → Push → Continue.
+[PROJECT_TIMELINE.md](PROJECT_TIMELINE.md) is the only authoritative execution order. MASTER_EXEC_PLAN.md is the concise state/cycle ledger and REQUIREMENTS.md is the evidence cross-map. Product scope remains docs/MASTER_PRODUCT_SPEC.md, with the later P0 governance request overriding old automatic-continuation instructions.
 
-Keep original valid commits and DEV probe. Git metadata is read-only in the original .git; use isolated metadata inside this workspace, preserving remote develop history. Do not develop in /tmp under the current authorization.
+Current gate: P0 governance REVIEW_READY, completion IN_PROGRESS. V4 static security review PASS; P1–P7 NOT_STARTED. Privileged DEV installation HOLD pending explicit human P1 start. Production untouched. No automatic next-Part execution.
 
-Build the root kit as reviewable files, test its path/ownership/command boundaries without privilege, then continue all local engine/plugin tests. Request human installation once the concrete kit is ready. Deployed acceptance remains pending until actual DEV evidence exists.
+Within the one authorized Part: inspect → reconcile → implement/validate only its scope → document exact evidence → commit/push develop → handoff → stop. Human review PASS freezes the Part; starting the next Part needs separate explicit human instruction. Each Part has an initial cycle and at most two repairs; failed repair 2 becomes HARD_BLOCKED/human decision, not a speculative redesign.
 
-MASTER_EXEC_PLAN.md is the changing execution ledger. REQUIREMENTS.md maps acceptance to evidence; docs/MASTER_PRODUCT_SPEC.md is the complete source of scope.
+Preserve accepted history and V4 boundaries. Original .git is read-only; use project-local .ops/git-metadata through scripts/repo-git.sh. No development outside the authorized project. No unrelated improvements or infrastructure, no privileged agent actions, and no production changes. Independent work while awaiting an action is limited to the current Part; a pending gate never authorizes continuing into another Part.
+
+P0 performs documentation/diff/content/unchanged-code/Git checks only. Do not execute the entire application suite unless an executable change occurred; if one occurred accidentally, stop/report it and exclude it from P0.

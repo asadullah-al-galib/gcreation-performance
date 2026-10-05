@@ -11,15 +11,23 @@ if (file_exists(__DIR__ . '/config.php')) { require_once __DIR__ . '/config.php'
 function gcp_engine($path, $data = null, $method = 'GET') {
     if (!defined('GCREATION_ENGINE_SECRET')) { return new WP_Error('gcp_config', 'The DEV audit service is not configured.'); }
     if (!preg_match('#^/[a-zA-Z0-9/_-]+(?:\?after=[0-9]+)?$#', $path)) { return new WP_Error('gcp_path', 'Invalid engine path.'); }
-    $response = wp_remote_request('http://127.0.0.1:3101' . $path, array('method' => $method, 'timeout' => 20, 'redirection' => 0, 'headers' => array('X-Engine-Secret' => GCREATION_ENGINE_SECRET, 'Content-Type' => 'application/json'), 'body' => $data === null ? null : wp_json_encode($data)));
+    $response = wp_remote_request('http://127.0.0.1:3101' . $path, array('method' => $method, 'timeout' => 20, 'redirection' => 0, 'headers' => array('X-Engine-Secret' => GCREATION_ENGINE_SECRET, 'X-Client-Key' => hash_hmac('sha256', isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : 'unknown', wp_salt('auth')), 'Content-Type' => 'application/json'), 'body' => $data === null ? null : wp_json_encode($data)));
     if (is_wp_error($response)) { return $response; }
     $code = wp_remote_retrieve_response_code($response);
     $body = json_decode(wp_remote_retrieve_body($response), true);
     if ($code < 200 || $code >= 300) { return new WP_Error('gcp_engine', isset($body['error']) ? $body['error'] : 'Audit service unavailable.', array('status' => $code)); }
     return $body;
 }
+function gcp_session_nonce($window = null) {
+    $session = gcp_session(); if (!$session) { return ''; }
+    if ($window === null) { $window = (int) floor(time() / (12 * HOUR_IN_SECONDS)); }
+    return hash_hmac('sha256', $session . '|' . $window, wp_salt('nonce'));
+}
 function gcp_permission($request) {
-    return wp_verify_nonce($request->get_header('X-WP-Nonce'), 'wp_rest') ? true : new WP_Error('gcp_nonce', 'Refresh the page and try again.', array('status' => 403));
+    $supplied = (string) $request->get_header('X-GCP-Session-Nonce');
+    $window = (int) floor(time() / (12 * HOUR_IN_SECONDS));
+    $valid = gcp_session() && (hash_equals(gcp_session_nonce($window), $supplied) || hash_equals(gcp_session_nonce($window - 1), $supplied));
+    return $valid && wp_verify_nonce($request->get_header('X-WP-Nonce'), 'wp_rest') ? true : new WP_Error('gcp_nonce', 'Refresh the page and try again.', array('status' => 403));
 }
 function gcp_limit($bucket, $maximum) {
     // REMOTE_ADDR only: do not trust browser-supplied forwarding headers.
@@ -100,6 +108,7 @@ function gcp_checkout($request) {
     $product = (int) get_option('gcp_product_id');
     if (!$product || !wc_get_product($product)) { return new WP_Error('gcp_product', 'Create the audit product in Performance Doctor Settings.', array('status' => 503)); }
     if (!WC()->cart->add_to_cart($product, 1, 0, array(), array('gcp' => array('auditId' => $id, 'scope' => $scope, 'mode' => $mode, 'quote' => $quote)))) { return new WP_Error('gcp_cart', 'Could not add audit to checkout.', array('status' => 409)); }
+    gcp_engine('/analytics', array('auditId' => $id, 'type' => 'paid.package_selected', 'scope' => $scope, 'mode' => $mode), 'POST');
     return array('checkoutUrl' => wc_get_checkout_url());
 }
 add_action('woocommerce_before_calculate_totals', function ($cart) {
@@ -151,7 +160,7 @@ add_action('woocommerce_thankyou', function ($order_id) {
 add_shortcode('gcreation_performance', function () {
     wp_enqueue_script('gcp-app', plugins_url('app.js', __FILE__), array(), '0.1.0', true);
     wp_enqueue_style('gcp-app', plugins_url('app.css', __FILE__), array(), '0.1.0');
-    wp_localize_script('gcp-app', 'gcpConfig', array('api' => esc_url_raw(rest_url('gcreation-performance/v1/')), 'nonce' => wp_create_nonce('wp_rest')));
+    wp_localize_script('gcp-app', 'gcpConfig', array('api' => esc_url_raw(rest_url('gcreation-performance/v1/')), 'nonce' => wp_create_nonce('wp_rest'), 'sessionNonce' => gcp_session_nonce()));
     return '<main id="gcp-app"><h1>Website Performance Doctor</h1><p>Measure your website. Understand the evidence. Choose how to fix it.</p><form id="gcp-scan"><label>Website URL <input name="url" type="url" placeholder="https://your-website.com" required maxlength="2048"></label><button>Start free scan</button></form><p id="gcp-status" role="status" aria-live="polite"></p><ol id="gcp-events"></ol><section id="gcp-report"></section></main>';
 });
 add_action('admin_menu', function () {
@@ -170,7 +179,47 @@ function gcp_admin() {
         if (class_exists('WC_Product_Simple') && !wc_get_product((int) get_option('gcp_product_id'))) { $product = new WC_Product_Simple(); $product->set_name('Website Performance Audit'); $product->set_virtual(true); $product->set_catalog_visibility('hidden'); $product->set_regular_price('499'); $product->set_tax_status('none'); $product->set_sold_individually(true); update_option('gcp_product_id', $product->save()); }
     }
     echo '<div class="wrap"><h1>Performance Doctor</h1><p>DEV service integration. Pricing is determined by the audit engine.</p><form method="post">'; wp_nonce_field('gcp_settings'); echo '<button class="button" name="gcp_create_product" value="1">Create audit checkout product</button></form>';
-    $data = gcp_engine('/admin/summary'); if (is_wp_error($data)) { echo '<p>' . esc_html($data->get_error_message()) . '</p>'; } else { echo '<pre>' . esc_html(wp_json_encode($data, JSON_PRETTY_PRINT)) . '</pre>'; foreach (array('experts' => 'task', 'expertReviews' => 'review') as $group => $kind) { foreach ($data[$group] as $task) { echo '<form method="post">'; wp_nonce_field('gcp_settings'); echo '<p>' . esc_html($task['id'] . ' · ' . $task['state']) . '</p>'; if ($kind === 'review') { echo '<p>' . esc_html(get_option('gcp_expert_contact_' . $task['id'])) . '</p>'; } echo '<input type="hidden" name="expert_id" value="' . esc_attr($task['id']) . '"><input type="hidden" name="expert_kind" value="' . esc_attr($kind) . '"><select name="expert_state">'; foreach (array('Pending','In Review','In Progress','Waiting','Completed','Retest Required','Verified') as $state) { echo '<option>' . esc_html($state) . '</option>'; } echo '</select><button name="gcp_expert_update" value="1">Update expert state</button></form>'; } } } echo '</div>';
+    $data = gcp_engine('/admin/summary');
+    if (is_wp_error($data)) { echo '<p>' . esc_html($data->get_error_message()) . '</p></div>'; return; }
+    $page = isset($_GET['page']) ? sanitize_key(wp_unslash($_GET['page'])) : 'gcp-dashboard';
+    $audit_id = isset($_GET['audit']) ? sanitize_text_field(wp_unslash($_GET['audit'])) : '';
+    if (preg_match('/^[a-f0-9-]{36}$/', $audit_id)) {
+        $audit = gcp_engine('/admin/audits/' . $audit_id);
+        if (!is_wp_error($audit)) {
+            echo '<h2>' . esc_html($audit['url']) . '</h2><p>State: ' . esc_html($audit['state']) . '</p>';
+            if (!empty($audit['report'])) { foreach ($audit['report']['issues'] as $issue) {
+                echo '<article><h3>' . esc_html($issue['severity'] . ': ' . $issue['title']) . '</h3><p>' . esc_html($issue['affected_url']) . '</p><p>' . esc_html(implode(' | ', $issue['evidence'])) . '</p><p>' . esc_html($issue['recommendation']) . '</p><p>' . esc_html($issue['verification_method']) . '</p></article>';
+            } }
+        }
+    }
+    if (in_array($page, array('gcp','gcp-dashboard','gcp-settings'), true)) {
+        echo '<h2>Validation phase activity</h2><table class="widefat"><thead><tr><th>Event</th><th>Count</th></tr></thead><tbody>';
+        foreach ($data['analytics'] as $event) { echo '<tr><td>' . esc_html($event['type']) . '</td><td>' . esc_html($event['count']) . '</td></tr>'; } echo '</tbody></table>';
+    }
+    if (in_array($page, array('gcp-scans','gcp-reports','gcp-failed-scans'), true)) {
+        echo '<table class="widefat"><thead><tr><th>Website</th><th>Scope</th><th>State</th><th>Created</th><th>Evidence</th></tr></thead><tbody>';
+        foreach ($data['audits'] as $audit) {
+            if ($page === 'gcp-reports' && $audit['state'] !== 'COMPLETED') { continue; }
+            if ($page === 'gcp-failed-scans' && $audit['state'] !== 'FAILED') { continue; }
+            $link = admin_url('admin.php?page=gcp-reports&audit=' . rawurlencode($audit['id']));
+            echo '<tr><td>' . esc_html($audit['url']) . '</td><td>' . esc_html($audit['scope']) . '</td><td>' . esc_html($audit['state']) . '</td><td>' . esc_html($audit['created_at']) . '</td><td><a href="' . esc_url($link) . '">View evidence</a></td></tr>';
+        } echo '</tbody></table>';
+    }
+    if ($page === 'gcp-paid-audits') {
+        echo '<table class="widefat"><thead><tr><th>WooCommerce order</th><th>Scope</th><th>Solution mode</th><th>BDT amount</th></tr></thead><tbody>';
+        foreach ($data['orders'] as $order) { echo '<tr><td>' . esc_html($order['wc_order_id']) . '</td><td>' . esc_html($order['scope']) . '</td><td>' . esc_html($order['mode']) . '</td><td>' . esc_html($order['amount']) . '</td></tr>'; } echo '</tbody></table>';
+    }
+    if ($page === 'gcp-expert-orders') { foreach (array('experts' => 'task', 'expertReviews' => 'review') as $group => $kind) { foreach ($data[$group] as $task) {
+        echo '<form method="post">'; wp_nonce_field('gcp_settings');
+        echo '<p>' . esc_html($task['id'] . ' · ' . $task['state']) . '</p>';
+        if ($kind === 'review') { echo '<p>' . esc_html(get_option('gcp_expert_contact_' . $task['id'])) . '</p>'; }
+        else { echo '<p>WooCommerce order: ' . esc_html($task['wc_order_id']) . '</p>'; }
+        echo '<a href="' . esc_url(admin_url('admin.php?page=gcp-reports&audit=' . rawurlencode($task['audit_id']))) . '">Reuse audit evidence</a>';
+        echo '<input type="hidden" name="expert_id" value="' . esc_attr($task['id']) . '"><input type="hidden" name="expert_kind" value="' . esc_attr($kind) . '"><select name="expert_state">';
+        foreach (array('Pending','In Review','In Progress','Waiting','Completed','Retest Required','Verified') as $state) { echo '<option>' . esc_html($state) . '</option>'; }
+        echo '</select><button name="gcp_expert_update" value="1">Update expert state</button></form>';
+    } } }
+    echo '</div>';
 }
 
 add_action('woocommerce_email_after_order_table', function ($order, $sent_to_admin, $plain_text) {

@@ -20,6 +20,8 @@ function wp_remote_retrieve_body($response) { return $response['body']; }
 function get_transient($key) { global $transients; return isset($transients[$key]) ? $transients[$key] : false; }
 function set_transient($key, $value, $duration) { global $transients; $transients[$key]=$value; }
 function sanitize_text_field($value) { return $value; }
+function wp_salt($scheme) {return 'controlled-server-secret';}
+function wp_verify_nonce($nonce,$action) {return $nonce==='valid-wp-nonce';}
 function sanitize_key($value) { return $value; }
 function get_woocommerce_currency() { return 'BDT'; }
 function add_option($key,$value,$deprecated='',$autoload=false) {global $options;if(isset($options[$key]))return false;$options[$key]=$value;return true;}
@@ -34,10 +36,12 @@ $wc = new stdClass(); $wc->cart = new Cart();
 function WC() { global $wc; return $wc; }
 class Item { public $meta=array(); public function get_meta($key) { return isset($this->meta[$key])?$this->meta[$key]:null; } public function update_meta_data($key,$value) { $this->meta[$key]=$value; } public function save() {} public function get_total() { return 499; } }
 class Order { public $meta=array(); public $item; public function __construct($item) {$this->item=$item;} public function is_paid() {return true;} public function get_items() {return array($this->item);} public function get_billing_email() {return 'buyer@example.com';} public function get_currency() {return 'BDT';} public function add_order_note($note) {} public function get_meta($key) {return isset($this->meta[$key])?$this->meta[$key]:null;} public function update_meta_data($key,$value) {$this->meta[$key]=$value;} public function save() {} }
-class Request { private $data; public function __construct($data) {$this->data=$data;} public function get_param($name) {return isset($this->data[$name])?$this->data[$name]:null;} }
+class Request { public $headers=array(); public function get_header($name) {return isset($this->headers[$name])?$this->headers[$name]:'';} private $data; public function __construct($data) {$this->data=$data;} public function get_param($name) {return isset($this->data[$name])?$this->data[$name]:null;} }
 function check($condition,$message) {if(!$condition){fwrite(STDERR,$message."\n");exit(1);}}
 require __DIR__ . '/../wordpress/gcreation-performance/gcreation-performance.php';
 $_COOKIE['gcp_session']=str_repeat('a',64);
+$nonce_request=new Request(array());$nonce_request->headers=array('X-WP-Nonce'=>'valid-wp-nonce','X-GCP-Session-Nonce'=>gcp_session_nonce());check(gcp_permission($nonce_request)===true,'Session nonce rejected');
+$_COOKIE['gcp_session']=str_repeat('b',64);check(is_wp_error(gcp_permission($nonce_request)),'Guest nonce was not session-bound');$_COOKIE['gcp_session']=str_repeat('a',64);
 $id='11111111-1111-4111-8111-111111111111';set_transient('gcp_scan_'.$id,gcp_session(),86400);
 $result=gcp_checkout(new Request(array('auditId'=>$id,'scope'=>'major5','mode'=>'self','amount'=>1)));
 check(!is_wp_error($result),'Checkout rejected valid session');check(WC()->cart->added['gcp']['quote']['amount']===499,'Browser price was trusted');

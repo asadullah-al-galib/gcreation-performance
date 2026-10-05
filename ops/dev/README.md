@@ -20,7 +20,7 @@ bash /home/codexperf/projects/gcreation-performance/ops/dev/install-root.sh
 ```
 
 3. Edit `/etc/gcreation-perf-dev/runtime.env` as root. Keep ENGINE_SECRET private. Populate `DENIED_IPS` with the server public IPs (comma-separated). Optional `PRICING_JSON` config controls BDT prices centrally; keep all four tier boundaries at 25/100/500/2000. Resource thresholds: MIN_AVAILABLE_KB=1200000, MAX_MEMORY_PRESSURE=10. Do not use live payment secrets.
-4. Add `nginx-dev.conf.example` to **DEV only** in Plesk → dev.gcreation.agency → Apache & nginx settings → Additional nginx directives. It exposes health and denies unauthenticated engine management. Future authenticated SSE proxy routes must retain the documented no-buffer settings; the current WordPress UI polls actual persisted engine events.
+4. Add `nginx-dev.conf.example` to **DEV only** in Plesk → dev.gcreation.agency → Apache & nginx settings → Additional nginx directives. It proxies regular APIs and SSE with buffering/caching disabled. The engine itself denies unauthenticated management; never expose the engine secret to customer JavaScript. The current WordPress UI polls actual persisted events through its nonce/session-protected gateway.
 5. After a successful deployment, activate only the gcreation-performance plugin in the DEV WordPress admin. Create a `/performance-doctor/` page with `[gcreation_performance]`. In Performance Doctor Settings create the hidden audit product. Set DEV WooCommerce currency to BDT and configure a manual/test payment method. Disable caching for the scan/report page and plugin REST routes; cookies/nonces must remain session-specific.
 
 ## Normal agent request (unprivileged)

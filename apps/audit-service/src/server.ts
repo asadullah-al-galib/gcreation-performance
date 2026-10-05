@@ -22,7 +22,13 @@ export function createApp(store: Store, secret: string) {
   const attempts = new Map<string, { count: number; reset: number }>();
   app.addHook("onRequest", async (req, reply) => {
     if (req.url === "/health") return;
-    const item = attempts.get(req.ip) ?? {
+    const client = String(req.headers["x-client-key"] ?? "");
+    const key =
+      secretMatches(String(req.headers["x-engine-secret"] ?? ""), secret) &&
+      /^[a-f0-9]{64}$/.test(client)
+        ? client
+        : req.ip;
+    const item = attempts.get(key) ?? {
       count: 0,
       reset: Date.now() + 60000,
     };
@@ -31,7 +37,7 @@ export function createApp(store: Store, secret: string) {
       item.reset = Date.now() + 60000;
     }
     item.count++;
-    attempts.set(req.ip, item);
+    attempts.set(key, item);
     if (attempts.size > 1000)
       for (const [key, value] of attempts)
         if (value.reset < Date.now()) attempts.delete(key);
@@ -57,15 +63,22 @@ export function createApp(store: Store, secret: string) {
   app.post<{ Body: { url: string } }>("/audits", async (req, reply) => {
     if (typeof req.body?.url !== "string")
       return reply.code(400).send({ error: "URL required" });
-    const count = store.db
-      .prepare(
-        "SELECT count(*) AS n FROM jobs WHERE state IN ('PENDING','RUNNING','WAITING_FOR_RESOURCES','RETRYING')",
-      )
-      .get();
-    if (Number(count?.n) >= 50)
-      return reply.code(429).send({ error: "Queue full; please try later" });
     const target = await validateTarget(req.body.url);
-    const id = store.transaction(() => store.createAudit(target.url.href));
+    const id = store.transaction(() => {
+      const count = store.db
+        .prepare(
+          "SELECT count(*) AS n FROM jobs WHERE state IN ('PENDING','RUNNING','WAITING_FOR_RESOURCES','RETRYING')",
+        )
+        .get();
+      const client = String(req.headers["x-client-key"] ?? "");
+      const key = /^[a-f0-9]{64}$/.test(client) ? client : hashToken(req.ip);
+      if (Number(count?.n) >= 50 || !store.consumeAdmission(key)) return null;
+      return store.createAudit(target.url.href);
+    });
+    if (!id)
+      return reply
+        .code(429)
+        .send({ error: "Scan limit reached; please try later" });
     return reply.code(202).send({ id, state: "PENDING" });
   });
   app.get<{ Params: { id: string } }>("/audits/:id", async (req, reply) => {
@@ -155,11 +168,6 @@ export function createApp(store: Store, secret: string) {
         audit.inventory.count,
         req.body.mode,
       );
-      store.analytics(audit.id, "paid.package_selected", {
-        scope: result.scope,
-        mode: result.mode,
-        tier: result.tier,
-      });
       return { ...result, websiteUrl: audit.url };
     },
   );
@@ -305,6 +313,26 @@ export function createApp(store: Store, secret: string) {
         !audit.report.pages.some((page) => page.url === data.url)
       )
         return reply.code(400).send({ error: "Choose an audited page" });
+      const queued = store.db
+        .prepare(
+          "SELECT a.id FROM audits a JOIN sites s ON s.id=a.site_id WHERE a.parent_id=? AND s.url=? AND a.scope='retest' AND a.state IN ('PENDING','RUNNING','WAITING_FOR_RESOURCES','RETRYING')",
+        )
+        .get(audit.id, data.url!);
+      if (queued) return { auditId: queued.id, idempotent: true };
+      const pending = store.db
+        .prepare(
+          "SELECT count(*) AS n FROM jobs WHERE state IN ('PENDING','RUNNING','WAITING_FOR_RESOURCES','RETRYING')",
+        )
+        .get();
+      const recent = store.db
+        .prepare(
+          "SELECT count(*) AS n FROM audits WHERE parent_id=? AND scope='retest' AND created_at>=?",
+        )
+        .get(audit.id, new Date(Date.now() - 86400000).toISOString());
+      if (Number(pending?.n) >= 50 || Number(recent?.n) >= 10)
+        return reply
+          .code(429)
+          .send({ error: "Retest limit reached; please try later" });
       const id = store.transaction(() =>
         store.createAudit(data.url!, "retest", audit.id),
       );
@@ -334,18 +362,28 @@ export function createApp(store: Store, secret: string) {
       })),
     };
   });
-  app.post<{ Body: { auditId: string; type: string } }>(
-    "/analytics",
-    async (req, reply) => {
-      if (
-        req.body.type !== "free.report_viewed" ||
-        store.getAudit(req.body.auditId)?.scope !== "free"
-      )
-        return reply.code(400).send({ error: "Invalid event" });
-      store.analytics(req.body.auditId, req.body.type, {});
-      return { ok: true };
-    },
-  );
+  app.post<{
+    Body: {
+      auditId: string;
+      type: string;
+      scope?: "major5" | "full";
+      mode?: Mode;
+    };
+  }>("/analytics", async (req, reply) => {
+    const audit = store.getAudit(req.body.auditId);
+    if (
+      !audit?.report ||
+      audit.scope !== "free" ||
+      !["free.report_viewed", "paid.package_selected"].includes(req.body.type)
+    )
+      return reply.code(400).send({ error: "Invalid event" });
+    const details =
+      req.body.type === "paid.package_selected"
+        ? quote(req.body.scope!, audit.inventory!.count, req.body.mode!)
+        : {};
+    store.analytics(audit.id, req.body.type, { ...details });
+    return { ok: true };
+  });
   app.post<{ Body: { auditId: string; contact: string } }>(
     "/expert/review",
     async (req, reply) => {
@@ -418,10 +456,18 @@ export function createApp(store: Store, secret: string) {
       return { state: req.body.state };
     },
   );
+  app.get<{ Params: { id: string } }>(
+    "/admin/audits/:id",
+    async (req, reply) => {
+      const audit = store.getAudit(req.params.id);
+      if (!audit) return reply.code(404).send({ error: "Not found" });
+      return audit;
+    },
+  );
   app.get("/admin/summary", async () => ({
     audits: store.db
       .prepare(
-        "SELECT id,scope,state,created_at FROM audits ORDER BY created_at DESC LIMIT 100",
+        "SELECT a.id,a.scope,a.state,a.created_at,s.url FROM audits a JOIN sites s ON s.id=a.site_id ORDER BY a.created_at DESC LIMIT 100",
       )
       .all(),
     orders: store.db
@@ -431,7 +477,7 @@ export function createApp(store: Store, secret: string) {
       .all(),
     experts: store.db
       .prepare(
-        "SELECT id,audit_id,state FROM expert_tasks ORDER BY created_at DESC LIMIT 100",
+        "SELECT e.id,e.audit_id,e.state,o.wc_order_id FROM expert_tasks e JOIN orders o ON o.id=e.order_id ORDER BY e.created_at DESC LIMIT 100",
       )
       .all(),
     expertReviews: store.db

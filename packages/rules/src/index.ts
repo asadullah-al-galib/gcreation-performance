@@ -1,3 +1,4 @@
+import { explanations } from "./recommendations.js";
 import type { Issue, Metrics } from "../../contracts/src/index.js";
 export const thresholds = {
   ttfbMs: 800,
@@ -36,11 +37,7 @@ export function evaluate(metrics: Metrics): Issue[] {
       impact:
         "This can add performance friction for visitors. Impact depends on the page and device.",
       recommendation,
-      steps: [
-        "Save a backup before changing configuration.",
-        recommendation,
-        "Change one item at a time and retest the affected page.",
-      ],
+      steps: explanations.steps(id),
       verification_method:
         "Run a fresh audit of the affected URL and compare the observed metric with this evidence.",
     });

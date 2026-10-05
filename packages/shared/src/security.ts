@@ -50,7 +50,7 @@ export function parsePublicUrl(input: string): URL {
   return url;
 }
 export function isPublicIp(address: string): boolean {
-  if (!ipaddr.isValid(address)) return false;
+  if (!ipaddr.isValid(address) || address === "168.63.129.16") return false;
   const parsed = ipaddr.parse(address);
   if (parsed.kind() === "ipv6" && (parsed as ipaddr.IPv6).isIPv4MappedAddress())
     return false;
@@ -78,9 +78,25 @@ export async function validateTarget(
 ) {
   const url = parsePublicUrl(input);
   const host = url.hostname.replace(/^\[|\]$/g, "");
+  const resolveWithDeadline: Resolver = async (hostname) => {
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    try {
+      return await Promise.race([
+        resolve(hostname),
+        new Promise<never>((_done, reject) => {
+          timer = setTimeout(
+            () => reject(new SecurityError("DNS deadline exceeded")),
+            5000,
+          );
+        }),
+      ]);
+    } finally {
+      if (timer) clearTimeout(timer);
+    }
+  };
   const addresses = ipaddr.isValid(host)
     ? [{ address: host, family: ipaddr.parse(host).kind() === "ipv4" ? 4 : 6 }]
-    : await resolve(host);
+    : await resolveWithDeadline(host);
   const denied = (process.env.DENIED_IPS ?? "").split(",");
   if (
     !addresses.length ||

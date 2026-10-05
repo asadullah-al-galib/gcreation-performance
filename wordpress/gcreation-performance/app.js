@@ -18,6 +18,7 @@
       credentials: "same-origin",
       headers: {
         "X-WP-Nonce": gcpConfig.nonce,
+        "X-GCP-Session-Nonce": gcpConfig.sessionNonce,
         "Content-Type": "application/json",
       },
       body: body ? JSON.stringify(body) : undefined,
@@ -69,7 +70,7 @@
               action === "fixed"
                 ? "Marked by you. Technical verification is still pending."
                 : action === "retest"
-                  ? "Retest queued. Reload your report to see the before/after measurements when complete."
+                  ? "Retest queued. Use Refresh report and comparisons to see measured results when complete."
                   : "Expert request received: " + result.state;
           } catch (error) {
             status.textContent = error.message;
@@ -104,6 +105,11 @@
         report,
       );
     issues.forEach((issue) => issueCard(issue, paid));
+    if (paid) {
+      const refresh = node("button", "Refresh report and comparisons", report);
+      refresh.type = "button";
+      refresh.onclick = () => void loadPaidReport();
+    }
     if (!paid) {
       node(
         "p",
@@ -235,6 +241,46 @@
       button.disabled = false;
     }
   };
+  async function loadPaidReport() {
+    try {
+      const result = await api("report", credentials);
+      if (!result.audit.report) {
+        status.textContent = "Paid audit state: " + result.audit.state;
+        return;
+      }
+      renderReport(result.audit.report, true, result.audit.id);
+      for (const retest of result.retests) {
+        node("h3", "Retest: " + retest.state, report);
+        if (retest.comparison)
+          for (const comparison of retest.comparison) {
+            node("p", comparison.url, report);
+            node(
+              "p",
+              "TTFB before: " +
+                (comparison.ttfbBefore ?? "unavailable") +
+                " ms · after: " +
+                (comparison.ttfbAfter ?? "unavailable") +
+                " ms",
+              report,
+            );
+            node(
+              "pre",
+              JSON.stringify(
+                {
+                  lighthouseBefore: comparison.before,
+                  lighthouseAfter: comparison.after,
+                },
+                null,
+                2,
+              ),
+              report,
+            );
+          }
+      }
+    } catch (error) {
+      status.textContent = error.message;
+    }
+  }
   const token = new URLSearchParams(location.hash.slice(1)).get("report");
   if (token) {
     history.replaceState(null, "", location.pathname + location.search);
@@ -253,19 +299,7 @@
     form.onsubmit = async (event) => {
       event.preventDefault();
       credentials = { token, orderId: order.value, contact: contact.value };
-      try {
-        const result = await api("report", credentials);
-        if (!result.audit.report) {
-          status.textContent = "Paid audit state: " + result.audit.state;
-          return;
-        }
-        renderReport(result.audit.report, true, result.audit.id);
-        result.retests.forEach((retest) =>
-          node("pre", JSON.stringify(retest, null, 2), report),
-        );
-      } catch (error) {
-        status.textContent = error.message;
-      }
+      await loadPaidReport();
     };
   }
 })();

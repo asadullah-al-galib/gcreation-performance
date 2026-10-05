@@ -186,7 +186,7 @@ test("SQLite migrations, persisted lifecycle and single worker claim", () => {
   assert.equal(store.claim(), null);
   assert.equal(
     store.db.prepare("SELECT count(*) AS n FROM migrations").get()?.n,
-    2,
+    4,
   );
   store.close();
 });

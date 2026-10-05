@@ -9,6 +9,7 @@ await mkdir(dirname(path), { recursive: true });
 const store = new Store(path);
 store.recover();
 const app = createApp(store, secret);
+store.onEvent = (auditId, event) => app.log.info({ auditId, event });
 const worker = new Worker(store);
 const interval = setInterval(() => void worker.tick(), 1000);
 const host = process.env.BIND_HOST ?? "127.0.0.1";

@@ -2,6 +2,7 @@
 """Human-reviewed fixed DEV controller. Never execute repository code on the host."""
 import fcntl
 import hashlib
+import ipaddress
 import json
 import os
 import pwd
@@ -176,6 +177,7 @@ def deploy():
     release = None
     plugin_backup = STATE / 'plugin-backup'
     plugin_changed = False
+    stage = 'request-validation'
     try:
         fd = os.open('deploy-dev.request', os.O_RDONLY | NOFOLLOW | os.O_NONBLOCK, dir_fd=ops_fd)
         try:
@@ -190,8 +192,11 @@ def deploy():
         environment = dict(line.split('=', 1) for line in Path('/etc/gcreation-perf-dev/runtime.env').read_text().splitlines() if '=' in line)
         if not environment.get('DENIED_IPS') or len(environment.get('ENGINE_SECRET', '')) < 32:
             raise ValueError('Human-reviewed host IP deny list and engine secret required')
+        if any(not ipaddress.ip_address(value).is_global for value in environment['DENIED_IPS'].split(',')):
+            raise ValueError('Denied server IPs must be valid global IP addresses')
         request_id = request['commit']
         status(ops_fd, {'state': 'RUNNING', 'commit': request_id})
+        stage = 'source-snapshot'
         release = STATE / ('release-' + str(time.time_ns() if hasattr(time, 'time_ns') else int(time.time()*1000000)))
         release.mkdir(mode=0o755)
         snapshot = release / 'source'; snapshot.mkdir(mode=0o755)
@@ -208,16 +213,20 @@ def deploy():
         # constrained non-root container, never in the root host namespace.
         for name in (APP, PROXY):
             command(['docker', 'rm', '-f', name], allow_failure=True)
+        stage = 'non-root-build'
         command(['docker', 'rm', '-f', BUILDER], allow_failure=True)
         command(['docker', 'run', '--rm', '--name', BUILDER, '--network=bridge'] + container_flags('1500m', '3.5') + ['--mount=type=bind,src=' + str(snapshot) + ',dst=/source,readonly', '--mount=type=bind,src=' + str(output) + ',dst=/app', '--tmpfs=/tmp:rw,nosuid,size=128m', IMAGE, '/bin/sh', '-ec', 'cp -R /source/. /app/; npm ci --ignore-scripts --cache=/tmp/npm-cache; npm run format:check; npm run lint:ts; npm run typecheck; npm test; npm run build'])
         command(['docker', 'network', 'create', '--internal', NETWORK], allow_failure=True)
         data = STATE / 'data'; data.mkdir(mode=0o700, exist_ok=True); os.chown(str(data),10001,10001)
+        stage = 'runtime-health'
         start_runtime(release)
         # PHP lint uses fixed executable on immutable plugin source, never PHP execution.
+        stage = 'php-lint'
         php = '/opt/plesk/php/8.3/bin/php'
         for file in (snapshot / 'wordpress/gcreation-performance').rglob('*.php'):
             command([php, '-l', str(file)], timeout=30)
-        owner = os.stat(str(WP / 'wp-content/plugins'))
+        stage = 'plugin-deploy'
+        owner = os.stat(str(PLUGIN if PLUGIN.exists() else WP / 'wp-content/plugins'))
         if plugin_backup.exists():
             shutil.rmtree(str(plugin_backup))
         if PLUGIN.exists():
@@ -243,6 +252,7 @@ def deploy():
         if PLUGIN.exists():
             shutil.rmtree(str(PLUGIN))
         os.rename(str(staging),str(PLUGIN)); plugin_changed = True
+        stage = 'final-health'
         health()
         previous.write_text(json.dumps({'release':str(release), 'commit':request_id, 'snapshot_sha256':digest}))
         status(ops_fd, {'state':'COMPLETED','commit':request_id,'snapshot_sha256':digest,'health':True})
@@ -267,7 +277,7 @@ def deploy():
                     command(['docker','rm','-f',name],allow_failure=True)
         except Exception:
             rollback = False
-        status(ops_fd, {'state':'FAILED','commit':request_id,'error':type(error).__name__,'rollback':rollback})
+        status(ops_fd, {'state':'FAILED','commit':request_id,'error':type(error).__name__,'stage':stage,'rollback':rollback})
         raise
     finally:
         command(['docker', 'rm', '-f', BUILDER], allow_failure=True)

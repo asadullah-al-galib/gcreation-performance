@@ -116,12 +116,22 @@ export function selectPages(inventory: Inventory, scope: Scope) {
     (item) => !["cart", "checkout", "account", "search"].includes(item.kind),
   );
   const home = safe.find((item) => item.kind === "homepage") ?? safe[0];
-  const sorted = [...safe].sort(
-    (a, b) => Number(b.kind === "product") - Number(a.kind === "product"),
-  );
+  const kinds = [
+    "product",
+    "product category",
+    "page",
+    "blog post",
+    "category",
+    "other",
+  ];
+  const representative = kinds
+    .map((kind) => safe.find((item) => item.kind === kind))
+    .filter((item): item is Inventory["urls"][number] => item !== undefined);
   const unique = [
     ...new Map(
-      [home, ...sorted].filter(Boolean).map((item) => [item.url, item]),
+      [home, ...representative, ...safe]
+        .filter(Boolean)
+        .map((item) => [item.url, item]),
     ).values(),
   ];
   return unique.slice(

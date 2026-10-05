@@ -115,6 +115,10 @@ export class Worker {
       ).entries()) {
         if (controller.signal.aborted || Date.now() - start > 720000)
           throw new Error("Audit time budget exceeded");
+        if (!(await this.resources())) {
+          this.store.wait(audit.id);
+          return;
+        }
         const stage =
           index === 0
             ? "homepage"
@@ -126,6 +130,7 @@ export class Worker {
         pages.push(
           await this.scan(item.url, index === 0, emit, controller.signal),
         );
+        this.store.savePage(audit.id, pages[pages.length - 1]);
         emit(`${stage}.completed`, { url: item.url });
       }
       emit("rules.started", {});

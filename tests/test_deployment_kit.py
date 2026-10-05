@@ -56,6 +56,24 @@ class DeploymentBoundaryTests(unittest.TestCase):
         controller.copy_entry(self.fd, 'file', self.root / 'copied', [0, 0])
         self.assertEqual((self.root / 'copied').read_text(), 'original')
 
+    def test_atomic_status_replaces_symlink_without_touching_target(self):
+        outside = self.root / 'untouched'
+        outside.write_text('original')
+        (self.source / 'deploy-dev.status').symlink_to(outside)
+        controller.status(self.fd, {'state': 'COMPLETED', 'commit': 'a' * 40})
+        self.assertEqual(outside.read_text(), 'original')
+        self.assertFalse((self.source / 'deploy-dev.status').is_symlink())
+        self.assertIn('COMPLETED', (self.source / 'deploy-dev.status').read_text())
+
+    def test_snapshot_excludes_local_credentials_and_caches(self):
+        folder = self.source / 'module'
+        folder.mkdir()
+        (folder / '.env').write_text('test-secret')
+        (folder / 'config.php').write_text('test-secret')
+        (folder / 'code.ts').write_text('export const safe = true;')
+        controller.copy_entry(self.fd, 'module', self.root / 'copied', [0, 0])
+        self.assertEqual([file.name for file in (self.root / 'copied').iterdir()], ['code.ts'])
+
     def test_privileged_runtime_contract(self):
         self.assertEqual(str(controller.PLUGIN), '/var/www/vhosts/gcreation.agency/dev.gcreation.agency/wp-content/plugins/gcreation-performance')
         flags = controller.container_flags('1500m', '3.5')

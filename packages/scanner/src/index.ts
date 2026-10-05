@@ -42,7 +42,10 @@ export async function scanPage(
     let bytes = 0;
     await context.route("**/*", async (route) => {
       try {
-        if (++requests > 250) throw new Error("Request limit");
+        if (++requests > 250) {
+          await page.close();
+          throw new Error("Request limit");
+        }
         const request = route.request();
         if (!["GET", "HEAD"].includes(request.method()))
           throw new Error("Read-only scan");
@@ -57,7 +60,7 @@ export async function scanPage(
         await validateTarget(request.url());
         await route.continue();
       } catch {
-        await route.abort("blockedbyclient");
+        await route.abort("blockedbyclient").catch(() => {});
       }
     });
     page.on("download", (download) => void download.cancel());
@@ -88,15 +91,16 @@ export async function scanPage(
         })().catch(() => {}),
       );
     });
-    page.on("requestfailed", (request) =>
-      resources.push({
-        url: request.url(),
-        type: request.resourceType(),
-        status: null,
-        bytes: null,
-        durationMs: null,
-      }),
-    );
+    page.on("requestfailed", (request) => {
+      if (resources.length < 250)
+        resources.push({
+          url: request.url(),
+          type: request.resourceType(),
+          status: null,
+          bytes: null,
+          durationMs: null,
+        });
+    });
     const response = await page.goto(url, {
       waitUntil: "load",
       timeout: 30000,
@@ -137,10 +141,17 @@ export async function scanPage(
     });
     emit("network.analyzed", { requests: resources.length });
     emit("server.analyzed", { ttfbMs: timing?.ttfbMs ?? null });
+    let observedRedirects = 0;
+    for (
+      let prior = response?.request().redirectedFrom();
+      prior;
+      prior = prior.redirectedFrom()
+    )
+      observedRedirects++;
     const metrics = normalize({
       url,
       status: response?.status() ?? null,
-      redirects: timing?.redirects ?? 0,
+      redirects: observedRedirects,
       ttfbMs: timing?.ttfbMs ?? null,
       loadMs: timing?.loadMs ?? null,
       resources,

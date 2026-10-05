@@ -5,9 +5,11 @@ import type {
   Inventory,
   Report,
   Scope,
+  Metrics,
 } from "../../../packages/contracts/src/index.js";
 export class Store {
   db: DatabaseSync;
+  onEvent?: (auditId: string, type: string) => void;
   constructor(path: string) {
     this.db = new DatabaseSync(path);
     this.db.exec(
@@ -45,6 +47,39 @@ export class Store {
       this.db.exec(`BEGIN;
       CREATE TABLE expert_requests(id TEXT PRIMARY KEY, audit_id TEXT NOT NULL UNIQUE REFERENCES audits(id), contact_hash TEXT NOT NULL, state TEXT NOT NULL, created_at TEXT NOT NULL);
       INSERT INTO migrations VALUES(2,datetime('now')); COMMIT;`);
+    const migration = Number(
+      this.db.prepare("SELECT max(version) AS version FROM migrations").get()
+        ?.version ?? 0,
+    );
+    if (migration < 3)
+      this.db.exec(`BEGIN;
+      CREATE UNIQUE INDEX page_identity ON audit_pages(audit_id,url);
+      INSERT INTO migrations VALUES(3,datetime('now')); COMMIT;`);
+    const fourth = Number(
+      this.db.prepare("SELECT max(version) AS version FROM migrations").get()
+        ?.version ?? 0,
+    );
+    if (fourth < 4)
+      this.db.exec(`BEGIN;
+      CREATE TABLE scan_admissions(client_key TEXT PRIMARY KEY, count INTEGER NOT NULL, reset_at INTEGER NOT NULL);
+      INSERT INTO migrations VALUES(4,datetime('now')); COMMIT;`);
+  }
+  consumeAdmission(key: string) {
+    const now = Date.now();
+    this.db.prepare("DELETE FROM scan_admissions WHERE reset_at<?").run(now);
+    const row = this.db
+      .prepare("SELECT count FROM scan_admissions WHERE client_key=?")
+      .get(key);
+    if (Number(row?.count ?? 0) >= 5) return false;
+    if (row)
+      this.db
+        .prepare("UPDATE scan_admissions SET count=count+1 WHERE client_key=?")
+        .run(key);
+    else
+      this.db
+        .prepare("INSERT INTO scan_admissions VALUES(?,?,?)")
+        .run(key, 1, now + 3600000);
+    return true;
   }
   transaction<T>(operation: () => T): T {
     this.db.exec("BEGIN IMMEDIATE");
@@ -109,6 +144,7 @@ export class Store {
         "INSERT INTO audit_events(audit_id,type,data,created_at) VALUES(?,?,?,?)",
       )
       .run(id, type, JSON.stringify(data), new Date().toISOString());
+    this.onEvent?.(id, type);
   }
   analytics(id: string | null, type: string, data: Record<string, unknown>) {
     this.db
@@ -148,16 +184,30 @@ export class Store {
       woocommerce: inventory.woocommerce,
     });
   }
+  savePage(id: string, page: Metrics) {
+    this.db
+      .prepare(
+        "INSERT OR IGNORE INTO audit_pages(audit_id,url,kind) VALUES(?,?,?)",
+      )
+      .run(id, page.url, "selected");
+    const row = this.db
+      .prepare("SELECT id FROM audit_pages WHERE audit_id=? AND url=?")
+      .get(id, page.url)!;
+    const metric = this.db
+      .prepare("SELECT id FROM metrics WHERE page_id=?")
+      .get(row.id);
+    if (metric)
+      this.db
+        .prepare("UPDATE metrics SET data=? WHERE id=?")
+        .run(JSON.stringify(page), metric.id);
+    else
+      this.db
+        .prepare("INSERT INTO metrics(page_id,data) VALUES(?,?)")
+        .run(row.id, JSON.stringify(page));
+  }
   complete(id: string, report: Report) {
     this.transaction(() => {
-      for (const page of report.pages) {
-        const inserted = this.db
-          .prepare("INSERT INTO audit_pages(audit_id,url,kind) VALUES(?,?,?)")
-          .run(id, page.url, "selected");
-        this.db
-          .prepare("INSERT INTO metrics(page_id,data) VALUES(?,?)")
-          .run(inserted.lastInsertRowid, JSON.stringify(page));
-      }
+      for (const page of report.pages) this.savePage(id, page);
       for (const issue of report.issues) {
         const inserted = this.db
           .prepare(

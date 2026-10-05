@@ -12,6 +12,11 @@ __pycache__/
 
 .ops/*.request
 .ops/*.status
+.ops/git-metadata/
+.ops/npm-cache/
+.ops/toolchain/
+.ops/test-artifacts/
+.ops/runtime/
 
 data/
 tmp/

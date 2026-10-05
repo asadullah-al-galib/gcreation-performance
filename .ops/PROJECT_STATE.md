@@ -92,3 +92,7 @@ The same human-only blocker has been confirmed in three consecutive goal turns.
 The goal is to be marked blocked, not complete. Resume when the original MVP
 specification/acceptance criteria and usable authorized DEV deployment access
 are supplied. Production has not been touched.
+
+## Specification received / work resumed, 2026-10-05
+
+Authoritative complete specification now persists in docs/MASTER_PRODUCT_SPEC.md. The missing-scope blocker is resolved. Privileged DEV installation is a human action, not a whole-project blocker while independent development continues. Current execution ledger is MASTER_EXEC_PLAN.md. Original files and remote develop commits are preserved. Agent development is now restricted to the project directory; future Git metadata must live here, not in /tmp.

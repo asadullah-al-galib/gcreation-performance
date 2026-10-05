@@ -1,9 +1,12 @@
 """Unprivileged boundary tests. No install, Docker or live filesystem mutations."""
 import importlib.util
+import json
 import os
 from pathlib import Path
 import tempfile
+from types import SimpleNamespace
 import unittest
+from unittest import mock
 
 ROOT = Path(__file__).resolve().parents[1]
 spec = importlib.util.spec_from_file_location('controller', str(ROOT / 'ops/dev/deploy_controller.py'))
@@ -105,6 +108,83 @@ class DeploymentBoundaryTests(unittest.TestCase):
                              ['release-0', 'release-3', 'release-4'])
         finally:
             controller.STATE = previous
+
+    def simulate_deployment(self, fail_health=False):
+        # Simulate host operations; never invoke the installed controller, Docker,
+        # Plesk PHP or privileged filesystem/ownership operations.
+        wp = self.root / 'dev-wordpress'
+        plugin = wp / 'wp-content/plugins/gcreation-performance'
+        plugin.mkdir(parents=True)
+        (plugin / 'old.php').write_text('previous-plugin')
+        (plugin / 'config.php').write_text('previous-private-configuration')
+        (plugin / 'config.php').chmod(0o640)
+        expected_owner = (plugin.stat().st_uid, plugin.stat().st_gid)
+        state = self.root / 'state'; state.mkdir()
+        prior_release = state / 'release-0'; prior_release.mkdir()
+        (state / 'active.json').write_text(json.dumps({'release': str(prior_release), 'commit': 'a' * 40}))
+        trusted = self.root / 'trusted'; trusted.mkdir()
+        ops = self.source / '.ops'; ops.mkdir()
+        (ops / 'deploy-dev.request').write_text(json.dumps({'action': 'deploy', 'commit': 'b' * 40}))
+        source_plugin = self.source / 'wordpress/gcreation-performance'
+        source_plugin.mkdir(parents=True)
+        (source_plugin / 'new.php').write_text('<?php /* new plugin */')
+        original_read = Path.read_text
+
+        def read_text(path, *args, **kwargs):
+            if str(path) == '/etc/gcreation-perf-dev/runtime.env':
+                return 'ENGINE_SECRET=' + 'c' * 64 + '\nDENIED_IPS=8.8.8.8\n'
+            return original_read(path, *args, **kwargs)
+
+        def check_health():
+            if fail_health:
+                raise RuntimeError('controlled final health failure')
+
+        replacements = dict(SOURCE=self.source, WP=wp, PLUGIN=plugin, STATE=state,
+                            TRUSTED=trusted, ALLOW=['wordpress'])
+        with mock.patch.multiple(controller, **replacements), \
+                mock.patch.object(controller.os, 'geteuid', return_value=0), \
+                mock.patch.object(controller.os, 'chown') as ownership, \
+                mock.patch.object(controller.pwd, 'getpwnam', return_value=SimpleNamespace(pw_uid=os.getuid())), \
+                mock.patch.object(Path, 'read_text', read_text), \
+                mock.patch.object(controller, 'command') as commands, \
+                mock.patch.object(controller, 'start_runtime') as runtime, \
+                mock.patch.object(controller, 'health', side_effect=check_health):
+            if fail_health:
+                with self.assertRaisesRegex(RuntimeError, 'controlled final health failure'):
+                    controller.deploy()
+            else:
+                controller.deploy()
+        return plugin, state, ops, expected_owner, ownership, commands, runtime
+
+    def test_simulated_deploy_replaces_only_plugin_and_records_source_digest(self):
+        plugin, state, ops, _, _, commands, runtime = self.simulate_deployment()
+        status = json.loads((ops / 'deploy-dev.status').read_text())
+        self.assertEqual(status['state'], 'COMPLETED')
+        self.assertEqual(status['commit'], 'b' * 40)
+        self.assertEqual(len(status['snapshot_sha256']), 64)
+        self.assertTrue((plugin / 'new.php').exists())
+        self.assertFalse((plugin / 'old.php').exists())
+        self.assertEqual((plugin / 'config.php').stat().st_mode & 0o777, 0o640)
+        self.assertEqual((state / 'plugin-backup/config.php').read_text(), 'previous-private-configuration')
+        self.assertFalse((ops / 'deploy-dev.request').exists())
+        self.assertEqual(runtime.call_count, 1)
+        self.assertTrue(commands.called)
+
+    def test_simulated_health_failure_restores_private_config_and_prior_runtime(self):
+        plugin, state, ops, expected_owner, ownership, _, runtime = self.simulate_deployment(True)
+        self.assertEqual((plugin / 'old.php').read_text(), 'previous-plugin')
+        self.assertFalse((plugin / 'new.php').exists())
+        self.assertEqual((plugin / 'config.php').read_text(), 'previous-private-configuration')
+        self.assertEqual((plugin / 'config.php').stat().st_mode & 0o777, 0o640)
+        ownership.assert_any_call(str(plugin / 'config.php'), *expected_owner)
+        self.assertEqual(runtime.call_args[0][0], state / 'release-0')
+        self.assertEqual(runtime.call_count, 2)
+        status = json.loads((ops / 'deploy-dev.status').read_text())
+        self.assertEqual(status['state'], 'FAILED')
+        self.assertEqual(status['stage'], 'final-health')
+        self.assertTrue(status['rollback'])
+        self.assertFalse((ops / 'deploy-dev.request').exists())
+        self.assertEqual(json.loads((state / 'active.json').read_text())['commit'], 'a' * 40)
 
 
 if __name__ == '__main__':

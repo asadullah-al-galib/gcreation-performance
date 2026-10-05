@@ -108,3 +108,7 @@ Foundation pushed as be74524. Expanded local suite now passes 22 TypeScript and 
 ## Local validation and rollback milestone — 2026-10-05
 
 24 TypeScript tests, nine Python boundary tests, PHP commerce/security harness and format/lint/typecheck/build pass. Browser lifecycle tests use mocks and do not establish actual runtime acceptance. Current-source unprivileged snapshot build passed Node gates. Final controller refinements preserve private rollback config/permissions and actual plugin ownership, share backup size budgets, and prune failed releases while retaining rollback sources. Root kit/watcher remain uninstalled by read-only evidence; human acknowledgement is not installation. No deployment request or privileged execution. Complete DEV release acceptance remains pending; see MASTER_EXEC_PLAN.md and ACTION_REQUIRED.md.
+
+## Controller recovery simulation — 2026-10-05
+
+Milestone 4af71f6 pushed and remote develop verified; main remains c724ac3. Eleven Python tests now pass, including simulated success and final-health-failure rollback with source digest/status, private config permissions, original ownership calls, prior runtime, unchanged active release and request cleanup. All host commands/runtime/ownership operations are mocked, with test filesystem writes confined to this project. Real deployment validation still requires the human-installed mechanism.

@@ -22,3 +22,5 @@ data/
 tmp/
 
 .DS_Store
+
+wordpress/gcreation-performance/config.php

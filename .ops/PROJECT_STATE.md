@@ -96,3 +96,7 @@ are supplied. Production has not been touched.
 ## Specification received / work resumed, 2026-10-05
 
 Authoritative complete specification now persists in docs/MASTER_PRODUCT_SPEC.md. The missing-scope blocker is resolved. Privileged DEV installation is a human action, not a whole-project blocker while independent development continues. Current execution ledger is MASTER_EXEC_PLAN.md. Original files and remote develop commits are preserved. Agent development is now restricted to the project directory; future Git metadata must live here, not in /tmp.
+
+## Local implementation milestone, 2026-10-05
+
+Specification and resume docs pushed as 212f4a6. Engine/module/plugin/DEV-kit foundations implemented; 16 TypeScript tests, five Python boundary tests, PHP lint/commerce contract, format/lint/typecheck/build and pinned Node 24 clean install pass. Local loopback health returns HTTP 200. Browser/Lighthouse runtime, privileged deployment and actual WordPress/WooCommerce DEV E2E remain unverified. Human action is tracked in ACTION_REQUIRED.md; independent development continues. Current ledger: MASTER_EXEC_PLAN.md.

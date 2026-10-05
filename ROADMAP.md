@@ -3,6 +3,7 @@
 MVP milestones M0.1–M0.32 are defined verbatim in docs/MASTER_PRODUCT_SPEC.md §48.
 
 Execution groups:
+
 1. Reconcile/persist specification and rules (M0.1–M0.4).
 2. Human-reviewed DEV kit and reproducible toolchain (M0.5–M0.7).
 3. SQLite/jobs/security/discovery/classification (M0.8–M0.12).

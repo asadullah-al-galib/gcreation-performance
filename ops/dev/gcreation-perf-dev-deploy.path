@@ -1,0 +1,7 @@
+[Unit]
+Description=Watch only gCreation DEV deployment request
+[Path]
+PathExists=/home/codexperf/projects/gcreation-performance/.ops/deploy-dev.request
+Unit=gcreation-perf-dev-deploy.service
+[Install]
+WantedBy=multi-user.target

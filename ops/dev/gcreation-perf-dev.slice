@@ -1,0 +1,6 @@
+[Unit]
+Description=gCreation DEV aggregate resource ceiling
+[Slice]
+CPUQuota=400%
+MemoryMax=1700M
+TasksMax=256

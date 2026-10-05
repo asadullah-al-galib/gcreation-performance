@@ -1,6 +1,7 @@
 import { createEgressProxy, createFetchBridge } from "./proxy.js";
-const secret = process.env.ENGINE_SECRET;
-if (!secret || secret.length < 32) throw new Error("ENGINE_SECRET is required");
+const secret = process.env.FETCH_PROXY_SECRET;
+if (!secret || secret.length < 32)
+  throw new Error("FETCH_PROXY_SECRET is required");
 const proxy = createEgressProxy();
 const bridge = createFetchBridge(secret);
 proxy.listen(3102, "0.0.0.0");

@@ -9,9 +9,9 @@
   "scripts": {
     "format:check": "prettier --check apps packages tests wordpress/gcreation-performance/*.js *.md *.json",
     "format": "prettier --write apps packages tests wordpress/gcreation-performance/*.js *.md *.json",
-    "lint": "eslint apps packages tests && python3 tests/test_deployment_kit.py && python3 tests/test_security_review_v3.py && php -l wordpress/gcreation-performance/gcreation-performance.php && php tests/wordpress-integration.php && bash -n ops/dev/install-root.sh && sh -n ops/dev/deploy-dev.sh",
+    "lint": "eslint apps packages tests && python3 tests/test_deployment_kit.py && python3 tests/test_security_review_v3.py && python3 tests/test_security_review_v4.py && php -l wordpress/gcreation-performance/gcreation-performance.php && php tests/wordpress-integration.php && bash -n ops/dev/install-root.sh && sh -n ops/dev/deploy-dev.sh",
     "typecheck": "tsc --noEmit",
-    "test": "tsx --test --test-concurrency=2 tests/*.test.ts",
+    "test": "tsx --test --test-concurrency=2 tests/*.test.ts && node --test tests/trusted-gateway.test.mjs",
     "build": "tsc -p tsconfig.build.json",
     "start": "node dist/apps/audit-service/src/main.js",
     "lint:ts": "eslint apps packages tests"

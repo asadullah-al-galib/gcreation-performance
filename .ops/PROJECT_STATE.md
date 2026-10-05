@@ -120,3 +120,7 @@ Human review source7887fca/handoff826a622 is HOLD and preserved. Application imp
 ## Third review handoff
 
 Source commit 10dcabfe5642207486af7646bef489b83108fb17 pushed. All33 Python/24 TS tests and local/snapshot gates pass. Canonical archive SHA256 ca59584d33530bb75020a7a3c7c2bf39c0f45ed6128f00ae062cdc681ce4df0a. V3 manifest has 70 immutable files; canonical archive contains 74 regular entries with exact source-commit bytes. Status READY FOR THIRD SECURITY REVIEW, with HOLD/no installation/no request retained. Handoff-only metadata follows as a separate commit; stop here pending human review.
+
+## Third review HOLD / fourth-review remediation
+
+Current accepted source/handoff10dcabfe/02edd2da is preserved. The authoritative third review is docs/THIRD_SECURITY_REVIEW_RESULT.md. Current candidate freezes root-reviewed proxy/gateway/dependencies in the immutable image, runs future mutable builds network=none, uses dedicated verified egress/internal networks and separate master/app/fetch secrets, checks fixed103.112.63.86 and current DEV DNS denial, and binds future source to an archive hash+commit marker. All46 Python/26 TypeScript/4 gateway tests and local quality/compile/PHP/shell gates pass. Exact source/archive handoff preparation follows; no root/Docker/deployment/production operations occurred.

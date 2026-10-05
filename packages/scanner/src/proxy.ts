@@ -17,10 +17,15 @@ export function createEgressProxy(resolver: Resolver = systemResolver) {
       const target = await validateTarget(req.url ?? "", resolver);
       if (target.url.protocol !== "http:")
         throw new Error("HTTPS requires CONNECT");
-      const headers = { ...req.headers, host: target.url.host };
+      const headers: Record<string, string | string[] | undefined> = {
+        ...req.headers,
+        host: target.url.host,
+      };
       delete headers["proxy-authorization"];
       delete headers.authorization;
       delete headers.cookie;
+      delete headers["x-engine-secret"];
+      delete headers["x-fetch-proxy-secret"];
       outgoing = forwardHttp(
         target.url,
         {
@@ -104,12 +109,15 @@ export function createEgressProxy(resolver: Resolver = systemResolver) {
   return server;
 }
 export function createFetchBridge(secret: string) {
-  return createServer(async (req, res) => {
+  const server = createServer(async (req, res) => {
     try {
       if (
         req.method !== "POST" ||
         req.url !== "/fetch" ||
-        !secretMatches(String(req.headers["x-engine-secret"] ?? ""), secret)
+        !secretMatches(
+          String(req.headers["x-fetch-proxy-secret"] ?? ""),
+          secret,
+        )
       ) {
         res.writeHead(403);
         res.end();
@@ -142,6 +150,11 @@ export function createFetchBridge(secret: string) {
       res.end(JSON.stringify({ error: "URL fetch failed or was rejected" }));
     }
   });
+  server.maxConnections = 64;
+  server.requestTimeout = 15000;
+  server.headersTimeout = 10000;
+  server.maxHeadersCount = 32;
+  return server;
 }
 export function closeProxySockets(socket: Duplex) {
   socket.destroy();

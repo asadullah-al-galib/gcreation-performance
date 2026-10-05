@@ -7,7 +7,7 @@ A human must separately approve the exact Git commit, deterministic source archi
 After separate future approval, the human verifies the DEV FPM/PHP pool user in Plesk and verifies that `/var/www/vhosts/gcreation.agency/dev.gcreation.agency/wp-config.php` is owned by that same named non-root user. No production path or destination argument is accepted. The future command is:
 
 ```sh
-/usr/bin/python3 -I "/var/lib/gcreation-perf-review/$COMMIT/snapshot/ops/dev/install-reviewed-plugin.py" "/var/lib/gcreation-perf-review/$COMMIT/snapshot" "$APPROVED_SHA" "$COMMIT" 'HUMAN_VERIFIED_DEV_PHP_OWNER'
+/usr/bin/env -i PATH=/usr/sbin:/usr/bin:/sbin:/bin /usr/bin/python3 -I "/var/lib/gcreation-perf-review/$COMMIT/snapshot/ops/dev/install-reviewed-plugin.py" "/var/lib/gcreation-perf-review/$COMMIT/snapshot" "$APPROVED_SHA" "$COMMIT" 'HUMAN_VERIFIED_DEV_PHP_OWNER'
 ```
 
 The reviewed helper verifies the archive, complete snapshot identity/ownership/hash map, fixed DEV path components, approved PHP owner and the exact three source files. It reads reviewed plugin bytes and the root-only secret into memory. Before any WordPress write it forks, clears supplementary groups and drops to that approved PHP UID/GID. WordPress operations use anchored directory descriptors without following path symlinks; only the fixed plugin is staged/replaced. Root never writes agent-controlled PHP into WordPress. A lock serializes human artifact operations; previous plugin content is renamed to one backup and restored if replacement fails. The human handles activation and verifies site health/readability after the separate artifact step; no WordPress code is executed by this helper.

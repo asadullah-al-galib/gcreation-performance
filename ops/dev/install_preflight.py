@@ -80,10 +80,51 @@ def reject_stale_request(source=SOURCE):
         os.close(fd)
 
 
+def resolve_dev_addresses():
+    # DNS only, fixed approved DEV hostname. No production lookup/connection.
+    # The child is system Python, isolated and bounded even if NSS hangs.
+    code = "import json,socket; print(json.dumps(sorted(set(x[4][0] for x in socket.getaddrinfo('dev.gcreation.agency',443,type=socket.SOCK_STREAM)))))"
+    result = subprocess.run(['/usr/bin/python3', '-I', '-c', code], timeout=10, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, env={'PATH': '/usr/sbin:/usr/bin:/sbin:/bin'})
+    if result.returncode or len(result.stdout) > 16384:
+        raise ValueError('DEV DNS verification failed')
+    return json.loads(result.stdout.decode())
+
+
+def verify_self_host_deny(denied):
+    configured = {str(ipaddress.ip_address(value)) for value in denied.split(',')}
+    addresses = resolve_dev_addresses()
+    if not isinstance(addresses, list) or not addresses or len(addresses) > 64:
+        raise ValueError('DEV DNS answers required')
+    public = {str(ipaddress.ip_address(value)) for value in addresses if ipaddress.ip_address(value).is_global}
+    if not public or not ({'103.112.63.86'} | public).issubset(configured):
+        raise ValueError('Required self-host public addresses missing from DENIED_IPS')
+
+
+def write_runtime_environments(values, state):
+    # Root-private Docker env inputs; credentials never appear in argv/logs.
+    subsets = {
+        'gateway.env': {'ENGINE_SECRET', 'APP_GATEWAY_SECRET'},
+        'app.env': {'APP_GATEWAY_SECRET', 'FETCH_PROXY_SECRET', 'DENIED_IPS', 'MIN_AVAILABLE_KB', 'MAX_MEMORY_PRESSURE', 'PRICING_JSON'},
+        'proxy.env': {'FETCH_PROXY_SECRET', 'DENIED_IPS'},
+    }
+    for name, allowed in subsets.items():
+        target = state / name
+        temp = state / (name + '.tmp')
+        fd = os.open(str(temp), os.O_WRONLY | os.O_CREAT | os.O_EXCL | NOFOLLOW, 0o600)
+        try:
+            with os.fdopen(fd, 'w', closefd=False) as out:
+                for key in sorted(allowed & set(values)):
+                    out.write(key + '=' + values[key] + '\n')
+                out.flush(); os.fsync(fd)
+        finally:
+            os.close(fd)
+        os.replace(str(temp), str(target))
+
+
 def secure_environment():
     require_root_owned(ENVIRONMENT, regular=True, private=True)
     values = {}
-    allowed = {'ENGINE_SECRET', 'DENIED_IPS', 'MIN_AVAILABLE_KB', 'MAX_MEMORY_PRESSURE', 'PRICING_JSON'}
+    allowed = {'ENGINE_SECRET', 'APP_GATEWAY_SECRET', 'FETCH_PROXY_SECRET', 'DENIED_IPS', 'MIN_AVAILABLE_KB', 'MAX_MEMORY_PRESSURE', 'PRICING_JSON'}
     for line in ENVIRONMENT.read_text().splitlines():
         if not line or line.startswith('#'):
             continue
@@ -91,11 +132,13 @@ def secure_environment():
         if key not in allowed or key in values or not value:
             raise ValueError('Unexpected runtime environment entry')
         values[key] = value
-    if not re.fullmatch('[0-9a-f]{64}', values.get('ENGINE_SECRET', '')) or not values.get('DENIED_IPS'):
-        raise ValueError('Secure engine secret and denied host IPs required')
+    secrets = [values.get(name, '') for name in ('ENGINE_SECRET', 'APP_GATEWAY_SECRET', 'FETCH_PROXY_SECRET')]
+    if not all(re.fullmatch('[0-9a-f]{64}', secret) for secret in secrets) or len(set(secrets)) != 3 or not values.get('DENIED_IPS'):
+        raise ValueError('Three distinct secure secrets and denied host IPs required')
     for value in values['DENIED_IPS'].split(','):
         if not ipaddress.ip_address(value).is_global:
             raise ValueError('Denied host IP must be globally routable')
+    verify_self_host_deny(values['DENIED_IPS'])
     if not 256000 <= int(values.get('MIN_AVAILABLE_KB', '1200000')) <= 20000000:
         raise ValueError('Unsafe memory threshold')
     if not 0 <= float(values.get('MAX_MEMORY_PRESSURE', '10')) <= 50:

@@ -19,7 +19,7 @@ done
 /usr/bin/python3 -I "$KIT_DIR/install_preflight.py" "$ROOT_SNAPSHOT" "$APPROVED_SHA" "$REVIEWED_COMMIT"
 DEST=/usr/local/lib/gcreation-perf-dev
 install -d -o root -g root -m 0755 "$DEST"
-for reviewed_file in deploy_controller.py deploy-dev.sh runtime.Dockerfile seccomp_profile.json; do
+for reviewed_file in deploy_controller.py deploy-dev.sh runtime.Dockerfile seccomp_profile.json install_preflight.py; do
   install -o root -g root -m 0644 "$KIT_DIR/$reviewed_file" "$DEST/$reviewed_file"
 done
 chmod 0755 "$DEST/deploy-dev.sh"
@@ -27,8 +27,10 @@ for reviewed_unit in gcreation-perf-dev-deploy.service gcreation-perf-dev-deploy
   install -o root -g root -m 0644 "$KIT_DIR/$reviewed_unit" "/etc/systemd/system/$reviewed_unit"
 done
 install -d -o root -g root -m 0700 /var/lib/gcreation-perf-dev
-# Only the reviewed immutable Dockerfile is built. No repository input is used.
-docker build -f "$DEST/runtime.Dockerfile" -t gcreation-perf-dev-runtime:0.1 "$DEST"
+# Freeze only verified reviewed manifests and trusted enforcement code.
+/usr/bin/python3 -I "$KIT_DIR/prepare_image.py" prepare "$ROOT_SNAPSHOT" "$APPROVED_SHA" "$REVIEWED_COMMIT"
+DOCKER_BUILDKIT=1 docker build -f "$DEST/build-context/runtime.Dockerfile" -t gcreation-perf-dev-runtime:0.1 "$DEST/build-context"
+/usr/bin/python3 -I "$KIT_DIR/prepare_image.py" seal "$ROOT_SNAPSHOT" "$APPROVED_SHA" "$REVIEWED_COMMIT"
 # Recheck all preflight conditions, including no trigger, immediately before enable.
 /usr/bin/python3 -I "$KIT_DIR/install_preflight.py" "$ROOT_SNAPSHOT" "$APPROVED_SHA" "$REVIEWED_COMMIT"
 systemctl daemon-reload

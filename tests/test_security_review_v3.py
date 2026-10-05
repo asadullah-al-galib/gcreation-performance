@@ -137,7 +137,7 @@ class ThirdReviewTests(unittest.TestCase):
 
     def test_request_is_atomically_claimed_and_next_request_is_not_deleted(self):
         request = self.root / 'deploy-dev.request'
-        data = {'action': 'deploy', 'commit': 'a' * 40}
+        data = {'action': 'deploy', 'commit': 'a' * 40, 'archive_sha256': 'c' * 64}
         request.write_text(json.dumps(data))
         fd = controller.open_directory(self.root)
         try:
@@ -248,8 +248,9 @@ class ThirdReviewTests(unittest.TestCase):
     def test_secure_environment_rejects_missing_or_injectable_secret(self):
         target = self.root / 'runtime.env'
         with mock.patch.object(preflight, 'ENVIRONMENT', target), \
-                mock.patch.object(preflight, 'require_root_owned'):
-            target.write_text('ENGINE_SECRET=' + 'a' * 64 + '\nDENIED_IPS=8.8.8.8\n')
+                mock.patch.object(preflight, 'require_root_owned'), \
+                mock.patch.object(preflight, 'resolve_dev_addresses', return_value=['103.112.63.86']):
+            target.write_text('ENGINE_SECRET=' + 'a' * 64 + '\nAPP_GATEWAY_SECRET=' + 'b' * 64 + '\nFETCH_PROXY_SECRET=' + 'c' * 64 + '\nDENIED_IPS=103.112.63.86\n')
             self.assertEqual(preflight.secure_environment()['ENGINE_SECRET'], 'a' * 64)
             for data in ["ENGINE_SECRET=quotes'not-allowed\nDENIED_IPS=8.8.8.8\n",
                          'ENGINE_SECRET=' + 'a' * 64 + '\nDENIED_IPS=127.0.0.1\n',

@@ -50,7 +50,11 @@ export function parsePublicUrl(input: string): URL {
   return url;
 }
 export function isPublicIp(address: string): boolean {
-  if (!ipaddr.isValid(address) || address === "168.63.129.16") return false;
+  if (
+    !ipaddr.isValid(address) ||
+    ["168.63.129.16", "103.112.63.86"].includes(address)
+  )
+    return false;
   const parsed = ipaddr.parse(address);
   if (parsed.kind() === "ipv6" && (parsed as ipaddr.IPv6).isIPv4MappedAddress())
     return false;
@@ -97,11 +101,16 @@ export async function validateTarget(
   const addresses = ipaddr.isValid(host)
     ? [{ address: host, family: ipaddr.parse(host).kind() === "ipv4" ? 4 : 6 }]
     : await resolveWithDeadline(host);
-  const denied = (process.env.DENIED_IPS ?? "").split(",");
+  const denied = (process.env.DENIED_IPS ?? "")
+    .split(",")
+    .filter((address) => ipaddr.isValid(address))
+    .map((address) => ipaddr.parse(address).toNormalizedString());
   if (
     !addresses.length ||
     addresses.some(
-      (item) => !isPublicIp(item.address) || denied.includes(item.address),
+      (item) =>
+        !isPublicIp(item.address) ||
+        denied.includes(ipaddr.parse(item.address).toNormalizedString()),
     )
   )
     throw new SecurityError("Destination resolves to a blocked IP");
@@ -134,7 +143,7 @@ export async function safeFetch(
       method: "POST",
       headers: {
         "content-type": "application/json",
-        "x-engine-secret": process.env.ENGINE_SECRET ?? "",
+        "x-fetch-proxy-secret": process.env.FETCH_PROXY_SECRET ?? "",
       },
       body: JSON.stringify({ url: input, method: options.method ?? "GET" }),
       signal: AbortSignal.timeout(60000),

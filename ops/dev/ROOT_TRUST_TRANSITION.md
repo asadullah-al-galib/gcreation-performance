@@ -1,6 +1,6 @@
 # Root trust transition — review recipe only
 
-HOLD. These commands document a proposed future procedure for human review. They are **not an instruction or authorization to install now**. The agent must not run them. The third review must independently approve the source commit, the deterministic archive SHA-256 and this bootstrap recipe before any separate human installation decision.
+HOLD. These commands document a proposed future procedure for human review. They are **not an instruction or authorization to install now**. The agent must not run them. The fourth review must independently approve the source commit, the deterministic archive SHA-256 and this bootstrap recipe before any separate human installation decision.
 
 The privileged boundary is: committed reviewed Git bytes → deterministic archive → archive copied as data into a root-only directory → exact human-approved hash checked on the root-owned copy → regular files safely extracted into a root-owned snapshot → reviewed installer executed from that snapshot. No script/module from the codexperf repository is executed as root. The manual bootstrap below uses only system Python and its standard library, supplied as trusted human stdin; it never imports or evaluates archive/repository code. Do not generate its stdin by reading or sourcing a repository file.
 
@@ -21,7 +21,7 @@ APPROVED_SHA='HUMAN_APPROVED_FULL_64_HEX_ARCHIVE_SHA256'
 STAGE="/var/lib/gcreation-perf-review/$COMMIT"
 # System-only stdin validates exact identities and protected ancestors before
 # creating any staging directory. It does not load repository code.
-/usr/bin/python3 -I -c '
+/usr/bin/env -i PATH=/usr/sbin:/usr/bin:/sbin:/bin /usr/bin/python3 -I -c '
 import os, re, stat, sys
 from pathlib import Path
 commit, digest = sys.argv[1:]
@@ -36,7 +36,7 @@ assert not os.path.lexists(str(base / commit))
 ' "$COMMIT" "$APPROVED_SHA"
 /usr/bin/install -d -o root -g root -m 0700 /var/lib/gcreation-perf-review "$STAGE"
 /usr/bin/install -o root -g root -m 0600 "/home/codexperf/projects/gcreation-performance/.ops/test-artifacts/review-source-$COMMIT.tar.gz" "$STAGE/reviewed-source.tar.gz"
-/usr/bin/python3 -I - "$COMMIT" "$APPROVED_SHA" <<'PY'
+/usr/bin/env -i PATH=/usr/sbin:/usr/bin:/sbin:/bin /usr/bin/python3 -I - "$COMMIT" "$APPROVED_SHA" <<'PY'
 import gzip, hashlib, io, json, os, re, stat, sys, tarfile
 from pathlib import Path, PurePosixPath
 commit, approved = sys.argv[1:]
@@ -94,12 +94,14 @@ with (stage / 'approved.json').open('x') as out:
 PY
 ```
 
-Before any future installer execution, the human provisions a root-owned 0600 `/etc/gcreation-perf-dev/runtime.env` with a 64 lowercase-hex ENGINE_SECRET, a nonempty list of the server's global public DENIED_IPS and only documented settings. Do not share its contents. Existing protected directories must be root-owned, contain no symlinks and have no group/other write access. Installation preflight checks archive/snapshot hashes and ownership, secure environment, Docker daemon health/systemd cgroup driver, x86_64, systemd version/manager, fixed paths and absence of any `.ops/deploy-dev.request` (including dangling links). It repeats the checks immediately before enabling the watcher. Nothing is installed/enabled when the initial preflight fails.
+Before any future installer execution, the human provisions a root-owned 0600 `/etc/gcreation-perf-dev/runtime.env` with distinct 64 lowercase-hex ENGINE_SECRET, APP_GATEWAY_SECRET and FETCH_PROXY_SECRET, DENIED_IPS including 103.112.63.86 plus every current public DEV DNS answer, and only documented settings. The DNS preflight queries only dev.gcreation.agency and is bounded to10 seconds. Do not share its contents. Existing protected directories must be root-owned, contain no symlinks and have no group/other write access. Installation preflight checks archive/snapshot hashes and ownership, secure environment, Docker daemon health/systemd cgroup driver, x86_64, systemd version/manager, fixed paths and absence of any `.ops/deploy-dev.request` (including dangling links). It repeats the checks immediately before enabling the watcher. Nothing is installed/enabled when the initial preflight fails.
 
 Only after a **separate future human approval**, the installer command would be:
 
 ```sh
-/bin/bash "/var/lib/gcreation-perf-review/$COMMIT/snapshot/ops/dev/install-root.sh" "$APPROVED_SHA" "$COMMIT"
+/usr/bin/env -i PATH=/usr/sbin:/usr/bin:/sbin:/bin /bin/bash "/var/lib/gcreation-perf-review/$COMMIT/snapshot/ops/dev/install-root.sh" "$APPROVED_SHA" "$COMMIT"
 ```
 
-All privileged installer inputs come from that reviewed snapshot. It never uses the repository as an installer source. Installed code is immutable to codexperf; the later watcher may read repository files only as untrusted bounded data for its non-root container build. No WordPress deployment authority is given to the watcher.
+The env -i prefix is mandatory before root interpreter startup; export PATH inside an already-started shell cannot prevent BASH_ENV injection. Never source repository shell files or inherit BASH_ENV/PYTHONPATH into the root transition.
+
+All privileged installer inputs come from that reviewed snapshot. It never uses the repository as an installer source. Installed code is immutable to codexperf; the later watcher may read fixed per-deployment source archives only as untrusted bounded DATA for its non-root offline container build. The image contains the reviewed immutable proxy/gateway and frozen dependencies; prepare_image.py copies explicit snapshot files only, and no release output is mounted into trusted containers. No WordPress deployment authority is given to the watcher.

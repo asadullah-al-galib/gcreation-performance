@@ -1,6 +1,10 @@
 """Unprivileged boundary tests. No install, Docker or live filesystem mutations."""
 import importlib.util
 import json
+import hashlib
+import io
+import tarfile
+import sys
 import os
 from pathlib import Path
 import tempfile
@@ -12,6 +16,10 @@ ROOT = Path(__file__).resolve().parents[1]
 spec = importlib.util.spec_from_file_location('controller', str(ROOT / 'ops/dev/deploy_controller.py'))
 controller = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(controller)
+preflight_spec = importlib.util.spec_from_file_location('install_preflight', str(ROOT / 'ops/dev/install_preflight.py'))
+preflight = importlib.util.module_from_spec(preflight_spec)
+sys.modules['install_preflight'] = preflight
+preflight_spec.loader.exec_module(preflight)
 
 
 class DeploymentBoundaryTests(unittest.TestCase):
@@ -125,7 +133,17 @@ class DeploymentBoundaryTests(unittest.TestCase):
         (state / 'active.json').write_text(json.dumps({'release': str(prior_release), 'commit': 'a' * 40}))
         trusted = self.root / 'trusted'; trusted.mkdir()
         ops = self.source / '.ops'; ops.mkdir()
-        (ops / 'deploy-dev.request').write_text(json.dumps({'action': 'deploy', 'commit': 'b' * 40}))
+        artifacts = ops / 'source-artifacts'; artifacts.mkdir()
+        artifact = artifacts / ('b' * 40 + '.tar.gz')
+        contents = {'REVIEW_SOURCE_COMMIT': ('b' * 40 + '\n').encode(), 'package.json': b'{}', 'package-lock.json': b'{}', 'wordpress/sentinel.php': b'<?php /* untrusted DATA */'}
+        with tarfile.open(str(artifact), 'w:gz') as archive:
+            for name, content in contents.items():
+                member = tarfile.TarInfo(name); member.size = len(content)
+                archive.addfile(member, io.BytesIO(content))
+        digest = hashlib.sha256(artifact.read_bytes()).hexdigest()
+        (trusted / 'dependency-baseline.json').write_text(json.dumps({name: hashlib.sha256(contents[name]).hexdigest() for name in ('package.json', 'package-lock.json')}))
+        (trusted / 'runtime-image-id').write_text('sha256:' + 'd' * 64)
+        (ops / 'deploy-dev.request').write_text(json.dumps({'action': 'deploy', 'commit': 'b' * 40, 'archive_sha256': digest}))
         source_plugin = self.source / 'wordpress/gcreation-performance'
         source_plugin.mkdir(parents=True)
         (source_plugin / 'new.php').write_text('<?php /* new plugin */')
@@ -133,7 +151,7 @@ class DeploymentBoundaryTests(unittest.TestCase):
 
         def read_text(path, *args, **kwargs):
             if str(path) == '/etc/gcreation-perf-dev/runtime.env':
-                return 'ENGINE_SECRET=' + 'c' * 64 + '\nDENIED_IPS=8.8.8.8\n'
+                return 'ENGINE_SECRET=' + 'c' * 64 + '\nAPP_GATEWAY_SECRET=' + 'd' * 64 + '\nFETCH_PROXY_SECRET=' + 'e' * 64 + '\nDENIED_IPS=103.112.63.86\n'
             return original_read(path, *args, **kwargs)
 
         def check_health():
@@ -146,7 +164,7 @@ class DeploymentBoundaryTests(unittest.TestCase):
             if next_request and not submitted:
                 self.assertFalse((ops / 'deploy-dev.request').exists())
                 self.assertTrue(list(ops.glob('deploy-dev.claimed-*')))
-                (ops / 'deploy-dev.request').write_text(json.dumps({'action': 'deploy', 'commit': 'c' * 40}))
+                (ops / 'deploy-dev.request').write_text(json.dumps({'action': 'deploy', 'commit': 'c' * 40, 'archive_sha256': 'd' * 64}))
                 submitted.append(True)
 
         replacements = dict(SOURCE=self.source, STATE=state,
@@ -159,6 +177,9 @@ class DeploymentBoundaryTests(unittest.TestCase):
                 mock.patch.object(controller, 'command', side_effect=host_command) as commands, \
                 mock.patch.object(controller, 'start_runtime') as runtime, \
                 mock.patch.object(controller, 'ensure_internal_network'), \
+                mock.patch.object(controller, 'ensure_egress_network'), \
+                mock.patch.object(preflight, 'require_root_owned'), \
+                mock.patch.object(preflight, 'resolve_dev_addresses', return_value=['103.112.63.86']), \
                 mock.patch.object(controller, 'health', side_effect=check_health):
             if fail_health:
                 with self.assertRaisesRegex(RuntimeError, 'controlled final health failure'):
@@ -173,6 +194,10 @@ class DeploymentBoundaryTests(unittest.TestCase):
         self.assertEqual(status['state'], 'COMPLETED')
         self.assertEqual(status['commit'], 'b' * 40)
         self.assertEqual(len(status['snapshot_sha256']), 64)
+        active = json.loads((state / 'active.json').read_text())
+        artifact = ops / 'source-artifacts' / ('b' * 40 + '.tar.gz')
+        self.assertEqual(status['archive_sha256'], hashlib.sha256(artifact.read_bytes()).hexdigest())
+        self.assertEqual(active['archive_sha256'], status['archive_sha256'])
         self.assertFalse((plugin / 'new.php').exists())
         self.assertTrue((plugin / 'old.php').exists())
         self.assertEqual((plugin / 'config.php').stat().st_mode & 0o777, 0o600)

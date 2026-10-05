@@ -1,0 +1,9 @@
+{
+  "extends": "../../../tsconfig.json",
+  "compilerOptions": { "outDir": "../../../dist" },
+  "include": [
+    "../../../packages/scanner/src/proxy.ts",
+    "../../../packages/scanner/src/proxy-main.ts"
+  ],
+  "exclude": []
+}

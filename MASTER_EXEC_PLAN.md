@@ -1,7 +1,7 @@
 # Execution state
 
 Objective: complete gCreation Website Performance Doctor MVP v0.1 on DEV only.
-Version: 0.1.0. Current milestone: second-review HOLD remediations; third security review handoff preparation.
+Version: 0.1.0. Current milestone: third-review HOLD remediations; fourth security review handoff preparation.
 
 ## Preserved and completed work
 
@@ -30,7 +30,7 @@ Verified locally: SSRF rejects unsafe URL schemes, credentials/internal hosts/pr
 
 Project-only development; original .git is read-only. Isolated metadata now lives in .ops/git-metadata; scripts/repo-git.sh preserves develop history. Host Plesk npm shebang forces Node 26; scripts/npm-dev.sh invokes npm with exact Node 24.21.0. Runtime pins: Playwright 1.63.0 and matching official Noble image, Lighthouse 13.5.0. No paid AI runtime dependency.
 
-Audit app has only an internal Docker network; egress proxy has external bridge and internal network. Proxy pins public DNS/IPs per connection. Containers drop all capabilities, use no-new-privileges, official pinned seccomp, PID limits, read-only app mounts and bounded logs/tmpfs. App 3.5 CPU/1500 MiB + proxy 0.5 CPU/150 MiB; aggregate slice 4 CPU/1700 MiB. Browser concurrency one. DENIED_IPS must include server public addresses; controller rejects unset list.
+Current V4 candidate: app/gateway internal only; immutable trusted proxy internal plus dedicated egress network; builder offline. Proxy pins public DNS/IPs per connection. Containers drop all capabilities, use no-new-privileges, official pinned seccomp, PID limits, read-only app mounts and bounded logs/tmpfs. App3.4 CPU/1400 MiB + proxy0.5 CPU/150 MiB + gateway0.1 CPU/100 MiB; aggregate slice 4 CPU/1700 MiB. Browser concurrency one. DENIED_IPS must include server public addresses; controller rejects unset list.
 
 ## Deployment / Git / human actions
 
@@ -54,3 +54,7 @@ Controller success and forced final-health failure are now exercised in unprivil
 Historical source 7887fca/handoff826a622 is HOLD (docs/SECOND_SECURITY_REVIEW_RESULT.md). Root inputs now cross a deterministic reviewed archive/data/hash/safe-extraction boundary and execute from immutable root-owned snapshots with isolated Python. Installer preflight checks ownership/hash/paths, Docker/systemd/configuration and stale triggers before changes and before enable. Auto watcher deploys only Node/browser; human-approved PHP artifact writes drop to the verified DEV PHP owner and generate config.php0600. Requests are atomically claimed, new requests survive cleanup; internal Docker network identity/configuration is verified before runtime start. Public nginx health is GET-only with no forwarded client headers/secret. Both FROM images are registry digest-pinned with recorded index/amd64 provenance. No privileged component was installed/executed. Full V3 gates and final source/handoff IDs are recorded in the V3 bundle.
 
 Third-review candidate source 10dcabfe5642207486af7646bef489b83108fb17 is committed/pushed.33 Python and24 TypeScript tests plus full local/fresh snapshot gates pass. Exact archive hash/file lists are in ops/dev/SECURITY_REVIEW_BUNDLE_V3.md and SECURITY_REVIEW_SHA256SUMS_V3. Status READY FOR THIRD SECURITY REVIEW; HOLD still prohibits installation/execution/deployment requests. The handoff-only descendant changes metadata, not source inputs. Stop at this checkpoint; DEV acceptance remains incomplete.
+
+## Third review HOLD / fourth-review remediation
+
+Third review preserved accepted V3 controls and requested immutable trusted egress, offline builds, frozen dependencies, dedicated verified egress network, isolated ingress/master secret, verified self-host deny, artifact source identity and clean root interpreter startup. Local checks pass:46 Python tests (12 original,21 V3,13 V4),26 TypeScript tests and4 gateway socket tests, clean pinned npm install, formatting/lint/typecheck/application build/trusted proxy compile, PHP contract/lint and shell syntax. Exact committed source/archive validation and V4 handoff follow. No privileged component, Docker or deployment trigger has been executed. README describes current candidate; earlier ledger entries and bundles remain historical. Complete DEV acceptance remains pending. Stop after source/handoff commit and fourth review preparation.

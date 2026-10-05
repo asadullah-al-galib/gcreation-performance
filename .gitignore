@@ -17,6 +17,7 @@ __pycache__/
 .ops/npm-cache/
 .ops/toolchain/
 .ops/test-artifacts/
+.ops/source-artifacts/
 .ops/runtime/
 
 data/

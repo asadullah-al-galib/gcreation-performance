@@ -3,7 +3,7 @@ import { dirname } from "node:path";
 import { Store } from "./store.js";
 import { createApp } from "./server.js";
 import { Worker } from "./worker.js";
-const secret = process.env.ENGINE_SECRET ?? "";
+const secret = process.env.APP_GATEWAY_SECRET ?? "";
 const path = process.env.DATABASE_PATH ?? ".ops/runtime/audits.sqlite";
 await mkdir(dirname(path), { recursive: true });
 const store = new Store(path);

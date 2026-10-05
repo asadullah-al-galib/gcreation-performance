@@ -104,3 +104,7 @@ Specification and resume docs pushed as 212f4a6. Engine/module/plugin/DEV-kit fo
 ## Security/integration refinement milestone, 2026-10-05
 
 Foundation pushed as be74524. Expanded local suite now passes 22 TypeScript and 7 Python boundary tests, PHP commerce/nonce checks and quality gates. Atomic admission, per-client privacy-preserving quotas, session CSRF binding, detailed fix templates, expert/admin/retest flows and source-snapshot hardening are in place. Retest SQL regression caught and fixed. Full dependency audit clean. Human acknowledged review request but installation is not confirmed; no deployment status/request exists. DEV runtime/E2E remains pending. Independent local tests can continue; no whole-project blocker is declared solely for installation.
+
+## Local validation and rollback milestone — 2026-10-05
+
+24 TypeScript tests, nine Python boundary tests, PHP commerce/security harness and format/lint/typecheck/build pass. Browser lifecycle tests use mocks and do not establish actual runtime acceptance. Current-source unprivileged snapshot build passed Node gates. Final controller refinements preserve private rollback config/permissions and actual plugin ownership, share backup size budgets, and prune failed releases while retaining rollback sources. Root kit/watcher remain uninstalled by read-only evidence; human acknowledgement is not installation. No deployment request or privileged execution. Complete DEV release acceptance remains pending; see MASTER_EXEC_PLAN.md and ACTION_REQUIRED.md.

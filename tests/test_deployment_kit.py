@@ -71,8 +71,17 @@ class DeploymentBoundaryTests(unittest.TestCase):
         (folder / '.env').write_text('test-secret')
         (folder / 'config.php').write_text('test-secret')
         (folder / 'code.ts').write_text('export const safe = true;')
-        controller.copy_entry(self.fd, 'module', self.root / 'copied', [0, 0])
+        controller.copy_entry(self.fd, 'module', self.root / 'copied', [0, 0], exclude_private=True)
         self.assertEqual([file.name for file in (self.root / 'copied').iterdir()], ['code.ts'])
+
+    def test_rollback_backup_preserves_plugin_configuration(self):
+        folder = self.source / 'plugin'
+        folder.mkdir()
+        (folder / 'config.php').write_text('private-config-to-restore')
+        (folder / 'config.php').chmod(0o640)
+        controller.copy_entry(self.fd, 'plugin', self.root / 'backup', [0, 0])
+        self.assertEqual((self.root / 'backup/config.php').read_text(), 'private-config-to-restore')
+        self.assertEqual((self.root / 'backup/config.php').stat().st_mode & 0o777, 0o640)
 
     def test_privileged_runtime_contract(self):
         self.assertEqual(str(controller.PLUGIN), '/var/www/vhosts/gcreation.agency/dev.gcreation.agency/wp-content/plugins/gcreation-performance')
@@ -84,6 +93,18 @@ class DeploymentBoundaryTests(unittest.TestCase):
         self.assertNotIn('docker.sock', source)
         self.assertIn("'127.0.0.1:3101:3101'", source)
         self.assertIn("'--internal'", source)
+
+    def test_failed_release_retention_preserves_active_rollback_source(self):
+        previous = controller.STATE
+        controller.STATE = self.root
+        try:
+            for number in range(5):
+                (self.root / ('release-' + str(number))).mkdir()
+            controller.prune_releases({self.root / 'release-0', self.root / 'release-4'})
+            self.assertEqual(sorted(path.name for path in self.root.glob('release-*')),
+                             ['release-0', 'release-3', 'release-4'])
+        finally:
+            controller.STATE = previous
 
 
 if __name__ == '__main__':

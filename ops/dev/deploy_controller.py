@@ -61,7 +61,7 @@ def open_directory(path):
         raise
 
 
-def copy_entry(parent_fd, name, destination, budget):
+def copy_entry(parent_fd, name, destination, budget, exclude_private=False):
     if name in ('.', '..') or '/' in name:
         raise ValueError('Unsafe entry')
     info = os.stat(name, dir_fd=parent_fd, follow_symlinks=False)
@@ -70,9 +70,9 @@ def copy_entry(parent_fd, name, destination, budget):
         destination.mkdir(mode=0o755)
         try:
             for child in os.listdir(fd):
-                if child in ('node_modules', '__pycache__', 'config.php', '.env') or child.startswith('.env.'):
+                if exclude_private and (child in ('node_modules', '__pycache__', 'config.php', '.env') or child.startswith('.env.')):
                     continue
-                copy_entry(fd, child, destination / child, budget)
+                copy_entry(fd, child, destination / child, budget, exclude_private)
         finally:
             os.close(fd)
     elif stat.S_ISREG(info.st_mode) and info.st_nlink == 1:
@@ -93,7 +93,9 @@ def copy_entry(parent_fd, name, destination, budget):
                     if budget[1] > 160 * 1024 * 1024:
                         raise ValueError('Snapshot byte limit')
                     dst.write(chunk)
-            destination.chmod(0o644)
+            # Source snapshots use predictable build permissions. Backups retain
+            # ordinary permissions, including the private generated config.
+            destination.chmod(0o644 if exclude_private else stat.S_IMODE(opened.st_mode) & 0o777)
         finally:
             os.close(fd)
     else:
@@ -110,6 +112,18 @@ def command(args, timeout=600, allow_failure=False):
 
 def container_flags(memory, cpu):
     return ['--user', '10001:10001', '--cap-drop=ALL', '--security-opt=no-new-privileges', '--security-opt=seccomp=/usr/local/lib/gcreation-perf-dev/seccomp_profile.json', '--pids-limit=192', '--cpus=' + cpu, '--memory=' + memory, '--memory-swap=' + memory, '--cgroup-parent=gcreation-perf-dev.slice', '--log-driver=local', '--log-opt=max-size=5m', '--log-opt=max-file=2', '--init']
+
+
+def prune_releases(protected):
+    releases = sorted(STATE.glob('release-*'))
+    excess = max(0, len(releases) - 3)
+    for old in releases:
+        if excess == 0:
+            break
+        if old not in protected:
+            check_path(old)
+            shutil.rmtree(str(old))
+            excess -= 1
 
 
 def status(ops_fd, data):
@@ -177,6 +191,7 @@ def deploy():
     release = None
     plugin_backup = STATE / 'plugin-backup'
     plugin_changed = False
+    plugin_owner = None
     stage = 'request-validation'
     try:
         fd = os.open('deploy-dev.request', os.O_RDONLY | NOFOLLOW | os.O_NONBLOCK, dir_fd=ops_fd)
@@ -202,7 +217,7 @@ def deploy():
         snapshot = release / 'source'; snapshot.mkdir(mode=0o755)
         budget = [0, 0]
         for item in ALLOW:
-            copy_entry(source_fd, item, snapshot / item, budget)
+            copy_entry(source_fd, item, snapshot / item, budget, exclude_private=True)
         manifest = hashlib.sha256()
         for path in sorted(snapshot.rglob('*')):
             if path.is_file():
@@ -227,6 +242,7 @@ def deploy():
             command([php, '-l', str(file)], timeout=30)
         stage = 'plugin-deploy'
         owner = os.stat(str(PLUGIN if PLUGIN.exists() else WP / 'wp-content/plugins'))
+        plugin_owner = (owner.st_uid, owner.st_gid)
         if plugin_backup.exists():
             shutil.rmtree(str(plugin_backup))
         if PLUGIN.exists():
@@ -234,8 +250,9 @@ def deploy():
             fd = open_directory(PLUGIN)
             try:
                 plugin_backup.mkdir(mode=0o755)
+                backup_budget = [0, 0]
                 for item in os.listdir(fd):
-                    copy_entry(fd, item, plugin_backup / item, [0, 0])
+                    copy_entry(fd, item, plugin_backup / item, backup_budget)
             finally:
                 os.close(fd)
         # Build output cannot modify the root-owned plugin source.
@@ -256,9 +273,6 @@ def deploy():
         health()
         previous.write_text(json.dumps({'release':str(release), 'commit':request_id, 'snapshot_sha256':digest}))
         status(ops_fd, {'state':'COMPLETED','commit':request_id,'snapshot_sha256':digest,'health':True})
-        for old in sorted(STATE.glob('release-*'))[:-3]:
-            if str(old) != str(release):
-                shutil.rmtree(str(old))
     except Exception as error:
         rollback = False
         try:
@@ -267,9 +281,8 @@ def deploy():
                     shutil.rmtree(str(PLUGIN))
                 if plugin_backup.exists():
                     shutil.copytree(str(plugin_backup),str(PLUGIN))
-                    owner = os.stat(str(WP / 'wp-content/plugins'))
                     for path in [PLUGIN] + list(PLUGIN.rglob('*')):
-                        os.chown(str(path), owner.st_uid, owner.st_gid)
+                        os.chown(str(path), *plugin_owner)
             if prior:
                 start_runtime(Path(prior['release'])); rollback = True
             else:
@@ -280,12 +293,17 @@ def deploy():
         status(ops_fd, {'state':'FAILED','commit':request_id,'error':type(error).__name__,'stage':stage,'rollback':rollback})
         raise
     finally:
-        command(['docker', 'rm', '-f', BUILDER], allow_failure=True)
         try:
-            os.unlink('deploy-dev.request',dir_fd=ops_fd)
-        except FileNotFoundError:
-            pass
-        os.close(source_fd); os.close(ops_fd); os.close(lock)
+            command(['docker', 'rm', '-f', BUILDER], allow_failure=True)
+            # Failed snapshots/builds also count toward retention. Preserve both
+            # the current attempt and the previous runtime needed for rollback.
+            prune_releases({release, Path(prior['release']) if prior else None})
+        finally:
+            try:
+                os.unlink('deploy-dev.request',dir_fd=ops_fd)
+            except FileNotFoundError:
+                pass
+            os.close(source_fd); os.close(ops_fd); os.close(lock)
 
 
 if __name__ == '__main__':

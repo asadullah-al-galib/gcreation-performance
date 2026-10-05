@@ -27,7 +27,7 @@ bash /home/codexperf/projects/gcreation-performance/ops/dev/install-root.sh
 
 After all checks, commit and push to develop. Write `.ops/deploy-dev.request` atomically with the full commit hash. Do not execute installed controller code. Read `.ops/deploy-dev.status` for RUNNING/COMPLETED/FAILED and rollback result. The commit is a request label, not a source attestation: status also includes a SHA-256 digest of the immutable source snapshot. Keep the source unchanged until the watcher snapshots it.
 
-The controller locks deployments, anchors source reads with no-follow directory descriptors, rejects symlinks/hardlinks/special files, bounds snapshot files/bytes, creates immutable source, builds/tests as non-root, starts limited runtime, checks internal and DEV health without redirects, PHP-lints the plugin, backs up and copies only the one DEV plugin, preserves Plesk ownership, rolls back failures and keeps three releases. Existing SQLite data is retained; schema changes require backward-compatible migrations for rollback.
+The controller locks deployments, anchors source reads with no-follow directory descriptors, rejects symlinks/hardlinks/special files, bounds snapshot files/bytes, creates immutable source, builds/tests as non-root, starts limited runtime, checks internal and DEV health without redirects, PHP-lints the plugin, backs up and copies only the one DEV plugin, preserves Plesk ownership, rolls back failures with the prior plugin configuration, file permissions and ownership, and keeps three releases including failed attempts. Existing SQLite data is retained; schema changes require backward-compatible migrations for rollback.
 
 ## Validation limits
 

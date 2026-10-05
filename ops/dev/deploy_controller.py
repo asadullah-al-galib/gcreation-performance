@@ -16,8 +16,6 @@ import urllib.request
 from pathlib import Path
 
 SOURCE = Path('/home/codexperf/projects/gcreation-performance')
-WP = Path('/var/www/vhosts/gcreation.agency/dev.gcreation.agency')
-PLUGIN = WP / 'wp-content/plugins/gcreation-performance'
 STATE = Path('/var/lib/gcreation-perf-dev')
 TRUSTED = Path('/usr/local/lib/gcreation-perf-dev')
 IMAGE = 'gcreation-perf-dev-runtime:0.1'
@@ -114,6 +112,55 @@ def container_flags(memory, cpu):
     return ['--user', '10001:10001', '--cap-drop=ALL', '--security-opt=no-new-privileges', '--security-opt=seccomp=/usr/local/lib/gcreation-perf-dev/seccomp_profile.json', '--pids-limit=192', '--cpus=' + cpu, '--memory=' + memory, '--memory-swap=' + memory, '--cgroup-parent=gcreation-perf-dev.slice', '--log-driver=local', '--log-opt=max-size=5m', '--log-opt=max-file=2', '--init']
 
 
+def docker_json(args):
+    result = subprocess.run(['docker'] + args, timeout=30, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
+    if result.returncode or len(result.stdout) > 65536:
+        raise RuntimeError('Docker inspection failed')
+    return json.loads(result.stdout.decode()) if result.stdout.strip() else None
+
+
+def ensure_internal_network():
+    listed = docker_json(['network', 'ls', '--filter', 'name=^' + NETWORK + '$', '--format', '{{json .}}'])
+    if listed is None:
+        command(['docker', 'network', 'create', '--driver=bridge', '--internal', '--label=gcreation.role=dev-audit', NETWORK])
+    existing = docker_json(['network', 'inspect', '--format', '{{json .}}', NETWORK])
+    if (not isinstance(existing, dict) or existing.get('Name') != NETWORK
+            or not re.fullmatch('[0-9a-f]{64}', existing.get('Id', ''))
+            or existing.get('Internal') is not True or existing.get('Driver') != 'bridge'
+            or existing.get('Scope') != 'local' or (existing.get('Labels') or {}).get('gcreation.role') != 'dev-audit'):
+        raise ValueError('Unsafe existing Docker network')
+    identity = STATE / 'network-id'
+    if identity.exists():
+        if identity.read_text() != existing['Id']:
+            raise ValueError('Docker network identity changed')
+    else:
+        with identity.open('x') as output:
+            output.write(existing['Id'])
+        identity.chmod(0o600)
+
+
+def claim_request(ops_fd):
+    name = 'deploy-dev.claimed-' + os.urandom(16).hex()
+    os.rename('deploy-dev.request', name, src_dir_fd=ops_fd, dst_dir_fd=ops_fd)
+    try:
+        fd = os.open(name, os.O_RDONLY | NOFOLLOW | os.O_NONBLOCK, dir_fd=ops_fd)
+        try:
+            info = os.fstat(fd)
+            if not stat.S_ISREG(info.st_mode) or info.st_size > 256 or info.st_nlink != 1 or info.st_uid != pwd.getpwnam('codexperf').pw_uid:
+                raise ValueError('Invalid request file')
+            request = json.loads(os.read(fd, 257).decode())
+        finally:
+            os.close(fd)
+        if (not isinstance(request, dict) or set(request) != {'action', 'commit'}
+                or request['action'] != 'deploy' or not isinstance(request['commit'], str)
+                or not re.fullmatch('[0-9a-f]{40}', request['commit'])):
+            raise ValueError('Invalid fixed deployment request')
+        return name, request
+    except Exception:
+        os.unlink(name, dir_fd=ops_fd)
+        raise
+
+
 def prune_releases(protected):
     releases = sorted(STATE.glob('release-*'))
     excess = max(0, len(releases) - 3)
@@ -124,6 +171,16 @@ def prune_releases(protected):
             check_path(old)
             shutil.rmtree(str(old))
             excess -= 1
+
+
+def snapshot_digest(snapshot):
+    digest = hashlib.sha256()
+    for path in sorted(snapshot.rglob('*')):
+        if path.is_file():
+            digest.update(str(path.relative_to(snapshot)).encode())
+            digest.update(b'\0')
+            digest.update(hashlib.sha256(path.read_bytes()).digest())
+    return digest.hexdigest()
 
 
 def status(ops_fd, data):
@@ -159,6 +216,7 @@ class NoRedirect(urllib.request.HTTPRedirectHandler):
 
 
 def start_runtime(release):
+    ensure_internal_network()
     for name in (APP, PROXY):
         command(['docker', 'rm', '-f', name], allow_failure=True)
     common = ['--restart=unless-stopped', '--env-file=/etc/gcreation-perf-dev/runtime.env', '--mount=type=bind,src=' + str(release / 'output') + ',dst=/app,readonly', '--read-only', '--tmpfs=/tmp:rw,noexec,nosuid,size=128m', '--tmpfs=/home/perfdev:rw,noexec,nosuid,size=8m']
@@ -177,10 +235,8 @@ def start_runtime(release):
 def deploy():
     if os.geteuid() != 0:
         raise PermissionError('Human-installed root watcher required')
-    for path in (SOURCE, STATE, TRUSTED, WP / 'wp-content/plugins'):
+    for path in (SOURCE, STATE, TRUSTED):
         check_path(path)
-    if PLUGIN.exists() or PLUGIN.is_symlink():
-        check_path(PLUGIN)
     source_fd = open_directory(SOURCE)
     ops_fd = os.open('.ops', os.O_RDONLY | os.O_DIRECTORY | NOFOLLOW, dir_fd=source_fd)
     lock = os.open(str(STATE / 'deploy.lock'), os.O_WRONLY | os.O_CREAT | NOFOLLOW, 0o600)
@@ -189,21 +245,11 @@ def deploy():
     previous = STATE / 'active.json'
     prior = json.loads(previous.read_text()) if previous.exists() else None
     release = None
-    plugin_backup = STATE / 'plugin-backup'
-    plugin_changed = False
-    plugin_owner = None
+    claimed_name = None
+    runtime_changed = False
     stage = 'request-validation'
     try:
-        fd = os.open('deploy-dev.request', os.O_RDONLY | NOFOLLOW | os.O_NONBLOCK, dir_fd=ops_fd)
-        try:
-            info = os.fstat(fd)
-            if not stat.S_ISREG(info.st_mode) or info.st_size > 256 or info.st_nlink != 1 or info.st_uid != pwd.getpwnam('codexperf').pw_uid:
-                raise ValueError('Invalid request file')
-            request = json.loads(os.read(fd, 257).decode())
-        finally:
-            os.close(fd)
-        if set(request) != {'action', 'commit'} or request['action'] != 'deploy' or not re.fullmatch('[0-9a-f]{40}', request['commit']):
-            raise ValueError('Invalid fixed deployment request')
+        claimed_name, request = claim_request(ops_fd)
         environment = dict(line.split('=', 1) for line in Path('/etc/gcreation-perf-dev/runtime.env').read_text().splitlines() if '=' in line)
         if not environment.get('DENIED_IPS') or len(environment.get('ENGINE_SECRET', '')) < 32:
             raise ValueError('Human-reviewed host IP deny list and engine secret required')
@@ -218,57 +264,20 @@ def deploy():
         budget = [0, 0]
         for item in ALLOW:
             copy_entry(source_fd, item, snapshot / item, budget, exclude_private=True)
-        manifest = hashlib.sha256()
-        for path in sorted(snapshot.rglob('*')):
-            if path.is_file():
-                manifest.update(str(path.relative_to(snapshot)).encode()); manifest.update(path.read_bytes())
-        digest = manifest.hexdigest()
+        digest = snapshot_digest(snapshot)
         output = release / 'output'; output.mkdir(mode=0o755); os.chown(str(output), 10001, 10001)
         # Build source is read-only. Untrusted scripts execute only inside a
         # constrained non-root container, never in the root host namespace.
+        ensure_internal_network()
+        runtime_changed = True
         for name in (APP, PROXY):
             command(['docker', 'rm', '-f', name], allow_failure=True)
         stage = 'non-root-build'
         command(['docker', 'rm', '-f', BUILDER], allow_failure=True)
         command(['docker', 'run', '--rm', '--name', BUILDER, '--network=bridge'] + container_flags('1500m', '3.5') + ['--mount=type=bind,src=' + str(snapshot) + ',dst=/source,readonly', '--mount=type=bind,src=' + str(output) + ',dst=/app', '--tmpfs=/tmp:rw,nosuid,size=128m', IMAGE, '/bin/sh', '-ec', 'cp -R /source/. /app/; npm ci --ignore-scripts --cache=/tmp/npm-cache; npm run format:check; npm run lint:ts; npm run typecheck; npm test; npm run build'])
-        command(['docker', 'network', 'create', '--internal', NETWORK], allow_failure=True)
         data = STATE / 'data'; data.mkdir(mode=0o700, exist_ok=True); os.chown(str(data),10001,10001)
         stage = 'runtime-health'
         start_runtime(release)
-        # PHP lint uses fixed executable on immutable plugin source, never PHP execution.
-        stage = 'php-lint'
-        php = '/opt/plesk/php/8.3/bin/php'
-        for file in (snapshot / 'wordpress/gcreation-performance').rglob('*.php'):
-            command([php, '-l', str(file)], timeout=30)
-        stage = 'plugin-deploy'
-        owner = os.stat(str(PLUGIN if PLUGIN.exists() else WP / 'wp-content/plugins'))
-        plugin_owner = (owner.st_uid, owner.st_gid)
-        if plugin_backup.exists():
-            shutil.rmtree(str(plugin_backup))
-        if PLUGIN.exists():
-            # Existing plugin must contain only safe files before it is moved.
-            fd = open_directory(PLUGIN)
-            try:
-                plugin_backup.mkdir(mode=0o755)
-                backup_budget = [0, 0]
-                for item in os.listdir(fd):
-                    copy_entry(fd, item, plugin_backup / item, backup_budget)
-            finally:
-                os.close(fd)
-        # Build output cannot modify the root-owned plugin source.
-        staging = WP / 'wp-content/plugins/.gcreation-performance-stage'
-        if staging.exists():
-            check_path(staging); shutil.rmtree(str(staging))
-        shutil.copytree(str(snapshot / 'wordpress/gcreation-performance'), str(staging))
-        secret = dict(line.split('=',1) for line in Path('/etc/gcreation-perf-dev/runtime.env').read_text().splitlines())['ENGINE_SECRET']
-        (staging / 'config.php').write_text("<?php\nif (!defined('ABSPATH')) { exit; }\ndefine('GCREATION_ENGINE_SECRET', '" + secret + "');\n")
-        for path in [staging] + list(staging.rglob('*')):
-            os.chown(str(path), owner.st_uid, owner.st_gid)
-            path.chmod(0o755 if path.is_dir() else 0o640 if path.name == 'config.php' else 0o644)
-        plugin_changed = True
-        if PLUGIN.exists():
-            shutil.rmtree(str(PLUGIN))
-        os.rename(str(staging),str(PLUGIN)); plugin_changed = True
         stage = 'final-health'
         health()
         previous.write_text(json.dumps({'release':str(release), 'commit':request_id, 'snapshot_sha256':digest}))
@@ -276,16 +285,9 @@ def deploy():
     except Exception as error:
         rollback = False
         try:
-            if plugin_changed:
-                if PLUGIN.exists():
-                    shutil.rmtree(str(PLUGIN))
-                if plugin_backup.exists():
-                    shutil.copytree(str(plugin_backup),str(PLUGIN))
-                    for path in [PLUGIN] + list(PLUGIN.rglob('*')):
-                        os.chown(str(path), *plugin_owner)
-            if prior:
+            if prior and runtime_changed:
                 start_runtime(Path(prior['release'])); rollback = True
-            else:
+            elif runtime_changed:
                 for name in (APP, PROXY):
                     command(['docker','rm','-f',name],allow_failure=True)
         except Exception:
@@ -294,24 +296,22 @@ def deploy():
         raise
     finally:
         try:
-            command(['docker', 'rm', '-f', BUILDER], allow_failure=True)
+            if runtime_changed:
+                command(['docker', 'rm', '-f', BUILDER], allow_failure=True)
             # Failed snapshots/builds also count toward retention. Preserve both
             # the current attempt and the previous runtime needed for rollback.
             prune_releases({release, Path(prior['release']) if prior else None})
         finally:
             try:
-                os.unlink('deploy-dev.request',dir_fd=ops_fd)
+                if claimed_name:
+                    os.unlink(claimed_name, dir_fd=ops_fd)
             except FileNotFoundError:
                 pass
             os.close(source_fd); os.close(ops_fd); os.close(lock)
 
 
 if __name__ == '__main__':
-    if sys.argv[1:] == ['--check-install-source']:
-        check_path(SOURCE / 'ops/dev')
-        for name in ['install-root.sh','deploy_controller.py','deploy-dev.sh','runtime.Dockerfile','seccomp_profile.json','gcreation-perf-dev-deploy.service','gcreation-perf-dev-deploy.path','gcreation-perf-dev.slice']:
-            check_path(SOURCE / 'ops/dev' / name)
-    elif len(sys.argv) == 1:
+    if len(sys.argv) == 1:
         deploy()
     else:
         raise ValueError('No arbitrary command arguments allowed')

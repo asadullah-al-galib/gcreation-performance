@@ -12,6 +12,7 @@ __pycache__/
 
 .ops/*.request
 .ops/*.status
+.ops/deploy-dev.claimed-*
 .ops/git-metadata/
 .ops/npm-cache/
 .ops/toolchain/

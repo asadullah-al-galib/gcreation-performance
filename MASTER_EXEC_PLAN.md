@@ -1,19 +1,19 @@
 # Execution state
 
 Objective: complete gCreation Website Performance Doctor MVP v0.1 on DEV only.
-Version: 0.1.0. Current milestone: local implementation/security integration; DEV release gates pending.
+Version: 0.1.0. Current milestone: second-review HOLD remediations; third security review handoff preparation.
 
 ## Preserved and completed work
 
 - Existing history preserved: c724ac3, 6fbcc8b, 8cf5296, 55a342f. DEV probe remains intact.
 - M0.1–M0.4: full authoritative specification, durable rules/docs, 31-item acceptance ledger; pushed as 212f4a6. Implementation foundation pushed as be74524.
-- M0.5: reviewable DEV kit files, root controller path defenses, locking/status/rollback, isolated non-root runtime configuration, proxy example; eleven unprivileged boundary tests and shell syntax checks pass. Privileged behavior remains unverified.
+- M0.5: reviewable DEV kit files, root controller path defenses, locking/status/rollback, isolated non-root runtime configuration, proxy example; 33 unprivileged Python tests and shell syntax checks pass. Privileged behavior remains unverified.
 - M0.6–M0.12 local foundation: pinned Node/TypeScript/lockfile; Fastify health; SQLite migrations v1/v2/v3/v4; persistent jobs and one-running-job constraint; IP/DNS/redirect security; bounded sitemap/index discovery and page classification.
 - Local code exists for M0.13–M0.30: Playwright/Lighthouse adapters, proxy/bridge, observed metrics, 16 deterministic rules, persisted events/SSE, free reports, WP gateway/UI, trusted pricing, commerce synchronization, paid reports/Fix Center, retests/comparison, expert requests/admin states, analytics and resource telemetry. Code presence is not deployed feature acceptance.
 
 ## Test evidence and scope
 
-Pinned Node 24.21.0 clean npm ci, formatting, lint, typecheck, 24 TypeScript tests and build pass. A temporary loopback service returned HTTP 200 on 127.0.0.1:3101/health with the required structured JSON; it was then closed. This is local evidence, not deployed DEV health. Eleven Python deployment-boundary tests and PHP lint/commerce harness pass. UI tests use jsdom with controlled data; browser tests use injected scanner metrics. No unrelated customer site is scanned.
+Pinned Node 24.21.0 clean npm ci, formatting, lint, typecheck, 24 TypeScript tests and build pass. A temporary loopback service returned HTTP 200 on 127.0.0.1:3101/health with the required structured JSON; it was then closed. This is local evidence, not deployed DEV health. 33 Python deployment-boundary/security tests and PHP lint/commerce harness pass. UI tests use jsdom with controlled data; browser tests use injected scanner metrics. No unrelated customer site is scanned.
 
 Verified locally: SSRF rejects unsafe URL schemes, credentials/internal hosts/private/reserved IPs and redirect-to-private destinations; HTTP/CONNECT proxy socket rejection; persistent SQLite reopen/recovery; priority and concurrency=1; actual SSE event output; trusted price boundaries; paid order uniqueness; token+order+contact authorization; fixed claims are unverified; expert request idempotency; UI escaping and token-fragment removal. Full dependency audit reports zero vulnerabilities after pinned test-tool updates on 2026-10-05.
 
@@ -36,10 +36,10 @@ Audit app has only an internal Docker network; egress proxy has external bridge 
 
 No privileged file has been executed. No DEV deployment request has been written. DEV still has the original WordPress baseline. Production has never been accessed or modified. Human installation/Plesk configuration is an action pending review, not a whole-project blocker.
 
-Human action details: .ops/ACTION_REQUIRED.md and ops/dev/README.md. Human acknowledged the review request with “okay”; this is not installation evidence. No status/request file exists yet. Read-only checks confirm /usr/local/lib/gcreation-perf-dev and the installed watcher path unit do not exist as of the latest audit. Human installs reviewed immutable kit, configures deny list and DEV proxy, activates plugin/page/hidden product, sets BDT/manual test payments, supplies controlled public test URL. Never request root/Plesk/Docker access for the agent.
+Human action details: .ops/ACTION_REQUIRED.md and the V3 review artifacts. The second human review is HOLD; no installation, privileged execution, deployment request or automatic PHP deployment is authorized. The runtime watcher has no WordPress write capability. The third review must assess the root-owned archive trust transition and separately approved plugin artifact workflow. No root/Plesk/Docker authority is granted to the agent.
 
 Acceptance: REQUIREMENTS.md remains pending for deployed items. Current checks do not satisfy the complete DEV Definition of Done.
-Next recommended action: after human installation, use docs/DEV_VALIDATION_RUNBOOK.md to request DEV deployment and validate runtime constraints and the controlled public customer journey. Continue independent fixes revealed by review. Browser-driver mocks verify navigation-failure cleanup, sandbox/proxy flags and refusal without egress configuration; actual runtime validation is still required. Local test-process concurrency is capped at two. Inspect deployment status/health, fix and redeploy until all 31 criteria are proven.
+Next recommended action: finish local V3 quality/hash/archive checks, commit/push the remediation source and review handoff, then stop at READY FOR THIRD SECURITY REVIEW. No privileged execution or deployment request. Original app work and SSRF/sandbox/limits/queue/rollback controls are preserved.
 
 ## Latest refinements
 
@@ -48,3 +48,7 @@ Atomic persisted scan admission (5/client/hour and 50 pending jobs), trusted pri
 Latest local milestone: browser lifecycle controls covered by mocked driver tests; test-process concurrency capped at two; rollback backup preserves generated private config and ordinary file permissions plus original plugin ownership; shared backup budgets and failed-release retention are bounded. Fresh current-source nonprivileged snapshot build passed all Node gates before these final Python refinements; eleven Python helper tests pass after the refinements. No privileged controller execution or actual browser scan was used as test evidence.
 
 Controller success and forced final-health failure are now exercised in unprivileged simulations: source digest/status, request cleanup, prior plugin/config/permissions and runtime rollback pass. Host commands, runtime launch and ownership changes are mocked; this is not installed/deployed evidence. Milestone 4af71f6 is pushed; main remains c724ac3.
+
+## Second human security review remediation
+
+Historical source 7887fca/handoff826a622 is HOLD (docs/SECOND_SECURITY_REVIEW_RESULT.md). Root inputs now cross a deterministic reviewed archive/data/hash/safe-extraction boundary and execute from immutable root-owned snapshots with isolated Python. Installer preflight checks ownership/hash/paths, Docker/systemd/configuration and stale triggers before changes and before enable. Auto watcher deploys only Node/browser; human-approved PHP artifact writes drop to the verified DEV PHP owner and generate config.php0600. Requests are atomically claimed, new requests survive cleanup; internal Docker network identity/configuration is verified before runtime start. Public nginx health is GET-only with no forwarded client headers/secret. Both FROM images are registry digest-pinned with recorded index/amd64 provenance. No privileged component was installed/executed. Full V3 gates and final source/handoff IDs are recorded in the V3 bundle.

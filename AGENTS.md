@@ -18,3 +18,7 @@ Authoritative scope: docs/MASTER_PRODUCT_SPEC.md. Resume from MASTER_EXEC_PLAN.m
 14. Browser concurrency is one. Bound compute, requests, logs, artifacts, retries and cleanup.
 15. Persist state, meaningful milestones and evidence. Commit/push only develop. Keep temporary state out of this file.
 16. Record genuine human actions in .ops/ACTION_REQUIRED.md; continue independent work while deployment is pending.
+
+17. No repository executable/module may run as root. Privileged installer inputs must be the human-approved archive verified and extracted into a root-only reviewed snapshot.
+18. The automated watcher deploys only the constrained audit runtime. WordPress PHP deployment requires a separate human-approved commit/hash artifact; it is never an autonomous watcher operation.
+19. Public nginx exposes only engine health. Business/admin engine routes stay localhost-only; ENGINE_SECRET stays server-side.

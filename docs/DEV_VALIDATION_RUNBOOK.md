@@ -1,3 +1,5 @@
+Second human security review supersedes the original deployment/proxy workflow. HOLD until separate approval; the third-review handoff is not installation permission. Public proxy is health-only; business/SSE operations use localhost or the nonce/session WordPress gateway. WordPress artifact deployment requires separate human approval (ops/dev/HUMAN_PLUGIN_ARTIFACT.md).
+
 # DEV acceptance runbook — pending actual runtime evidence
 
 Use the complete 31-item ledger in REQUIREMENTS.md. Record timestamp, deployed commit/snapshot digest, command results, relevant job/order IDs (no tokens/contact secrets), measurements and limitations. A green local test is not a deployed feature claim.

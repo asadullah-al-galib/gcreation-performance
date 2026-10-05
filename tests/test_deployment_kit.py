@@ -87,7 +87,8 @@ class DeploymentBoundaryTests(unittest.TestCase):
         self.assertEqual((self.root / 'backup/config.php').stat().st_mode & 0o777, 0o640)
 
     def test_privileged_runtime_contract(self):
-        self.assertEqual(str(controller.PLUGIN), '/var/www/vhosts/gcreation.agency/dev.gcreation.agency/wp-content/plugins/gcreation-performance')
+        self.assertFalse(hasattr(controller, 'PLUGIN'))
+        self.assertFalse(hasattr(controller, 'WP'))
         flags = controller.container_flags('1500m', '3.5')
         for flag in ['--cap-drop=ALL','--security-opt=no-new-privileges','--pids-limit=192','--cgroup-parent=gcreation-perf-dev.slice']:
             self.assertIn(flag, flags)
@@ -109,7 +110,7 @@ class DeploymentBoundaryTests(unittest.TestCase):
         finally:
             controller.STATE = previous
 
-    def simulate_deployment(self, fail_health=False):
+    def simulate_deployment(self, fail_health=False, next_request=False):
         # Simulate host operations; never invoke the installed controller, Docker,
         # Plesk PHP or privileged filesystem/ownership operations.
         wp = self.root / 'dev-wordpress'
@@ -117,7 +118,7 @@ class DeploymentBoundaryTests(unittest.TestCase):
         plugin.mkdir(parents=True)
         (plugin / 'old.php').write_text('previous-plugin')
         (plugin / 'config.php').write_text('previous-private-configuration')
-        (plugin / 'config.php').chmod(0o640)
+        (plugin / 'config.php').chmod(0o600)
         expected_owner = (plugin.stat().st_uid, plugin.stat().st_gid)
         state = self.root / 'state'; state.mkdir()
         prior_release = state / 'release-0'; prior_release.mkdir()
@@ -139,15 +140,25 @@ class DeploymentBoundaryTests(unittest.TestCase):
             if fail_health:
                 raise RuntimeError('controlled final health failure')
 
-        replacements = dict(SOURCE=self.source, WP=wp, PLUGIN=plugin, STATE=state,
+        submitted = []
+
+        def host_command(*args, **kwargs):
+            if next_request and not submitted:
+                self.assertFalse((ops / 'deploy-dev.request').exists())
+                self.assertTrue(list(ops.glob('deploy-dev.claimed-*')))
+                (ops / 'deploy-dev.request').write_text(json.dumps({'action': 'deploy', 'commit': 'c' * 40}))
+                submitted.append(True)
+
+        replacements = dict(SOURCE=self.source, STATE=state,
                             TRUSTED=trusted, ALLOW=['wordpress'])
         with mock.patch.multiple(controller, **replacements), \
                 mock.patch.object(controller.os, 'geteuid', return_value=0), \
                 mock.patch.object(controller.os, 'chown') as ownership, \
                 mock.patch.object(controller.pwd, 'getpwnam', return_value=SimpleNamespace(pw_uid=os.getuid())), \
                 mock.patch.object(Path, 'read_text', read_text), \
-                mock.patch.object(controller, 'command') as commands, \
+                mock.patch.object(controller, 'command', side_effect=host_command) as commands, \
                 mock.patch.object(controller, 'start_runtime') as runtime, \
+                mock.patch.object(controller, 'ensure_internal_network'), \
                 mock.patch.object(controller, 'health', side_effect=check_health):
             if fail_health:
                 with self.assertRaisesRegex(RuntimeError, 'controlled final health failure'):
@@ -156,27 +167,28 @@ class DeploymentBoundaryTests(unittest.TestCase):
                 controller.deploy()
         return plugin, state, ops, expected_owner, ownership, commands, runtime
 
-    def test_simulated_deploy_replaces_only_plugin_and_records_source_digest(self):
+    def test_simulated_runtime_deploy_never_changes_wordpress_and_records_source_digest(self):
         plugin, state, ops, _, _, commands, runtime = self.simulate_deployment()
         status = json.loads((ops / 'deploy-dev.status').read_text())
         self.assertEqual(status['state'], 'COMPLETED')
         self.assertEqual(status['commit'], 'b' * 40)
         self.assertEqual(len(status['snapshot_sha256']), 64)
-        self.assertTrue((plugin / 'new.php').exists())
-        self.assertFalse((plugin / 'old.php').exists())
-        self.assertEqual((plugin / 'config.php').stat().st_mode & 0o777, 0o640)
-        self.assertEqual((state / 'plugin-backup/config.php').read_text(), 'previous-private-configuration')
+        self.assertFalse((plugin / 'new.php').exists())
+        self.assertTrue((plugin / 'old.php').exists())
+        self.assertEqual((plugin / 'config.php').stat().st_mode & 0o777, 0o600)
+        self.assertEqual((plugin / 'config.php').read_text(), 'previous-private-configuration')
+        self.assertFalse((state / 'plugin-backup').exists())
         self.assertFalse((ops / 'deploy-dev.request').exists())
         self.assertEqual(runtime.call_count, 1)
         self.assertTrue(commands.called)
 
-    def test_simulated_health_failure_restores_private_config_and_prior_runtime(self):
+    def test_simulated_health_failure_preserves_wordpress_and_restores_prior_runtime(self):
         plugin, state, ops, expected_owner, ownership, _, runtime = self.simulate_deployment(True)
         self.assertEqual((plugin / 'old.php').read_text(), 'previous-plugin')
         self.assertFalse((plugin / 'new.php').exists())
         self.assertEqual((plugin / 'config.php').read_text(), 'previous-private-configuration')
-        self.assertEqual((plugin / 'config.php').stat().st_mode & 0o777, 0o640)
-        ownership.assert_any_call(str(plugin / 'config.php'), *expected_owner)
+        self.assertEqual((plugin / 'config.php').stat().st_mode & 0o777, 0o600)
+        self.assertFalse(any(str(plugin) in str(call) for call in ownership.call_args_list))
         self.assertEqual(runtime.call_args[0][0], state / 'release-0')
         self.assertEqual(runtime.call_count, 2)
         status = json.loads((ops / 'deploy-dev.status').read_text())
@@ -185,6 +197,11 @@ class DeploymentBoundaryTests(unittest.TestCase):
         self.assertTrue(status['rollback'])
         self.assertFalse((ops / 'deploy-dev.request').exists())
         self.assertEqual(json.loads((state / 'active.json').read_text())['commit'], 'a' * 40)
+
+    def test_request_arriving_during_deployment_survives_claim_cleanup(self):
+        _, _, ops, _, _, _, _ = self.simulate_deployment(next_request=True)
+        self.assertEqual(json.loads((ops / 'deploy-dev.request').read_text())['commit'], 'c' * 40)
+        self.assertFalse(list(ops.glob('deploy-dev.claimed-*')))
 
 
 if __name__ == '__main__':

@@ -1,10 +1,10 @@
-STATUS: PENDING REVIEW — independent implementation/testing continues
-PRIORITY: Required before deployed DEV acceptance
-BLOCKS: DEV deployment, public proxy health, real browser resource/isolation checks, WordPress/WooCommerce E2E
-WHY HUMAN ACTION IS REQUIRED: The agent has no root/Plesk authority. These actions install immutable trusted code and configure only DEV.
-FILES TO REVIEW: ops/dev/install-root.sh, deploy_controller.py, deploy-dev.sh, runtime.Dockerfile, seccomp_profile.json, all systemd files, nginx-dev.conf.example, README.md; SECURITY.md
-EXACT ACTION: Review the kit; install it as root; populate DENIED_IPS; apply DEV-only Plesk proxy; after deployment activate the plugin and configure DEV page/product/BDT/manual checkout. Supply a controlled public test URL with product/sitemap fixtures, owned/authorized for this project. Never grant the agent root, Docker group/socket or Plesk admin access.
-EXACT COMMAND OR UI PATH: Human root: bash /home/codexperf/projects/gcreation-performance/ops/dev/install-root.sh ; Plesk DEV domain > Apache & nginx settings > Additional nginx directives ; DEV WP > Plugins > gCreation Performance Doctor ; Pages > /performance-doctor/ shortcode [gcreation_performance] ; Performance Doctor > Settings ; WooCommerce > Settings > General/Payments.
-EXPECTED RESULT: Root-owned watcher and constrained runtime can accept the fixed deployment request; only the DEV plugin is replaced; public /perf-engine/health returns structured JSON; manual/test checkout is available.
-VERIFICATION: .ops/deploy-dev.status COMPLETED; internal/public health; root-owned/non-writable installed files; docker inspect effective CPU/memory/PID/network flags; systemctl show gcreation-perf-dev.slice; DEV controlled E2E. Share sanitized results, never secrets.
-SAFE TO CONTINUE WITHOUT THIS ACTION: Yes — engine/plugin tests, fixes, UI tests, documentation and all project-local development. No privileged kit execution by the agent.
+STATUS: READY FOR SECOND SECURITY REVIEW
+PRIORITY: Human security review before any DEV kit installation or deployment request
+BLOCKS: Privileged installation/execution and deployed DEV acceptance
+WHY HUMAN ACTION IS REQUIRED: The agent has no root/Plesk/Docker authority. The owner must review the fixed DEV-only trust boundary before considering installation.
+FILES TO REVIEW: The exact 48-file list in ops/dev/SECURITY_REVIEW_BUNDLE.md; all 42 privileged/container/build/plugin inputs are bound to commit 7887fca3a0fe6615da764b12d777efbe03d82a62 by ops/dev/SECURITY_REVIEW_SHA256SUMS.
+EXACT ACTION: Provide the listed files for human security review; record findings and the review outcome. Do not install or execute privileged components at this checkpoint. Do not share secrets.
+EXACT COMMAND OR UI PATH: Review only. From the project root, sha256sum --check ops/dev/SECURITY_REVIEW_SHA256SUMS verifies the source files without installation.
+EXPECTED RESULT: Human-reviewed findings/approval tied to source commit 7887fca and the recalculated SHA-256 hashes. Review readiness is not security approval or DEV deployment completion.
+VERIFICATION: Initial clean tree and exact origin/develop tip 7887fca confirmed; 42 source files match commit blobs and hash checks pass; 11 Python deployment tests, 24 TypeScript tests, PHP checks, shell/static configuration checks and fresh source-snapshot Node gates pass. Final documentation-only handoff commit must be clean and pushed.
+SAFE TO CONTINUE WITHOUT THIS ACTION: Stop after preparing this review handoff, as requested. No privileged installation, deployment request or production access.

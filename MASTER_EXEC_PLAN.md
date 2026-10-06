@@ -4,20 +4,20 @@ Authoritative execution order: [PROJECT_TIMELINE.md](PROJECT_TIMELINE.md). Produ
 
 ## Current gate
 
-P0 remains FROZEN / human review PASS at approved governance1c6303e0 and freeze999ade0. Authority docs/P0_2_AUTONOMOUS_AUTHORIZATION.md. Independent security review PASS recorded for exact patch1bfe3e0c; approved runtime.Dockerfile three-directory offline chmod implemented. Candidate 0ac34ba50ab3192abfe2ae425c4283879484258e passes exact-archive source regression (59 Python,26 TypeScript,4 gateway;16 commands exit0). New image NOT_BUILT; actual root-owned image/UID10001 positive and root0700 negative acceptance PENDING_HUMAN. P1 IN_PROGRESS / full independent review PENDING; last consumed runtime repair_cycle1, REPAIR_1 failed/consumed1/1, REPAIR_2 deployment0/1, retries0, INITIAL consumed; P2–P7 NOT_STARTED; production/main untouched. Next allowed action: Human review and explicit authorization/execution of the constrained fresh-image upgrade gate ops/dev/REPAIR_2_IMAGE_UPGRADE_GATE.md; no deployment request/image/promotion by Codex. Machine state .ops/ORCHESTRATOR_STATUS.json.
+P0 remains FROZEN / human review PASS. Authority docs/P0_2_AUTONOMOUS_AUTHORIZATION.md. Gate A PASS and Gate B PASS recorded as HUMAN_OPERATOR_ATTESTED_VERIFIED_HANDOFF from exact SHA256-verified readable adjudication. Proven new image sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a; UID10001 traversal/read/import and root0700 negative/tree comparison PASS are operator-attested. Gate C PENDING_HUMAN_PROMOTION; installed old image pointer/Dockerfile preserved, official runtime not started. Codex made no privileged observation or image/runtime action. P1 IN_PROGRESS / full independent review PENDING; HUMAN_CAPABILITY_GATE; INITIAL consumed; last consumed runtime repair_cycle1; REPAIR_1 failed/consumed1/1; REPAIR_2 deployment0/1; automatic retries0; P2–P7 NOT_STARTED; production/main untouched. Next allowed action: Human independent review/authorization of Gate C atomic promotion only. No deployment request is authorized by this checkpoint. Evidence: .ops/reports/P1/REPAIR_2_GATE_B_VERIFICATION.json.
 
-V4 static/security reviews PASS. Accepted installation and controller refresh PASS. REPAIR_2 exact-patch source security PASS; candidate/image identities and pending gate: .ops/reports/P1/runtime-repair-2/REPORT.md. No fresh image or runtime deployment acceptance.
+V4 static/source security review and prior source regressions PASS. Current image Gate A/B PASS is human-operator attestation, distinct from privileged Codex verification and runtime acceptance. Gate C awaits separate human authorization; current verification .ops/reports/P1/REPAIR_2_GATE_B_VERIFICATION.json.
 
-| Part | Completion state | Workflow state        | Cycle record                                                              |
-| ---- | ---------------- | --------------------- | ------------------------------------------------------------------------- |
-| P0   | FROZEN           | FROZEN                | Human PASS; repair 1/repair 2 not used                                    |
-| P1   | IN_PROGRESS      | HUMAN_CAPABILITY_GATE | REPAIR_1 consumed1/1; REPAIR_2 source PASS/deploy0/1; full review PENDING |
-| P2   | NOT_STARTED      | NOT_STARTED           | No cycle started                                                          |
-| P3   | NOT_STARTED      | NOT_STARTED           | No cycle started                                                          |
-| P4   | NOT_STARTED      | NOT_STARTED           | No cycle started                                                          |
-| P5   | NOT_STARTED      | NOT_STARTED           | No cycle started                                                          |
-| P6   | NOT_STARTED      | NOT_STARTED           | No cycle started                                                          |
-| P7   | NOT_STARTED      | NOT_STARTED           | No cycle started                                                          |
+| Part | Completion state | Workflow state        | Cycle record                                                           |
+| ---- | ---------------- | --------------------- | ---------------------------------------------------------------------- |
+| P0   | FROZEN           | FROZEN                | Human PASS; repair 1/repair 2 not used                                 |
+| P1   | IN_PROGRESS      | HUMAN_CAPABILITY_GATE | Gate A/B PASS; Gate C pending; REPAIR_2 deploy0/1; full review PENDING |
+| P2   | NOT_STARTED      | NOT_STARTED           | No cycle started                                                       |
+| P3   | NOT_STARTED      | NOT_STARTED           | No cycle started                                                       |
+| P4   | NOT_STARTED      | NOT_STARTED           | No cycle started                                                       |
+| P5   | NOT_STARTED      | NOT_STARTED           | No cycle started                                                       |
+| P6   | NOT_STARTED      | NOT_STARTED           | No cycle started                                                       |
+| P7   | NOT_STARTED      | NOT_STARTED           | No cycle started                                                       |
 
 ## Preserved baseline and evidence
 
@@ -112,3 +112,7 @@ State SECURITY_REVIEW_REQUIRED. Final mechanism UID10001_DIRECTORY_TRAVERSAL_FAI
 ## P1 checkpoint0008 — repair2-source-pre-image-handoff
 
 Independent security review PASS recorded for exact patch1bfe3e0c; approved runtime.Dockerfile three-directory offline chmod implemented. Candidate 0ac34ba50ab3192abfe2ae425c4283879484258e passes exact-archive source regression (59 Python,26 TypeScript,4 gateway;16 commands exit0). New image NOT_BUILT; actual root-owned image/UID10001 positive and root0700 negative acceptance PENDING_HUMAN. P1 IN_PROGRESS / full independent review PENDING; last consumed runtime repair_cycle1, REPAIR_1 failed/consumed1/1, REPAIR_2 deployment0/1, retries0, INITIAL consumed; P2–P7 NOT_STARTED; production/main untouched. Next allowed action: Human review and explicit authorization/execution of the constrained fresh-image upgrade gate ops/dev/REPAIR_2_IMAGE_UPGRADE_GATE.md; no deployment request/image/promotion by Codex.
+
+## P1 checkpoint0009 — Gate C promotion handoff
+
+Gate A PASS and Gate B PASS recorded as HUMAN_OPERATOR_ATTESTED_VERIFIED_HANDOFF from exact SHA256-verified readable adjudication. Proven new image sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a; UID10001 traversal/read/import and root0700 negative/tree comparison PASS are operator-attested. Gate C PENDING_HUMAN_PROMOTION; installed old image pointer/Dockerfile preserved, official runtime not started. Codex made no privileged observation or image/runtime action. P1 IN_PROGRESS / full independent review PENDING; HUMAN_CAPABILITY_GATE; INITIAL consumed; last consumed runtime repair_cycle1; REPAIR_1 failed/consumed1/1; REPAIR_2 deployment0/1; automatic retries0; P2–P7 NOT_STARTED; production/main untouched. Next allowed action: Human independent review/authorization of Gate C atomic promotion only. No deployment request is authorized by this checkpoint. Evidence: .ops/reports/P1/REPAIR_2_GATE_B_VERIFICATION.json.

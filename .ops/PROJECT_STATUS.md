@@ -22,11 +22,13 @@ PASS — SOURCE + MINIMUM REGRESSION ONLY
 SOURCE CANDIDATE:
 0ac34ba50ab3192abfe2ae425c4283879484258e
 
-SOURCE CHECKS:
+SOURCE CHECKS — PREVIOUSLY RECORDED, NOT RERUN:
 PASS — 59 Python / 26 TypeScript / 4 gateway;16 exact-candidate commands exit0
 
 NEW IMAGE:
-NOT_BUILT / UID10001 IMAGE ACCEPTANCE PENDING_HUMAN
+GATE B PASS — HUMAN_OPERATOR_ATTESTED_VERIFIED_HANDOFF
+sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a
+NOT_PROMOTED / NOT_DEPLOYED
 
 REPAIR CYCLE:
 1 — LAST CONSUMED RUNTIME CYCLE; REPAIR_2 SOURCE IMPLEMENTED
@@ -55,11 +57,20 @@ ENFORCEMENT MODEL PRESERVED; EXACT IMAGE PACKAGING PATCH REVIEW PASS
 PRODUCTION/MAIN:
 UNTOUCHED
 
+GATE A:
+PASS
+
+GATE B:
+PASS
+
+GATE C:
+PENDING_HUMAN_PROMOTION
+
 NEXT ALLOWED ACTION:
-Human review and explicit authorization/execution of the constrained fresh-image upgrade gate ops/dev/REPAIR_2_IMAGE_UPGRADE_GATE.md; no deployment request/image/promotion by Codex.
+Human independent review/authorization of Gate C atomic promotion only. No deployment request is authorized by this checkpoint.
 
 EVIDENCE:
-.ops/reports/P1/runtime-repair-2/REPORT.md
+.ops/reports/P1/REPAIR_2_GATE_B_VERIFICATION.json
 
 OVERSIGHT:
 .ops/oversight/LATEST_CHECKPOINT.json / .md; EXTERNAL PENDING / NON-BLOCKING

@@ -1,13 +1,13 @@
 STATUS:
-P1 HUMAN_CAPABILITY_GATE — CONSTRAINED HUMAN IMAGE-UPGRADE GATE
+P1 HUMAN_CAPABILITY_GATE — GATE C PENDING_HUMAN_PROMOTION
 
-Independent security review PASS recorded for exact patch1bfe3e0c; approved runtime.Dockerfile three-directory offline chmod implemented. Candidate 0ac34ba50ab3192abfe2ae425c4283879484258e passes exact-archive source regression (59 Python,26 TypeScript,4 gateway;16 commands exit0). New image NOT_BUILT; actual root-owned image/UID10001 positive and root0700 negative acceptance PENDING_HUMAN. P1 IN_PROGRESS / full independent review PENDING; last consumed runtime repair_cycle1, REPAIR_1 failed/consumed1/1, REPAIR_2 deployment0/1, retries0, INITIAL consumed; P2–P7 NOT_STARTED; production/main untouched. Next allowed action: Human review and explicit authorization/execution of the constrained fresh-image upgrade gate ops/dev/REPAIR_2_IMAGE_UPGRADE_GATE.md; no deployment request/image/promotion by Codex.
+Gate A PASS and Gate B PASS recorded as HUMAN_OPERATOR_ATTESTED_VERIFIED_HANDOFF from exact SHA256-verified readable adjudication. Proven new image sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a; UID10001 traversal/read/import and root0700 negative/tree comparison PASS are operator-attested. Gate C PENDING_HUMAN_PROMOTION; installed old image pointer/Dockerfile preserved, official runtime not started. Codex made no privileged observation or image/runtime action. P1 IN_PROGRESS / full independent review PENDING; HUMAN_CAPABILITY_GATE; INITIAL consumed; last consumed runtime repair_cycle1; REPAIR_1 failed/consumed1/1; REPAIR_2 deployment0/1; automatic retries0; P2–P7 NOT_STARTED; production/main untouched. Next allowed action: Human independent review/authorization of Gate C atomic promotion only. No deployment request is authorized by this checkpoint. Evidence: .ops/reports/P1/REPAIR_2_GATE_B_VERIFICATION.json.
 
 ACTION FILE:
-ops/dev/REPAIR_2_IMAGE_UPGRADE_GATE.md
+ops/dev/REPAIR_2_IMAGE_UPGRADE_GATE.md — Section C only, following its unchanged preconditions and rollback requirements.
 
 HUMAN ACTION:
-Review and explicitly authorize the proposed fresh-stage image build/isolated acceptance/atomic DATA promotion procedure, then perform only that constrained gate and return its complete sanitized proof. Current security PASS authorizes source/regression only; it does not authorize these privileged actions. The missing root capability and latest human source-only scope require this stop. No automatic installer/image/request action by Codex.
+Human independent review/authorization of Gate C atomic promotion only. No deployment request is authorized by this checkpoint.
 
-PROHIBITED HERE:
-Deployment request, REPAIR_2 attempt, old-image/container in-place chmod, installer/prepare_image/seal rerun, failed evidence cleanup, unrelated trusted/secret/unit/network/WordPress/Plesk/nginx change, P2, production/main.
+CURRENT AUTHORITY:
+This transaction only reads/verifies/records Gate B adjudication. Gate C requires separate human/root authorization; Codex retains no root/Docker/systemd/Plesk privilege. Do not rerun Gate A/B, build/tag/promote an image, mutate installed files, start services, submit a deployment request or start P2 from this checkpoint.

@@ -767,6 +767,27 @@
       "timestamp": "2026-10-06T11:09:38.640717+00:00",
       "evidence_reference": "runtime-repair-2/REPORT.md",
       "limitations": "Not new-image or real runtime acceptance; exact human patch review does not authorize image build/promotion/request"
+    },
+    {
+      "criterion_id": "P1-REPAIR2-IMAGE-GATE-AB",
+      "part": "P1",
+      "requirement": "Record exact readable Gate B operator adjudication under latest human ingestion scope",
+      "result": "PASS_OPERATOR_ATTESTED",
+      "evidence_class": "HUMAN_OPERATOR_ATTESTED_VERIFIED_HANDOFF",
+      "timestamp": "2026-10-06T12:57:34.661910+00:00",
+      "evidence_reference": "REPAIR_2_GATE_B_VERIFICATION.json",
+      "observed": {
+        "handoff_sha256": "aa4b946f0b19f7cfe2cb83442aec86abc0da8f313919a370d1c480f03f28588d",
+        "gate_a": "PASS",
+        "gate_b": "PASS",
+        "gate_c": "PENDING_HUMAN_PROMOTION",
+        "new_proven_image_id": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a",
+        "promotion": "NOT_PERFORMED",
+        "runtime": "NOT_STARTED",
+        "repair_2_attempts": 0,
+        "automatic_retries": 0
+      },
+      "limitations": "Codex verifies handoff hash/content and local source/archive identities only. No direct root verification or runtime/P1 acceptance. Gate A PASS recorded under explicit human-owner instruction; raw preflight details not supplied."
     }
   ],
   "updated_at": "2026-10-06T10:50:27.735379+00:00",
@@ -791,6 +812,11 @@
   "authorization_reference": "docs/P0_2_AUTONOMOUS_AUTHORIZATION.md",
   "candidate_source_commit": "0ac34ba50ab3192abfe2ae425c4283879484258e",
   "candidate_archive_sha256": "958c6833da7e63d7843996a3171e540bf74b6978dcdfaf521c1eb55a39587ced",
-  "current_repair": "REPAIR_2_SOURCE_IMAGE_PENDING",
-  "repair_2_attempts": 0
+  "current_repair": "REPAIR_2_GATE_C_PENDING_HUMAN_PROMOTION",
+  "repair_2_attempts": 0,
+  "image_gate_a": "PASS",
+  "image_gate_b": "PASS",
+  "image_gate_c": "PENDING_HUMAN_PROMOTION",
+  "new_proven_image_id": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a",
+  "image_evidence_class": "HUMAN_OPERATOR_ATTESTED_VERIFIED_HANDOFF"
 }

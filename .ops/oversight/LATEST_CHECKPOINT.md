@@ -4,46 +4,53 @@ PART:
 P1
 
 PROCESS:
-repair2-source-pre-image-handoff
+repair2-gate-c-promotion-handoff
 
 RESULT:
-SOURCE_PASS_IMAGE_PENDING — HUMAN_CAPABILITY_GATE
+GATE_A_B_PASS_GATE_C_PENDING — HUMAN_CAPABILITY_GATE
 
-BUSINESS OUTCOME:
-Reviewed exact gateway directory traversal fix implemented; source candidate passes all local checks. Real new-image/root UID10001 and runtime acceptance pending.
+GATE A:
+PASS — recorded under the human-owner ingestion directive; accepted source/archive/snapshot identity reconciled. Raw preflight command/exit is not supplied.
+
+GATE B:
+PASS — HUMAN_OPERATOR_ATTESTED_VERIFIED_HANDOFF
+
+PROVEN NEW IMAGE:
+sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a
 
 SOURCE COMMIT:
 0ac34ba50ab3192abfe2ae425c4283879484258e
 
-ARCHIVE SHA256:
-958c6833da7e63d7843996a3171e540bf74b6978dcdfaf521c1eb55a39587ced
+HANDOFF SHA256:
+aa4b946f0b19f7cfe2cb83442aec86abc0da8f313919a370d1c480f03f28588d
 
-DEPLOYED IDENTITY:
-null — NEW IMAGE NOT_BUILT / NOT_DEPLOYED
+EVIDENCE:
+.ops/reports/P1/REPAIR_2_GATE_B_VERIFICATION.json
+.ops/reports/P1/REPAIR_2_GATE_B_OPERATOR_HANDOFF.txt
 
-WHAT CHANGED:
-Only approved offline three-directory Dockerfile chmod, focused Python fixture and read-only image probe; source acceptance/evidence/governance and proposed human gate prepared. Prior committed work/evidence preserved.
+VERIFICATION SCOPE:
+Codex independently checked readable handoff bytes/hash/required field consistency and local accepted Git/archive identities. Actual UID10001 traversal/read/import, root0700 ERR_MODULE_NOT_FOUND negative, trusted-tree comparison and installed preservation are operator attestations. No root-private report was accessed; no direct privileged verification is claimed. Previous source check results remain historical; no image/build/container/runtime test was run by Codex in this transaction.
 
-TESTS:
-6 targeted /59 Python unique /26 TypeScript /4 gateway PASS;16 exact candidate commands exit0; archive exported twice byte-identical and every Git blob matched. Image UID10001/root0700 negative NOT_RUN/PENDING_HUMAN.
+PROMOTION:
+NOT_PERFORMED. Installed old image pointer and Dockerfile preserved; official runtime not started.
 
-SECURITY:
-Independent exact-patch PASS. Frozen image-packaging change recorded; V4 enforcement model preserved. No privileged agent action or new root interface.
+GATE C:
+PENDING_HUMAN_PROMOTION — separate human/root authorization required.
 
 REPAIR COUNTERS:
-INITIAL consumed; REPAIR_1 failed/consumed1/1; last consumed runtime repair_cycle1; REPAIR_2 source implemented/deployment0/1; retries0.
+INITIAL consumed; REPAIR_1 failed/consumed1/1; last consumed runtime repair_cycle1; REPAIR_2 deployment0/1; automatic retries0.
+
+P1:
+IN_PROGRESS / full independent review PENDING. Image evidence is not deployed runtime acceptance.
+
+P2–P7:
+NOT_STARTED
 
 PRODUCTION/MAIN:
 UNTOUCHED
 
-KNOWN LIMITATIONS:
-Source fixtures are not actual image/runtime evidence. P1 remains IN_PROGRESS, full independent review PENDING; P2–P7 NOT_STARTED. Source PASS does not authorize image build/promotion/deployment.
-
-NEXT AUTOMATIC STEP:
-STOP; verify complete separately authorized human image-upgrade proof before considering a later request. No current deployment request authority.
-
-HUMAN ACTION:
-Review and explicitly authorize/execute the proposed constrained fresh-image upgrade gate ops/dev/REPAIR_2_IMAGE_UPGRADE_GATE.md. Preserve old image/context/installed state as rollback evidence.
+NEXT EXACT ACTION:
+Human independent review/authorization of Gate C atomic promotion only, under ops/dev/REPAIR_2_IMAGE_UPGRADE_GATE.md section C and all unchanged preconditions/rollback rules. No deployment request is authorized by this checkpoint. STOP.
 
 EXTERNAL OVERSIGHT:
 PENDING / NON-BLOCKING

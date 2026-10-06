@@ -1,0 +1,295 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-10-06T12:57:34.661910+00:00",
+  "part": "P1",
+  "process": "repair2-gate-b-operator-evidence-ingestion",
+  "result": "PASS_READABLE_HANDOFF",
+  "evidence_class": "HUMAN_OPERATOR_ATTESTED_VERIFIED_HANDOFF",
+  "handoff_original_path": "/home/codexperf/p1-repair2-gate-b-final-proof-v2.txt",
+  "handoff_preserved_path": ".ops/reports/P1/REPAIR_2_GATE_B_OPERATOR_HANDOFF.txt",
+  "handoff_sha256": "aa4b946f0b19f7cfe2cb83442aec86abc0da8f313919a370d1c480f03f28588d",
+  "handoff_bytes": 1492,
+  "sha256_verification": "PASS_EXACT_EXPECTED",
+  "operator_reported": {
+    "RESULT": "PASS",
+    "CANDIDATE_COMMIT": "0ac34ba50ab3192abfe2ae425c4283879484258e",
+    "SOURCE_ARCHIVE_SHA256": "958c6833da7e63d7843996a3171e540bf74b6978dcdfaf521c1eb55a39587ced",
+    "SNAPSHOT_DIGEST": "44b5b3b45036ce787f2b9c4ecb20ae21c37db323904b6f18c7c341b976d528ae",
+    "OLD_IMAGE_ID": "sha256:f2bb2401f1f296115cd0d3dd5609ca6514446f55d4484f1884639f308a456f24",
+    "REJECTED_CACHED_IMAGE_ID": "sha256:d09888bbe949d9241c26682798793bbd5a2cdf668a586a35bd673a7f6795e756",
+    "PROVEN_NEW_IMAGE_ID": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a",
+    "PROVEN_NEW_IMAGE_TAG": "gcreation-perf-dev-runtime:repair2-recovery2-0ac34ba50ab3192abfe2ae425c4283879484258e",
+    "CANDIDATE_DOCKERFILE_SHA256": "21ee8641969bc2eb92a91d1dcde28ed90e6420433bb022f1a25d1237c7eec152",
+    "GATEWAY_SHA256": "d9616a205b5f7a7e2d11779a2a98a1a5367ec76d992b2d3b8bb51e5a25343c4c",
+    "UID10001_POSITIVE_TRAVERSAL": "PASS",
+    "UID10001_POSITIVE_READ": "PASS",
+    "UID10001_POSITIVE_DYNAMIC_IMPORT": "PASS",
+    "ROOT0700_NEGATIVE": "PASS_ERR_MODULE_NOT_FOUND",
+    "OLD_NEW_TRUSTED_TREE_COMPARE": "PASS",
+    "ONLY_TRUSTED_TREE_CHANGES": "ops,ops/dev,ops/dev/trusted:0700->0755",
+    "DIRECTORY_NLINK": "INFORMATIONAL_NOT_ACCEPTANCE_DIMENSION",
+    "PACKAGE_DIRECTORIES_REMAIN_0700": "PASS",
+    "GATE_B": "PASS",
+    "IMAGE_REBUILD": "NO",
+    "IMAGE_OR_TAG_MUTATION": "NO",
+    "PROMOTION": "NOT_PERFORMED",
+    "INSTALLED_RUNTIME_IMAGE_POINTER": "OLD_IMAGE_PRESERVED",
+    "INSTALLED_DOCKERFILE": "OLD_BYTES_PRESERVED",
+    "OFFICIAL_RUNTIME_STARTED": "NO",
+    "DEPLOYMENT_REQUEST": "NO",
+    "REPAIR_2_ATTEMPT_CONSUMED": "NO",
+    "AUTOMATIC_DEPLOYMENT_RETRIES": "0",
+    "PRODUCTION_MAIN_TOUCHED": "NO"
+  },
+  "readable_field_checks": [
+    {
+      "criterion": "RESULT",
+      "observed": "PASS",
+      "result": "PASS",
+      "verification": "READABLE_SANITIZED_OPERATOR_HANDOFF_FIELD; no direct root observation"
+    },
+    {
+      "criterion": "CANDIDATE_COMMIT",
+      "observed": "0ac34ba50ab3192abfe2ae425c4283879484258e",
+      "result": "PASS",
+      "verification": "READABLE_SANITIZED_OPERATOR_HANDOFF_FIELD; no direct root observation"
+    },
+    {
+      "criterion": "SOURCE_ARCHIVE_SHA256",
+      "observed": "958c6833da7e63d7843996a3171e540bf74b6978dcdfaf521c1eb55a39587ced",
+      "result": "PASS",
+      "verification": "READABLE_SANITIZED_OPERATOR_HANDOFF_FIELD; no direct root observation"
+    },
+    {
+      "criterion": "SNAPSHOT_DIGEST",
+      "observed": "44b5b3b45036ce787f2b9c4ecb20ae21c37db323904b6f18c7c341b976d528ae",
+      "result": "PASS",
+      "verification": "READABLE_SANITIZED_OPERATOR_HANDOFF_FIELD; no direct root observation"
+    },
+    {
+      "criterion": "OLD_IMAGE_ID",
+      "observed": "sha256:f2bb2401f1f296115cd0d3dd5609ca6514446f55d4484f1884639f308a456f24",
+      "result": "PASS",
+      "verification": "READABLE_SANITIZED_OPERATOR_HANDOFF_FIELD; no direct root observation"
+    },
+    {
+      "criterion": "REJECTED_CACHED_IMAGE_ID",
+      "observed": "sha256:d09888bbe949d9241c26682798793bbd5a2cdf668a586a35bd673a7f6795e756",
+      "result": "PASS",
+      "verification": "READABLE_SANITIZED_OPERATOR_HANDOFF_FIELD; no direct root observation"
+    },
+    {
+      "criterion": "PROVEN_NEW_IMAGE_ID",
+      "observed": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a",
+      "result": "PASS",
+      "verification": "READABLE_SANITIZED_OPERATOR_HANDOFF_FIELD; no direct root observation"
+    },
+    {
+      "criterion": "PROVEN_NEW_IMAGE_TAG",
+      "observed": "gcreation-perf-dev-runtime:repair2-recovery2-0ac34ba50ab3192abfe2ae425c4283879484258e",
+      "result": "PASS",
+      "verification": "READABLE_SANITIZED_OPERATOR_HANDOFF_FIELD; no direct root observation"
+    },
+    {
+      "criterion": "CANDIDATE_DOCKERFILE_SHA256",
+      "observed": "21ee8641969bc2eb92a91d1dcde28ed90e6420433bb022f1a25d1237c7eec152",
+      "result": "PASS",
+      "verification": "READABLE_SANITIZED_OPERATOR_HANDOFF_FIELD; no direct root observation"
+    },
+    {
+      "criterion": "GATEWAY_SHA256",
+      "observed": "d9616a205b5f7a7e2d11779a2a98a1a5367ec76d992b2d3b8bb51e5a25343c4c",
+      "result": "PASS",
+      "verification": "READABLE_SANITIZED_OPERATOR_HANDOFF_FIELD; no direct root observation"
+    },
+    {
+      "criterion": "UID10001_POSITIVE_TRAVERSAL",
+      "observed": "PASS",
+      "result": "PASS",
+      "verification": "READABLE_SANITIZED_OPERATOR_HANDOFF_FIELD; no direct root observation"
+    },
+    {
+      "criterion": "UID10001_POSITIVE_READ",
+      "observed": "PASS",
+      "result": "PASS",
+      "verification": "READABLE_SANITIZED_OPERATOR_HANDOFF_FIELD; no direct root observation"
+    },
+    {
+      "criterion": "UID10001_POSITIVE_DYNAMIC_IMPORT",
+      "observed": "PASS",
+      "result": "PASS",
+      "verification": "READABLE_SANITIZED_OPERATOR_HANDOFF_FIELD; no direct root observation"
+    },
+    {
+      "criterion": "ROOT0700_NEGATIVE",
+      "observed": "PASS_ERR_MODULE_NOT_FOUND",
+      "result": "PASS",
+      "verification": "READABLE_SANITIZED_OPERATOR_HANDOFF_FIELD; no direct root observation"
+    },
+    {
+      "criterion": "OLD_NEW_TRUSTED_TREE_COMPARE",
+      "observed": "PASS",
+      "result": "PASS",
+      "verification": "READABLE_SANITIZED_OPERATOR_HANDOFF_FIELD; no direct root observation"
+    },
+    {
+      "criterion": "ONLY_TRUSTED_TREE_CHANGES",
+      "observed": "ops,ops/dev,ops/dev/trusted:0700->0755",
+      "result": "PASS",
+      "verification": "READABLE_SANITIZED_OPERATOR_HANDOFF_FIELD; no direct root observation"
+    },
+    {
+      "criterion": "DIRECTORY_NLINK",
+      "observed": "INFORMATIONAL_NOT_ACCEPTANCE_DIMENSION",
+      "result": "PASS",
+      "verification": "READABLE_SANITIZED_OPERATOR_HANDOFF_FIELD; no direct root observation"
+    },
+    {
+      "criterion": "PACKAGE_DIRECTORIES_REMAIN_0700",
+      "observed": "PASS",
+      "result": "PASS",
+      "verification": "READABLE_SANITIZED_OPERATOR_HANDOFF_FIELD; no direct root observation"
+    },
+    {
+      "criterion": "GATE_B",
+      "observed": "PASS",
+      "result": "PASS",
+      "verification": "READABLE_SANITIZED_OPERATOR_HANDOFF_FIELD; no direct root observation"
+    },
+    {
+      "criterion": "IMAGE_REBUILD",
+      "observed": "NO",
+      "result": "PASS",
+      "verification": "READABLE_SANITIZED_OPERATOR_HANDOFF_FIELD; no direct root observation"
+    },
+    {
+      "criterion": "IMAGE_OR_TAG_MUTATION",
+      "observed": "NO",
+      "result": "PASS",
+      "verification": "READABLE_SANITIZED_OPERATOR_HANDOFF_FIELD; no direct root observation"
+    },
+    {
+      "criterion": "PROMOTION",
+      "observed": "NOT_PERFORMED",
+      "result": "PASS",
+      "verification": "READABLE_SANITIZED_OPERATOR_HANDOFF_FIELD; no direct root observation"
+    },
+    {
+      "criterion": "INSTALLED_RUNTIME_IMAGE_POINTER",
+      "observed": "OLD_IMAGE_PRESERVED",
+      "result": "PASS",
+      "verification": "READABLE_SANITIZED_OPERATOR_HANDOFF_FIELD; no direct root observation"
+    },
+    {
+      "criterion": "INSTALLED_DOCKERFILE",
+      "observed": "OLD_BYTES_PRESERVED",
+      "result": "PASS",
+      "verification": "READABLE_SANITIZED_OPERATOR_HANDOFF_FIELD; no direct root observation"
+    },
+    {
+      "criterion": "OFFICIAL_RUNTIME_STARTED",
+      "observed": "NO",
+      "result": "PASS",
+      "verification": "READABLE_SANITIZED_OPERATOR_HANDOFF_FIELD; no direct root observation"
+    },
+    {
+      "criterion": "DEPLOYMENT_REQUEST",
+      "observed": "NO",
+      "result": "PASS",
+      "verification": "READABLE_SANITIZED_OPERATOR_HANDOFF_FIELD; no direct root observation"
+    },
+    {
+      "criterion": "REPAIR_2_ATTEMPT_CONSUMED",
+      "observed": "NO",
+      "result": "PASS",
+      "verification": "READABLE_SANITIZED_OPERATOR_HANDOFF_FIELD; no direct root observation"
+    },
+    {
+      "criterion": "AUTOMATIC_DEPLOYMENT_RETRIES",
+      "observed": "0",
+      "result": "PASS",
+      "verification": "READABLE_SANITIZED_OPERATOR_HANDOFF_FIELD; no direct root observation"
+    },
+    {
+      "criterion": "PRODUCTION_MAIN_TOUCHED",
+      "observed": "NO",
+      "result": "PASS",
+      "verification": "READABLE_SANITIZED_OPERATOR_HANDOFF_FIELD; no direct root observation"
+    }
+  ],
+  "gate_a": {
+    "status": "PASS",
+    "basis": "Human-owner latest ingestion instruction explicitly requests Gate A PASS after readable identity/result reconciliation. Handoff pins accepted source/archive/snapshot identities.",
+    "direct_privileged_verification": false,
+    "raw_preflight_command_or_exit_supplied": false
+  },
+  "gate_b": {
+    "status": "PASS",
+    "scope": "Latest human-owner minimum adjudicated readable-handoff criteria",
+    "uid10001_traversal": "PASS_OPERATOR_ATTESTED",
+    "uid10001_read": "PASS_OPERATOR_ATTESTED",
+    "uid10001_dynamic_import": "PASS_OPERATOR_ATTESTED",
+    "root0700_negative": "PASS_ERR_MODULE_NOT_FOUND_OPERATOR_ATTESTED",
+    "trusted_tree_comparison": "PASS_OPERATOR_ATTESTED",
+    "only_directory_mode_changes": [
+      "ops:0700->0755",
+      "ops/dev:0700->0755",
+      "ops/dev/trusted:0700->0755"
+    ],
+    "packages_scanner_shared_directories": "REMAIN_0700_OPERATOR_ATTESTED",
+    "directory_nlink": "INFORMATIONAL_NOT_ACCEPTANCE_DIMENSION",
+    "regular_file_link_and_archive_trust_rules": "UNCHANGED"
+  },
+  "gate_c": {
+    "status": "PENDING_HUMAN_PROMOTION",
+    "authorization_granted": false,
+    "promotion_performed": false,
+    "action_file": "ops/dev/REPAIR_2_IMAGE_UPGRADE_GATE.md",
+    "section": "C"
+  },
+  "local_verification": {
+    "baseline_head": "4375753bf4539557d6691a7d7c156c9903b4b23e",
+    "baseline_origin_develop_equal": true,
+    "baseline_working_tree_clean": true,
+    "candidate_source_byte_equality": "PASS",
+    "archive_sha256": "PASS",
+    "archive_regular_members": 182,
+    "canonical_snapshot_digest": "PASS",
+    "dockerfile_sha256": "PASS",
+    "gateway_sha256": "PASS",
+    "review_package_checksums": "PASS",
+    "request_claim_absence": "PASS",
+    "prior_failed_status_unchanged": "PASS"
+  },
+  "gate_reconciliation": {
+    "canonical_gate_sha256": "d0dc42534aa03f352a58a9d172cb5f6e87575a700b190c53ed3295a0dcae69a4",
+    "pre_image_handoff_retained": ".ops/reports/P1/runtime-repair-2/REPORT.md",
+    "initial_proposed_tag": "gcreation-perf-dev-runtime:repair2-0ac34ba50ab3192abfe2ae425c4283879484258e",
+    "operator_adjudicated_tag": "gcreation-perf-dev-runtime:repair2-recovery2-0ac34ba50ab3192abfe2ae425c4283879484258e",
+    "tag_disposition": "Latest human instruction identifies accepted immutable content ID; reported recovery tag retained as metadata, no tag mutation authorized or performed by Codex",
+    "directory_nlink_disposition": "Directory link count is not a mode/content/root-trust acceptance dimension; original regular-file/link safeguards remain intact",
+    "rejected_cached_image_disposition": "Excluded from any prospective promotion; reason not inferred from the readable handoff"
+  },
+  "root_private_report_reference": "/root/gcreation-ops/p1-repair2-gate-b-adjudication-v2/tree-adjudication.txt",
+  "root_private_report_accessed": false,
+  "codex_direct_privileged_observation": false,
+  "codex_privileged_or_runtime_action_performed": false,
+  "new_proven_image_id": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a",
+  "installed_image_id_operator_attested": "sha256:f2bb2401f1f296115cd0d3dd5609ca6514446f55d4484f1884639f308a456f24",
+  "runtime_acceptance": "NOT_GRANTED; prior REPAIR_1 failure unchanged",
+  "p1_execution_state": "IN_PROGRESS",
+  "full_p1_independent_review": "PENDING",
+  "repair_cycle_preserved": 1,
+  "initial": "CONSUMED",
+  "repair_1": "FAILED_CONSUMED_1_OF_1",
+  "repair_2_deployment_attempts": 0,
+  "automatic_deployment_retries": 0,
+  "p2": "NOT_STARTED",
+  "production_touched": false,
+  "limitations": [
+    "Only the sanitized readable handoff and local Git/archive bytes were independently checked by Codex. Root-private reports, actual image metadata/probes and preservation are human-operator attestations.",
+    "Gate A PASS is recorded under the latest human-owner directive; raw Gate A/preflight and build resource/command details are not present in this handoff. No such observation is fabricated.",
+    "IMAGE_REBUILD=NO and IMAGE_OR_TAG_MUTATION=NO describe the reported adjudication; previous fresh-image creation is not reconstructed or rerun.",
+    "Image acceptance does not grant promotion authorization, runtime/deployment/health acceptance, full P1 review PASS or P2 entry."
+  ]
+}

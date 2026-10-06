@@ -5,7 +5,7 @@ CURRENT PART:
 P1
 
 STATE:
-IN_PROGRESS
+WAITING_FOR_HUMAN
 
 AUTHORIZATION:
 HUMAN_P0_1 — P1–P6_ORCHESTRATED
@@ -38,7 +38,7 @@ PRODUCTION:
 UNTOUCHED
 
 NEXT ALLOWED ACTION:
-P1 unprivileged artifact verification and human-gate preparation
+Human review/installation/configuration per .ops/reports/P1/HUMAN_ACTION_REQUIRED.md
 
 NEXT FORBIDDEN ACTION:
 Privileged agent execution or advancement with a pending gate

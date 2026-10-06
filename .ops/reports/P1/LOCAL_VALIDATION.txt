@@ -1,0 +1,23 @@
+{
+  "source_commit": "8217aa4a13c0265efd8cb81473dd7f00c68d2c34",
+  "archive_sha256": "ecef5a23ef175096cc6312ca99dc0b306ecd76dc3cd4af8aca7de94c6e0443a7",
+  "regular_archive_members": 82,
+  "committed_blobs_matched": 81,
+  "manifest_sha256_matches": 78,
+  "privileged_and_influencing_files_matched": 30,
+  "expected_snapshot_sha256": "3ba8634a292f04079430f1401cf4c5a84fd77157fe1c25257e88b046a381c378",
+  "prior_validation_log_sha256": "8b8b3548ddad7bcac2987026998542cde3fb10f704587256fd7f2cbcc3e4b260",
+  "deployment_request_absent": true,
+  "euid_nonroot": true,
+  "limitations": "Local DATA/source integrity only; no root snapshot, installed image, host inspection or DEV runtime verified."
+}
+test_builder_offline_frozen_dependencies_and_no_credentials (test_security_review_v4.FourthReviewTests) ... ok
+test_artifact_hash_marker_and_snapshot_identity_are_bound (test_security_review_v4.FourthReviewTests) ... ok
+test_dependency_manifest_changes_and_unsafe_archives_rejected (test_security_review_v4.FourthReviewTests) ... ok
+test_request_requires_archive_hash_and_rejects_old_workspace_semantics (test_security_review_v4.FourthReviewTests) ... ok
+test_stale_regular_and_symlink_request_block_installation (test_security_review_v3.ThirdReviewTests) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.042s
+
+OK

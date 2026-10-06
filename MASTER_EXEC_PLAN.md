@@ -4,14 +4,14 @@ Authoritative execution order: [PROJECT_TIMELINE.md](PROJECT_TIMELINE.md). Produ
 
 ## Current gate
 
-P0 remains FROZEN / human review PASS at approved governance 1c6303e0c17b04952ee6e9c8b01d6868e53fe152 and freeze record 999ade0ea2695e92c1365a09a3e13f87bd4ef758. P0.1 authorizes sequential P1–P6 technical execution. Current Part P1: IN_PROGRESS, independent review PENDING, repair cycle 0. P2–P7 NOT_STARTED. Machine state: .ops/ORCHESTRATOR_STATUS.json. P0.1 grants one bounded P1–P6 execution authorization. Advance sequentially only after full technical exit evidence is persisted, no human/operator action or concrete blocker remains, and V4 boundaries are unchanged. Record EXECUTION_PASS with INDEPENDENT_REVIEW PENDING; Codex never grants human PASS/FROZEN. Stop at WAITING_FOR_HUMAN, SECURITY_REVIEW_REQUIRED, HARD_BLOCKED or P6_REVIEW_READY. P7 needs separate human authorization.
+P0 remains FROZEN / human review PASS at approved governance 1c6303e0c17b04952ee6e9c8b01d6868e53fe152 and freeze record 999ade0ea2695e92c1365a09a3e13f87bd4ef758. P0.1 authorizes sequential P1–P6 technical execution. Current Part P1: execution IN_PROGRESS, workflow WAITING_FOR_HUMAN, independent review PENDING, repair cycle 0. P2–P7 NOT_STARTED. Machine state: .ops/ORCHESTRATOR_STATUS.json. P0.1 grants one bounded P1–P6 execution authorization. Advance sequentially only after full technical exit evidence is persisted, no human/operator action or concrete blocker remains, and V4 boundaries are unchanged. Record EXECUTION_PASS with INDEPENDENT_REVIEW PENDING; Codex never grants human PASS/FROZEN. Stop at WAITING_FOR_HUMAN, SECURITY_REVIEW_REQUIRED, HARD_BLOCKED or P6_REVIEW_READY. P7 needs separate human authorization.
 
 V4 static security: PASS. Privileged DEV installation: HOLD pending separate human/operator installation/configuration. Real DEV/runtime/E2E acceptance is NOT_VERIFIED. Production untouched.
 
 | Part | Completion state | Workflow state | Cycle record                              |
 | ---- | ---------------- | -------------- | ----------------------------------------- |
 | P0   | FROZEN           | FROZEN         | Human PASS; repair 1/repair 2 not used      |
-| P1   | IN_PROGRESS      | IN_PROGRESS    | Initial cycle; independent review PENDING |
+| P1   | IN_PROGRESS      | WAITING_FOR_HUMAN | Initial cycle; independent review PENDING |
 | P2   | NOT_STARTED      | NOT_STARTED    | No cycle started                          |
 | P3   | NOT_STARTED      | NOT_STARTED    | No cycle started                          |
 | P4   | NOT_STARTED      | NOT_STARTED    | No cycle started                          |
@@ -53,4 +53,8 @@ P1: human-approved controlled installation and actual immutable-image/network/se
 
 V2 source 7887fca/handoff 826a622 and V3 source 10dcabfe/handoff 02edd2da were HOLD checkpoints. Their findings and review bundles remain unchanged historical evidence. V4 remediation source 8217aa4/handoff 5c44cb3 preserved prior work and subsequently received human static PASS. Older third/fourth-review stop/install instructions in historical bundles are historical. Current authorization comes from PROJECT_TIMELINE.md as amended by P0.1, not an old continuation or installation recipe.
 
-Next allowed action: P1 unprivileged preparation and exact artifact verification, then the minimum human/operator gate. No installation or deployment request before that gate is satisfied.
+## P1 checkpoint
+
+P0.1 setup pushed at 5db7fde1e17b1f8097a80bf38881184bb1b88b29. Exact accepted V4 archive/source/manifest/log identities verified;82 members,81 committed blobs,78 manifest hashes and30 influencing files match. Five focused fixture tests PASS. No implementation/kit/dependency/security edits; no real runtime/health/scan/installation or deployment request. [P1 report](.ops/reports/P1/REPORT.md), criterion evidence and checksums record LOCAL_TESTED versus NOT_VERIFIED. D24–D27 remain PENDING_HUMAN; other D/DEV acceptance unchanged. Repair cycle0; no technical failure asserted.
+
+Next allowed action: human installation/configuration and sanitized evidence per [.ops/reports/P1/HUMAN_ACTION_REQUIRED.md](.ops/reports/P1/HUMAN_ACTION_REQUIRED.md). Stop at WAITING_FOR_HUMAN. Resume the same Part after verified human evidence; do not advance to P2 while any P1 gate remains pending.

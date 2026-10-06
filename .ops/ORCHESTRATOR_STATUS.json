@@ -3,7 +3,7 @@
   "project": "gCreation Performance Doctor MVP v0.1",
   "mode": "P1-P6_ORCHESTRATED",
   "current_part": "P1",
-  "state": "IN_PROGRESS",
+  "state": "WAITING_FOR_HUMAN",
   "authorization": "HUMAN_P0_1",
   "authorization_reference": "docs/P0_1_ORCHESTRATOR_AUTHORIZATION.md",
   "p0": "FROZEN",
@@ -16,7 +16,8 @@
     "P1": {
       "execution_state": "IN_PROGRESS",
       "independent_review": "PENDING",
-      "repair_cycle": 0
+      "repair_cycle": 0,
+      "report_directory": ".ops/reports/P1"
     },
     "P2": {
       "execution_state": "NOT_STARTED",
@@ -44,8 +45,17 @@
       "repair_cycle": 0
     }
   },
-  "human_gate": null,
+  "human_gate": {
+    "part": "P1",
+    "purpose": "Separately approved human V4 DEV installation/configuration and sanitized identity evidence",
+    "action_file": ".ops/reports/P1/HUMAN_ACTION_REQUIRED.md",
+    "reviewed_source_commit": "8217aa4a13c0265efd8cb81473dd7f00c68d2c34",
+    "reviewed_archive_sha256": "ecef5a23ef175096cc6312ca99dc0b306ecd76dc3cd4af8aca7de94c6e0443a7",
+    "status": "PENDING"
+  },
   "hard_blocker": null,
   "production_touched": false,
-  "p7": "NOT_STARTED_SEPARATE_HUMAN_AUTHORIZATION_REQUIRED"
+  "p7": "NOT_STARTED",
+  "updated_at": "2026-10-06T03:31:48+00:00",
+  "p7_authorization": "SEPARATE_HUMAN_REQUIRED"
 }

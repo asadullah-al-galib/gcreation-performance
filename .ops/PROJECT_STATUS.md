@@ -44,16 +44,16 @@ PRODUCTION/MAIN:
 UNTOUCHED
 
 CURRENT OBSERVATION:
-Diagnostic handoff SHA3f977213... matches. Collection PASS; exact failure is start_runtime readiness loop ending with Runtime readiness deadline exceeded. Underlying root cause NOT_ESTABLISHED: health exceptions were discarded and all fixed containers/logs are unavailable. No justified REPAIR_2 remediation selected or implemented.
+Bounded diagnostic SHA687c1b75... verified. Fresh/cloned-data application health200; diagnostic gateway exits1/MODULE_NOT_FOUND, host health connection refused. Failed layer D isolated. Exact argv/entrypoint is redacted and pinned-image path/traversal metadata absent, so missing/wrong path versus permission mechanism remains unproven. Non-root/no-Docker fixture shows blocked traversal can also produce MODULE_NOT_FOUND; no REPAIR_2 fix selected.
 
 NEXT ALLOWED ACTION:
-Provide preserved failing health-probe exception or pre-cleanup container startup evidence if available; otherwise a human decision on a bounded diagnostic approach is required. No unchanged retry or REPAIR_2 attempt.
+Return exact sanitized gateway argv/entrypoint and pinned-image entrypoint presence/hash/owner/mode plus ancestor traversal/readability for UID10001. Confirm exact mechanism, then assess smallest correction and V4 review before implementation; no retry.
 
 MACHINE STATE:
 .ops/ORCHESTRATOR_STATUS.json
 
 EVIDENCE:
-.ops/reports/P1/REPAIR_1_RUNTIME_DIAGNOSTICS.json
+.ops/reports/P1/BOUNDED_RUNTIME_ROOT_CAUSE_REPORT.md
 
 OVERSIGHT:
 .ops/oversight/LATEST_CHECKPOINT.json / .md; EXTERNAL PENDING / NON-BLOCKING

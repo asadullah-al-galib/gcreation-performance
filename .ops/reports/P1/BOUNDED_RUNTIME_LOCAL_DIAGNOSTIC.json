@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "process": "trusted_gateway_module_resolution_fixture",
+  "recorded_at_utc": "2026-10-06T10:34:55.768235+00:00",
+  "evidence_class": "LOCAL_TESTED",
+  "source_commit": "134ddfbe393168ce7cef99c44817329c84a8d6eb",
+  "root_execution": false,
+  "Docker_execution": false,
+  "implementation_changed": false,
+  "prepare_fixture_umask": "0077",
+  "gateway_input_sha256_matches_accepted_source": true,
+  "gateway_source_ancestor_modes": [
+    {
+      "path": "build-context/trusted-source/ops/dev/trusted",
+      "mode": "0700",
+      "other_uid_traversal_allowed": false
+    },
+    {
+      "path": "build-context/trusted-source/ops/dev",
+      "mode": "0700",
+      "other_uid_traversal_allowed": false
+    },
+    {
+      "path": "build-context/trusted-source/ops",
+      "mode": "0700",
+      "other_uid_traversal_allowed": false
+    }
+  ],
+  "node_probe_with_access": {
+    "exit_code": 0
+  },
+  "node_probe_with_ancestor_no_traversal": {
+    "exit_code": 1,
+    "module_not_found": true
+  },
+  "conclusion": "Accepted prepare_image leaves trusted gateway source ancestors0700 under umask0077. A Node entrypoint that exists but has an inaccessible ancestor can produce MODULE_NOT_FOUND.",
+  "limitations": [
+    "Fixture only; no image or original runtime altered/inspected.",
+    "Does not establish actual immutable image gateway presence, directory modes or exact diagnostic argv.",
+    "Real error is compatible with both missing entrypoint and inaccessible ancestors; exact mechanism not yet proven."
+  ]
+}

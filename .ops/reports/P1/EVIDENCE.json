@@ -704,9 +704,23 @@
       "source_commit": "134ddfbe393168ce7cef99c44817329c84a8d6eb",
       "evidence_reference": "REPAIR_1_RUNTIME_DIAGNOSIS.json",
       "limitations": "Collection PASS and exact readiness operation established; underlying cause unproven. No source fix, tests, privileged changes or repair2 attempt."
+    },
+    {
+      "criterion_id": "P1-BOUNDED-GATEWAY-ROOT-CAUSE",
+      "part": "P1",
+      "requirement": "Concrete mechanism and justified minimal REPAIR_2 correction",
+      "observed": "Isolated gateway startup cannot resolve its .mjs entrypoint under the pinned immutable image; Node exits1/MODULE_NOT_FOUND. Exact missing-versus-inaccessible/wrong-path mechanism remains unproven.",
+      "result": "PENDING_HUMAN",
+      "checkpoint_result": "HOLD",
+      "evidence_class": "HUMAN_ATTESTED",
+      "verification_domain": "ISOLATED_DIAGNOSTIC_REPRODUCTION_ONLY",
+      "timestamp": "2026-10-06T10:36:51.096945+00:00",
+      "source_commit": "134ddfbe393168ce7cef99c44817329c84a8d6eb",
+      "evidence_reference": "BOUNDED_RUNTIME_ROOT_CAUSE.json",
+      "limitations": "Gateway failure isolated; exact path/permission mechanism unproved. Local fixture cannot grant image/runtime acceptance or justify speculative source repair."
     }
   ],
-  "updated_at": "2026-10-06T10:20:21.738274+00:00",
+  "updated_at": "2026-10-06T10:36:51.096945+00:00",
   "repair_path": "REPAIR_1",
   "repair_state": "HUMAN_CAPABILITY_GATE",
   "current_candidate_commit": "134ddfbe393168ce7cef99c44817329c84a8d6eb",

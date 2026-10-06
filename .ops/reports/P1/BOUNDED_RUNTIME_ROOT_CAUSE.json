@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "part": "P1",
+  "process": "bounded-runtime-root-cause-analysis",
+  "result": "HOLD",
+  "state": "HUMAN_CAPABILITY_GATE",
+  "recorded_at_utc": "2026-10-06T10:36:51.096945+00:00",
+  "source_commit": "134ddfbe393168ce7cef99c44817329c84a8d6eb",
+  "handoff_sha256": "687c1b750dd77e0624d581ce55f458f49f210196164a60f8358a0f61d4fcb525",
+  "scope_class": "RELIABILITY_CRITICAL",
+  "business_mapping": [
+    "RELIABILITY",
+    "SECURITY",
+    "MVP_RELEASE"
+  ],
+  "layers": {
+    "A_application_fresh_data": {
+      "result": "PASS_DIAGNOSTIC_ONLY",
+      "observed": "Running; direct health200 with expected service/environment"
+    },
+    "B_application_cloned_persisted_data": {
+      "result": "PASS_DIAGNOSTIC_ONLY",
+      "observed": "Running; direct health200; original data unchanged"
+    },
+    "C_direct_application_health": {
+      "result": "PASS_DIAGNOSTIC_ONLY",
+      "observed": "200 in both data variants"
+    },
+    "D_gateway_startup": {
+      "result": "FAIL",
+      "observed": "Container exited1; Node MODULE_NOT_FOUND for redacted .mjs entrypoint"
+    },
+    "E_gateway_to_app_network": {
+      "result": "NOT_REACHED",
+      "observed": "Gateway is not running; network path cannot be tested from this result"
+    },
+    "F_host_published_gateway_health": {
+      "result": "FAIL_CONSEQUENCE",
+      "observed": "Connection refused; gateway process exited"
+    },
+    "G_public_DEV_homepage_health_integration": {
+      "result": "HOMEPAGE_PASS_ENGINE_HEALTH_NOT_TESTED_IN_BUNDLE",
+      "observed": "DEV homepage200. This bundle does not demonstrate public engine health integration; earlier404 evidence retained"
+    },
+    "H_entrypoint_filesystem_resolution": {
+      "result": "EXACT_MECHANISM_NOT_ESTABLISHED",
+      "observed": "Missing file, wrong entrypoint path and inaccessible path cannot be distinguished from redacted MODULE_NOT_FOUND alone"
+    }
+  },
+  "most_specific_supported_root_cause": "Isolated gateway startup cannot resolve its .mjs entrypoint under the pinned immutable image; Node exits1/MODULE_NOT_FOUND. Exact missing-versus-inaccessible/wrong-path mechanism remains unproven.",
+  "why_repair_1_failed": "The official readiness loop requires gateway health. REPAIR_1 corrected mutable build-source traversal, while its trusted gateway still runs from the unchanged pinned image. The bounded reproduction identifies a gateway entrypoint-resolution failure compatible with official readiness failure; exact diagnostic argv/path must be confirmed before selecting image/launcher correction.",
+  "defect_type": "RUNTIME_ENTRYPOINT_RESOLUTION; source/image packaging/permissions versus launch-path configuration not yet distinguished; no app/data/network defect proven",
+  "smallest_remediation": "Restore successful loading of the reviewed gateway entrypoint at its expected immutable location for UID10001; exact source change cannot be selected until image/argv evidence is returned.",
+  "changed_files_required": null,
+  "potential_frozen_paths": [
+    "ops/dev/prepare_image.py",
+    "ops/dev/runtime.Dockerfile",
+    "ops/dev/deploy_controller.py"
+  ],
+  "v4_security_boundary_impact": {
+    "actual_change": false,
+    "implementation_authorized_now": false,
+    "assessment": "An immutable trusted image packaging/permissions or privileged launcher change would require SECURITY_REVIEW_REQUIRED before implementation. No such correction has been selected; preserve gateway enforcement, image trust and all controls."
+  },
+  "local_fixture_evidence": "BOUNDED_RUNTIME_LOCAL_DIAGNOSTIC.json",
+  "local_fixture_limit": "Accepted prepare_image under umask0077 leaves gateway source ancestors0700; unreadable/traversal-blocked existing Node entrypoint also reports MODULE_NOT_FOUND. Does not prove actual image modes or diagnosis argv.",
+  "remaining_missing_evidence": [
+    "Exact sanitized gateway command/entrypoint used in the isolated reproduction, to match the accepted controller path /opt/gcreation-trusted/ops/dev/trusted/gateway.mjs",
+    "Pinned image entrypoint existence/hash/owner/mode and each ancestor directory owner/mode; explicit read/traverse result for UID/GID10001:10001"
+  ],
+  "repair_2_test_plan": [
+    "After concrete mechanism and V4 disposition: targeted fixture proving exact entrypoint included and traversable/readable by UID10001; fail for missing/inaccessible input",
+    "Existing image-preparation/archive/source/no-bytecode/V4 trust regressions and gateway socket/auth/header/route regression",
+    "Human/constrained-image exact gateway startup/internal+host health proof; immutable source/image identity bound to candidate",
+    "Full P1 effective container/network/sandbox/resources/secret/retention acceptance before P2"
+  ],
+  "repair_2_deployment_requirement": "Root cause and exact remediation established; V4 disposition cleared; minimal implementation and targeted/relevant full regression PASS; exact deterministic artifact and meaningful oversight checkpoint committed/pushed; new trusted image/privileged changes human-only if required. At most one REPAIR_2 request, retry0; no diagnostic use of deployment.",
+  "repair_counters": {
+    "initial": "CONSUMED",
+    "repair_1": "FAILED_CONSUMED",
+    "repair_1_used": 1,
+    "repair_1_limit": 1,
+    "automatic_retries": 0,
+    "repair_2_attempts": 0,
+    "current_repair_cycle": 1
+  },
+  "production_touched": false,
+  "official_runtime_mutation": false,
+  "next_allowed_step": "Return the exact gateway entrypoint and read-only pinned-image path/file/traversal evidence; distinguish wrong/missing entrypoint from UID10001 permission failure before choosing any repair. No official retry or REPAIR_2 attempt."
+}

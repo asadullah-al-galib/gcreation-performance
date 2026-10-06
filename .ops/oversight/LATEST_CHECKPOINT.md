@@ -4,13 +4,13 @@ PART:
 P1
 
 PROCESS:
-repair1-runtime-diagnostic-analysis
+bounded-runtime-root-cause-analysis
 
 RESULT:
 HOLD — HUMAN_CAPABILITY_GATE
 
 BUSINESS OUTCOME:
-Diagnostic handoff SHA3f977213... matches. Collection PASS; exact failure is start_runtime readiness loop ending with Runtime readiness deadline exceeded. Underlying root cause NOT_ESTABLISHED: health exceptions were discarded and all fixed containers/logs are unavailable. No justified REPAIR_2 remediation selected or implemented.
+Bounded diagnostic SHA687c1b75... verified. Fresh/cloned-data application health200; diagnostic gateway exits1/MODULE_NOT_FOUND, host health connection refused. Failed layer D isolated. Exact argv/entrypoint is redacted and pinned-image path/traversal metadata absent, so missing/wrong path versus permission mechanism remains unproven. Non-root/no-Docker fixture shows blocked traversal can also produce MODULE_NOT_FOUND; no REPAIR_2 fix selected.
 
 SOURCE COMMIT:
 134ddfbe393168ce7cef99c44817329c84a8d6eb
@@ -22,10 +22,10 @@ WHAT CHANGED:
 Current governance and criterion evidence; accepted source/security kit unchanged.
 
 TARGETED TESTS:
-["Exact supplied diagnostic SHA256 verified", "Service exit1/time window/candidate/archive reconciled with consumed attempt", "Traceback392/340 matched accepted installed/Git controller bytes", "Collection reports fixed containers absent and logs unavailable", "No underlying failing health exception in returned evidence"]
+["Exact incoming SHA/source/snapshot/image/counter reconciliation PASS", "Layer A/B/C diagnostic PASS; D gateway MODULE_NOT_FOUND/exit1; E not reached; F refused; G homepage200 only", "Accepted prepare_image umask0077 fixture leaves gateway ancestor0700; existing inaccessible Node entrypoint MODULE_NOT_FOUND reproduced without root/Docker", "No selected repair: exact image path/permission mechanism evidence incomplete"]
 
 REAL DEV EVIDENCE:
-["Human-attested service FAILED/exit1 and readiness deadline trace", "Human-attested fixed containers absent; no logs retained", "Pinned image ID/config-user/workdir match; failed release and root stages preserved; no runtime mutations"]
+["Human-attested isolated diagnostic app health200 for fresh and cloned data", "Human-attested diagnostic gateway exits1/MODULE_NOT_FOUND and host gateway health refused", "Diagnostic reproduction did not create an official request or consume repair2; original data/networks/production preserved"]
 
 SECURITY:
 V4 PRESERVED
@@ -40,10 +40,10 @@ KNOWN LIMITATIONS:
 Full P1 independent review PENDING; private-host proof is human-attested.
 
 NEXT AUTOMATIC STEP:
-Provide preserved failing health-probe exception or pre-cleanup container startup evidence if available; otherwise a human decision on a bounded diagnostic approach is required. No unchanged retry or REPAIR_2 attempt.
+Return exact sanitized gateway argv/entrypoint and pinned-image entrypoint presence/hash/owner/mode plus ancestor traversal/readability for UID10001. Confirm exact mechanism, then assess smallest correction and V4 review before implementation; no retry.
 
 HUMAN ACTION:
-Return any preserved readiness-probe error/container startup evidence. If none survived, state that and decide the bounded diagnostic approach; no rerun/restart/recreate/configuration change requested.
+Return read-only exact gateway entrypoint/argv and pinned-image file/ancestor metadata proving missing versus inaccessible path. No official retry/restart/recreate or configuration/image change requested.
 
 EXTERNAL OVERSIGHT:
 PENDING

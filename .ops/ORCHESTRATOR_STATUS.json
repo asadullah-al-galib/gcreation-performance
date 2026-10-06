@@ -53,8 +53,8 @@
   "human_gate": {
     "part": "P1",
     "repair": "REPAIR_1",
-    "purpose": "Missing preserved failure evidence or human diagnostic decision; no runtime action",
-    "status": "PENDING_FAILURE_EVIDENCE",
+    "purpose": "Read-only exact gateway argv and pinned-image path/traversal verification",
+    "status": "PENDING_ENTRYPOINT_IMAGE_EVIDENCE",
     "action_file": ".ops/reports/P1/REPAIR_1_RUNTIME_DIAGNOSTICS_GATE.md",
     "action_file_sha256": "11fa7189cee4c81eff99da010edcddf7f3815e0bfe2167b452dbe4b2770425e3",
     "accepted_source_commit": "134ddfbe393168ce7cef99c44817329c84a8d6eb",
@@ -74,7 +74,7 @@
     ],
     "approval_granted_by": "HUMAN_P0_2_SECTION_8",
     "capability_verified": false,
-    "human_action": "Provide preserved failed-probe/per-container evidence if available. If no such evidence survived, a human decision on a bounded diagnostic approach is required; do not retry/recreate to obtain it.",
+    "human_action": "Return the exact gateway entrypoint and read-only pinned-image path/file/traversal evidence; distinguish wrong/missing entrypoint from UID10001 permission failure before choosing any repair. No official retry or REPAIR_2 attempt.",
     "operator_reported_result": "PASS",
     "installed_candidate_bytes_locally_verified": true,
     "full_refresh_verified": true,
@@ -83,7 +83,7 @@
   "hard_blocker": null,
   "production_touched": false,
   "p7": "NOT_STARTED",
-  "updated_at": "2026-10-06T10:20:55.495653+00:00",
+  "updated_at": "2026-10-06T10:37:33.054177+00:00",
   "p7_authorization": "SEPARATE_HUMAN_REQUIRED",
   "security_review": {
     "part": "P1",
@@ -231,13 +231,13 @@
   },
   "blocker": {
     "criterion": "P1 runtime start/health",
-    "command": "deploy() -> start_runtime(release) -> readiness loop; line340 raises RuntimeError after health() failed to return successfully across30 iterations",
-    "error": "Runtime readiness deadline exceeded",
-    "diagnosis": "NOT_ESTABLISHED; actual failing health probe/exception and pre-cleanup container startup evidence absent",
-    "evidence_file": ".ops/reports/P1/REPAIR_1_RUNTIME_DIAGNOSIS.json",
+    "command": "Diagnostic gateway Node entrypoint load; official readiness loop depends on successful gateway health",
+    "error": "MODULE_NOT_FOUND / gateway exit1; official runtime readiness deadline",
+    "diagnosis": "Isolated gateway startup cannot resolve its .mjs entrypoint under the pinned immutable image; Node exits1/MODULE_NOT_FOUND. Exact missing-versus-inaccessible/wrong-path mechanism remains unproven.",
+    "evidence_file": ".ops/reports/P1/BOUNDED_RUNTIME_ROOT_CAUSE.json",
     "status": "HUMAN_CAPABILITY_GATE",
-    "next_action": "Provide preserved failed-probe/per-container evidence if available. If no such evidence survived, a human decision on a bounded diagnostic approach is required; do not retry/recreate to obtain it.",
-    "smallest_remediation": "Obtain read-only diagnostic evidence before proposing any relevant REPAIR_2 change; no unchanged retry"
+    "next_action": "Return the exact gateway entrypoint and read-only pinned-image path/file/traversal evidence; distinguish wrong/missing entrypoint from UID10001 permission failure before choosing any repair. No official retry or REPAIR_2 attempt.",
+    "smallest_remediation": "Restore successful loading of the reviewed gateway entrypoint at its expected immutable location for UID10001; exact source change cannot be selected until image/argv evidence is returned."
   },
   "external_oversight": "PENDING",
   "deployment_authority": {
@@ -255,7 +255,7 @@
     "repair_2_attempts_used": 0
   },
   "capability_gate": {
-    "process": "repair1-runtime-diagnostic-analysis",
+    "process": "bounded-runtime-root-cause-analysis",
     "status": "PENDING_CAPABILITY",
     "scope_class": "RELIABILITY_CRITICAL",
     "business_mapping": [
@@ -263,12 +263,12 @@
       "SECURITY",
       "MVP_RELEASE"
     ],
-    "evidence_file": ".ops/reports/P1/REPAIR_1_RUNTIME_DIAGNOSIS.json",
-    "reason": "Exact readiness deadline operation established; discarded health exceptions and unavailable removed-container logs prevent a supported underlying root cause.",
+    "evidence_file": ".ops/reports/P1/BOUNDED_RUNTIME_ROOT_CAUSE.json",
+    "reason": "Exact gateway argv is redacted; actual pinned-image entrypoint/ancestor metadata is unavailable through approved agent capability.",
     "root_interface_available": false,
     "approval_already_granted": true,
     "repair_cycle_consumed": false,
-    "operator_action": "Provide preserved failed-probe/per-container evidence if available. If no such evidence survived, a human decision on a bounded diagnostic approach is required; do not retry/recreate to obtain it."
+    "operator_action": "Return the exact gateway entrypoint and read-only pinned-image path/file/traversal evidence; distinguish wrong/missing entrypoint from UID10001 permission failure before choosing any repair. No official retry or REPAIR_2 attempt."
   },
   "execution_policy": {
     "routine_micro_approvals_required": false,
@@ -295,7 +295,7 @@
   "oversight_checkpoint": {
     "latest_json": ".ops/oversight/LATEST_CHECKPOINT.json",
     "latest_markdown": ".ops/oversight/LATEST_CHECKPOINT.md",
-    "event": ".ops/oversight/events/0005-P1-repair1-runtime-diagnostic-analysis.json"
+    "event": ".ops/oversight/events/0006-P1-bounded-runtime-root-cause-analysis.json"
   },
   "controller_refresh": {
     "operator_reported_result": "PASS",
@@ -330,7 +330,11 @@
     "collection": "PASS",
     "analysis": "HOLD",
     "exact_operation_established": true,
-    "root_cause": "NOT_ESTABLISHED",
-    "evidence_file": ".ops/reports/P1/REPAIR_1_RUNTIME_DIAGNOSIS.json"
+    "root_cause": "ENTRYPOINT_RESOLUTION_FAILURE_EXACT_MECHANISM_UNPROVEN",
+    "evidence_file": ".ops/reports/P1/BOUNDED_RUNTIME_ROOT_CAUSE.json",
+    "bounded_reproduction": "PASS_COLLECTION",
+    "bounded_analysis": "HOLD",
+    "failed_layer": "GATEWAY_STARTUP",
+    "supported_error": "MODULE_NOT_FOUND"
   }
 }

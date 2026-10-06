@@ -1,6 +1,6 @@
 # Architecture
 
-This is a description of the preserved approved V4 design, not a redesign. Execution authority: PROJECT_TIMELINE.md. Current P0 governance is FROZEN; human review PASS; P1 SECURITY_REVIEW_REQUIRED (execution IN_PROGRESS / independent review PENDING under P0.1); P2–P7 NOT_STARTED. V4 static security review PASS; privileged DEV installation HOLD pending security review and separate human recovery/installation approval. Real deployed acceptance pending, production untouched, P1–P6 advancement follows P0.1; P7 requires separate human authorization.
+This is a description of the preserved approved V4 design, not a redesign. Execution authority: PROJECT_TIMELINE.md. Current P0 governance is FROZEN; human review PASS; Repair source security review PASS (source only); P1 WAITING_FOR_HUMAN (execution IN_PROGRESS / independent review PENDING under P0.1); P2–P7 NOT_STARTED. V4 static security review PASS; privileged DEV installation HOLD pending separate human fresh-stage recovery/installation approval. Real deployed acceptance pending, production untouched, P1–P6 advancement follows P0.1; P7 requires separate human authorization.
 
 A modular monolith: WordPress/WooCommerce owns sales and payment truth; Fastify owns audit jobs, SQLite, discovery, browser measurements and SSE; deterministic rules own explanation; the plugin presents the HTML Fix Center.
 

@@ -1,14 +1,15 @@
 STATUS:
-P1 SECURITY_REVIEW_REQUIRED — MINIMAL REPAIR CANDIDATE ONLY
+P1 WAITING_FOR_HUMAN — FRESH-STAGE OPERATOR GATE
 
-P0 remains FROZEN / human review PASS. P1 execution IN_PROGRESS / independent review PENDING / repair_cycle0. P2–P7 NOT_STARTED. Preparing this candidate consumes no repair cycle.
+INDEPENDENT SECURITY REPAIR REVIEW: PASS for source 08b395cf08523dbc5ab27f744d174b8a19bb2b4b, granted explicitly by the human. Accepted scope: only the demonstrated prepare_image import-bytecode defect repaired with two -I -B starts. V4 frozen boundaries remain accepted. Source PASS does not accept the contaminated old snapshot, installation/recovery, runtime, P2 or production.
 
-FAILING CRITERION: P1-ROOT-01, reviewed snapshot identity during privileged image preparation. Human reports original source 8217aa4a13c0265efd8cb81473dd7f00c68d2c34 / archive ecef5a23ef175096cc6312ca99dc0b306ecd76dc3cd4af8aca7de94c6e0443a7: preflight PASS, installer EXIT1, ValueError: Reviewed snapshot content mismatch. Generated snapshot/ops/dev/__pycache__/install_preflight.cpython-36.pyc. Exact partial-host record: reports/P1/security-repair/HOST_FAILURE.json (human attested, not agent inspected).
+P0 FROZEN / human PASS preserved. P1 execution IN_PROGRESS / full-Part independent review PENDING / repair_cycle0. P2–P7 NOT_STARTED. No gate wait consumes a repair.
 
-ROOT CAUSE: prepare_image imports install_preflight before verify_snapshot; -I does not disable import bytecode. Non-privileged fixture reproduces rejection. Proposed source repair adds -B only to the two prepare/seal interpreter invocations; verifier and all other privileged boundaries remain unchanged.
+ACTION FILE: [reports/P1/FRESH_STAGE_OPERATOR_GATE.md](reports/P1/FRESH_STAGE_OPERATOR_GATE.md).
+APPROVAL RECORD: [reports/P1/SECURITY_REPAIR_ACCEPTANCE.json](reports/P1/SECURITY_REPAIR_ACCEPTANCE.json).
 
-REVIEW PACKAGE: [reports/P1/security-repair/REPORT.md](reports/P1/security-repair/REPORT.md). Candidate source 08b395cf08523dbc5ab27f744d174b8a19bb2b4b; proposed archive SHA 80b206bf89d62f9a6b253970fea6a3a9cbe21b3106876e6e1e807df01a618929; source manifest SHA 11b0c7507058a4fbd56e12398b96547ed7d2b9724153d05ecd44e747460a28d7; repair-package CHECKSUMS.sha256 file SHA b051cc6a167bd15c313fe7ac5822d95497d7a748cedb4b5a98da2e03d323c912. All are review proposals, not approved installation authority.
+PROPOSED ARCHIVE SHA256: 80b206bf89d62f9a6b253970fea6a3a9cbe21b3106876e6e1e807df01a618929. Operator must verify the exact DATA/root-owned copy and separately approve fresh-stage recovery. Use source 08b395cf08523dbc5ab27f744d174b8a19bb2b4b, never the current metadata commit as installation source.
 
-NEXT ALLOWED ACTION: Independent security review of this candidate. STOP. A review PASS, if later supplied, still requires separate human approval of fresh-stage recovery/installation. Earlier P1 installation procedure is superseded and must not be executed now. Existing root snapshot and copied installation remain untouched; no bytecode deletion, bypass or in-place snapshot repair.
+NEXT ALLOWED ACTION: Explicit human/operator approval and fresh root-stage recovery per the gate. STOP. Preserve failed old root stage 8217aa4a13c0265efd8cb81473dd7f00c68d2c34 unchanged; do not reuse/clean/reapprove its snapshot or erase partial copied-install evidence. Like-for-like installed files/units remain until a separately approved human procedure. Old installation instructions are superseded.
 
-V4 STATIC SECURITY: Original static design PASS remains historical; this installer-path amendment requires new security review. PRIVILEGED DEV INSTALL: HOLD. No deployment request, runtime installation, root/Docker/systemd/Plesk/nginx/WordPress operation or P2 start by Codex. Production/main untouched.
+PRIVILEGED DEV INSTALL: HOLD pending that separate operator decision/action. No agent privileged execution, partial-install modification, deployment request, runtime acceptance or P2 start. Production/main untouched. The accepted repair package remains unchanged historical review evidence at commit6c73ad3aa7e08df22fe552feb75da0b0a2122dc6.

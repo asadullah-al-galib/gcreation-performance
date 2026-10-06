@@ -1,6 +1,6 @@
 ## PURPOSE
 
-SUPERSEDED — DO NOT EXECUTE. P1 is SECURITY_REVIEW_REQUIRED after the original installer failure. The commands below describe the previous gate only. Review security-repair/REPORT.md and obtain separate human recovery approval before any future installation; never modify the existing root snapshot.
+SUPERSEDED — DO NOT EXECUTE. These commands describe the failed old-source gate only; its contaminated snapshot must never be reused or cleaned. Current P1 state WAITING_FOR_HUMAN after repair-source independent security PASS; use FRESH_STAGE_OPERATOR_GATE.md and obtain separate human/operator recovery approval.
 
 Review and separately approve the exact retained V4 artifact, then manually install/configure the reviewed DEV foundation so P1 can validate real containment. Current state WAITING_FOR_HUMAN; no DEV installation/runtime acceptance is claimed.
 

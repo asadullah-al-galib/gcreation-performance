@@ -1,6 +1,6 @@
 # P1 — Security & DEV Deployment Foundation
 
-Current checkpoint: SECURITY_REVIEW_REQUIRED. Original preparation checkpoint below is historical and superseded. Human-reported installation failed; candidate package [security-repair/REPORT.md](security-repair/REPORT.md). Agent performed no privileged operation.
+Current checkpoint: WAITING_FOR_HUMAN. Independent security repair source review PASS for 08b395cf08523dbc5ab27f744d174b8a19bb2b4b is recorded in [SECURITY_REPAIR_ACCEPTANCE.json](SECURITY_REPAIR_ACCEPTANCE.json). Full-Part independent review remains PENDING. Current action: [FRESH_STAGE_OPERATOR_GATE.md](FRESH_STAGE_OPERATOR_GATE.md). The repair review package below remains preserved review-time evidence. Original preparation checkpoint below is historical and superseded. Human-reported installation failed; candidate package [security-repair/REPORT.md](security-repair/REPORT.md). Agent performed no privileged operation.
 
 Historical checkpoint: WAITING_FOR_HUMAN. P1 execution IN_PROGRESS; independent review PENDING; repair cycle 0. P0 remains FROZEN / human PASS. P2–P7 NOT_STARTED. No technical failure or security defect is asserted. No installation, deployment request, live health probe or production operation was performed.
 

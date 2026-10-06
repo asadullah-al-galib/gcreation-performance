@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "part": "P1",
+  "review_type": "INDEPENDENT_SECURITY_REPAIR_SOURCE",
+  "decision": "PASS",
+  "evidence_class": "HUMAN_ATTESTED",
+  "recorded_at": "2026-10-06T04:28:07+00:00",
+  "candidate_source_commit": "08b395cf08523dbc5ab27f744d174b8a19bb2b4b",
+  "accepted_scope": "Only the two -I -B interpreter invocations fixing demonstrated prepare_image import bytecode mutation.",
+  "v4_frozen_boundaries": "ACCEPTED",
+  "archive_sha256_supplied_as_proposed_identity": "80b206bf89d62f9a6b253970fea6a3a9cbe21b3106876e6e1e807df01a618929",
+  "archive_status": "OPERATOR_MUST_VERIFY_AND_SEPARATELY_APPROVE_FOR_STAGING",
+  "review_package_commit": "6c73ad3aa7e08df22fe552feb75da0b0a2122dc6",
+  "review_package_checksums_sha256": "b051cc6a167bd15c313fe7ac5822d95497d7a748cedb4b5a98da2e03d323c912",
+  "does_not_approve": [
+    "existing contaminated root snapshot reuse or cleanup",
+    "production",
+    "P2",
+    "runtime acceptance",
+    "automatic privileged installation",
+    "fresh-stage recovery or installation without a separate operator decision"
+  ],
+  "p1_execution_state": "IN_PROGRESS",
+  "p1_independent_review": "PENDING",
+  "repair_cycle": 0,
+  "installation_authorized": false,
+  "production_touched": false,
+  "next_state": "WAITING_FOR_HUMAN",
+  "origin": "Explicit human independent security review result supplied in this chat."
+}

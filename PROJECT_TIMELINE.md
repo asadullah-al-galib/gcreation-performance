@@ -4,7 +4,7 @@
 
 This is the **single authoritative execution timeline**. Product intent remains docs/MASTER_PRODUCT_SPEC.md; original M0.1–M0.32 are preserved below. The human governance request in docs/P0_GOVERNANCE_FREEZE_REQUEST.md controls the frozen P0 baseline; docs/P0_1_ORCHESTRATOR_AUTHORIZATION.md narrowly amends P1–P6 execution sequencing, while preserving independent review and all operator/security gates. MASTER_EXEC_PLAN.md is only the current-state ledger; ROADMAP.md is an index; REQUIREMENTS.md is the D01–D31 evidence cross-map.
 
-Current Part: P1. Execution state: IN_PROGRESS under HUMAN_P0_1. Orchestrator state: SECURITY_REVIEW_REQUIRED; candidate package .ops/reports/P1/security-repair/REPORT.md. Independent review: PENDING. P0 remains FROZEN / human review PASS for governance commit 1c6303e0c17b04952ee6e9c8b01d6868e53fe152, freeze record 999ade0ea2695e92c1365a09a3e13f87bd4ef758. P2–P7: NOT_STARTED. V4 static security: PASS for source 8217aa4a13c0265efd8cb81473dd7f00c68d2c34 / handoff 5c44cb3549aebf02ddef84d8f4a04c5f82ae7f7d. Privileged DEV installation: HOLD pending separate human/operator action. Runtime/deployment/E2E acceptance remains pending. Production is untouched. Current machine state: .ops/ORCHESTRATOR_STATUS.json.
+Current Part: P1. Execution state: IN_PROGRESS under HUMAN_P0_1. Orchestrator state: WAITING_FOR_HUMAN; operator gate .ops/reports/P1/FRESH_STAGE_OPERATOR_GATE.md. Independent security repair source review PASS for 08b395cf08523dbc5ab27f744d174b8a19bb2b4b; full-Part review remains separate. Independent review: PENDING. P0 remains FROZEN / human review PASS for governance commit 1c6303e0c17b04952ee6e9c8b01d6868e53fe152, freeze record 999ade0ea2695e92c1365a09a3e13f87bd4ef758. P2–P7: NOT_STARTED. V4 static security: PASS for source 8217aa4a13c0265efd8cb81473dd7f00c68d2c34 / handoff 5c44cb3549aebf02ddef84d8f4a04c5f82ae7f7d. Privileged DEV installation: HOLD pending separate human/operator action. Runtime/deployment/E2E acceptance remains pending. Production is untouched. Current machine state: .ops/ORCHESTRATOR_STATUS.json.
 
 There are exactly eight Parts, P0–P7. No additional top-level Part may be created without explicit human approval. Existing implementation is reconciled and validated within these Parts; NOT_STARTED refers to the newly governed execution/acceptance cycle, not absence of previously written code.
 
@@ -151,7 +151,7 @@ Any future Codex session must reject/defer these unless the human explicitly cha
 - **Purpose:** Prove the approved static foundation in the controlled DEV environment.
 - **Exact scope:** Reviewed artifact/root trust transition and frozen image/dependencies/proxy/gateway, separate credentials, dedicated verified networks, approved human installation/configuration, reproducible offline source build, internal/public health, bounded resources/status/rollback. Primary acceptance D24–D27; P5 rechecks effective limits/security under live work.
 - **Included original milestones:** M0.5–M0.7.
-- **Current status:** SECURITY_REVIEW_REQUIRED after human-reported snapshot bytecode mismatch; execution IN_PROGRESS; independent review PENDING. Static security prerequisite PASS; real installation/runtime validation pending.
+- **Current status:** WAITING_FOR_HUMAN for separately approved fresh-stage recovery. Independent repair-source security review PASS for 08b395cf08523dbc5ab27f744d174b8a19bb2b4b; execution IN_PROGRESS; full-Part independent review PENDING. Static security prerequisite PASS; real installation/runtime validation pending.
 - **Already implemented:** V4 kit, isolated toolchain, Fastify health and frozen security architecture at the approved source; no rebuild/redesign is authorized merely because live validation is pending.
 - **Only locally tested:** V4 boundary/socket tests, offline source gates, deterministic archive/hashes, mock deployment/rollback and loopback health.
 - **Requires real DEV validation:** Root-installed ownership/hash/image/dependency identity, network membership/egress boundary, secret placement0600, cgroups/seccomp/non-root/readonly/resource/log controls, actual offline build/deploy/status/health/rollback and stale-request refusal. No installation is inferred from static PASS.
@@ -163,7 +163,7 @@ Any future Codex session must reject/defer these unless the human explicitly cha
 - **Dependencies:** P0 frozen; V4 static PASS and reviewed artifact; designated human installer/DEV configuration. P2 cannot start with unverified containment.
 - **Allowed human actions:** After explicit approval, manually install reviewed kit/image/systemd and configure DEV nginx/environment; inspect runtime boundaries and authorize one controlled deployment/rollback validation. No WP deployment by the watcher.
 - **Allowed Codex actions:** Only explicitly authorized ordinary-user artifact/request/status/loopback and DEV-health validation through the installed mechanism; gather readable evidence; scoped repairs/tests within P1 authority; develop commit/push/handoff. Never Docker socket/root/operator commands.
-- **Completion state:** IN_PROGRESS; execution IN_PROGRESS; workflow SECURITY_REVIEW_REQUIRED; independent review PENDING; repair cycle 0.
+- **Completion state:** IN_PROGRESS; execution IN_PROGRESS; workflow WAITING_FOR_HUMAN; independent review PENDING; repair cycle 0.
 
 ## P2 — Audit Engine Live Validation
 

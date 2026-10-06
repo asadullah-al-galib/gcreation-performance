@@ -3,7 +3,7 @@
   "project": "gCreation Performance Doctor MVP v0.1",
   "mode": "P1-P6_AUTONOMOUS_V2",
   "current_part": "P1",
-  "state": "SECURITY_REVIEW_REQUIRED",
+  "state": "HUMAN_CAPABILITY_GATE",
   "authorization": "HUMAN_P0_2",
   "authorization_reference": "docs/P0_2_AUTONOMOUS_AUTHORIZATION.md",
   "p0": "FROZEN",
@@ -18,11 +18,12 @@
       "independent_review": "PENDING",
       "repair_cycle": 1,
       "report_directory": ".ops/reports/P1",
-      "repair_path": "REPAIR_1",
-      "repair_state": "SECURITY_REVIEW_REQUIRED",
+      "repair_path": "REPAIR_2",
+      "repair_state": "SOURCE_IMPLEMENTED_IMAGE_GATE_PENDING",
       "failed_repair_cycles": 1,
-      "repair_independent_review": "PASS",
-      "next_repair_cycle": 2
+      "repair_independent_review": "PASS_EXACT_PATCH",
+      "next_repair_cycle": 2,
+      "source_repair_cycle": 2
     },
     "P2": {
       "execution_state": "NOT_STARTED",
@@ -52,45 +53,34 @@
   },
   "human_gate": {
     "part": "P1",
-    "repair": "REPAIR_1",
-    "purpose": "Independent security review of unapplied frozen image packaging correction",
-    "status": "PENDING_INDEPENDENT_SECURITY_REVIEW",
-    "action_file": ".ops/reports/P1/gateway-repair-2-proposal/INDEPENDENT_REVIEW_GATE.md",
-    "action_file_sha256": "21cfdede7dbaf037c49faef18ae04d6d4a4996396f5383d025b4040d91762bda",
-    "accepted_source_commit": "134ddfbe393168ce7cef99c44817329c84a8d6eb",
-    "archive_sha256": "d2c69e1a49342ae09867bd206e39e89d969c8d0e39eb3c6e9b1eaaf93c1e68b0",
-    "root_review_stage": "/var/lib/gcreation-perf-review/134ddfbe393168ce7cef99c44817329c84a8d6eb",
-    "controller_refresh_authorized": true,
+    "repair": "REPAIR_2",
+    "purpose": "Constrained fresh-image build/acceptance/upgrade; separate human operator review/authorization required",
+    "status": "PENDING_HUMAN_IMAGE_UPGRADE",
+    "action_file": "ops/dev/REPAIR_2_IMAGE_UPGRADE_GATE.md",
+    "accepted_source_commit": "0ac34ba50ab3192abfe2ae425c4283879484258e",
+    "archive_sha256": "958c6833da7e63d7843996a3171e540bf74b6978dcdfaf521c1eb55a39587ced",
+    "root_review_stage": "/var/lib/gcreation-perf-review/0ac34ba50ab3192abfe2ae425c4283879484258e",
     "installation_authorized": false,
+    "image_build_promotion_authorized": false,
     "deployment_authorized": false,
     "max_new_deployment_requests": 0,
-    "prior_deployment_authorization_consumed": true,
     "automatic_retries": 0,
-    "scope": [
-      "NEW_ROOT_REVIEW_STAGE",
-      "ONLY_INSTALLED_CONTROLLER_ATOMIC_REFRESH",
-      "ROOT_PRIVATE_ROLLBACK_COPY",
-      "READ_ONLY_IDENTITY_AND_PRESERVATION_CHECKS"
-    ],
-    "approval_granted_by": "HUMAN_P0_2_SECTION_8",
     "capability_verified": false,
-    "human_action": "Independent review of the exact unapplied proposal package; no image/source/runtime action until disposition",
-    "operator_reported_result": "PASS",
-    "installed_candidate_bytes_locally_verified": true,
-    "full_refresh_verified": true,
-    "controller_refresh_result": "PASS"
+    "human_action": "Human review and explicit authorization/execution of the constrained fresh-image upgrade gate ops/dev/REPAIR_2_IMAGE_UPGRADE_GATE.md; no deployment request/image/promotion by Codex.",
+    "old_image_preserved": "sha256:f2bb2401f1f296115cd0d3dd5609ca6514446f55d4484f1884639f308a456f24",
+    "action_file_sha256": "d0dc42534aa03f352a58a9d172cb5f6e87575a700b190c53ed3295a0dcae69a4"
   },
   "hard_blocker": null,
   "production_touched": false,
   "p7": "NOT_STARTED",
-  "updated_at": "2026-10-06T10:50:27.796900+00:00",
+  "updated_at": "2026-10-06T11:11:22.335441+00:00",
   "p7_authorization": "SEPARATE_HUMAN_REQUIRED",
   "security_review": {
     "part": "P1",
     "kind": "REPAIR_2_GATEWAY_IMAGE_DIRECTORY_TRAVERSAL_PROPOSAL",
-    "status": "SECURITY_REVIEW_REQUIRED",
-    "independent_review": "PENDING",
-    "repair_state": "UNAPPLIED_PROPOSAL",
+    "status": "PASS",
+    "independent_review": "PASS",
+    "repair_state": "SOURCE_IMPLEMENTED",
     "old_source_commit": "134ddfbe393168ce7cef99c44817329c84a8d6eb",
     "old_image_id": "sha256:f2bb2401f1f296115cd0d3dd5609ca6514446f55d4484f1884639f308a456f24",
     "root_cause": "UID10001_DIRECTORY_TRAVERSAL_FAILURE",
@@ -101,14 +91,19 @@
     "implementation_files_proposed": [
       "ops/dev/runtime.Dockerfile"
     ],
-    "implementation_applied": false,
-    "candidate_source_commit": null,
-    "candidate_archive_sha256": null,
+    "implementation_applied": true,
+    "candidate_source_commit": "0ac34ba50ab3192abfe2ae425c4283879484258e",
+    "candidate_archive_sha256": "958c6833da7e63d7843996a3171e540bf74b6978dcdfaf521c1eb55a39587ced",
     "candidate_image_id": null,
     "repair_2_attempts_used": 0,
     "installation_authorized": false,
     "deployment_authorized": false,
-    "review_gate": ".ops/reports/P1/gateway-repair-2-proposal/INDEPENDENT_REVIEW_GATE.md"
+    "review_gate": "ops/dev/REPAIR_2_IMAGE_UPGRADE_GATE.md",
+    "reviewed_proposal_commit": "3992494df7776be6114fd89a170112071eb25402",
+    "approval_record": ".ops/reports/P1/REPAIR_2_SECURITY_ACCEPTANCE.json",
+    "accepted_scope": "EXACT_PATCH_SOURCE_AND_MINIMUM_REGRESSION_ONLY",
+    "implemented_package_checksums_sha256": "49d965d3b11cf907160d797221ea06a30befabc1a8c6003669315776d44ad36d",
+    "approval_record_sha256": "01de9fb2b3f3e4e3762c90ecd867fd0c099273634ee764621d1a53268b08a245"
   },
   "installation_gate": {
     "status": "PASS",
@@ -260,9 +255,11 @@
     "error": "MODULE_NOT_FOUND / gateway exit1; official runtime readiness deadline",
     "diagnosis": "UID10001 cannot traverse three root-owned0700 gateway image ancestors; exact file/hash/launcher are correct",
     "evidence_file": ".ops/reports/P1/gateway-repair-2-proposal/FINAL_ROOT_CAUSE.json",
-    "status": "SECURITY_REVIEW_REQUIRED",
-    "next_action": "Independent review before implementing proposed runtime.Dockerfile line",
-    "smallest_remediation": "Unapplied one-line offline image chmod0755 for exactly ops, ops/dev, ops/dev/trusted; changes frozen runtime image packaging"
+    "status": "HUMAN_CAPABILITY_GATE",
+    "next_action": "Human review and explicit authorization/execution of the constrained fresh-image upgrade gate ops/dev/REPAIR_2_IMAGE_UPGRADE_GATE.md; no deployment request/image/promotion by Codex.",
+    "smallest_remediation": "Reviewed one-line source correction implemented; fresh-image acceptance/upgrade pending human capability",
+    "source_remediation_status": "PASS_SOURCE_TESTS",
+    "runtime_remediation_status": "NOT_BUILT_NOT_DEPLOYED"
   },
   "external_oversight": "PENDING",
   "deployment_authority": {
@@ -277,23 +274,26 @@
     "request_ready": false,
     "prior_initial_attempt_consumed": true,
     "submitted_at_utc": "2026-10-06T10:03:32.917576+00:00",
-    "repair_2_attempts_used": 0
+    "repair_2_attempts_used": 0,
+    "repair_2_request_authorized": false,
+    "repair_2_source_candidate": "0ac34ba50ab3192abfe2ae425c4283879484258e"
   },
   "capability_gate": {
-    "process": "bounded-runtime-root-cause-analysis",
-    "status": "DIAGNOSTIC_EVIDENCE_RESOLVED",
-    "scope_class": "RELIABILITY_CRITICAL",
+    "process": "repair2-source-pre-image-handoff",
+    "status": "PENDING_HUMAN_IMAGE_UPGRADE",
+    "scope_class": "SECURITY_CRITICAL",
     "business_mapping": [
       "RELIABILITY",
       "SECURITY",
       "MVP_RELEASE"
     ],
-    "evidence_file": ".ops/reports/P1/BOUNDED_RUNTIME_ROOT_CAUSE.json",
-    "reason": null,
+    "evidence_file": ".ops/reports/P1/runtime-repair-2/REPORT.md",
+    "reason": "Source/regression PASS; new immutable image build/UID10001 acceptance/promotion requires reviewed human root capability and separate authorization",
     "root_interface_available": false,
-    "approval_already_granted": true,
+    "approval_already_granted": false,
     "repair_cycle_consumed": false,
-    "operator_action": null
+    "operator_action": "ops/dev/REPAIR_2_IMAGE_UPGRADE_GATE.md",
+    "source_review_approval_granted": true
   },
   "execution_policy": {
     "routine_micro_approvals_required": false,
@@ -320,7 +320,7 @@
   "oversight_checkpoint": {
     "latest_json": ".ops/oversight/LATEST_CHECKPOINT.json",
     "latest_markdown": ".ops/oversight/LATEST_CHECKPOINT.md",
-    "event": ".ops/oversight/events/0007-P1-gateway-traversal-security-proposal.json"
+    "event": ".ops/oversight/events/0008-P1-repair2-source-pre-image-handoff.json"
   },
   "controller_refresh": {
     "operator_reported_result": "PASS",

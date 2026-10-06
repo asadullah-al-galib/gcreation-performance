@@ -1,0 +1,5 @@
+{
+  "acceptance_file": ".ops/reports/P1/REPAIR_2_SECURITY_ACCEPTANCE.json",
+  "acceptance_sha256": "01de9fb2b3f3e4e3762c90ecd867fd0c099273634ee764621d1a53268b08a245",
+  "approved_patch_sha256": "1bfe3e0c08b6d2b456dd494a7240754affcdce56f3e52c1eebd1762089ba41ac"
+}

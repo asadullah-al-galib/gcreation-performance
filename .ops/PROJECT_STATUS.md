@@ -5,10 +5,7 @@ CURRENT PART:
 P1
 
 STATE:
-SECURITY_REVIEW_REQUIRED
-
-AUTHORIZATION:
-HUMAN_P0_2 — APPROVED CONSTRAINED DEV CAPABILITIES ONLY
+HUMAN_CAPABILITY_GATE
 
 P0:
 FROZEN / HUMAN REVIEW PASS
@@ -16,44 +13,53 @@ FROZEN / HUMAN REVIEW PASS
 P1 EXECUTION:
 IN_PROGRESS / INCOMPLETE
 
-P1 INDEPENDENT REVIEW:
+FULL P1 INDEPENDENT REVIEW:
 PENDING
 
-CONTROLLER REFRESH:
-PASS — HUMAN_ATTESTED HOST PROOF + LOCAL READ_ONLY IDENTITY CHECKS
+REPAIR_2 EXACT PATCH SECURITY REVIEW:
+PASS — SOURCE + MINIMUM REGRESSION ONLY
+
+SOURCE CANDIDATE:
+0ac34ba50ab3192abfe2ae425c4283879484258e
+
+SOURCE CHECKS:
+PASS — 59 Python / 26 TypeScript / 4 gateway;16 exact-candidate commands exit0
+
+NEW IMAGE:
+NOT_BUILT / UID10001 IMAGE ACCEPTANCE PENDING_HUMAN
 
 REPAIR CYCLE:
-1
+1 — LAST CONSUMED RUNTIME CYCLE; REPAIR_2 SOURCE IMPLEMENTED
 
-REPAIR_1 DEPLOYMENT ATTEMPTS:
-1 / 1
+INITIAL:
+CONSUMED / FAILED
+
+REPAIR_1 ATTEMPTS:
+1 / 1 — FAILED / CONSUMED
+
+REPAIR_2 DEPLOYMENT ATTEMPTS:
+0 / 1
 
 AUTOMATIC RETRIES:
 0
 
-PRIOR INITIAL DEPLOYMENT:
-CONSUMED / FAILED
+INSTALLATION / CONTROLLER REFRESH:
+HISTORICAL PASS; OLD IMAGE PRESERVED
 
 P2–P7:
 NOT_STARTED
 
-STATIC SECURITY:
-V4 PASS
+V4:
+ENFORCEMENT MODEL PRESERVED; EXACT IMAGE PACKAGING PATCH REVIEW PASS
 
 PRODUCTION/MAIN:
 UNTOUCHED
 
-CURRENT OBSERVATION:
-Final mechanism UID10001_DIRECTORY_TRAVERSAL_FAILURE proven: correct reviewed0644 gateway file/hash/launcher exists, but three root-owned0700 image ancestors deny runtime access/import. Smallest exact UNAPPLIED proposal adds one fixed chmod0755 line in existing offline runtime.Dockerfile step. Frozen immutable image packaging requires independent security review before implementation. No source/tests/image/runtime changes.
-
 NEXT ALLOWED ACTION:
-Independent review of exact unapplied gateway-repair-2-proposal package. No implementation or image/privileged/runtime action until security disposition; no deployment request.
-
-MACHINE STATE:
-.ops/ORCHESTRATOR_STATUS.json
+Human review and explicit authorization/execution of the constrained fresh-image upgrade gate ops/dev/REPAIR_2_IMAGE_UPGRADE_GATE.md; no deployment request/image/promotion by Codex.
 
 EVIDENCE:
-.ops/reports/P1/gateway-repair-2-proposal/FINAL_GATEWAY_ROOT_CAUSE_REPORT.md
+.ops/reports/P1/runtime-repair-2/REPORT.md
 
 OVERSIGHT:
 .ops/oversight/LATEST_CHECKPOINT.json / .md; EXTERNAL PENDING / NON-BLOCKING

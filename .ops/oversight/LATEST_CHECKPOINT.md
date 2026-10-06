@@ -4,46 +4,46 @@ PART:
 P1
 
 PROCESS:
-gateway-traversal-security-proposal
+repair2-source-pre-image-handoff
 
 RESULT:
-HOLD — SECURITY_REVIEW_REQUIRED
+SOURCE_PASS_IMAGE_PENDING — HUMAN_CAPABILITY_GATE
 
 BUSINESS OUTCOME:
-Final mechanism UID10001_DIRECTORY_TRAVERSAL_FAILURE proven: correct reviewed0644 gateway file/hash/launcher exists, but three root-owned0700 image ancestors deny runtime access/import. Smallest exact UNAPPLIED proposal adds one fixed chmod0755 line in existing offline runtime.Dockerfile step. Frozen immutable image packaging requires independent security review before implementation. No source/tests/image/runtime changes.
+Reviewed exact gateway directory traversal fix implemented; source candidate passes all local checks. Real new-image/root UID10001 and runtime acceptance pending.
 
 SOURCE COMMIT:
-134ddfbe393168ce7cef99c44817329c84a8d6eb
+0ac34ba50ab3192abfe2ae425c4283879484258e
+
+ARCHIVE SHA256:
+958c6833da7e63d7843996a3171e540bf74b6978dcdfaf521c1eb55a39587ced
 
 DEPLOYED IDENTITY:
-null
+null — NEW IMAGE NOT_BUILT / NOT_DEPLOYED
 
 WHAT CHANGED:
-Current governance and criterion evidence; accepted source/security kit unchanged.
+Only approved offline three-directory Dockerfile chmod, focused Python fixture and read-only image probe; source acceptance/evidence/governance and proposed human gate prepared. Prior committed work/evidence preserved.
 
-TARGETED TESTS:
-["Exact handoff SHA and accepted source/gateway/installed-controller hashes PASS", "Seven image metadata rows/effective10001 traversal+read+import reconciled PASS", "Unapplied one-line patch git apply --check PASS", "Non-root/no-Docker chmod scope/content/owner/mode/local-import proposal fixture PASS; actual candidate image not built"]
-
-REAL DEV EVIDENCE:
-["Human-attested pinned image gateway file exists/root0644/matching source hash", "Human-attested root0700 gateway ancestor traversal failure and UID10001 ERR_MODULE_NOT_FOUND", "Read-only isolated observations; no official request/retry/image build/network mutation/repair2 attempt"]
+TESTS:
+6 targeted /59 Python unique /26 TypeScript /4 gateway PASS;16 exact candidate commands exit0; archive exported twice byte-identical and every Git blob matched. Image UID10001/root0700 negative NOT_RUN/PENDING_HUMAN.
 
 SECURITY:
-SECURITY_REVIEW_REQUIRED — proposed frozen image packaging change; current V4 implementation unchanged
+Independent exact-patch PASS. Frozen image-packaging change recorded; V4 enforcement model preserved. No privileged agent action or new root interface.
 
-REPAIR CYCLE:
-1; REPAIR_1 attempts1/1; retries0
+REPAIR COUNTERS:
+INITIAL consumed; REPAIR_1 failed/consumed1/1; last consumed runtime repair_cycle1; REPAIR_2 source implemented/deployment0/1; retries0.
 
 PRODUCTION/MAIN:
 UNTOUCHED
 
 KNOWN LIMITATIONS:
-Full P1 independent review PENDING; private-host proof is human-attested.
+Source fixtures are not actual image/runtime evidence. P1 remains IN_PROGRESS, full independent review PENDING; P2–P7 NOT_STARTED. Source PASS does not authorize image build/promotion/deployment.
 
 NEXT AUTOMATIC STEP:
-Independent review of exact unapplied gateway-repair-2-proposal package. No implementation or image/privileged/runtime action until security disposition; no deployment request.
+STOP; verify complete separately authorized human image-upgrade proof before considering a later request. No current deployment request authority.
 
 HUMAN ACTION:
-Independent reviewer assesses the exact proposed frozen-image directory-mode correction and returns PASS/HOLD bound to patch/package identities. STOP; no implementation or installation now.
+Review and explicitly authorize/execute the proposed constrained fresh-image upgrade gate ops/dev/REPAIR_2_IMAGE_UPGRADE_GATE.md. Preserve old image/context/installed state as rollback evidence.
 
 EXTERNAL OVERSIGHT:
-PENDING
+PENDING / NON-BLOCKING

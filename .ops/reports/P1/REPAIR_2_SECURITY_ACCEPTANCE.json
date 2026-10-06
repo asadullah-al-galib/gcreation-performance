@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-10-06T11:05:22.009271+00:00",
+  "part": "P1",
+  "repair": "REPAIR_2",
+  "result": "PASS",
+  "evidence_class": "HUMAN_ATTESTED_INDEPENDENT_SECURITY_REVIEW",
+  "reviewed_proposal_commit": "3992494df7776be6114fd89a170112071eb25402",
+  "reviewed_patch": ".ops/reports/P1/gateway-repair-2-proposal/PROPOSED_SOURCE.patch",
+  "approved_patch_sha256": "1bfe3e0c08b6d2b456dd494a7240754affcdce56f3e52c1eebd1762089ba41ac",
+  "root_cause": "UID10001_DIRECTORY_TRAVERSAL_FAILURE",
+  "scope": [
+    "Exact runtime.Dockerfile three-directory offline chmod0755",
+    "Minimum targeted source regression"
+  ],
+  "implemented_candidate_commit": "0ac34ba50ab3192abfe2ae425c4283879484258e",
+  "candidate_archive_sha256": "958c6833da7e63d7843996a3171e540bf74b6978dcdfaf521c1eb55a39587ced",
+  "frozen_image_packaging_changed_with_exact_review": true,
+  "v4_enforcement_model_preserved": true,
+  "image_build_install_promotion_authorized": false,
+  "deployment_authorized": false,
+  "runtime_acceptance_granted": false,
+  "full_p1_independent_review": "PENDING",
+  "repair_cycle_preserved": 1,
+  "repair_1_attempts": 1,
+  "repair_2_attempts": 0,
+  "automatic_retries": 0,
+  "production_touched": false,
+  "no_broader_chmod_chown_host_context_launcher_secret_or_network_change": true
+}

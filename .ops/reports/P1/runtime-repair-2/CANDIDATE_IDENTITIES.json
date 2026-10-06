@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "candidate_commit": "0ac34ba50ab3192abfe2ae425c4283879484258e",
+  "parent_commit": "3992494df7776be6114fd89a170112071eb25402",
+  "candidate_changed_files": [
+    "ops/dev/runtime.Dockerfile",
+    "tests/gateway-image-permissions-probe.mjs",
+    "tests/test_gateway_image_permissions.py"
+  ],
+  "archive_path": "/home/codexperf/projects/gcreation-performance/.ops/test-artifacts/review-source-0ac34ba50ab3192abfe2ae425c4283879484258e.tar.gz",
+  "archive_sha256": "958c6833da7e63d7843996a3171e540bf74b6978dcdfaf521c1eb55a39587ced",
+  "source_manifest_sha256": "bfd511f25b48b5a335badc0547b846eda2189e19dce9039b2e56a6e744120ae7",
+  "expected_snapshot_digest": "44b5b3b45036ce787f2b9c4ecb20ae21c37db323904b6f18c7c341b976d528ae",
+  "archive_regular_members": 182,
+  "archive_bytes": 335338,
+  "repeat_archive_byte_equal": true,
+  "all_committed_blobs_match": true,
+  "gateway_sha256": "d9616a205b5f7a7e2d11779a2a98a1a5367ec76d992b2d3b8bb51e5a25343c4c",
+  "runtime_dockerfile_before_sha256": "b57d39dc4bb75e625c308841a3e71be23718f4e1dde1aab25b9d6b974939dc07",
+  "runtime_dockerfile_after_sha256": "21ee8641969bc2eb92a91d1dcde28ed90e6420433bb022f1a25d1237c7eec152",
+  "proposed_image_build_status": "NOT_BUILT_PENDING_HUMAN_IMAGE_UPGRADE_GATE",
+  "new_image_id": null,
+  "old_image_id": "sha256:f2bb2401f1f296115cd0d3dd5609ca6514446f55d4484f1884639f308a456f24",
+  "repair_2_deployment_attempts": 0,
+  "automatic_retries": 0,
+  "production_touched": false
+}

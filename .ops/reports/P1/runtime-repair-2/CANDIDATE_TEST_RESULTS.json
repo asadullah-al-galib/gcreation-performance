@@ -1,0 +1,231 @@
+{
+  "schema_version": 1,
+  "candidate_commit": "0ac34ba50ab3192abfe2ae425c4283879484258e",
+  "scope": "EXACT_COMMITTED_ARCHIVE_ORDINARY_USER_SOURCE_CHECKS",
+  "environment": {
+    "node_version": "v24.21.0",
+    "python_version": "Python 3.6.8",
+    "bytecode_disabled": true
+  },
+  "commands": [
+    {
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "tests/test_gateway_image_permissions.py",
+        "-v"
+      ],
+      "working_directory": "/home/codexperf/projects/gcreation-performance/.ops/test-artifacts/repair2-source-check-0ac34ba50ab3192abfe2ae425c4283879484258e",
+      "exit": 0,
+      "elapsed_seconds": 0.788,
+      "log_path": "/home/codexperf/projects/gcreation-performance/.ops/test-artifacts/repair2-candidate-check-00.log",
+      "log_sha256": "d9e7f735f152a82d4a6d5a42513c4fce295535594d4ce11c02385b1c649831f0"
+    },
+    {
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "tests/test_deployment_kit.py",
+        "-v"
+      ],
+      "working_directory": "/home/codexperf/projects/gcreation-performance/.ops/test-artifacts/repair2-source-check-0ac34ba50ab3192abfe2ae425c4283879484258e",
+      "exit": 0,
+      "elapsed_seconds": 0.259,
+      "log_path": "/home/codexperf/projects/gcreation-performance/.ops/test-artifacts/repair2-candidate-check-01.log",
+      "log_sha256": "faa0b6754fd94d6fd8baa6541219b289b028be843bbcf652fec3a8f50f721079"
+    },
+    {
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "tests/test_security_review_v3.py",
+        "-v"
+      ],
+      "working_directory": "/home/codexperf/projects/gcreation-performance/.ops/test-artifacts/repair2-source-check-0ac34ba50ab3192abfe2ae425c4283879484258e",
+      "exit": 0,
+      "elapsed_seconds": 0.284,
+      "log_path": "/home/codexperf/projects/gcreation-performance/.ops/test-artifacts/repair2-candidate-check-02.log",
+      "log_sha256": "c004cc04defaeb8f0f937e7352afa540e25225dcdc1e943fc4633959effaa4ca"
+    },
+    {
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "tests/test_security_review_v4.py",
+        "-v"
+      ],
+      "working_directory": "/home/codexperf/projects/gcreation-performance/.ops/test-artifacts/repair2-source-check-0ac34ba50ab3192abfe2ae425c4283879484258e",
+      "exit": 0,
+      "elapsed_seconds": 0.227,
+      "log_path": "/home/codexperf/projects/gcreation-performance/.ops/test-artifacts/repair2-candidate-check-03.log",
+      "log_sha256": "8e744ed5cc1652905d0e6427d7184c21daa3b6230f7c860d6a7a6b8c8f4f0c01"
+    },
+    {
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "tests/test_installer_bytecode.py",
+        "-v"
+      ],
+      "working_directory": "/home/codexperf/projects/gcreation-performance/.ops/test-artifacts/repair2-source-check-0ac34ba50ab3192abfe2ae425c4283879484258e",
+      "exit": 0,
+      "elapsed_seconds": 0.843,
+      "log_path": "/home/codexperf/projects/gcreation-performance/.ops/test-artifacts/repair2-candidate-check-04.log",
+      "log_sha256": "64782c47370842f025965b7c5282f2d13ae17e7e68476b18de96544c1450f456"
+    },
+    {
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "tests/test_source_permissions.py",
+        "-v"
+      ],
+      "working_directory": "/home/codexperf/projects/gcreation-performance/.ops/test-artifacts/repair2-source-check-0ac34ba50ab3192abfe2ae425c4283879484258e",
+      "exit": 0,
+      "elapsed_seconds": 0.169,
+      "log_path": "/home/codexperf/projects/gcreation-performance/.ops/test-artifacts/repair2-candidate-check-05.log",
+      "log_sha256": "6811b072b199b001a68e5a33836f57a3b7e7abb18852aa22cb72139ddde020e2"
+    },
+    {
+      "command": [
+        "/home/codexperf/projects/gcreation-performance/.ops/toolchain/node_modules/node/bin/node",
+        "/opt/plesk/node/26/lib/node_modules/npm/bin/npm-cli.js",
+        "run",
+        "format:check"
+      ],
+      "working_directory": "/home/codexperf/projects/gcreation-performance/.ops/test-artifacts/repair2-source-check-0ac34ba50ab3192abfe2ae425c4283879484258e",
+      "exit": 0,
+      "elapsed_seconds": 2.046,
+      "log_path": "/home/codexperf/projects/gcreation-performance/.ops/test-artifacts/repair2-candidate-check-06.log",
+      "log_sha256": "546e74c00c5cd6c3a148cd5f6b15e9b436bc108c700d8397d70c43d4c3af2386"
+    },
+    {
+      "command": [
+        "/home/codexperf/projects/gcreation-performance/.ops/toolchain/node_modules/node/bin/node",
+        "/opt/plesk/node/26/lib/node_modules/npm/bin/npm-cli.js",
+        "run",
+        "lint"
+      ],
+      "working_directory": "/home/codexperf/projects/gcreation-performance/.ops/test-artifacts/repair2-source-check-0ac34ba50ab3192abfe2ae425c4283879484258e",
+      "exit": 0,
+      "elapsed_seconds": 3.057,
+      "log_path": "/home/codexperf/projects/gcreation-performance/.ops/test-artifacts/repair2-candidate-check-07.log",
+      "log_sha256": "45af9d60572c2f1bcef9a851af6a80d202ee3ebf36022818ad7a7ebc946c88ac"
+    },
+    {
+      "command": [
+        "/home/codexperf/projects/gcreation-performance/.ops/toolchain/node_modules/node/bin/node",
+        "/opt/plesk/node/26/lib/node_modules/npm/bin/npm-cli.js",
+        "run",
+        "typecheck"
+      ],
+      "working_directory": "/home/codexperf/projects/gcreation-performance/.ops/test-artifacts/repair2-source-check-0ac34ba50ab3192abfe2ae425c4283879484258e",
+      "exit": 0,
+      "elapsed_seconds": 3.841,
+      "log_path": "/home/codexperf/projects/gcreation-performance/.ops/test-artifacts/repair2-candidate-check-08.log",
+      "log_sha256": "19277a9d6ee99aab085682a3ee097c923ba7cddec4fad7f8bef01cdcc0807337"
+    },
+    {
+      "command": [
+        "/home/codexperf/projects/gcreation-performance/.ops/toolchain/node_modules/node/bin/node",
+        "/opt/plesk/node/26/lib/node_modules/npm/bin/npm-cli.js",
+        "run",
+        "test"
+      ],
+      "working_directory": "/home/codexperf/projects/gcreation-performance/.ops/test-artifacts/repair2-source-check-0ac34ba50ab3192abfe2ae425c4283879484258e",
+      "exit": 0,
+      "elapsed_seconds": 8.554,
+      "log_path": "/home/codexperf/projects/gcreation-performance/.ops/test-artifacts/repair2-candidate-check-09.log",
+      "log_sha256": "7b93b0c588dc6f0bde6dca1f5b76d872e3680ee6708c6b62663c6c7c75e3df7c"
+    },
+    {
+      "command": [
+        "/home/codexperf/projects/gcreation-performance/.ops/toolchain/node_modules/node/bin/node",
+        "/opt/plesk/node/26/lib/node_modules/npm/bin/npm-cli.js",
+        "run",
+        "build"
+      ],
+      "working_directory": "/home/codexperf/projects/gcreation-performance/.ops/test-artifacts/repair2-source-check-0ac34ba50ab3192abfe2ae425c4283879484258e",
+      "exit": 0,
+      "elapsed_seconds": 3.609,
+      "log_path": "/home/codexperf/projects/gcreation-performance/.ops/test-artifacts/repair2-candidate-check-10.log",
+      "log_sha256": "1a05aff068b664ee8b6c58ce98b41e74e11d653772f02ecf170987cdd4c624b9"
+    },
+    {
+      "command": [
+        "/home/codexperf/projects/gcreation-performance/.ops/toolchain/node_modules/node/bin/node",
+        "/opt/plesk/node/26/lib/node_modules/npm/bin/npm-cli.js",
+        "exec",
+        "tsc",
+        "--",
+        "-p",
+        "ops/dev/trusted/tsconfig.json"
+      ],
+      "working_directory": "/home/codexperf/projects/gcreation-performance/.ops/test-artifacts/repair2-source-check-0ac34ba50ab3192abfe2ae425c4283879484258e",
+      "exit": 0,
+      "elapsed_seconds": 2.262,
+      "log_path": "/home/codexperf/projects/gcreation-performance/.ops/test-artifacts/repair2-candidate-check-11.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "php",
+        "-l",
+        "wordpress/gcreation-performance/gcreation-performance.php"
+      ],
+      "working_directory": "/home/codexperf/projects/gcreation-performance/.ops/test-artifacts/repair2-source-check-0ac34ba50ab3192abfe2ae425c4283879484258e",
+      "exit": 0,
+      "elapsed_seconds": 0.039,
+      "log_path": "/home/codexperf/projects/gcreation-performance/.ops/test-artifacts/repair2-candidate-check-12.log",
+      "log_sha256": "2c9af31ae46df934f2cde5f3e7f6fc35a6ee88fa185db6dc9c7c6a3376714f88"
+    },
+    {
+      "command": [
+        "php",
+        "tests/wordpress-integration.php"
+      ],
+      "working_directory": "/home/codexperf/projects/gcreation-performance/.ops/test-artifacts/repair2-source-check-0ac34ba50ab3192abfe2ae425c4283879484258e",
+      "exit": 0,
+      "elapsed_seconds": 0.039,
+      "log_path": "/home/codexperf/projects/gcreation-performance/.ops/test-artifacts/repair2-candidate-check-13.log",
+      "log_sha256": "4e530f765f3570a0073dfbbee090d505e909894437aa001397e642d2b32275ba"
+    },
+    {
+      "command": [
+        "bash",
+        "-n",
+        "ops/dev/install-root.sh"
+      ],
+      "working_directory": "/home/codexperf/projects/gcreation-performance/.ops/test-artifacts/repair2-source-check-0ac34ba50ab3192abfe2ae425c4283879484258e",
+      "exit": 0,
+      "elapsed_seconds": 0.004,
+      "log_path": "/home/codexperf/projects/gcreation-performance/.ops/test-artifacts/repair2-candidate-check-14.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "sh",
+        "-n",
+        "ops/dev/deploy-dev.sh"
+      ],
+      "working_directory": "/home/codexperf/projects/gcreation-performance/.ops/test-artifacts/repair2-source-check-0ac34ba50ab3192abfe2ae425c4283879484258e",
+      "exit": 0,
+      "elapsed_seconds": 0.003,
+      "log_path": "/home/codexperf/projects/gcreation-performance/.ops/test-artifacts/repair2-candidate-check-15.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "all_exit_zero": true,
+  "counts": {
+    "targeted_packaging_python": 6,
+    "existing_python": 53,
+    "python_unique_total": 59,
+    "typescript": 26,
+    "gateway": 4,
+    "total_unique_automated_tests": 89
+  },
+  "actual_new_image_uid10001_acceptance": "PENDING_HUMAN",
+  "actual_new_image_negative_root0700_fixture": "PENDING_HUMAN",
+  "image_build_performed": false,
+  "deployment_request_created": false
+}

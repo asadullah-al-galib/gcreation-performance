@@ -1,0 +1,230 @@
+Exact extracted committed candidate 0ac34ba50ab3192abfe2ae425c4283879484258e; ordinary-user source checks only; actual image/root UID10001 PENDING_HUMAN.
+
+COMMAND ["/usr/bin/python3", "-B", "tests/test_gateway_image_permissions.py", "-v"]
+EXIT 0
+test_actual_import_fails_for_inaccessible_ancestor (__main__.GatewayImagePermissionTests) ... ok
+test_exact_reviewed_dockerfile_change_only (__main__.GatewayImagePermissionTests) ... ok
+test_image_cli_refuses_agent_uid_and_permission_overrides (__main__.GatewayImagePermissionTests) ... ok
+test_packaging_preserves_all_other_bytes_owners_modes_and_private_context (__main__.GatewayImagePermissionTests) ... ok
+test_private_umask_negative_0700_ancestor_models_uid10001_denial (__main__.GatewayImagePermissionTests) ... ok
+test_probe_rejects_gateway_mutation_file_mode_and_missing_file (__main__.GatewayImagePermissionTests) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.673s
+
+OK
+
+COMMAND ["/usr/bin/python3", "-B", "tests/test_deployment_kit.py", "-v"]
+EXIT 0
+test_atomic_status_replaces_symlink_without_touching_target (__main__.DeploymentBoundaryTests) ... ok
+test_directory_fd_stays_anchored_on_path_swap (__main__.DeploymentBoundaryTests) ... ok
+test_failed_release_retention_preserves_active_rollback_source (__main__.DeploymentBoundaryTests) ... ok
+test_hardlink_special_and_traversal_rejected (__main__.DeploymentBoundaryTests) ... ok
+test_privileged_runtime_contract (__main__.DeploymentBoundaryTests) ... ok
+test_request_arriving_during_deployment_survives_claim_cleanup (__main__.DeploymentBoundaryTests) ... ok
+test_rollback_backup_preserves_plugin_configuration (__main__.DeploymentBoundaryTests) ... ok
+test_safe_snapshot_contents (__main__.DeploymentBoundaryTests) ... ok
+test_simulated_health_failure_preserves_wordpress_and_restores_prior_runtime (__main__.DeploymentBoundaryTests) ... ok
+test_simulated_runtime_deploy_never_changes_wordpress_and_records_source_digest (__main__.DeploymentBoundaryTests) ... ok
+test_snapshot_excludes_local_credentials_and_caches (__main__.DeploymentBoundaryTests) ... ok
+test_symlink_directory_and_file_rejected (__main__.DeploymentBoundaryTests) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 0.115s
+
+OK
+
+COMMAND ["/usr/bin/python3", "-B", "tests/test_security_review_v3.py", "-v"]
+EXIT 0
+test_auto_watcher_has_no_wordpress_write_or_deploy_capability (__main__.ThirdReviewTests) ... ok
+test_base_images_are_digest_pinned_and_match_recorded_verification (__main__.ThirdReviewTests) ... ok
+test_bootstrap_extracts_only_data_and_records_exact_identity (__main__.ThirdReviewTests) ... ok
+test_bootstrap_rejects_links_and_traversal_before_extraction (__main__.ThirdReviewTests) ... ok
+test_docker_and_systemd_preflight_capabilities_fail_closed (__main__.ThirdReviewTests) ... ok
+test_git_archive_export_is_deterministic_and_refuses_root (__main__.ThirdReviewTests) ... ok
+test_installer_inputs_are_root_snapshot_only_and_preflight_precedes_install (__main__.ThirdReviewTests) ... ok
+test_network_configuration_and_persisted_identity_fail_closed (__main__.ThirdReviewTests) ... ok
+test_network_creation_failure_is_not_ignored (__main__.ThirdReviewTests) ... ok
+test_network_mismatch_prevents_starting_any_runtime_container (__main__.ThirdReviewTests) ... ok
+test_plugin_secret_is_0600_owned_and_readable_by_writer_only (__main__.ThirdReviewTests) ... ok
+test_public_proxy_exposes_only_health_and_no_client_secret (__main__.ThirdReviewTests) ... ok
+test_request_is_atomically_claimed_and_next_request_is_not_deleted (__main__.ThirdReviewTests) ... ok
+test_request_schema_rejects_executable_or_extra_inputs (__main__.ThirdReviewTests) ... ok
+test_root_secret_file_permission_policy_rejects_shared_group_read (__main__.ThirdReviewTests) ... ok
+test_root_staging_sha_mismatch_aborts_before_extraction (__main__.ThirdReviewTests) ... ok
+test_secure_environment_rejects_missing_or_injectable_secret (__main__.ThirdReviewTests) ... ok
+test_snapshot_digest_distinguishes_filename_content_boundaries (__main__.ThirdReviewTests) ... ok
+test_snapshot_hash_verifier_rejects_changed_reviewed_files (__main__.ThirdReviewTests) ... ok
+test_stale_preflight_failure_prevents_docker_and_service_operations (__main__.ThirdReviewTests) ... ok
+test_stale_regular_and_symlink_request_block_installation (__main__.ThirdReviewTests) ... ok
+
+----------------------------------------------------------------------
+Ran 21 tests in 0.106s
+
+OK
+
+COMMAND ["/usr/bin/python3", "-B", "tests/test_security_review_v4.py", "-v"]
+EXIT 0
+test_artifact_hash_marker_and_snapshot_identity_are_bound (__main__.FourthReviewTests) ... ok
+test_builder_offline_frozen_dependencies_and_no_credentials (__main__.FourthReviewTests) ... ok
+test_clean_root_environment_precedes_interpreters (__main__.FourthReviewTests) ... ok
+test_dependency_manifest_changes_and_unsafe_archives_rejected (__main__.FourthReviewTests) ... ok
+test_dev_dns_child_is_isolated_fixed_and_bounded (__main__.FourthReviewTests) ... ok
+test_egress_identity_configuration_and_unrelated_members_fail_closed (__main__.FourthReviewTests) ... ok
+test_named_member_cannot_impersonate_reviewed_proxy_or_add_default_bridge (__main__.FourthReviewTests) ... ok
+test_preflight_requires_raw_server_ip_and_every_public_dev_dns_answer (__main__.FourthReviewTests) ... ok
+test_request_requires_archive_hash_and_rejects_old_workspace_semantics (__main__.FourthReviewTests) ... ok
+test_reviewed_image_copies_only_fixed_snapshot_files_and_freezes_hashes (__main__.FourthReviewTests) ... ok
+test_secrets_have_distinct_exact_ownership_and_private_env_inputs (__main__.FourthReviewTests) ... ok
+test_source_artifact_links_special_files_and_symlink_inputs_rejected (__main__.FourthReviewTests) ... ok
+test_trusted_containers_never_mount_mutable_source_or_receive_master_proxy_secret (__main__.FourthReviewTests) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 0.086s
+
+OK
+
+COMMAND ["/usr/bin/python3", "-B", "tests/test_installer_bytecode.py", "-v"]
+EXIT 0
+test_old_isolated_import_invalidates_approved_snapshot (__main__.InstallerBytecodeTests) ... ok
+test_prepare_and_seal_invocations_disable_bytecode_at_startup (__main__.InstallerBytecodeTests) ... ok
+test_repaired_modes_still_reject_added_and_modified_source (__main__.InstallerBytecodeTests) ... ok
+test_repaired_prepare_and_seal_preserve_exact_snapshot_file_map (__main__.InstallerBytecodeTests) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.750s
+
+OK
+
+COMMAND ["/usr/bin/python3", "-B", "tests/test_source_permissions.py", "-v"]
+EXIT 0
+test_archive_and_dependency_verification_remain_fail_closed (__main__.SourcePermissionTests) ... ok
+test_builder_identity_isolation_and_limits_remain_exact (__main__.SourcePermissionTests) ... ok
+test_private_umask_source_roots_nested_directories_and_files_are_builder_readable (__main__.SourcePermissionTests) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.032s
+
+OK
+
+COMMAND ["/home/codexperf/projects/gcreation-performance/.ops/toolchain/node_modules/node/bin/node", "/opt/plesk/node/26/lib/node_modules/npm/bin/npm-cli.js", "run", "format:check"]
+EXIT 0
+
+> gcreation-performance@0.1.0 format:check
+> prettier --check apps packages tests wordpress/gcreation-performance/*.js *.md *.json
+
+Checking formatting...
+All matched files use Prettier code style!
+
+COMMAND ["/home/codexperf/projects/gcreation-performance/.ops/toolchain/node_modules/node/bin/node", "/opt/plesk/node/26/lib/node_modules/npm/bin/npm-cli.js", "run", "lint"]
+EXIT 0
+
+> gcreation-performance@0.1.0 lint
+> eslint apps packages tests && python3 tests/test_deployment_kit.py && python3 tests/test_security_review_v3.py && python3 tests/test_security_review_v4.py && php -l wordpress/gcreation-performance/gcreation-performance.php && php tests/wordpress-integration.php && bash -n ops/dev/install-root.sh && sh -n ops/dev/deploy-dev.sh
+
+............
+----------------------------------------------------------------------
+Ran 12 tests in 0.128s
+
+OK
+.....................
+----------------------------------------------------------------------
+Ran 21 tests in 0.112s
+
+OK
+.............
+----------------------------------------------------------------------
+Ran 13 tests in 0.091s
+
+OK
+No syntax errors detected in wordpress/gcreation-performance/gcreation-performance.php
+WooCommerce contract: trusted pricing, session ownership and idempotent synchronization passed.
+
+COMMAND ["/home/codexperf/projects/gcreation-performance/.ops/toolchain/node_modules/node/bin/node", "/opt/plesk/node/26/lib/node_modules/npm/bin/npm-cli.js", "run", "typecheck"]
+EXIT 0
+
+> gcreation-performance@0.1.0 typecheck
+> tsc --noEmit
+
+
+COMMAND ["/home/codexperf/projects/gcreation-performance/.ops/toolchain/node_modules/node/bin/node", "/opt/plesk/node/26/lib/node_modules/npm/bin/npm-cli.js", "run", "test"]
+EXIT 0
+
+> gcreation-performance@0.1.0 test
+> tsx --test --test-concurrency=2 tests/*.test.ts && node --test tests/trusted-gateway.test.mjs
+
+✔ all sixteen rule families have measured fixtures and complete fix evidence (5.132837ms)
+✔ unsafe resources defer jobs with a bounded wait budget and never launch the browser (49.868017ms)
+✔ sitemap caps disclose truncation and reject cross-origin discovery (86.017028ms)
+✔ custom expert review is idempotent; admin verification requires a completed retest (322.089413ms)
+✔ paid retest is restricted to previously audited pages and exposes measured before/after (27.391493ms)
+✔ persistent free admission quotas and concurrent API submissions remain bounded (143.235816ms)
+{"level":40,"time":1791284635297,"pid":196,"hostname":"ipv4-62-86.99itbd.com","event":"request.rejected","errorType":"Error"}
+{"level":40,"time":1791284635303,"pid":196,"hostname":"ipv4-62-86.99itbd.com","event":"request.rejected","errorType":"Error"}
+{"level":40,"time":1791284635307,"pid":196,"hostname":"ipv4-62-86.99itbd.com","event":"request.rejected","errorType":"Error"}
+{"level":40,"time":1791284635308,"pid":196,"hostname":"ipv4-62-86.99itbd.com","event":"request.rejected","errorType":"Error"}
+✔ health public, management protected, scan SSRF rejected (318.590811ms)
+✔ worker lifecycle, real events, pricing, idempotent payment and secure Fix Center (60.242383ms)
+✔ SQLite lifecycle survives reopening and stale running job fails visibly (87.345433ms)
+✔ URL schemes, internal hosts, credentials and ports are rejected (3.546798ms)
+✔ private, reserved, metadata and mapped IPv6 are blocked (4.011911ms)
+✔ every DNS answer and redirect destination is revalidated (3.05621ms)
+✔ trusted pricing exact boundaries and custom review (0.621603ms)
+✔ report tokens require token/order/contact and do not grant access by ID (0.952231ms)
+✔ unknown byte measurements stay unknown and rules use thresholds (1.544975ms)
+✔ SQLite migrations, persisted lifecycle and single worker claim (5.524303ms)
+✔ sitemap index discovery, platform detection and representative products (2.610016ms)
+✔ scanner closes the browser after a navigation failure while keeping sandbox/proxy controls (7.101273ms)
+✔ scanner refuses browser work without a validating egress proxy (0.318437ms)
+✔ safeFetch rejects a redirect to private or unsupported targets before transport (11.052136ms)
+✔ safeFetch follows bounded safe redirects and pins transport destinations (5.606051ms)
+✔ egress HTTP and CONNECT reject local destinations through a real proxy socket (48.060403ms)
+✔ hard policy denies raw server IP even without configured deny list (1.229169ms)
+✔ fetch bridge accepts only its scoped credential and rejects raw self host (44.400199ms)
+✔ scan UI renders actual persisted progress and safely escapes evidence (202.348957ms)
+✔ secure Fix Center removes token from URL and sends credentials in POST only (57.584341ms)
+ℹ tests 26
+ℹ suites 0
+ℹ pass 26
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 7837.839189
+✔ trusted ingress authenticates master and forwards only scoped app credential (59.540832ms)
+✔ missing, incorrect and app-hop credentials cannot enter master business boundary (16.751985ms)
+✔ unauthenticated health carries no credential to mutable app (8.913662ms)
+✔ gateway rejects upstream redirects and never relays sensitive headers (15.915641ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 257.461398
+
+COMMAND ["/home/codexperf/projects/gcreation-performance/.ops/toolchain/node_modules/node/bin/node", "/opt/plesk/node/26/lib/node_modules/npm/bin/npm-cli.js", "run", "build"]
+EXIT 0
+
+> gcreation-performance@0.1.0 build
+> tsc -p tsconfig.build.json
+
+
+COMMAND ["/home/codexperf/projects/gcreation-performance/.ops/toolchain/node_modules/node/bin/node", "/opt/plesk/node/26/lib/node_modules/npm/bin/npm-cli.js", "exec", "tsc", "--", "-p", "ops/dev/trusted/tsconfig.json"]
+EXIT 0
+
+COMMAND ["php", "-l", "wordpress/gcreation-performance/gcreation-performance.php"]
+EXIT 0
+No syntax errors detected in wordpress/gcreation-performance/gcreation-performance.php
+
+COMMAND ["php", "tests/wordpress-integration.php"]
+EXIT 0
+WooCommerce contract: trusted pricing, session ownership and idempotent synchronization passed.
+
+COMMAND ["bash", "-n", "ops/dev/install-root.sh"]
+EXIT 0
+
+COMMAND ["sh", "-n", "ops/dev/deploy-dev.sh"]
+EXIT 0
+

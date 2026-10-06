@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "part": "P1",
+  "evidence_class": "HUMAN_ATTESTED",
+  "verification_level": "REAL_DEV_VERIFIED",
+  "verification_domain": "INSTALLATION_ONLY",
+  "agent_observed": false,
+  "recorded_at": "2026-10-06T04:48:22+00:00",
+  "host_observation_timestamp": null,
+  "source_commit": "08b395cf08523dbc5ab27f744d174b8a19bb2b4b",
+  "installation_archive_sha256": "80b206bf89d62f9a6b253970fea6a3a9cbe21b3106876e6e1e807df01a618929",
+  "observed_root_snapshot_sha256": "867f258b5bb1261317caa6f601becbb4c7294569ff3b5bc4903d95f926f98fc3",
+  "installed_image_identity": "sha256:f2bb2401f1f296115cd0d3dd5609ca6514446f55d4484f1884639f308a456f24",
+  "install_exit": 0,
+  "installation_gate": "PASS",
+  "repair_real_host_validation": {
+    "result": "PASS",
+    "install_exit": 0,
+    "exact_snapshot_digest": "PASS",
+    "reviewed_install_preflight": "PASS",
+    "no_pyc_or_pycache_generated": true
+  },
+  "post_install": {
+    "deploy_request_absent": true,
+    "watcher_active": true,
+    "watcher_enabled": true,
+    "deploy_service_inactive": true,
+    "old_failed_stage_preserved": true
+  },
+  "immutable_image_matches_runtime_image_id": "PASS",
+  "dependency_baseline": {
+    "ownership": "root:root",
+    "mode": "0644",
+    "package.json": "MATCHED_REVIEWED_SNAPSHOT",
+    "package-lock.json": "MATCHED_REVIEWED_SNAPSHOT",
+    "result": "PASS",
+    "observed_numeric_hashes": null
+  },
+  "installed_trusted_files": {
+    "deploy_controller.py": "PASS",
+    "deploy-dev.sh": "PASS",
+    "runtime.Dockerfile": "PASS",
+    "seccomp_profile.json": "PASS",
+    "install_preflight.py": "PASS"
+  },
+  "installed_systemd_units": {
+    "gcreation-perf-dev-deploy.service": "PASS",
+    "gcreation-perf-dev-deploy.path": "PASS",
+    "gcreation-perf-dev.slice": "PASS"
+  },
+  "ownership_modes": {
+    "/usr/local/lib/gcreation-perf-dev": {
+      "owner": "root:root",
+      "mode": "0755"
+    },
+    "/usr/local/lib/gcreation-perf-dev/build-context": {
+      "owner": "root:root",
+      "mode": "0700"
+    },
+    "/var/lib/gcreation-perf-dev": {
+      "owner": "root:root",
+      "mode": "0700"
+    },
+    "/etc/gcreation-perf-dev/runtime.env": {
+      "owner": "root:root",
+      "mode": "0600"
+    }
+  },
+  "runtime_containers_before_deployment": "ABSENT",
+  "deployment_request": "ABSENT",
+  "old_failed_source_stage": {
+    "source_commit": "8217aa4a13c0265efd8cb81473dd7f00c68d2c34",
+    "state": "PRESERVED_UNCHANGED"
+  },
+  "runtime_deployment": "NOT_VERIFIED",
+  "internal_health": "NOT_VERIFIED",
+  "public_health": "NOT_VERIFIED",
+  "resource_containment": "NOT_VERIFIED",
+  "rollback_retention": "NOT_VERIFIED",
+  "D24_D27": "PENDING",
+  "production_touched": false,
+  "limitations": "Real-host installation observations supplied by the human/operator; no agent privileged/runtime inspection. Host timestamps and individual numeric file hashes were not supplied and are not invented. Installation success does not prove deployed runtime or P1 completion."
+}

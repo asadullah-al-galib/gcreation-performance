@@ -1,5 +1,7 @@
 ## PURPOSE
 
+COMPLETED — HISTORICAL PROCEDURE, DO NOT RERUN. The operator reports successful installation; see INSTALLATION_EVIDENCE.json. Current action is CONTROLLED_DEV_RUNTIME_GATE.md. The prior conditional instructions below are historical and do not authorize reinstallation or deployment.
+
 Obtain separate human/operator approval and perform minimum fresh-stage recovery for the independently accepted repair source `08b395cf08523dbc5ab27f744d174b8a19bb2b4b`. P1 is WAITING_FOR_HUMAN; execution IN_PROGRESS, full-Part independent review PENDING, repair_cycle0. No recovery or installation is authorized by recording the source review PASS.
 
 ## WHY REQUIRED

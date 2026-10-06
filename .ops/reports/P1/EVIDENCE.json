@@ -382,7 +382,158 @@
       "exit_code": null,
       "evidence_reference": "SECURITY_REPAIR_ACCEPTANCE.json",
       "limitations": "PASS applies only to the repair source. Full P1 review/runtime/operator recovery/installation remain pending; no new host observation."
+    },
+    {
+      "criterion_id": "P1-INSTALL-SNAPSHOT",
+      "part": "P1",
+      "requirement": "Fresh reviewed-root installation and bytecode repair",
+      "expected": "Installer exit0; exact approved root snapshot; no .pyc/__pycache__; reviewed preflight PASS.",
+      "observed": {
+        "install_exit": 0,
+        "root_snapshot_sha256": "867f258b5bb1261317caa6f601becbb4c7294569ff3b5bc4903d95f926f98fc3",
+        "snapshot_result": "PASS",
+        "preflight_result": "PASS",
+        "bytecode_absent": true,
+        "old_failed_stage_preserved": true
+      },
+      "result": "PASS",
+      "evidence_class": "HUMAN_ATTESTED",
+      "verification_level": "REAL_DEV_VERIFIED",
+      "verification_domain": "INSTALLATION_ONLY",
+      "timestamp": "2026-10-06T04:48:22+00:00",
+      "host_observation_timestamp": null,
+      "source_commit": "08b395cf08523dbc5ab27f744d174b8a19bb2b4b",
+      "installation_archive_sha256": "80b206bf89d62f9a6b253970fea6a3a9cbe21b3106876e6e1e807df01a618929",
+      "observed_root_snapshot_sha256": "867f258b5bb1261317caa6f601becbb4c7294569ff3b5bc4903d95f926f98fc3",
+      "deployed_archive_sha256": null,
+      "deployed_snapshot_sha256": null,
+      "runtime_image_identity": null,
+      "installed_image_identity": "sha256:f2bb2401f1f296115cd0d3dd5609ca6514446f55d4484f1884639f308a456f24",
+      "command_or_test": "Separately approved human/operator installation and sanitized post-install checks as supplied in chat",
+      "exit_code": 0,
+      "evidence_reference": "INSTALLATION_EVIDENCE.json",
+      "limitations": "Installation evidence human-attested; no agent host inspection. Not a runtime deployment, effective containment/health/rollback result, D24\u2013D27 completion or full P1 independent PASS."
+    },
+    {
+      "criterion_id": "P1-INSTALL-IMAGE",
+      "part": "P1",
+      "requirement": "Installed immutable image and frozen dependency baseline identity",
+      "expected": "Image matches runtime-image-id; package manifests match snapshot; baseline root:root0644.",
+      "observed": {
+        "installed_image_identity": "sha256:f2bb2401f1f296115cd0d3dd5609ca6514446f55d4484f1884639f308a456f24",
+        "image_matches_sealed_identity": "PASS",
+        "dependency_baseline": {
+          "ownership": "root:root",
+          "mode": "0644",
+          "package.json": "MATCHED_REVIEWED_SNAPSHOT",
+          "package-lock.json": "MATCHED_REVIEWED_SNAPSHOT",
+          "result": "PASS",
+          "observed_numeric_hashes": null
+        }
+      },
+      "result": "PASS",
+      "evidence_class": "HUMAN_ATTESTED",
+      "verification_level": "REAL_DEV_VERIFIED",
+      "verification_domain": "INSTALLATION_ONLY",
+      "timestamp": "2026-10-06T04:48:22+00:00",
+      "host_observation_timestamp": null,
+      "source_commit": "08b395cf08523dbc5ab27f744d174b8a19bb2b4b",
+      "installation_archive_sha256": "80b206bf89d62f9a6b253970fea6a3a9cbe21b3106876e6e1e807df01a618929",
+      "observed_root_snapshot_sha256": "867f258b5bb1261317caa6f601becbb4c7294569ff3b5bc4903d95f926f98fc3",
+      "deployed_archive_sha256": null,
+      "deployed_snapshot_sha256": null,
+      "runtime_image_identity": null,
+      "installed_image_identity": "sha256:f2bb2401f1f296115cd0d3dd5609ca6514446f55d4484f1884639f308a456f24",
+      "command_or_test": "Separately approved human/operator installation and sanitized post-install checks as supplied in chat",
+      "exit_code": null,
+      "evidence_reference": "INSTALLATION_EVIDENCE.json",
+      "limitations": "Installation evidence human-attested; no agent host inspection. Not a runtime deployment, effective containment/health/rollback result, D24\u2013D27 completion or full P1 independent PASS."
+    },
+    {
+      "criterion_id": "P1-INSTALL-TRUSTED-FILES",
+      "part": "P1",
+      "requirement": "Installed trusted code and unit identities",
+      "expected": "Copied trusted files/units match reviewed snapshot; root-private ownership/modes remain enforced.",
+      "observed": {
+        "trusted_files": {
+          "deploy_controller.py": "PASS",
+          "deploy-dev.sh": "PASS",
+          "runtime.Dockerfile": "PASS",
+          "seccomp_profile.json": "PASS",
+          "install_preflight.py": "PASS"
+        },
+        "systemd_units": {
+          "gcreation-perf-dev-deploy.service": "PASS",
+          "gcreation-perf-dev-deploy.path": "PASS",
+          "gcreation-perf-dev.slice": "PASS"
+        },
+        "ownership_modes": {
+          "/usr/local/lib/gcreation-perf-dev": {
+            "owner": "root:root",
+            "mode": "0755"
+          },
+          "/usr/local/lib/gcreation-perf-dev/build-context": {
+            "owner": "root:root",
+            "mode": "0700"
+          },
+          "/var/lib/gcreation-perf-dev": {
+            "owner": "root:root",
+            "mode": "0700"
+          },
+          "/etc/gcreation-perf-dev/runtime.env": {
+            "owner": "root:root",
+            "mode": "0600"
+          }
+        }
+      },
+      "result": "PASS",
+      "evidence_class": "HUMAN_ATTESTED",
+      "verification_level": "REAL_DEV_VERIFIED",
+      "verification_domain": "INSTALLATION_ONLY",
+      "timestamp": "2026-10-06T04:48:22+00:00",
+      "host_observation_timestamp": null,
+      "source_commit": "08b395cf08523dbc5ab27f744d174b8a19bb2b4b",
+      "installation_archive_sha256": "80b206bf89d62f9a6b253970fea6a3a9cbe21b3106876e6e1e807df01a618929",
+      "observed_root_snapshot_sha256": "867f258b5bb1261317caa6f601becbb4c7294569ff3b5bc4903d95f926f98fc3",
+      "deployed_archive_sha256": null,
+      "deployed_snapshot_sha256": null,
+      "runtime_image_identity": null,
+      "installed_image_identity": "sha256:f2bb2401f1f296115cd0d3dd5609ca6514446f55d4484f1884639f308a456f24",
+      "command_or_test": "Separately approved human/operator installation and sanitized post-install checks as supplied in chat",
+      "exit_code": null,
+      "evidence_reference": "INSTALLATION_EVIDENCE.json",
+      "limitations": "Installation evidence human-attested; no agent host inspection. Not a runtime deployment, effective containment/health/rollback result, D24\u2013D27 completion or full P1 independent PASS."
+    },
+    {
+      "criterion_id": "P1-INSTALL-WATCHER",
+      "part": "P1",
+      "requirement": "Installed watcher readiness without runtime deployment",
+      "expected": "Watcher active/enabled; deploy service inactive; no runtime containers/request.",
+      "observed": {
+        "deploy_request_absent": true,
+        "watcher_active": true,
+        "watcher_enabled": true,
+        "deploy_service_inactive": true,
+        "old_failed_stage_preserved": true
+      },
+      "result": "PASS",
+      "evidence_class": "HUMAN_ATTESTED",
+      "verification_level": "REAL_DEV_VERIFIED",
+      "verification_domain": "INSTALLATION_ONLY",
+      "timestamp": "2026-10-06T04:48:22+00:00",
+      "host_observation_timestamp": null,
+      "source_commit": "08b395cf08523dbc5ab27f744d174b8a19bb2b4b",
+      "installation_archive_sha256": "80b206bf89d62f9a6b253970fea6a3a9cbe21b3106876e6e1e807df01a618929",
+      "observed_root_snapshot_sha256": "867f258b5bb1261317caa6f601becbb4c7294569ff3b5bc4903d95f926f98fc3",
+      "deployed_archive_sha256": null,
+      "deployed_snapshot_sha256": null,
+      "runtime_image_identity": null,
+      "installed_image_identity": "sha256:f2bb2401f1f296115cd0d3dd5609ca6514446f55d4484f1884639f308a456f24",
+      "command_or_test": "Separately approved human/operator installation and sanitized post-install checks as supplied in chat",
+      "exit_code": null,
+      "evidence_reference": "INSTALLATION_EVIDENCE.json",
+      "limitations": "Installation evidence human-attested; no agent host inspection. Not a runtime deployment, effective containment/health/rollback result, D24\u2013D27 completion or full P1 independent PASS."
     }
   ],
-  "updated_at": "2026-10-06T04:28:07+00:00"
+  "updated_at": "2026-10-06T04:48:22+00:00"
 }

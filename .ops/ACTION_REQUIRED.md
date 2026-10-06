@@ -1,15 +1,13 @@
 STATUS:
-P1 WAITING_FOR_HUMAN — FRESH-STAGE OPERATOR GATE
+P1 WAITING_FOR_HUMAN — CONTROLLED DEV DEPLOYMENT + RUNTIME VALIDATION
 
-INDEPENDENT SECURITY REPAIR REVIEW: PASS for source 08b395cf08523dbc5ab27f744d174b8a19bb2b4b, granted explicitly by the human. Accepted scope: only the demonstrated prepare_image import-bytecode defect repaired with two -I -B starts. V4 frozen boundaries remain accepted. Source PASS does not accept the contaminated old snapshot, installation/recovery, runtime, P2 or production.
+INSTALLATION GATE: PASS — HUMAN_ATTESTED / REAL_DEV_VERIFIED installation only. Separately approved operator installation of source 08b395cf08523dbc5ab27f744d174b8a19bb2b4b / archive 80b206bf89d62f9a6b253970fea6a3a9cbe21b3106876e6e1e807df01a618929 completed with INSTALL_EXIT0. Observed root snapshot 867f258b5bb1261317caa6f601becbb4c7294569ff3b5bc4903d95f926f98fc3 exact; reviewed preflight PASS; no bytecode mutation; image sha256:f2bb2401f1f296115cd0d3dd5609ca6514446f55d4484f1884639f308a456f24 matches runtime-image-id; trusted files/units/dependency baseline match; ownership/private permissions attested. Watcher active/enabled, deploy service inactive, runtime containers/request absent. Old failed stage preserved unchanged.
 
-P0 FROZEN / human PASS preserved. P1 execution IN_PROGRESS / full-Part independent review PENDING / repair_cycle0. P2–P7 NOT_STARTED. No gate wait consumes a repair.
+EVIDENCE: [reports/P1/INSTALLATION_EVIDENCE.json](reports/P1/INSTALLATION_EVIDENCE.json). Observations supplied by the human; no agent host inspection. Individual numeric file hashes/host timestamps were not supplied and are not fabricated. The -I -B repair is now successfully validated for this installation defect on the real host, not for runtime acceptance.
 
-ACTION FILE: [reports/P1/FRESH_STAGE_OPERATOR_GATE.md](reports/P1/FRESH_STAGE_OPERATOR_GATE.md).
-APPROVAL RECORD: [reports/P1/SECURITY_REPAIR_ACCEPTANCE.json](reports/P1/SECURITY_REPAIR_ACCEPTANCE.json).
+ACTION FILE: [reports/P1/CONTROLLED_DEV_RUNTIME_GATE.md](reports/P1/CONTROLLED_DEV_RUNTIME_GATE.md).
+NEXT ALLOWED ACTION: Human explicitly approves exactly ONE source-bound DEV deployment and bounded runtime/health/inspection scope with a designated ordinary-user submitter. No request/artifact/runtime action is performed by this gate preparation. No automatic retry, second deployment, fault, manual rollback or nginx/Plesk/WordPress change is included.
 
-PROPOSED ARCHIVE SHA256: 80b206bf89d62f9a6b253970fea6a3a9cbe21b3106876e6e1e807df01a618929. Operator must verify the exact DATA/root-owned copy and separately approve fresh-stage recovery. Use source 08b395cf08523dbc5ab27f744d174b8a19bb2b4b, never the current metadata commit as installation source.
+P0 FROZEN / human PASS; P1 execution IN_PROGRESS / full-Part independent review PENDING / repair_cycle0. P2–P7 NOT_STARTED. D24–D27 and runtime health/network/sandbox/cgroup/rollback/retention acceptance remain PENDING. A first deployment cannot prove rollback to a prior runtime when none exists; any missing proof requires a separate bounded human decision, not fabricated PASS or an extra request.
 
-NEXT ALLOWED ACTION: Explicit human/operator approval and fresh root-stage recovery per the gate. STOP. Preserve failed old root stage 8217aa4a13c0265efd8cb81473dd7f00c68d2c34 unchanged; do not reuse/clean/reapprove its snapshot or erase partial copied-install evidence. Like-for-like installed files/units remain until a separately approved human procedure. Old installation instructions are superseded.
-
-PRIVILEGED DEV INSTALL: HOLD pending that separate operator decision/action. No agent privileged execution, partial-install modification, deployment request, runtime acceptance or P2 start. Production/main untouched. The accepted repair package remains unchanged historical review evidence at commit6c73ad3aa7e08df22fe552feb75da0b0a2122dc6.
+Source security review PASS and installation evidence are retained separately. Keep both root stages unchanged; do not reinstall or clean the old stage. No agent root/Docker/systemd/Plesk/nginx/WordPress action, deployment request, runtime continuation or P2 start. Production/main untouched. STOP at WAITING_FOR_HUMAN.

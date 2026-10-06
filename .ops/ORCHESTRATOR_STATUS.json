@@ -47,19 +47,22 @@
   },
   "human_gate": {
     "part": "P1",
-    "purpose": "Separately approve and perform fresh-stage operator recovery of accepted repair source; preserve failed stage",
-    "action_file": ".ops/reports/P1/FRESH_STAGE_OPERATOR_GATE.md",
+    "purpose": "Exactly one controlled DEV deployment plus consolidated runtime/health/containment/rollback-retention evidence",
+    "action_file": ".ops/reports/P1/CONTROLLED_DEV_RUNTIME_GATE.md",
     "reviewed_source_commit": "08b395cf08523dbc5ab27f744d174b8a19bb2b4b",
-    "proposed_archive_sha256": "80b206bf89d62f9a6b253970fea6a3a9cbe21b3106876e6e1e807df01a618929",
+    "archive_sha256": "80b206bf89d62f9a6b253970fea6a3a9cbe21b3106876e6e1e807df01a618929",
+    "immutable_image_identity": "sha256:f2bb2401f1f296115cd0d3dd5609ca6514446f55d4484f1884639f308a456f24",
     "status": "PENDING",
-    "recovery_authorized": false,
-    "installation_authorized": false,
-    "action_file_sha256": "72f2f3f8c8f44e7f89eed8202b502a924e3a9703c178c777ff14813e53801e6c"
+    "deployment_authorized": false,
+    "runtime_validation_authorized": false,
+    "max_deployment_requests": 1,
+    "max_automatic_retries": 0,
+    "action_file_sha256": "0679fbd0105e1ebd6b8abf1711440027a0d507edf850f6d7004fd7d542bd453b"
   },
   "hard_blocker": null,
   "production_touched": false,
   "p7": "NOT_STARTED",
-  "updated_at": "2026-10-06T04:28:07+00:00",
+  "updated_at": "2026-10-06T04:48:22+00:00",
   "p7_authorization": "SEPARATE_HUMAN_REQUIRED",
   "security_review": {
     "part": "P1",
@@ -80,6 +83,38 @@
     "accepted_scope": "Only the two -I -B interpreter invocations fixing demonstrated prepare_image import bytecode mutation.",
     "approval_record": ".ops/reports/P1/SECURITY_REPAIR_ACCEPTANCE.json",
     "approval_record_sha256": "3cc8622937b8753730a5b16e3a308c434e289f465117bca56b0fe2ea9abe8de2",
-    "recorded_at": "2026-10-06T04:28:07+00:00"
-  }
+    "recorded_at": "2026-10-06T04:28:07+00:00",
+    "real_host_validation": {
+      "result": "PASS",
+      "install_exit": 0,
+      "snapshot_exact": true,
+      "no_bytecode_mutation": true,
+      "evidence_file": ".ops/reports/P1/INSTALLATION_EVIDENCE.json"
+    },
+    "installation_authorized_by_source_review": false
+  },
+  "installation_gate": {
+    "status": "PASS",
+    "evidence_class": "HUMAN_ATTESTED",
+    "verification_level": "REAL_DEV_VERIFIED",
+    "verification_domain": "INSTALLATION_ONLY",
+    "source_commit": "08b395cf08523dbc5ab27f744d174b8a19bb2b4b",
+    "archive_sha256": "80b206bf89d62f9a6b253970fea6a3a9cbe21b3106876e6e1e807df01a618929",
+    "root_snapshot_sha256": "867f258b5bb1261317caa6f601becbb4c7294569ff3b5bc4903d95f926f98fc3",
+    "immutable_image_identity": "sha256:f2bb2401f1f296115cd0d3dd5609ca6514446f55d4484f1884639f308a456f24",
+    "install_exit": 0,
+    "evidence_file": ".ops/reports/P1/INSTALLATION_EVIDENCE.json",
+    "evidence_sha256": "0545a8098bfa4b2293dc47baef9830d317d3b9ac66009de0540b7c1bb03ce84c",
+    "recorded_at": "2026-10-06T04:48:22+00:00",
+    "separately_approved_by_human": true
+  },
+  "completed_human_gates": [
+    {
+      "part": "P1",
+      "action_file": ".ops/reports/P1/FRESH_STAGE_OPERATOR_GATE.md",
+      "status": "COMPLETED_HUMAN_ATTESTED",
+      "separately_approved_by_human": true,
+      "evidence_file": ".ops/reports/P1/INSTALLATION_EVIDENCE.json"
+    }
+  ]
 }

@@ -1,6 +1,12 @@
 # P1 — Security & DEV Deployment Foundation
 
-Current checkpoint: WAITING_FOR_HUMAN. Independent security repair source review PASS for 08b395cf08523dbc5ab27f744d174b8a19bb2b4b is recorded in [SECURITY_REPAIR_ACCEPTANCE.json](SECURITY_REPAIR_ACCEPTANCE.json). Full-Part independent review remains PENDING. Current action: [FRESH_STAGE_OPERATOR_GATE.md](FRESH_STAGE_OPERATOR_GATE.md). The repair review package below remains preserved review-time evidence. Original preparation checkpoint below is historical and superseded. Human-reported installation failed; candidate package [security-repair/REPORT.md](security-repair/REPORT.md). Agent performed no privileged operation.
+Current checkpoint: WAITING_FOR_HUMAN. INSTALLATION GATE PASS from [INSTALLATION_EVIDENCE.json](INSTALLATION_EVIDENCE.json): separately approved operator installation exit0, exact root snapshot, no bytecode mutation, matched immutable image/files/units/dependencies/permissions. The accepted -I -B repair has real-host installation validation PASS. Evidence is HUMAN_ATTESTED / REAL_DEV_VERIFIED for installation only; Codex performed no privileged inspection/action. Source 08b395cf08523dbc5ab27f744d174b8a19bb2b4b; image sha256:f2bb2401f1f296115cd0d3dd5609ca6514446f55d4484f1884639f308a456f24.
+
+P1 execution IN_PROGRESS / full-Part independent review PENDING / repair_cycle0. Runtime containers/request absent per operator evidence; no runtime deployment or health/network/sandbox/resource/rollback acceptance claimed. D24–D27 and applicable DEV_ACCEPTANCE rows remain PENDING; P2–P7 NOT_STARTED. Current action: [CONTROLLED_DEV_RUNTIME_GATE.md](CONTROLLED_DEV_RUNTIME_GATE.md), exactly one controlled deployment only after separate approval. First-deployment success cannot demonstrate restoration of a nonexistent prior runtime; missing rollback/retention proof stays pending. No request or runtime action performed now. Old failed stage preserved unchanged; production/main untouched.
+
+## Historical preparation evidence — superseded by installation record
+
+The material below and immutable security-repair/ package retain their original review-time/local observations; they are not current host state or instructions. Source-only security acceptance remains [SECURITY_REPAIR_ACCEPTANCE.json](SECURITY_REPAIR_ACCEPTANCE.json).
 
 Historical checkpoint: WAITING_FOR_HUMAN. P1 execution IN_PROGRESS; independent review PENDING; repair cycle 0. P0 remains FROZEN / human PASS. P2–P7 NOT_STARTED. No technical failure or security defect is asserted. No installation, deployment request, live health probe or production operation was performed.
 

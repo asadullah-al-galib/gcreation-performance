@@ -73,7 +73,7 @@
   "hard_blocker": null,
   "production_touched": false,
   "p7": "NOT_STARTED",
-  "updated_at": "2026-10-06T11:11:22.335441+00:00",
+  "updated_at": "2026-10-06T11:15:51.192960+00:00",
   "p7_authorization": "SEPARATE_HUMAN_REQUIRED",
   "security_review": {
     "part": "P1",
@@ -102,7 +102,7 @@
     "reviewed_proposal_commit": "3992494df7776be6114fd89a170112071eb25402",
     "approval_record": ".ops/reports/P1/REPAIR_2_SECURITY_ACCEPTANCE.json",
     "accepted_scope": "EXACT_PATCH_SOURCE_AND_MINIMUM_REGRESSION_ONLY",
-    "implemented_package_checksums_sha256": "49d965d3b11cf907160d797221ea06a30befabc1a8c6003669315776d44ad36d",
+    "implemented_package_checksums_sha256": "dcb9e169f0db5473c377b7e7ac54a638a7486e81dd3b18e8a8a46a1948de366d",
     "approval_record_sha256": "01de9fb2b3f3e4e3762c90ecd867fd0c099273634ee764621d1a53268b08a245"
   },
   "installation_gate": {

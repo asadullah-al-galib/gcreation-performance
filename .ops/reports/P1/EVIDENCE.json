@@ -604,9 +604,37 @@
       "exit_code": null,
       "evidence_reference": "P0_2_CAPABILITY_PREFLIGHT.json",
       "limitations": "Approval already granted; missing capability stops. No privileged refresh/runtime inspection or Part acceptance. Namespace metadata does not attest host ownership; HTTP availability does not prove engine/runtime/WooCommerce acceptance."
+    },
+    {
+      "criterion_id": "P1-CONTROLLER-REFRESH-EVIDENCE",
+      "part": "P1",
+      "requirement": "Complete sanitized controller-refresh proof per exact gate",
+      "expected": "Required observation/command/exit and rollback provenance returned",
+      "observed": [
+        {
+          "criterion": "SANITIZED EVIDENCE TO RETURN: observation times and exact scoped commands/exit codes",
+          "observed": "Not included in chat summary; private proof cannot be read (PermissionError errno13).",
+          "required": "Sanitized operator observation time(s), actual scoped command/check identifiers and exit codes, including reviewed preflight exit0."
+        },
+        {
+          "criterion": "SANITIZED EVIDENCE TO RETURN / SAFE COMMAND/UI STEPS 8: backup location/hash",
+          "observed": "CONTROLLER_BACKUP=PASS / ROLLBACK BACKUP=PRESERVED; explicit backup location/hash not supplied.",
+          "required": "Backup path and observed SHA256 matching pinned parent1a0b509e..., with root:root0600/single-link/parent-byte-equality attestation."
+        }
+      ],
+      "result": "PENDING_HUMAN",
+      "checkpoint_result": "HOLD",
+      "evidence_class": "HUMAN_ATTESTED",
+      "timestamp": "2026-10-06T09:25:03.384451+00:00",
+      "source_commit": "134ddfbe393168ce7cef99c44817329c84a8d6eb",
+      "deployed_archive_sha256": null,
+      "deployed_snapshot_sha256": null,
+      "runtime_image_identity": null,
+      "evidence_reference": "CONTROLLER_REFRESH_VERIFICATION.json",
+      "limitations": "Installed candidate bytes independently verified read-only. Human summary claims PASS; private proof inaccessible; complete gate verification remains pending. No deployment."
     }
   ],
-  "updated_at": "2026-10-06T08:53:17.289277+00:00",
+  "updated_at": "2026-10-06T09:25:03.384451+00:00",
   "repair_path": "REPAIR_1",
   "repair_state": "HUMAN_CAPABILITY_GATE",
   "current_candidate_commit": "134ddfbe393168ce7cef99c44817329c84a8d6eb",
@@ -619,7 +647,9 @@
     "approval_record": "REPAIR_1_ACCEPTANCE.json",
     "controller_refresh_authorized": true,
     "deployment_condition": "P0.2\u00a79: only after verified successful refresh; attempts0/1/retries0",
-    "authorization_reference": "docs/P0_2_AUTONOMOUS_AUTHORIZATION.md"
+    "authorization_reference": "docs/P0_2_AUTONOMOUS_AUTHORIZATION.md",
+    "controller_refresh_operator_reported": "PASS",
+    "controller_refresh_verification": "HOLD"
   },
   "repair_independent_review": "PASS",
   "authorization_reference": "docs/P0_2_AUTONOMOUS_AUTHORIZATION.md"

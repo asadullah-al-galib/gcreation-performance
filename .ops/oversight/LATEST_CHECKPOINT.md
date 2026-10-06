@@ -4,46 +4,46 @@ PART:
 P1
 
 PROCESS:
-controller-refresh-capability
+controller-refresh-evidence-verification
 
 RESULT:
-BLOCKED — HUMAN_CAPABILITY_GATE
+HOLD — HUMAN_CAPABILITY_GATE
 
 BUSINESS OUTCOME:
-V2 authority reconciled with accepted source and real available capabilities; required immutable-root refresh cannot proceed through this session. No runtime acceptance claimed.
+Operator-reported controller refresh PASS recorded; candidate installed bytes verified. Required return-proof provenance remains incomplete, preventing the authorized single deployment.
 
 SOURCE COMMIT:
 134ddfbe393168ce7cef99c44817329c84a8d6eb
 
 DEPLOYED IDENTITY:
-NOT_APPLICABLE — candidate not deployed; accepted installed image is historical installation-only evidence.
+NOT_APPLICABLE — no REPAIR_1 deployment.
 
 WHAT CHANGED:
-Recorded verbatim P0.2 authority; synchronized current governance, source-pinned operator gate and criterion evidence; created append-only oversight event and POST_100 deferred-feature record. Source, tests, dependencies, privileged kit and reviewed packages unchanged.
+Recorded human operator summary and exact missing evidence; synchronized current state and append-only checkpoint. Accepted source, privileged kit, exact refresh gate, old review packages and prior event unchanged.
 
 TARGETED TESTS:
-Bounded read-only capability probes; current-state/JSON/authority checks, unchanged protected code/criteria/history/gate-code/rollback, shell syntax-only checks, candidate archive SHA and request/status/artifact preservation PASS. Changed root Markdown formatting and git diff --check PASS. Application/security tests not rerun.
+Installed candidate SHA029c5d57.../0644/single-link regular/non-writable PASS; summary identity values match pinned gate. Proof access PermissionError13. Required observation/scoped-command/exit-code and rollback-backup path/hash provenance HOLD. Governance JSON/counters, protected-source/gate/prior-evidence preservation, formatting and diff checks PASS.
 
 REAL DEV EVIDENCE:
-DEV homepage200; /wp-json/404; /perf-engine/health404; REST fallback200 with bounded/truncated JSON. Installed readable controller matches parent hash; private stages PermissionError13. Engine/runtime/container acceptance NOT_VERIFIED. Namespace metadata does not establish host root ownership.
+Operator summary attests refresh/unchanged inventory/image/watcher PASS. Direct read-only installed controller identity matches candidate. Private host proof not read; no runtime validation or deployment. Namespace ownership is not host root-ownership proof.
 
 SECURITY:
 V4 PRESERVED
 
 REPAIR CYCLE:
-1 — prior INITIAL attempt consumed; REPAIR_1 attempts0/1, retries0, counters unchanged.
+1 — INITIAL consumed, REPAIR_1 attempts0/1, retries0; unchanged.
 
 PRODUCTION/MAIN:
 UNTOUCHED
 
 KNOWN LIMITATIONS:
-No approved controller-refresh interface; private root-stage/trust/runtime inspections inaccessible. Full P1 independent review PENDING; P2–P7 NOT_STARTED. First-runtime restoration proof remains pending until prior runtime exists under §19.
+Full controller-refresh gate verification incomplete, not a claimed refresh failure. Full P1 independent review PENDING; P2–P7 NOT_STARTED.
 
 NEXT AUTOMATIC STEP:
-Validate returned refresh proof, then use the reviewed watcher for the conditional single REPAIR_1 deployment and required P1 real DEV acceptance. No request before verified successful refresh.
+Verify supplemental sanitized proof against the unchanged gate; only after full PASS resolve capability gate and submit one exact candidate/archive watcher request, retries0, then required P1 validation.
 
 HUMAN ACTION:
-Designated operator executes the already-authorized TRUSTED_CONTROLLER_REFRESH_GATE.md and returns consolidated sanitized proof. No additional approval, reinstall, rebuild, cleanup or deployment requested now.
+Return missing sanitized observation times, actual scoped commands/exit codes and rollback backup path/hash/root:root0600/single-link/parent-byte equality from the existing proof. No new approval, rerun or privileged mutation requested.
 
 EXTERNAL OVERSIGHT:
 PENDING

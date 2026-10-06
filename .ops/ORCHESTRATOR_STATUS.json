@@ -53,7 +53,7 @@
     "part": "P1",
     "repair": "REPAIR_1",
     "purpose": "P0.2-approved candidate-only controller refresh: verification unchanged, approved constrained interface/operator required",
-    "status": "PENDING_CAPABILITY",
+    "status": "PENDING_EVIDENCE_COMPLETENESS",
     "action_file": ".ops/reports/P1/TRUSTED_CONTROLLER_REFRESH_GATE.md",
     "action_file_sha256": "4179975781ab7aea497a04fdfd4b995379dbc10fb49bce414dc40a48802d92e6",
     "accepted_source_commit": "134ddfbe393168ce7cef99c44817329c84a8d6eb",
@@ -73,12 +73,15 @@
     ],
     "approval_granted_by": "HUMAN_P0_2_SECTION_8",
     "capability_verified": false,
-    "human_action": "Designated operator executes the already-approved refresh gate and returns sanitized proof; no additional authorization required"
+    "human_action": "Return the relevant sanitized contents of the already-created controller-refresh proof covering observation times, actual scoped commands/exit codes, and backup path/hash/ownership/mode/link count/byte equality. No rerun, new approval or privileged mutation requested.",
+    "operator_reported_result": "PASS",
+    "installed_candidate_bytes_locally_verified": true,
+    "full_refresh_verified": false
   },
   "hard_blocker": null,
   "production_touched": false,
   "p7": "NOT_STARTED",
-  "updated_at": "2026-10-06T08:53:17.289277+00:00",
+  "updated_at": "2026-10-06T09:25:03.384451+00:00",
   "p7_authorization": "SEPARATE_HUMAN_REQUIRED",
   "security_review": {
     "part": "P1",
@@ -224,7 +227,7 @@
     "evidence_file": ".ops/reports/P1/runtime-repair-1/HOST_FAILURE.json",
     "diagnosis": "UMask0077 masks requested0755 source directory modes to root-owned0700",
     "smallest_remediation": "Normalize release/source/nested-source directories0755 after creation; preserve source0644 and all controls",
-    "next_action": "Already-authorized human operator controller refresh; verify proof then conditional P0.2 single REPAIR_1 deployment",
+    "next_action": "Verify the supplemental proof against the unchanged gate; only if fully PASS resolve capability gate and submit exactly one candidate-pinned watcher deployment, retries0.",
     "status": "HUMAN_CAPABILITY_GATE"
   },
   "external_oversight": "PENDING",
@@ -241,17 +244,17 @@
     "prior_initial_attempt_consumed": true
   },
   "capability_gate": {
-    "process": "controller-refresh-capability",
-    "evidence_file": ".ops/reports/P1/P0_2_CAPABILITY_PREFLIGHT.json",
+    "process": "controller-refresh-evidence-verification",
+    "evidence_file": ".ops/reports/P1/CONTROLLER_REFRESH_VERIFICATION.json",
     "scope_class": "SECURITY_CRITICAL",
     "business_mapping": [
       "SECURITY",
       "MVP_RELEASE"
     ],
-    "reason": "No pre-approved constrained interface can establish/verify the new root-only review stage and atomically refresh only the installed controller. Private stage inspection gives PermissionError errno13 and installed bytes remain the approved parent.",
+    "reason": "Root-private proof inaccessible; required returned observation/command/exit-code and rollback-backup provenance incomplete.",
     "approval_already_granted": true,
     "root_interface_available": false,
-    "operator_action": "Execute the already-authorized candidate-pinned trusted-controller refresh gate as the designated operator and return its sanitized verification/rollback evidence. No new approval, installer rerun, image build, deployment or cleanup is requested.",
+    "operator_action": "Return the relevant sanitized contents of the already-created controller-refresh proof covering observation times, actual scoped commands/exit codes, and backup path/hash/ownership/mode/link count/byte equality. No rerun, new approval or privileged mutation requested.",
     "repair_cycle_consumed": false
   },
   "execution_policy": {
@@ -279,6 +282,14 @@
   "oversight_checkpoint": {
     "latest_json": ".ops/oversight/LATEST_CHECKPOINT.json",
     "latest_markdown": ".ops/oversight/LATEST_CHECKPOINT.md",
-    "event": ".ops/oversight/events/0001-P1-controller-refresh-capability.json"
+    "event": ".ops/oversight/events/0002-P1-controller-refresh-evidence-verification.json"
+  },
+  "controller_refresh": {
+    "operator_reported_result": "PASS",
+    "installed_candidate_bytes_locally_verified": true,
+    "verification_result": "HOLD",
+    "full_gate_verified": false,
+    "operator_evidence": ".ops/reports/P1/CONTROLLER_REFRESH_OPERATOR_EVIDENCE.json",
+    "verification_evidence": ".ops/reports/P1/CONTROLLER_REFRESH_VERIFICATION.json"
   }
 }

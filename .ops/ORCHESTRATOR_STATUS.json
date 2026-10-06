@@ -3,7 +3,7 @@
   "project": "gCreation Performance Doctor MVP v0.1",
   "mode": "P1-P6_AUTONOMOUS_V2",
   "current_part": "P1",
-  "state": "HUMAN_CAPABILITY_GATE",
+  "state": "SECURITY_REVIEW_REQUIRED",
   "authorization": "HUMAN_P0_2",
   "authorization_reference": "docs/P0_2_AUTONOMOUS_AUTHORIZATION.md",
   "p0": "FROZEN",
@@ -19,7 +19,7 @@
       "repair_cycle": 1,
       "report_directory": ".ops/reports/P1",
       "repair_path": "REPAIR_1",
-      "repair_state": "HUMAN_CAPABILITY_GATE",
+      "repair_state": "SECURITY_REVIEW_REQUIRED",
       "failed_repair_cycles": 1,
       "repair_independent_review": "PASS",
       "next_repair_cycle": 2
@@ -53,10 +53,10 @@
   "human_gate": {
     "part": "P1",
     "repair": "REPAIR_1",
-    "purpose": "Read-only exact gateway argv and pinned-image path/traversal verification",
-    "status": "PENDING_ENTRYPOINT_IMAGE_EVIDENCE",
-    "action_file": ".ops/reports/P1/REPAIR_1_RUNTIME_DIAGNOSTICS_GATE.md",
-    "action_file_sha256": "11fa7189cee4c81eff99da010edcddf7f3815e0bfe2167b452dbe4b2770425e3",
+    "purpose": "Independent security review of unapplied frozen image packaging correction",
+    "status": "PENDING_INDEPENDENT_SECURITY_REVIEW",
+    "action_file": ".ops/reports/P1/gateway-repair-2-proposal/INDEPENDENT_REVIEW_GATE.md",
+    "action_file_sha256": "21cfdede7dbaf037c49faef18ae04d6d4a4996396f5383d025b4040d91762bda",
     "accepted_source_commit": "134ddfbe393168ce7cef99c44817329c84a8d6eb",
     "archive_sha256": "d2c69e1a49342ae09867bd206e39e89d969c8d0e39eb3c6e9b1eaaf93c1e68b0",
     "root_review_stage": "/var/lib/gcreation-perf-review/134ddfbe393168ce7cef99c44817329c84a8d6eb",
@@ -74,7 +74,7 @@
     ],
     "approval_granted_by": "HUMAN_P0_2_SECTION_8",
     "capability_verified": false,
-    "human_action": "Return the exact gateway entrypoint and read-only pinned-image path/file/traversal evidence; distinguish wrong/missing entrypoint from UID10001 permission failure before choosing any repair. No official retry or REPAIR_2 attempt.",
+    "human_action": "Independent review of the exact unapplied proposal package; no image/source/runtime action until disposition",
     "operator_reported_result": "PASS",
     "installed_candidate_bytes_locally_verified": true,
     "full_refresh_verified": true,
@@ -83,45 +83,32 @@
   "hard_blocker": null,
   "production_touched": false,
   "p7": "NOT_STARTED",
-  "updated_at": "2026-10-06T10:37:33.054177+00:00",
+  "updated_at": "2026-10-06T10:50:27.796900+00:00",
   "p7_authorization": "SEPARATE_HUMAN_REQUIRED",
   "security_review": {
     "part": "P1",
-    "kind": "RUNTIME_REPAIR_1",
-    "status": "PASS",
-    "independent_review": "PASS",
-    "repair_state": "SOURCE_ACCEPTED",
-    "failing_criterion": "P1-BUILD-01",
-    "report": ".ops/reports/P1/runtime-repair-1/REPORT.md",
-    "old_source_commit": "08b395cf08523dbc5ab27f744d174b8a19bb2b4b",
-    "candidate_source_commit": "134ddfbe393168ce7cef99c44817329c84a8d6eb",
-    "candidate_parent_commit": "08b395cf08523dbc5ab27f744d174b8a19bb2b4b",
-    "candidate_archive_path": "/home/codexperf/projects/gcreation-performance/.ops/test-artifacts/review-source-134ddfbe393168ce7cef99c44817329c84a8d6eb.tar.gz",
-    "proposed_archive_sha256": "d2c69e1a49342ae09867bd206e39e89d969c8d0e39eb3c6e9b1eaaf93c1e68b0",
-    "source_manifest_sha256": "b8900ea6c39fa2baf3b3481263e6ef778e3f5eb54fcb019ffb600ca6014d5a95",
-    "expected_snapshot_digest": "8425d68350e9c9d93f941f62591142cd21a68835b35df188ee63cc415b3054b5",
-    "archive_regular_members": 106,
-    "boundary_changes": "NONE",
-    "local_static_audit": "PASS",
+    "kind": "REPAIR_2_GATEWAY_IMAGE_DIRECTORY_TRAVERSAL_PROPOSAL",
+    "status": "SECURITY_REVIEW_REQUIRED",
+    "independent_review": "PENDING",
+    "repair_state": "UNAPPLIED_PROPOSAL",
+    "old_source_commit": "134ddfbe393168ce7cef99c44817329c84a8d6eb",
+    "old_image_id": "sha256:f2bb2401f1f296115cd0d3dd5609ca6514446f55d4484f1884639f308a456f24",
+    "root_cause": "UID10001_DIRECTORY_TRAVERSAL_FAILURE",
+    "proposal_directory": ".ops/reports/P1/gateway-repair-2-proposal",
+    "proposal_patch": ".ops/reports/P1/gateway-repair-2-proposal/PROPOSED_SOURCE.patch",
+    "proposal_patch_sha256": "1bfe3e0c08b6d2b456dd494a7240754affcdce56f3e52c1eebd1762089ba41ac",
+    "package_checksums_sha256": "8dd4ac405bb381dae9c9914c6c082fe79390e7c3b75f959a3242bcf73a05d1cb",
+    "implementation_files_proposed": [
+      "ops/dev/runtime.Dockerfile"
+    ],
+    "implementation_applied": false,
+    "candidate_source_commit": null,
+    "candidate_archive_sha256": null,
+    "candidate_image_id": null,
+    "repair_2_attempts_used": 0,
     "installation_authorized": false,
     "deployment_authorized": false,
-    "tests": {
-      "python": 53,
-      "typescript": 26,
-      "gateway": 4,
-      "isolated_final_commands": 15,
-      "all_exit_zero": true,
-      "results_file": ".ops/reports/P1/runtime-repair-1/CANDIDATE_TEST_RESULTS.json"
-    },
-    "checksums_sha256": "0ce4949faca74f32428cdad8682c345598cbb19e02c834be90c8cec66b45c63d",
-    "accepted_scope": "REPAIR_1 SOURCE / SECURITY DESIGN ONLY",
-    "accepted_source_commit": "134ddfbe393168ce7cef99c44817329c84a8d6eb",
-    "approval_record": ".ops/reports/P1/REPAIR_1_ACCEPTANCE.json",
-    "approval_record_sha256": "95c70b1e42fd961082bdb7a10ac69ba81219a189b29c7e801e235519ff9db9a0",
-    "reviewer_directly_hashed_server_archive": false,
-    "operator_archive_reverification_required": true,
-    "controller_refresh_authorized": false,
-    "recorded_at": "2026-10-06T07:28:52.241684+00:00"
+    "review_gate": ".ops/reports/P1/gateway-repair-2-proposal/INDEPENDENT_REVIEW_GATE.md"
   },
   "installation_gate": {
     "status": "PASS",
@@ -217,6 +204,44 @@
         "evidence_file": ".ops/reports/P1/INSTALLATION_EVIDENCE.json"
       },
       "installation_authorized_by_source_review": false
+    },
+    {
+      "part": "P1",
+      "kind": "RUNTIME_REPAIR_1",
+      "status": "PASS",
+      "independent_review": "PASS",
+      "repair_state": "SOURCE_ACCEPTED",
+      "failing_criterion": "P1-BUILD-01",
+      "report": ".ops/reports/P1/runtime-repair-1/REPORT.md",
+      "old_source_commit": "08b395cf08523dbc5ab27f744d174b8a19bb2b4b",
+      "candidate_source_commit": "134ddfbe393168ce7cef99c44817329c84a8d6eb",
+      "candidate_parent_commit": "08b395cf08523dbc5ab27f744d174b8a19bb2b4b",
+      "candidate_archive_path": "/home/codexperf/projects/gcreation-performance/.ops/test-artifacts/review-source-134ddfbe393168ce7cef99c44817329c84a8d6eb.tar.gz",
+      "proposed_archive_sha256": "d2c69e1a49342ae09867bd206e39e89d969c8d0e39eb3c6e9b1eaaf93c1e68b0",
+      "source_manifest_sha256": "b8900ea6c39fa2baf3b3481263e6ef778e3f5eb54fcb019ffb600ca6014d5a95",
+      "expected_snapshot_digest": "8425d68350e9c9d93f941f62591142cd21a68835b35df188ee63cc415b3054b5",
+      "archive_regular_members": 106,
+      "boundary_changes": "NONE",
+      "local_static_audit": "PASS",
+      "installation_authorized": false,
+      "deployment_authorized": false,
+      "tests": {
+        "python": 53,
+        "typescript": 26,
+        "gateway": 4,
+        "isolated_final_commands": 15,
+        "all_exit_zero": true,
+        "results_file": ".ops/reports/P1/runtime-repair-1/CANDIDATE_TEST_RESULTS.json"
+      },
+      "checksums_sha256": "0ce4949faca74f32428cdad8682c345598cbb19e02c834be90c8cec66b45c63d",
+      "accepted_scope": "REPAIR_1 SOURCE / SECURITY DESIGN ONLY",
+      "accepted_source_commit": "134ddfbe393168ce7cef99c44817329c84a8d6eb",
+      "approval_record": ".ops/reports/P1/REPAIR_1_ACCEPTANCE.json",
+      "approval_record_sha256": "95c70b1e42fd961082bdb7a10ac69ba81219a189b29c7e801e235519ff9db9a0",
+      "reviewer_directly_hashed_server_archive": false,
+      "operator_archive_reverification_required": true,
+      "controller_refresh_authorized": false,
+      "recorded_at": "2026-10-06T07:28:52.241684+00:00"
     }
   ],
   "runtime_failure": {
@@ -233,11 +258,11 @@
     "criterion": "P1 runtime start/health",
     "command": "Diagnostic gateway Node entrypoint load; official readiness loop depends on successful gateway health",
     "error": "MODULE_NOT_FOUND / gateway exit1; official runtime readiness deadline",
-    "diagnosis": "Isolated gateway startup cannot resolve its .mjs entrypoint under the pinned immutable image; Node exits1/MODULE_NOT_FOUND. Exact missing-versus-inaccessible/wrong-path mechanism remains unproven.",
-    "evidence_file": ".ops/reports/P1/BOUNDED_RUNTIME_ROOT_CAUSE.json",
-    "status": "HUMAN_CAPABILITY_GATE",
-    "next_action": "Return the exact gateway entrypoint and read-only pinned-image path/file/traversal evidence; distinguish wrong/missing entrypoint from UID10001 permission failure before choosing any repair. No official retry or REPAIR_2 attempt.",
-    "smallest_remediation": "Restore successful loading of the reviewed gateway entrypoint at its expected immutable location for UID10001; exact source change cannot be selected until image/argv evidence is returned."
+    "diagnosis": "UID10001 cannot traverse three root-owned0700 gateway image ancestors; exact file/hash/launcher are correct",
+    "evidence_file": ".ops/reports/P1/gateway-repair-2-proposal/FINAL_ROOT_CAUSE.json",
+    "status": "SECURITY_REVIEW_REQUIRED",
+    "next_action": "Independent review before implementing proposed runtime.Dockerfile line",
+    "smallest_remediation": "Unapplied one-line offline image chmod0755 for exactly ops, ops/dev, ops/dev/trusted; changes frozen runtime image packaging"
   },
   "external_oversight": "PENDING",
   "deployment_authority": {
@@ -256,7 +281,7 @@
   },
   "capability_gate": {
     "process": "bounded-runtime-root-cause-analysis",
-    "status": "PENDING_CAPABILITY",
+    "status": "DIAGNOSTIC_EVIDENCE_RESOLVED",
     "scope_class": "RELIABILITY_CRITICAL",
     "business_mapping": [
       "RELIABILITY",
@@ -264,11 +289,11 @@
       "MVP_RELEASE"
     ],
     "evidence_file": ".ops/reports/P1/BOUNDED_RUNTIME_ROOT_CAUSE.json",
-    "reason": "Exact gateway argv is redacted; actual pinned-image entrypoint/ancestor metadata is unavailable through approved agent capability.",
+    "reason": null,
     "root_interface_available": false,
     "approval_already_granted": true,
     "repair_cycle_consumed": false,
-    "operator_action": "Return the exact gateway entrypoint and read-only pinned-image path/file/traversal evidence; distinguish wrong/missing entrypoint from UID10001 permission failure before choosing any repair. No official retry or REPAIR_2 attempt."
+    "operator_action": null
   },
   "execution_policy": {
     "routine_micro_approvals_required": false,
@@ -295,7 +320,7 @@
   "oversight_checkpoint": {
     "latest_json": ".ops/oversight/LATEST_CHECKPOINT.json",
     "latest_markdown": ".ops/oversight/LATEST_CHECKPOINT.md",
-    "event": ".ops/oversight/events/0006-P1-bounded-runtime-root-cause-analysis.json"
+    "event": ".ops/oversight/events/0007-P1-gateway-traversal-security-proposal.json"
   },
   "controller_refresh": {
     "operator_reported_result": "PASS",
@@ -317,23 +342,23 @@
     "error": "RuntimeError",
     "rollback": false,
     "exact_error": "Runtime readiness deadline exceeded",
-    "root_cause": "NOT_ESTABLISHED"
+    "root_cause": "UID10001_DIRECTORY_TRAVERSAL_FAILURE"
   },
   "runtime_acceptance": {
     "result": "FAIL",
     "deployed_identity": null,
     "failing_criterion": "P1 runtime start/health",
     "failure_evidence": ".ops/reports/P1/REPAIR_1_DEPLOYMENT_ATTEMPT.json",
-    "root_cause": "NOT_ESTABLISHED"
+    "root_cause": "UID10001_DIRECTORY_TRAVERSAL_FAILURE"
   },
   "runtime_diagnostics": {
     "collection": "PASS",
-    "analysis": "HOLD",
+    "analysis": "ROOT_CAUSE_PROVEN",
     "exact_operation_established": true,
-    "root_cause": "ENTRYPOINT_RESOLUTION_FAILURE_EXACT_MECHANISM_UNPROVEN",
-    "evidence_file": ".ops/reports/P1/BOUNDED_RUNTIME_ROOT_CAUSE.json",
+    "root_cause": "UID10001_DIRECTORY_TRAVERSAL_FAILURE",
+    "evidence_file": ".ops/reports/P1/gateway-repair-2-proposal/FINAL_ROOT_CAUSE.json",
     "bounded_reproduction": "PASS_COLLECTION",
-    "bounded_analysis": "HOLD",
+    "bounded_analysis": "PROVEN_FROM_IMAGE_METADATA_AND_EFFECTIVE_UID_ACCESS",
     "failed_layer": "GATEWAY_STARTUP",
     "supported_error": "MODULE_NOT_FOUND"
   }

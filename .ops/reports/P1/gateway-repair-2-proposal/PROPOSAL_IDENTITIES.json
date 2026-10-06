@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "status": "UNAPPLIED_PROPOSAL_ONLY",
+  "accepted_source_commit": "134ddfbe393168ce7cef99c44817329c84a8d6eb",
+  "governance_baseline_commit": "82666f0084e588db8f9c9bbd866c22aea67f22f5",
+  "old_archive_sha256": "d2c69e1a49342ae09867bd206e39e89d969c8d0e39eb3c6e9b1eaaf93c1e68b0",
+  "old_immutable_image_id": "sha256:f2bb2401f1f296115cd0d3dd5609ca6514446f55d4484f1884639f308a456f24",
+  "gateway_content_sha256_unchanged": "d9616a205b5f7a7e2d11779a2a98a1a5367ec76d992b2d3b8bb51e5a25343c4c",
+  "proposed_implementation_files": [
+    "ops/dev/runtime.Dockerfile"
+  ],
+  "runtime_dockerfile_before_sha256": "b57d39dc4bb75e625c308841a3e71be23718f4e1dde1aab25b9d6b974939dc07",
+  "proposed_runtime_dockerfile_after_sha256": "21ee8641969bc2eb92a91d1dcde28ed90e6420433bb022f1a25d1237c7eec152",
+  "proposal_patch_sha256": "1bfe3e0c08b6d2b456dd494a7240754affcdce56f3e52c1eebd1762089ba41ac",
+  "candidate_source_commit": null,
+  "candidate_archive_sha256": null,
+  "candidate_image_id": null,
+  "implemented": false,
+  "image_built": false,
+  "targeted_candidate_regression": "NOT_RUN_NOT_IMPLEMENTED",
+  "full_candidate_regression": "NOT_RUN_NOT_IMPLEMENTED",
+  "repair_cycle_preserved": 1,
+  "repair_2_attempts": 0
+}

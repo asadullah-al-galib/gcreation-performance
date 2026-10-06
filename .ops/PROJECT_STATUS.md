@@ -5,7 +5,7 @@ CURRENT PART:
 P1
 
 STATE:
-HUMAN_CAPABILITY_GATE
+SECURITY_REVIEW_REQUIRED
 
 AUTHORIZATION:
 HUMAN_P0_2 — APPROVED CONSTRAINED DEV CAPABILITIES ONLY
@@ -44,16 +44,16 @@ PRODUCTION/MAIN:
 UNTOUCHED
 
 CURRENT OBSERVATION:
-Bounded diagnostic SHA687c1b75... verified. Fresh/cloned-data application health200; diagnostic gateway exits1/MODULE_NOT_FOUND, host health connection refused. Failed layer D isolated. Exact argv/entrypoint is redacted and pinned-image path/traversal metadata absent, so missing/wrong path versus permission mechanism remains unproven. Non-root/no-Docker fixture shows blocked traversal can also produce MODULE_NOT_FOUND; no REPAIR_2 fix selected.
+Final mechanism UID10001_DIRECTORY_TRAVERSAL_FAILURE proven: correct reviewed0644 gateway file/hash/launcher exists, but three root-owned0700 image ancestors deny runtime access/import. Smallest exact UNAPPLIED proposal adds one fixed chmod0755 line in existing offline runtime.Dockerfile step. Frozen immutable image packaging requires independent security review before implementation. No source/tests/image/runtime changes.
 
 NEXT ALLOWED ACTION:
-Return exact sanitized gateway argv/entrypoint and pinned-image entrypoint presence/hash/owner/mode plus ancestor traversal/readability for UID10001. Confirm exact mechanism, then assess smallest correction and V4 review before implementation; no retry.
+Independent review of exact unapplied gateway-repair-2-proposal package. No implementation or image/privileged/runtime action until security disposition; no deployment request.
 
 MACHINE STATE:
 .ops/ORCHESTRATOR_STATUS.json
 
 EVIDENCE:
-.ops/reports/P1/BOUNDED_RUNTIME_ROOT_CAUSE_REPORT.md
+.ops/reports/P1/gateway-repair-2-proposal/FINAL_GATEWAY_ROOT_CAUSE_REPORT.md
 
 OVERSIGHT:
 .ops/oversight/LATEST_CHECKPOINT.json / .md; EXTERNAL PENDING / NON-BLOCKING

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-10-06T10:49:10.941731+00:00",
+  "scope": "PROPOSED_FIXED_DIRECTORY_CHMOD_LOCAL_FIXTURE_ONLY",
+  "evidence_class": "LOCAL_TESTED",
+  "result": "PASS",
+  "root_or_Docker_execution": false,
+  "repair_implementation_applied": false,
+  "command": [
+    "chmod",
+    "0755",
+    "ops",
+    "ops/dev",
+    "ops/dev/trusted"
+  ],
+  "expected_changes": "Exactly three own fixture directories0700->0755; all owner/group unchanged, file0644/hash unchanged",
+  "gateway_sha256": "d9616a205b5f7a7e2d11779a2a98a1a5367ec76d992b2d3b8bb51e5a25343c4c",
+  "node_import_exit_code": 0,
+  "node_version": "v26.10.0",
+  "limitations": "Local fixture under agent UID only; no candidate image built or actual UID10001 new-image import acceptance. Proposed actual image regression remains required after review."
+}

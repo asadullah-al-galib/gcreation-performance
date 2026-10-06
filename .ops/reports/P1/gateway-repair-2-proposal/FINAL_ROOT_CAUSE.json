@@ -1,0 +1,115 @@
+{
+  "schema_version": 1,
+  "part": "P1",
+  "process": "gateway-traversal-security-proposal",
+  "result": "ROOT_CAUSE_PROVEN_REPAIR_REQUIRES_REVIEW",
+  "state": "SECURITY_REVIEW_REQUIRED",
+  "scope_class": "SECURITY_CRITICAL",
+  "business_mapping": [
+    "SECURITY",
+    "RELIABILITY",
+    "MVP_RELEASE"
+  ],
+  "recorded_at_utc": "2026-10-06T10:46:54.706361+00:00",
+  "source_commit": "134ddfbe393168ce7cef99c44817329c84a8d6eb",
+  "handoff_sha256": "dca7dfa7aa8dfd4f46a248691f2ef311463651583f805b794d2f4d9bf54d7f8c",
+  "exact_failure_mechanism": "UID10001_DIRECTORY_TRAVERSAL_FAILURE",
+  "defect_class": "image-packaging / permission",
+  "pinned_image_id": "sha256:f2bb2401f1f296115cd0d3dd5609ca6514446f55d4484f1884639f308a456f24",
+  "gateway_entrypoint": "/opt/gcreation-trusted/ops/dev/trusted/gateway.mjs",
+  "gateway_exists": true,
+  "gateway_hash_matches_accepted_source": true,
+  "gateway_sha256": "d9616a205b5f7a7e2d11779a2a98a1a5367ec76d992b2d3b8bb51e5a25343c4c",
+  "official_controller_launch_matches": true,
+  "image_path_metadata": [
+    {
+      "path": "/",
+      "type": "directory",
+      "uid": 0,
+      "gid": 0,
+      "mode": "755"
+    },
+    {
+      "path": "/opt",
+      "type": "directory",
+      "uid": 0,
+      "gid": 0,
+      "mode": "755"
+    },
+    {
+      "path": "/opt/gcreation-trusted",
+      "type": "directory",
+      "uid": 0,
+      "gid": 0,
+      "mode": "755"
+    },
+    {
+      "path": "/opt/gcreation-trusted/ops",
+      "type": "directory",
+      "uid": 0,
+      "gid": 0,
+      "mode": "700"
+    },
+    {
+      "path": "/opt/gcreation-trusted/ops/dev",
+      "type": "directory",
+      "uid": 0,
+      "gid": 0,
+      "mode": "700"
+    },
+    {
+      "path": "/opt/gcreation-trusted/ops/dev/trusted",
+      "type": "directory",
+      "uid": 0,
+      "gid": 0,
+      "mode": "700"
+    },
+    {
+      "path": "/opt/gcreation-trusted/ops/dev/trusted/gateway.mjs",
+      "type": "regular file",
+      "uid": 0,
+      "gid": 0,
+      "mode": "644"
+    }
+  ],
+  "uid10001_traverse_all_required_ancestors": false,
+  "uid10001_read_file": false,
+  "file_read_mode_other_readable": true,
+  "node_import": {
+    "result": "FAIL",
+    "code": "ERR_MODULE_NOT_FOUND",
+    "exit_code": 7
+  },
+  "why_node_module_not_found": "Root-owned0700 ops/dev/trusted ancestor chain hides an existing0644 reviewed gateway file from UID10001; loader cannot resolve the requested module. File missing, wrong launch path and content mismatch are excluded by root metadata/hash and pinned launcher evidence.",
+  "why_repair_1_health_failed": "Mutable build-source traversal was fixed by REPAIR_1, but unchanged frozen image retains inaccessible gateway ancestors. Official non-root gateway cannot load and serve health, so start_runtime readiness expires.",
+  "source_mechanism": "Accepted prepare_image creates source directories with requested0755 masked by private umask; local fixture confirms0700 under0077. Current image metadata proves copied trusted gateway ancestors0700. runtime.Dockerfile copies trusted-source without normalizing these directories.",
+  "smallest_correction": "One added chmod0755 for exactly ops, ops/dev, ops/dev/trusted inside the existing RUN --network=none image-build step; retain root ownership and gateway0644 bytes.",
+  "implementation_files_that_would_change": [
+    "ops/dev/runtime.Dockerfile"
+  ],
+  "implementation_applied": false,
+  "boundary_impact": {
+    "frozen_component": "Reviewed immutable runtime image/trusted gateway packaging",
+    "security_review_required": true,
+    "actual_boundary_change": false,
+    "preserved_proposal_controls": [
+      "Host private build-context and reviewed snapshot permissions remain unchanged",
+      "Gateway source/hash/entrypoint/auth behavior unchanged",
+      "No chown, writable trusted source or release-mounted gateway",
+      "No dependency/base image/secret/network/SSRF/cgroup/seccomp/user/launcher change",
+      "Existing offline compilation and non-root final USER preserved"
+    ]
+  },
+  "repair_counters": {
+    "initial": "CONSUMED",
+    "REPAIR_1": "FAILED_CONSUMED",
+    "repair_1_attempts": 1,
+    "repair_1_limit": 1,
+    "automatic_retries": 0,
+    "repair_2_attempts": 0,
+    "current_repair_cycle": 1
+  },
+  "production_touched": false,
+  "P2": "NOT_STARTED",
+  "next_allowed_step": "Independent security review of the unapplied proposal; no implementation or deployment until its disposition is recorded."
+}

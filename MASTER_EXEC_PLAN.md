@@ -4,20 +4,20 @@ Authoritative execution order: [PROJECT_TIMELINE.md](PROJECT_TIMELINE.md). Produ
 
 ## Current gate
 
-P0 remains FROZEN / human review PASS at approved governance 1c6303e0c17b04952ee6e9c8b01d6868e53fe152 and freeze record 999ade0ea2695e92c1365a09a3e13f87bd4ef758. P0.2 authorizes bounded sequential P1–P6 technical execution. Current Part P1: execution IN_PROGRESS, workflow HUMAN_CAPABILITY_GATE, REPAIR_1 source/security review PASS, full-Part independent review PENDING, repair cycle1. P0.2 Master Authorization V2 is recorded in docs/P0_2_AUTONOMOUS_AUTHORIZATION.md; routine DEV approvals are replaced by constrained capability checks. P2–P7 NOT_STARTED. Machine state: .ops/ORCHESTRATOR_STATUS.json. P0.2 grants bounded P1–P6 DEV execution through approved constrained interfaces. Advance sequentially only after full technical exit evidence is persisted, no human/operator action or concrete blocker remains, and V4 boundaries are unchanged. Record EXECUTION_PASS with INDEPENDENT_REVIEW PENDING; Codex never grants human PASS/FROZEN. Stop only at the seven P0.2§34 conditions; missing capability is HUMAN_CAPABILITY_GATE. P7 needs separate human authorization.
+P0 remains FROZEN / human review PASS at approved governance 1c6303e0c17b04952ee6e9c8b01d6868e53fe152 and freeze record 999ade0ea2695e92c1365a09a3e13f87bd4ef758. P0.2 authorizes bounded sequential P1–P6 technical execution. Current Part P1: execution IN_PROGRESS, workflow SECURITY_REVIEW_REQUIRED, REPAIR_1 source/security review PASS, full-Part independent review PENDING, repair cycle1. P0.2 Master Authorization V2 is recorded in docs/P0_2_AUTONOMOUS_AUTHORIZATION.md; routine DEV approvals are replaced by constrained capability checks. P2–P7 NOT_STARTED. Machine state: .ops/ORCHESTRATOR_STATUS.json. P0.2 grants bounded P1–P6 DEV execution through approved constrained interfaces. Advance sequentially only after full technical exit evidence is persisted, no human/operator action or concrete blocker remains, and V4 boundaries are unchanged. Record EXECUTION_PASS with INDEPENDENT_REVIEW PENDING; Codex never grants human PASS/FROZEN. Stop only at the seven P0.2§34 conditions; missing capability is HUMAN_CAPABILITY_GATE. P7 needs separate human authorization.
 
 V4 static security/source reviews PASS; historical installation gate PASS. Controller refresh PASS. Exactly one REPAIR_1 request consumed: FAILED/runtime-health/RuntimeError/rollback=false. Constrained build return0 inferred from reviewed stage progression. Root cause NOT_ESTABLISHED; protected read-only service/container diagnostics unavailable. Repair_cycle1; REPAIR_1 attempts1/1, retries0. No retry or P2; production/main untouched. Current diagnostic gate .ops/reports/P1/REPAIR_1_RUNTIME_DIAGNOSTICS_GATE.md.
 
-| Part | Completion state | Workflow state        | Cycle record                                                |
-| ---- | ---------------- | --------------------- | ----------------------------------------------------------- |
-| P0   | FROZEN           | FROZEN                | Human PASS; repair 1/repair 2 not used                      |
-| P1   | IN_PROGRESS      | HUMAN_CAPABILITY_GATE | REPAIR_1 failed/runtime-health; attempts1/1; review PENDING |
-| P2   | NOT_STARTED      | NOT_STARTED           | No cycle started                                            |
-| P3   | NOT_STARTED      | NOT_STARTED           | No cycle started                                            |
-| P4   | NOT_STARTED      | NOT_STARTED           | No cycle started                                            |
-| P5   | NOT_STARTED      | NOT_STARTED           | No cycle started                                            |
-| P6   | NOT_STARTED      | NOT_STARTED           | No cycle started                                            |
-| P7   | NOT_STARTED      | NOT_STARTED           | No cycle started                                            |
+| Part | Completion state | Workflow state           | Cycle record                                                |
+| ---- | ---------------- | ------------------------ | ----------------------------------------------------------- |
+| P0   | FROZEN           | FROZEN                   | Human PASS; repair 1/repair 2 not used                      |
+| P1   | IN_PROGRESS      | SECURITY_REVIEW_REQUIRED | REPAIR_1 failed/runtime-health; attempts1/1; review PENDING |
+| P2   | NOT_STARTED      | NOT_STARTED              | No cycle started                                            |
+| P3   | NOT_STARTED      | NOT_STARTED              | No cycle started                                            |
+| P4   | NOT_STARTED      | NOT_STARTED              | No cycle started                                            |
+| P5   | NOT_STARTED      | NOT_STARTED              | No cycle started                                            |
+| P6   | NOT_STARTED      | NOT_STARTED              | No cycle started                                            |
+| P7   | NOT_STARTED      | NOT_STARTED              | No cycle started                                            |
 
 ## Preserved baseline and evidence
 
@@ -104,3 +104,7 @@ State HUMAN_CAPABILITY_GATE. Diagnostic handoff SHA3f977213... matches. Collecti
 ## P1 checkpoint 0006 — bounded-runtime-root-cause-analysis
 
 State HUMAN_CAPABILITY_GATE. Bounded diagnostic SHA687c1b75... verified. Fresh/cloned-data application health200; diagnostic gateway exits1/MODULE_NOT_FOUND, host health connection refused. Failed layer D isolated. Exact argv/entrypoint is redacted and pinned-image path/traversal metadata absent, so missing/wrong path versus permission mechanism remains unproven. Non-root/no-Docker fixture shows blocked traversal can also produce MODULE_NOT_FOUND; no REPAIR_2 fix selected. P1 execution IN_PROGRESS / full independent review PENDING; repair_cycle1; REPAIR_1 attempts1/1, automatic retries0; prior INITIAL consumed; P2–P7 NOT_STARTED; production/main untouched. Next allowed step: Return exact sanitized gateway argv/entrypoint and pinned-image entrypoint presence/hash/owner/mode plus ancestor traversal/readability for UID10001. Confirm exact mechanism, then assess smallest correction and V4 review before implementation; no retry. Evidence: .ops/reports/P1/BOUNDED_RUNTIME_ROOT_CAUSE_REPORT.md.
+
+## P1 checkpoint 0007 — gateway-traversal-security-proposal
+
+State SECURITY_REVIEW_REQUIRED. Final mechanism UID10001_DIRECTORY_TRAVERSAL_FAILURE proven: correct reviewed0644 gateway file/hash/launcher exists, but three root-owned0700 image ancestors deny runtime access/import. Smallest exact UNAPPLIED proposal adds one fixed chmod0755 line in existing offline runtime.Dockerfile step. Frozen immutable image packaging requires independent security review before implementation. No source/tests/image/runtime changes. P1 execution IN_PROGRESS / full independent review PENDING; repair_cycle1; REPAIR_1 attempts1/1, automatic retries0; prior INITIAL consumed; P2–P7 NOT_STARTED; production/main untouched. Next allowed step: Independent review of exact unapplied gateway-repair-2-proposal package. No implementation or image/privileged/runtime action until security disposition; no deployment request. Evidence: .ops/reports/P1/gateway-repair-2-proposal/FINAL_GATEWAY_ROOT_CAUSE_REPORT.md.

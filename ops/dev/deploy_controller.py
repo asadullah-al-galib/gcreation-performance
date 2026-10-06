@@ -226,6 +226,11 @@ def artifact_snapshot(ops_fd, request, snapshot):
     for name, content in sorted(files.items()):
         target = snapshot / name
         target.parent.mkdir(parents=True, exist_ok=True, mode=0o755)
+        # The private service UMask must not prevent UID10001 source traversal.
+        parent = target.parent
+        while parent != snapshot:
+            parent.chmod(0o755)
+            parent = parent.parent
         with target.open('xb') as output:
             output.write(content)
         target.chmod(0o644)
@@ -367,7 +372,9 @@ def deploy():
         stage = 'source-snapshot'
         release = STATE / ('release-' + str(time.time_ns() if hasattr(time, 'time_ns') else int(time.time()*1000000)))
         release.mkdir(mode=0o755)
+        release.chmod(0o755)
         snapshot = release / 'source'; snapshot.mkdir(mode=0o755)
+        snapshot.chmod(0o755)
         digest = artifact_snapshot(ops_fd, request, snapshot)
         output = release / 'output'; output.mkdir(mode=0o755); os.chown(str(output), 10001, 10001)
         # Build source is read-only. Untrusted scripts execute only inside a

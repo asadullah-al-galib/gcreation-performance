@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "part": "P1",
+  "repair": "REPAIR_1",
+  "repair_cycle": 1,
+  "decision": "PASS",
+  "scope": "SOURCE_AND_SECURITY_DESIGN_ONLY",
+  "evidence_class": "HUMAN_ATTESTED_INDEPENDENT_REVIEW",
+  "reviewed_parent": "08b395cf08523dbc5ab27f744d174b8a19bb2b4b",
+  "accepted_candidate": "134ddfbe393168ce7cef99c44817329c84a8d6eb",
+  "exact_parent_relation": "ONE_COMMIT_AHEAD",
+  "exact_source_changes": [
+    "ops/dev/deploy_controller.py",
+    "tests/test_source_permissions.py",
+    "MASTER_EXEC_PLAN.md",
+    "ROADMAP.md"
+  ],
+  "findings": {
+    "root_cause": "CONFIRMED: UMask0077 masks requested source directory0755 to root-owned0700, blocking UID/GID10001 traversal",
+    "permission_repair": "release/source/nested source directories explicitly0755; files0644; no group/other write",
+    "private_state": "/var/lib/gcreation-perf-dev remains root-private0700",
+    "V4_boundary_changes": "NONE",
+    "accepted_installer_I_B": "UNCHANGED",
+    "regressions": "SUFFICIENT_STATIC_LOCAL_ONLY",
+    "real_host_repair_validation": "PENDING"
+  },
+  "reported_archive_sha256": "d2c69e1a49342ae09867bd206e39e89d969c8d0e39eb3c6e9b1eaaf93c1e68b0",
+  "source_manifest_sha256": "b8900ea6c39fa2baf3b3481263e6ef778e3f5eb54fcb019ffb600ca6014d5a95",
+  "expected_regular_members": 106,
+  "expected_snapshot_digest": "8425d68350e9c9d93f941f62591142cd21a68835b35df188ee63cc415b3054b5",
+  "reviewer_directly_hashed_server_archive": false,
+  "operator_reverification_before_any_replacement": [
+    "root-owned private archive exact SHA256",
+    "106 safe regular members and exact commit marker",
+    "fresh safe root-only extraction",
+    "approved.json exact file map",
+    "no symlinks/hardlinks/special entries/pyc/__pycache__",
+    "pinned manifest and canonical snapshot digests",
+    "reviewed install_preflight PASS"
+  ],
+  "reported_tests": {
+    "python_pass": 53,
+    "typescript_pass": 26,
+    "gateway_pass": 4,
+    "isolated_commands_exit_zero": 15,
+    "security_files_unchanged": 49,
+    "security_files_audited": 50,
+    "sole_privileged_change": "ops/dev/deploy_controller.py"
+  },
+  "agent_local_data_verification": {
+    "result": "PASS",
+    "scope": "LOCAL_DATA_ONLY",
+    "archive_sha_manifest_marker_members_and_digest_rechecked": true,
+    "tests_rerun": false,
+    "not_operator_trust_transition": true
+  },
+  "reviewed_package_handoff": "e179e19613af37648023f22b495f8fa3b1c3f71c",
+  "reviewed_package_checksums_sha256": "0ce4949faca74f32428cdad8682c345598cbb19e02c834be90c8cec66b45c63d",
+  "installation_authorized": false,
+  "controller_refresh_authorized": false,
+  "deployment_authorized": false,
+  "runtime_pass": false,
+  "full_P1_pass": false,
+  "full_P1_independent_review": "PENDING",
+  "prior_deployment_request_consumed": true,
+  "automatic_retries": 0,
+  "P2": "NOT_STARTED",
+  "production_touched": false,
+  "recorded_at": "2026-10-06T07:28:52.241684+00:00",
+  "next_gate": ".ops/reports/P1/TRUSTED_CONTROLLER_REFRESH_GATE.md"
+}

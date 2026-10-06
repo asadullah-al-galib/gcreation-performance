@@ -4,20 +4,20 @@ Authoritative execution order: [PROJECT_TIMELINE.md](PROJECT_TIMELINE.md). Produ
 
 ## Current gate
 
-P0 remains FROZEN / human review PASS at approved governance 1c6303e0c17b04952ee6e9c8b01d6868e53fe152 and freeze record 999ade0ea2695e92c1365a09a3e13f87bd4ef758. P0.1 authorizes sequential P1–P6 technical execution. Current Part P1: execution BLOCKED, workflow SECURITY_REVIEW_REQUIRED, REPAIR_1 REVIEW_READY, independent review PENDING, repair cycle1. P2–P7 NOT_STARTED. Machine state: .ops/ORCHESTRATOR_STATUS.json. P0.1 grants one bounded P1–P6 execution authorization. Advance sequentially only after full technical exit evidence is persisted, no human/operator action or concrete blocker remains, and V4 boundaries are unchanged. Record EXECUTION_PASS with INDEPENDENT_REVIEW PENDING; Codex never grants human PASS/FROZEN. Stop at WAITING_FOR_HUMAN, SECURITY_REVIEW_REQUIRED, HARD_BLOCKED or P6_REVIEW_READY. P7 needs separate human authorization.
+P0 remains FROZEN / human review PASS at approved governance 1c6303e0c17b04952ee6e9c8b01d6868e53fe152 and freeze record 999ade0ea2695e92c1365a09a3e13f87bd4ef758. P0.1 authorizes sequential P1–P6 technical execution. Current Part P1: execution IN_PROGRESS, workflow WAITING_FOR_HUMAN, REPAIR_1 source/security review PASS, full-Part independent review PENDING, repair cycle1. P2–P7 NOT_STARTED. Machine state: .ops/ORCHESTRATOR_STATUS.json. P0.1 grants one bounded P1–P6 execution authorization. Advance sequentially only after full technical exit evidence is persisted, no human/operator action or concrete blocker remains, and V4 boundaries are unchanged. Record EXECUTION_PASS with INDEPENDENT_REVIEW PENDING; Codex never grants human PASS/FROZEN. Stop at WAITING_FOR_HUMAN, SECURITY_REVIEW_REQUIRED, HARD_BLOCKED or P6_REVIEW_READY. P7 needs separate human authorization.
 
-V4 static security: PASS. Installation gate: PASS from HUMAN_ATTESTED / REAL_DEV_VERIFIED installation evidence. The one approved runtime deployment FAILED at non-root-build; its request1/1 authority is consumed. REPAIR_1 source review and separate later operator/deployment approval required. Full runtime/health/containment/rollback/E2E acceptance remains pending. Production untouched.
+V4 static security: PASS. Installation gate: PASS from HUMAN_ATTESTED / REAL_DEV_VERIFIED installation evidence. The one approved runtime deployment FAILED at non-root-build; its request1/1 authority is consumed. REPAIR_1 source/security review PASS; trusted-controller refresh only awaits separate human approval; any later deployment requires another approval. Full runtime/health/containment/rollback/E2E acceptance remains pending. Production untouched.
 
-| Part | Completion state | Workflow state           | Cycle record                                      |
-| ---- | ---------------- | ------------------------ | ------------------------------------------------- |
-| P0   | FROZEN           | FROZEN                   | Human PASS; repair 1/repair 2 not used            |
-| P1   | BLOCKED          | SECURITY_REVIEW_REQUIRED | REPAIR_1 REVIEW_READY; independent review PENDING |
-| P2   | NOT_STARTED      | NOT_STARTED              | No cycle started                                  |
-| P3   | NOT_STARTED      | NOT_STARTED              | No cycle started                                  |
-| P4   | NOT_STARTED      | NOT_STARTED              | No cycle started                                  |
-| P5   | NOT_STARTED      | NOT_STARTED              | No cycle started                                  |
-| P6   | NOT_STARTED      | NOT_STARTED              | No cycle started                                  |
-| P7   | NOT_STARTED      | NOT_STARTED              | No cycle started                                  |
+| Part | Completion state | Workflow state    | Cycle record                                   |
+| ---- | ---------------- | ----------------- | ---------------------------------------------- |
+| P0   | FROZEN           | FROZEN            | Human PASS; repair 1/repair 2 not used         |
+| P1   | IN_PROGRESS      | WAITING_FOR_HUMAN | REPAIR_1 source PASS; full-Part review PENDING |
+| P2   | NOT_STARTED      | NOT_STARTED       | No cycle started                               |
+| P3   | NOT_STARTED      | NOT_STARTED       | No cycle started                               |
+| P4   | NOT_STARTED      | NOT_STARTED       | No cycle started                               |
+| P5   | NOT_STARTED      | NOT_STARTED       | No cycle started                               |
+| P6   | NOT_STARTED      | NOT_STARTED       | No cycle started                               |
+| P7   | NOT_STARTED      | NOT_STARTED       | No cycle started                               |
 
 ## Preserved baseline and evidence
 
@@ -69,6 +69,12 @@ D24–D27 remain PENDING: no runtime deployment, internal/public health, effecti
 
 Next allowed action: explicit human approval/designation for one controlled DEV deployment and consolidated runtime evidence. No request or runtime/privileged action now. Preserve both root snapshots/old stage; production/main untouched. Stop at WAITING_FOR_HUMAN.
 
-## Current P1 REPAIR_1 checkpoint
+## Historical P1 REPAIR_1 preparation checkpoint — independent source acceptance now recorded
 
 The one approved deployment of08b395c/archive80b206 failed at non-root-build (RuntimeError/exit1), rollback=false with no prior runtime. Request/claim/active release/runtime containers absent; failed release/networks retained by human attestation. P1 BLOCKED / REPAIR_1 REVIEW (execution BLOCKED / workflow SECURITY_REVIEW_REQUIRED / independent review PENDING); repair state REVIEW_READY / repair_cycle1. Candidate 134ddfbe393168ce7cef99c44817329c84a8d6eb has parent08b395cf08523dbc5ab27f744d174b8a19bb2b4b; controller adds explicit source traversal modes, focused regression and two inherited Markdown table format fixes required by the unchanged build gate. Exact archive/manifest/snapshot/test/boundary evidence: .ops/reports/P1/runtime-repair-1/REPORT.md. Earlier installation and source PASS remain scoped to08b395c. No new deployment/root/operator action, old/fresh stage or retained-evidence mutation. D24–D27 pending; P2–P7 NOT_STARTED; production/main untouched. Next allowed action: independent source review via .ops/reports/P1/runtime-repair-1/HUMAN_REVIEW_GATE.md, then a separate human operator/deployment decision. STOP.
+
+## Current P1 REPAIR_1 acceptance / operator gate
+
+Independent human source/security review PASS for134ddfbe393168ce7cef99c44817329c84a8d6eb (exact parent08b395cf08523dbc5ab27f744d174b8a19bb2b4b), recorded in .ops/reports/P1/REPAIR_1_ACCEPTANCE.json. Scope excludes installation, controller refresh, deployment, runtime and full P1 PASS. The reviewer did not directly hash server-local archive bytes; operator must independently reverify protected archive SHA/count/marker/approved file map/manifest/digest and reviewed preflight before any replacement. Orchestrator WAITING_FOR_HUMAN; execution IN_PROGRESS / incomplete; repair_cycle1; full-Part review PENDING.
+
+Next gate: .ops/reports/P1/TRUSTED_CONTROLLER_REFRESH_GATE.md — separate approval for one new root-only reviewed stage and ONLY atomic installed deploy_controller.py replacement, final root:root0644, with root-private parent backup/restore and unchanged-component checks. No installer rerun/image rebuild, cleanup/status reset or second deployment. Preserve both prior review stages, failed release/networks/status/source artifact/evidence/private environment/image/baseline/units/build-context. Reviewed repair package stays unchanged. A successful human refresh must return to WAITING_FOR_HUMAN for a separately approved new deployment gate. D24–D27 and runtime/health/containment/rollback remain pending; P2–P7 NOT_STARTED; production/main untouched. STOP.

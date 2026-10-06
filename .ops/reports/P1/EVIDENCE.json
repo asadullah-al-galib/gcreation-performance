@@ -2,8 +2,8 @@
   "schema_version": 1,
   "project": "gCreation Performance Doctor MVP v0.1",
   "part": "P1",
-  "execution_state": "BLOCKED",
-  "orchestrator_state": "SECURITY_REVIEW_REQUIRED",
+  "execution_state": "IN_PROGRESS",
+  "orchestrator_state": "WAITING_FOR_HUMAN",
   "independent_review": "PENDING",
   "repair_cycle": 1,
   "generated_at": "2026-10-06T03:31:48+00:00",
@@ -564,17 +564,40 @@
       "exit_code": 1,
       "evidence_reference": "runtime-repair-1/HOST_FAILURE.json",
       "limitations": "Human-supplied sanitized real-host evidence. Raw builder stderr and deployed snapshot digest were not supplied; no message, timestamp or digest is invented. Listed builder flags are observed configuration, not proof of full runtime or aggregate containment."
+    },
+    {
+      "criterion_id": "P1-REPAIR_1-SOURCE-REVIEW",
+      "part": "P1",
+      "requirement": "Independent review of minimal source permissions repair and preserved V4 boundaries",
+      "expected": "Scoped human-independent source/security review decision; no automatic operator authority",
+      "observed": "PASS for exact134ddfbe candidate/08b395c parent, source/security design only; reviewer did not directly hash server archive; root trust re-verification mandatory",
+      "result": "PASS",
+      "evidence_class": "HUMAN_ATTESTED",
+      "verification_domain": "SOURCE_AND_SECURITY_DESIGN_ONLY",
+      "timestamp": "2026-10-06T07:28:52.241684+00:00",
+      "source_commit": "134ddfbe393168ce7cef99c44817329c84a8d6eb",
+      "governance_commit": "e179e19613af37648023f22b495f8fa3b1c3f71c",
+      "deployed_archive_sha256": null,
+      "deployed_snapshot_sha256": null,
+      "runtime_image_identity": null,
+      "command_or_test": "Human-provided independent source/security review decision",
+      "exit_code": null,
+      "evidence_reference": "REPAIR_1_ACCEPTANCE.json",
+      "limitations": "No installed refresh, deployment, runtime or full P1 PASS; no independently measured server archive bytes by reviewer."
     }
   ],
   "updated_at": "2026-10-06T04:48:22+00:00",
   "repair_path": "REPAIR_1",
-  "repair_state": "REVIEW_READY",
+  "repair_state": "WAITING_FOR_HUMAN",
   "current_candidate_commit": "134ddfbe393168ce7cef99c44817329c84a8d6eb",
   "runtime_repair": {
     "candidate_commit": "134ddfbe393168ce7cef99c44817329c84a8d6eb",
-    "status": "REVIEW_READY",
-    "independent_review": "PENDING",
+    "status": "SOURCE_ACCEPTED",
+    "independent_review": "PASS",
     "deployment_authorized": false,
-    "evidence_reference": "runtime-repair-1/REPORT.md"
-  }
+    "evidence_reference": "runtime-repair-1/REPORT.md",
+    "approval_record": "REPAIR_1_ACCEPTANCE.json",
+    "controller_refresh_authorized": false
+  },
+  "repair_independent_review": "PASS"
 }

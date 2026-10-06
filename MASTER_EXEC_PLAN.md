@@ -4,13 +4,13 @@ Authoritative execution order: [PROJECT_TIMELINE.md](PROJECT_TIMELINE.md). Produ
 
 ## Current gate
 
-P0 governance documentation is REVIEW_READY; completion state remains IN_PROGRESS pending human review. P1–P7 are NOT_STARTED. No automatic next-Part execution. The next allowed action is human P0 governance acceptance. Even after P0 human PASS/FROZEN, P1 needs an explicit human start and separate approval of its privileged human actions.
+P0 completion state is FROZEN; human review PASS for approved governance commit 1c6303e0c17b04952ee6e9c8b01d6868e53fe152. Workflow state is FROZEN. P1–P7 are NOT_STARTED. No automatic next-Part execution. Next allowed action: Explicit human start of P1. P1 also requires separate approval of its privileged human actions; this freeze record does not authorize them.
 
 V4 static security review: **PASS**, as supplied by the human in the P0 request. This approves static security design and controlled DEV installation preparation only. Installation: **HOLD pending P1 explicit human start**. DEV installation/runtime/browser/Lighthouse/WordPress/WooCommerce/E2E acceptance remains pending. Production is untouched.
 
 | Part | Completion state | Workflow state | Cycle record                              |
 | ---- | ---------------- | -------------- | ----------------------------------------- |
-| P0   | IN_PROGRESS      | REVIEW_READY   | Initial cycle; repair 1/repair 2 not used |
+| P0   | FROZEN           | FROZEN         | Human PASS; repair 1/repair 2 not used      |
 | P1   | NOT_STARTED      | NOT_STARTED    | No cycle started                          |
 | P2   | NOT_STARTED      | NOT_STARTED    | No cycle started                          |
 | P3   | NOT_STARTED      | NOT_STARTED    | No cycle started                          |
@@ -29,11 +29,13 @@ V4 static security review: **PASS**, as supplied by the human in the P0 request.
 - Original .git is read-only; use scripts/repo-git.sh with .ops/git-metadata. Only develop is committed/pushed. Work stays inside this project.
 - P0 changes governance/state Markdown only. Application/runtime/tests/toolchain/privileged kit remain at the accepted baseline. Historical V4 manifests attest the original source archive, not subsequent governance Markdown bytes.
 
-## P0 exit assessment
+## Approved P0 exit assessment — historical handoff
 
 One fixed eight-Part timeline,32 original milestone assignments and31 acceptance mappings; scope freeze, state machine, two-repair cap, exact handoff/stop rule, human gates and consistent current documentation are prepared for review. P0 verification is limited to diff/content/mapping/unchanged-code checks and clean pushed Git state. Do not run the application suite for this documentation-only Part.
 
-## P0 verification record
+## Approved P0 verification record — historical handoff
+
+The following evidence belongs to the human-approved governance commit 1c6303e0c17b04952ee6e9c8b01d6868e53fe152; it is preserved rather than relabeled as new freeze-transaction validation.
 
 - Documentation formatting and git diff whitespace checks: PASS.
 - Timeline coverage:8 Parts with16 required fields each;32/32 milestone intents copied from the unchanged specification and uniquely assigned.
@@ -51,4 +53,4 @@ P1: human-approved controlled installation and actual immutable-image/network/se
 
 V2 source 7887fca/handoff 826a622 and V3 source 10dcabfe/handoff 02edd2da were HOLD checkpoints. Their findings and review bundles remain unchanged historical evidence. V4 remediation source 8217aa4/handoff 5c44cb3 preserved prior work and subsequently received human static PASS. Older third/fourth-review stop/install instructions in historical bundles are historical. Current authorization comes only from PROJECT_TIMELINE.md and the P0 human gate, not an old continuation or installation recipe.
 
-Next action: human review of P0 governance. Stop. Do not start P1, write a deployment request, execute privileged components or change production.
+Next allowed action: Explicit human start of P1. Stop after this P0 freeze record. Do not start P1, write a deployment request, execute privileged components or change production.

@@ -1,10 +1,10 @@
 # gCreation Performance Doctor MVP v0.1 — persistent state
 
-## Current operational state — P0 governance review
+## Current operational state — P0 FROZEN
 
-Execution authority: PROJECT_TIMELINE.md. P0 completion state IN_PROGRESS; workflow REVIEW_READY. P1–P7 are NOT_STARTED. V4 static security review PASS was supplied by the human for source8217aa4a13c0265efd8cb81473dd7f00c68d2c34/handoff5c44cb3549aebf02ddef84d8f4a04c5f82ae7f7d. Static design approval does not prove DEV deployment/runtime/E2E.
+Execution authority: PROJECT_TIMELINE.md. P0 completion state FROZEN; human review PASS for approved governance commit 1c6303e0c17b04952ee6e9c8b01d6868e53fe152; workflow FROZEN. P1–P7 are NOT_STARTED. V4 static security review PASS was supplied by the human for source8217aa4a13c0265efd8cb81473dd7f00c68d2c34/handoff5c44cb3549aebf02ddef84d8f4a04c5f82ae7f7d. Static design approval does not prove DEV deployment/runtime/E2E.
 
-Privileged DEV installation remains HOLD pending explicit human P1 start and approval of its human actions. Next allowed action: human P0 governance review. No automatic next-Part execution; stop at this documentation handoff. Production remains untouched. Current concise ledger: MASTER_EXEC_PLAN.md; acceptance: REQUIREMENTS.md; compact state: PROJECT_STATUS.md.
+Privileged DEV installation remains HOLD pending explicit human P1 start and approval of its human actions. Next allowed action: Explicit human start of P1. No automatic next-Part execution; stop at this documentation handoff. Production remains untouched. Current concise ledger: MASTER_EXEC_PLAN.md; acceptance: REQUIREMENTS.md; compact state: PROJECT_STATUS.md.
 
 P0 preserves application/runtime/security kit and archived V4 evidence. No expensive application tests are rerun for governance-only changes. Historical ledger entries below describe their then-current state and commands, not current authorization or next steps.
 

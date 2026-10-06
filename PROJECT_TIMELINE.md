@@ -4,7 +4,7 @@
 
 This is the **single authoritative execution timeline**. Product intent remains docs/MASTER_PRODUCT_SPEC.md; original M0.1–M0.32 are preserved below. The later human governance request in docs/P0_GOVERNANCE_FREEZE_REQUEST.md controls sequencing, freezes and handoffs. MASTER_EXEC_PLAN.md is only the current-state ledger; ROADMAP.md is an index; REQUIREMENTS.md is the D01–D31 evidence cross-map.
 
-Current Part: P0. Completion state: IN_PROGRESS. Workflow state: REVIEW_READY at handoff, pending human governance review. P1–P7: NOT_STARTED. V4 static security review: PASS, supplied by the human for implementation source 8217aa4a13c0265efd8cb81473dd7f00c68d2c34 and V4 handoff 5c44cb3549aebf02ddef84d8f4a04c5f82ae7f7d. Privileged DEV installation remains HOLD pending P1 explicit human start. Real runtime/deployment/E2E acceptance remains pending. Production is untouched. No automatic next-Part execution.
+Current Part: P0. Completion state: FROZEN. Human review: PASS for approved governance commit 1c6303e0c17b04952ee6e9c8b01d6868e53fe152. Workflow state: FROZEN. Next allowed action: Explicit human start of P1. P1–P7: NOT_STARTED. V4 static security review: PASS, supplied by the human for implementation source 8217aa4a13c0265efd8cb81473dd7f00c68d2c34 and V4 handoff 5c44cb3549aebf02ddef84d8f4a04c5f82ae7f7d. Privileged DEV installation remains HOLD pending P1 explicit human start. Real runtime/deployment/E2E acceptance remains pending. Production is untouched. No automatic next-Part execution.
 
 There are exactly eight Parts, P0–P7. No additional top-level Part may be created without explicit human approval. Existing implementation is reconciled and validated within these Parts; NOT_STARTED refers to the newly governed execution/acceptance cycle, not absence of previously written code.
 
@@ -124,7 +124,7 @@ Any future Codex session must reject/defer these unless the human explicitly cha
 - **Purpose:** Establish one execution order and an evidence-driven completion system.
 - **Exact scope:** Governance/state Markdown only: timeline,32 milestone statuses,31 acceptance mappings, freeze/rules/state machine/handoff, current-state consistency and safe develop commit/push. Preserve historical review facts and all implementation/privileged files.
 - **Included original milestones:** M0.1–M0.4, reconciled from the existing source.
-- **Current status:** Governance prepared for human review; static V4 prerequisite PASS; no deployment permission.
+- **Current status:** FROZEN following human review PASS of governance commit 1c6303e0c17b04952ee6e9c8b01d6868e53fe152; static V4 prerequisite PASS; no deployment permission.
 - **Already implemented:** Authoritative specification, durable rules/docs and prior execution/evidence records; current governance documents reconcile them rather than replacing product intent.
 - **Only locally tested:** Prior documentation/source/archive integrity and V4 unit/integration/static evidence. P0 checks documentation/diff/mappings/unchanged code only.
 - **Requires real DEV validation:** None for the P0 documentation gate; every applicable product/deployed criterion remains pending for later Parts.
@@ -136,7 +136,7 @@ Any future Codex session must reject/defer these unless the human explicitly cha
 - **Dependencies:** The human P0 request and preserved V4 baseline/static decision.
 - **Allowed human actions:** Review P0 documentation and return an explicit governance PASS or concrete failing criterion. No install decision is requested in P0.
 - **Allowed Codex actions:** Read project/attachment/history; edit governance Markdown; run non-privileged documentation/integrity checks; commit/push develop; provide the exact P0 handoff and stop.
-- **Completion state:** IN_PROGRESS; workflow REVIEW_READY pending human review.
+- **Completion state:** FROZEN; human review PASS; workflow FROZEN. P1 remains NOT_STARTED awaiting explicit human start.
 
 ## P1 — Security & DEV Deployment Foundation
 
@@ -273,7 +273,7 @@ Any future Codex session must reject/defer these unless the human explicitly cha
 
 ## Exact Part handoff and stop
 
-The following is the required handoff structure. SOURCE COMMIT identifies the tested Part source; HANDOFF COMMIT identifies its review metadata, or the same commit for a governance-only single-commit handoff. Never insert a guessed/self-referencing Git ID. CURRENT PART STATE PASS means the agent's exit-criterion assessment, not human approval; the workflow stays REVIEW_READY until a human PASS is recorded. P0's final user response uses the separately specified P0 GOVERNANCE HANDOFF format with CURRENT STATE REVIEW_READY.
+The following is the required handoff structure. SOURCE COMMIT identifies the tested Part source; HANDOFF COMMIT identifies its review metadata, or the same commit for a governance-only single-commit handoff. Never insert a guessed/self-referencing Git ID. CURRENT PART STATE PASS means the agent's exit-criterion assessment, not human approval; the workflow stays REVIEW_READY until a human PASS is recorded. P0's initial review handoff used the separately specified P0 GOVERNANCE HANDOFF format with CURRENT STATE REVIEW_READY. Following human PASS, the final state-recording response uses the human-specified P0 FREEZE RECORD format and stops without starting P1.
 
 ```text
 PART:

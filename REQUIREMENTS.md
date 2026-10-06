@@ -2,7 +2,7 @@
 
 Authoritative product intent: docs/MASTER_PRODUCT_SPEC.md, all sections/deliverables and §50. Authoritative execution order: [PROJECT_TIMELINE.md](PROJECT_TIMELINE.md). Original requirements are retained; this is the clear D01–D31 → owner Part → original M0.x → existing evidence → remaining real DEV evidence cross-map. Referenced M0 dependencies can belong to earlier Parts; primary milestone ownership is defined once in the timeline.
 
-Current state: P0 governance REVIEW_READY (completion IN_PROGRESS). P1–P7 NOT_STARTED. V4 static security review PASS, supplied by the human. Privileged DEV installation HOLD pending explicit human P1 start. Production untouched. No automatic next-Part execution. All D statuses remain **PENDING**; local/static tests cannot become deployed acceptance.
+Current state: P0 governance FROZEN (human review PASS). P1–P7 NOT_STARTED. V4 static security review PASS, supplied by the human. Privileged DEV installation HOLD pending explicit human P1 start. Production untouched. No automatic next-Part execution. All D statuses remain **PENDING**; local/static tests cannot become deployed acceptance.
 
 ## Acceptance cross-map
 
@@ -53,4 +53,4 @@ Current state: P0 governance REVIEW_READY (completion IN_PROGRESS). P1–P7 NOT_
 
 Human V4 static PASS supersedes historical V2/V3 HOLD checkpoints for static design only. Their documents remain unchanged evidence. All accepted V4 immutable proxy/gateway/image/dependency/offline/network/secret/host-deny/archive/root-snapshot/human-only PHP/health-only nginx boundaries are preserved. Governance Markdown changes do not invalidate the original archived source hashes or authorize kit edits; historical manifests attest that original source, not the later governance tree.
 
-[docs/DEV_VALIDATION_RUNBOOK.md](docs/DEV_VALIDATION_RUNBOOK.md) is a future evidence checklist subordinate to the timeline. It authorizes no action during P0. Privileged installs/configuration are approved human operations; WordPress needs its separate reviewed artifact/config.php mode 0600. Current next allowed action is human P0 review; P1 is NOT_STARTED and remains on HOLD.
+[docs/DEV_VALIDATION_RUNBOOK.md](docs/DEV_VALIDATION_RUNBOOK.md) is a future evidence checklist subordinate to the timeline. It authorizes no action during P0. Privileged installs/configuration are approved human operations; WordPress needs its separate reviewed artifact/config.php mode 0600. Current next allowed action: Explicit human start of P1; P1 is NOT_STARTED and remains on HOLD.

@@ -1,4 +1,4 @@
-Future evidence checklist only; execution authority is PROJECT_TIMELINE.md. Current P0 governance REVIEW_READY (completion IN_PROGRESS), P1–P7 NOT_STARTED. V4 static security review PASS; privileged DEV installation HOLD pending explicit human P1 start and separately approved human actions. Production untouched. No automatic next-Part execution. Do not execute this checklist during P0. Each later subsection requires its current authorized Part entry gate and human-approved action; installation recipes/review bundles alone are not permission.
+Future evidence checklist only; execution authority is PROJECT_TIMELINE.md. Current P0 governance FROZEN (human review PASS), P1–P7 NOT_STARTED. V4 static security review PASS; privileged DEV installation HOLD pending explicit human P1 start and separately approved human actions. Production untouched. No automatic next-Part execution. Do not execute this checklist during P0. Each later subsection requires its current authorized Part entry gate and human-approved action; installation recipes/review bundles alone are not permission.
 
 # DEV acceptance runbook — pending actual runtime evidence
 

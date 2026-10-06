@@ -2,7 +2,7 @@
 
 [PROJECT_TIMELINE.md](PROJECT_TIMELINE.md) is the only authoritative execution order. MASTER_EXEC_PLAN.md is the concise state/cycle ledger and REQUIREMENTS.md is the evidence cross-map. Product scope remains docs/MASTER_PRODUCT_SPEC.md, with the later P0 governance request overriding old automatic-continuation instructions.
 
-Current gate: P0 governance REVIEW_READY, completion IN_PROGRESS. V4 static security review PASS; P1–P7 NOT_STARTED. Privileged DEV installation HOLD pending explicit human P1 start. Production untouched. No automatic next-Part execution.
+Current gate: P0 governance FROZEN, human review PASS. V4 static security review PASS; P1–P7 NOT_STARTED. Privileged DEV installation HOLD pending explicit human P1 start. Production untouched. No automatic next-Part execution.
 
 Within the one authorized Part: inspect → reconcile → implement/validate only its scope → document exact evidence → commit/push develop → handoff → stop. Human review PASS freezes the Part; starting the next Part needs separate explicit human instruction. Each Part has an initial cycle and at most two repairs; failed repair 2 becomes HARD_BLOCKED/human decision, not a speculative redesign.
 

@@ -2,59 +2,44 @@ diff --git a/.ops/ACTION_REQUIRED.md b/.ops/ACTION_REQUIRED.md
 index 375dadb..4cad1e1 100644
 --- a/.ops/ACTION_REQUIRED.md
 +++ b/.ops/ACTION_REQUIRED.md
-@@ -1,17 +1,14 @@
- STATUS:
+@@ -2 +2 @@ STATUS:
 -P1 WAITING_FOR_HUMAN — HUMAN ACTION REQUIRED
 +P1 SECURITY_REVIEW_REQUIRED — MINIMAL REPAIR CANDIDATE ONLY
- 
+@@ -4 +4 @@ P1 WAITING_FOR_HUMAN — HUMAN ACTION REQUIRED
 -P0 remains FROZEN / human review PASS. P1 execution IN_PROGRESS / independent review PENDING; repair cycle0. P2–P7 NOT_STARTED. This is an operator wait, not a technical failure.
 +P0 remains FROZEN / human review PASS. P1 execution IN_PROGRESS / independent review PENDING / repair_cycle0. P2–P7 NOT_STARTED. Preparing this candidate consumes no repair cycle.
- 
+@@ -6 +6 @@ P0 remains FROZEN / human review PASS. P1 execution IN_PROGRESS / independent re
 -ACTION FILE: [.ops/reports/P1/HUMAN_ACTION_REQUIRED.md](reports/P1/HUMAN_ACTION_REQUIRED.md)
 +FAILING CRITERION: P1-ROOT-01, reviewed snapshot identity during privileged image preparation. Human reports original source 8217aa4a13c0265efd8cb81473dd7f00c68d2c34 / archive ecef5a23ef175096cc6312ca99dc0b306ecd76dc3cd4af8aca7de94c6e0443a7: preflight PASS, installer EXIT1, ValueError: Reviewed snapshot content mismatch. Generated snapshot/ops/dev/__pycache__/install_preflight.cpython-36.pyc. Exact partial-host record: reports/P1/security-repair/HOST_FAILURE.json (human attested, not agent inspected).
- 
+@@ -8 +8 @@ ACTION FILE: [.ops/reports/P1/HUMAN_ACTION_REQUIRED.md](reports/P1/HUMAN_ACTION_
 -NEXT ALLOWED ACTION: Human separately reviews/approves and performs the exact V4 DEV installation/configuration, returns sanitized identity evidence, and explicitly approves or declines one constrained source deployment. Privileged DEV install HOLD until that human action. Codex stops; no request has been created.
 +ROOT CAUSE: prepare_image imports install_preflight before verify_snapshot; -I does not disable import bytecode. Non-privileged fixture reproduces rejection. Proposed source repair adds -B only to the two prepare/seal interpreter invocations; verifier and all other privileged boundaries remain unchanged.
- 
+@@ -10,3 +10 @@ NEXT ALLOWED ACTION: Human separately reviews/approves and performs the exact V4
 -EXACT INSTALLATION SOURCE: 8217aa4a13c0265efd8cb81473dd7f00c68d2c34
 -ARCHIVE SHA-256: ecef5a23ef175096cc6312ca99dc0b306ecd76dc3cd4af8aca7de94c6e0443a7
 -V4 STATIC SECURITY: PASS; local artifact checks and5 targeted tests PASS; installed/runtime/E2E acceptance NOT_VERIFIED.
 +REVIEW PACKAGE: [reports/P1/security-repair/REPORT.md](reports/P1/security-repair/REPORT.md). Candidate source/archive/manifest identities will be bound at its metadata handoff; no repair approval is implied.
- 
+@@ -14,2 +12 @@ V4 STATIC SECURITY: PASS; local artifact checks and5 targeted tests PASS; instal
 -REPORT/EVIDENCE/CHECKSUMS: .ops/reports/P1/
 -MACHINE STATE: .ops/ORCHESTRATOR_STATUS.json
 +NEXT ALLOWED ACTION: Independent security review of this candidate. STOP. A review PASS, if later supplied, still requires separate human approval of fresh-stage recovery/installation. Earlier P1 installation procedure is superseded and must not be executed now. Existing root snapshot and copied installation remain untouched; no bytecode deletion, bypass or in-place snapshot repair.
- 
+@@ -17 +14 @@ MACHINE STATE: .ops/ORCHESTRATOR_STATUS.json
 -P1–P6 advance only under docs/P0_1_ORCHESTRATOR_AUTHORIZATION.md after full technical evidence and cleared gates. Independent review remains PENDING; P7 requires separate authorization. Production/main/WordPress/WooCommerce untouched.
 +V4 STATIC SECURITY: Original static design PASS remains historical; this installer-path amendment requires new security review. PRIVILEGED DEV INSTALL: HOLD. No deployment request, runtime installation, root/Docker/systemd/Plesk/nginx/WordPress operation or P2 start by Codex. Production/main untouched.
 diff --git a/.ops/ORCHESTRATOR_STATUS.json b/.ops/ORCHESTRATOR_STATUS.json
 index 47aa5f2..f18e8d9 100644
 --- a/.ops/ORCHESTRATOR_STATUS.json
 +++ b/.ops/ORCHESTRATOR_STATUS.json
-@@ -3,7 +3,7 @@
-   "project": "gCreation Performance Doctor MVP v0.1",
-   "mode": "P1-P6_ORCHESTRATED",
-   "current_part": "P1",
+@@ -6 +6 @@
 -  "state": "WAITING_FOR_HUMAN",
 +  "state": "SECURITY_REVIEW_REQUIRED",
-   "authorization": "HUMAN_P0_1",
-   "authorization_reference": "docs/P0_1_ORCHESTRATOR_AUTHORIZATION.md",
-   "p0": "FROZEN",
-@@ -47,15 +47,24 @@
-   },
-   "human_gate": {
-     "part": "P1",
+@@ -50 +50 @@
 -    "purpose": "Separately approved human V4 DEV installation/configuration and sanitized identity evidence",
 +    "purpose": "Installation paused after snapshot bytecode mismatch; candidate requires independent security review, then separate recovery approval",
-     "action_file": ".ops/reports/P1/HUMAN_ACTION_REQUIRED.md",
-     "reviewed_source_commit": "8217aa4a13c0265efd8cb81473dd7f00c68d2c34",
-     "reviewed_archive_sha256": "ecef5a23ef175096cc6312ca99dc0b306ecd76dc3cd4af8aca7de94c6e0443a7",
+@@ -54 +54 @@
 -    "status": "PENDING"
 +    "status": "SUPERSEDED_BY_SECURITY_REVIEW"
-   },
-   "hard_blocker": null,
-   "production_touched": false,
-   "p7": "NOT_STARTED",
+@@ -59,2 +59,11 @@
 -  "updated_at": "2026-10-06T03:31:48+00:00",
 -  "p7_authorization": "SEPARATE_HUMAN_REQUIRED"
 +  "updated_at": "2026-10-06T04:14:07+00:00",
@@ -68,83 +53,49 @@ index 47aa5f2..f18e8d9 100644
 +    "old_source_commit": "8217aa4a13c0265efd8cb81473dd7f00c68d2c34",
 +    "reason": "prepare_image import writes bytecode before verify_snapshot, invalidating the reviewed snapshot file map"
 +  }
- }
 diff --git a/.ops/PROJECT_STATE.md b/.ops/PROJECT_STATE.md
 index dbd1256..2ebad52 100644
 --- a/.ops/PROJECT_STATE.md
 +++ b/.ops/PROJECT_STATE.md
-@@ -2,9 +2,9 @@
- 
- ## Current operational state — P1 orchestrated preparation
- 
+@@ -5 +5 @@
 -P0 remains FROZEN / human review PASS at governance commit 1c6303e0c17b04952ee6e9c8b01d6868e53fe152 and freeze record 999ade0ea2695e92c1365a09a3e13f87bd4ef758. P1 execution IN_PROGRESS; workflow WAITING_FOR_HUMAN; independent review PENDING; repair cycle 0. P2–P7 NOT_STARTED. P0.1 authorization: docs/P0_1_ORCHESTRATOR_AUTHORIZATION.md. Execution authority: PROJECT_TIMELINE.md; machine state: ORCHESTRATOR_STATUS.json; ledger: MASTER_EXEC_PLAN.md.
 +P0 remains FROZEN / human review PASS at governance commit 1c6303e0c17b04952ee6e9c8b01d6868e53fe152 and freeze record 999ade0ea2695e92c1365a09a3e13f87bd4ef758. P1 execution IN_PROGRESS; workflow SECURITY_REVIEW_REQUIRED; independent review PENDING; repair cycle 0. P2–P7 NOT_STARTED. P0.1 authorization: docs/P0_1_ORCHESTRATOR_AUTHORIZATION.md. Execution authority: PROJECT_TIMELINE.md; machine state: ORCHESTRATOR_STATUS.json; ledger: MASTER_EXEC_PLAN.md.
- 
+@@ -7 +7 @@ P0 remains FROZEN / human review PASS at governance commit 1c6303e0c17b04952ee6e
 -V4 static security PASS remains tied to source 8217aa4a13c0265efd8cb81473dd7f00c68d2c34 / handoff 5c44cb3549aebf02ddef84d8f4a04c5f82ae7f7d. Privileged DEV installation HOLD pending separate human/operator action at .ops/reports/P1/HUMAN_ACTION_REQUIRED.md; runtime/E2E acceptance NOT_VERIFIED. Production untouched. P0.1 grants one bounded P1–P6 execution authorization. Advance sequentially only after full technical exit evidence is persisted, no human/operator action or concrete blocker remains, and V4 boundaries are unchanged. Record EXECUTION_PASS with INDEPENDENT_REVIEW PENDING; Codex never grants human PASS/FROZEN. Stop at WAITING_FOR_HUMAN, SECURITY_REVIEW_REQUIRED, HARD_BLOCKED or P6_REVIEW_READY. P7 needs separate human authorization.
 +V4 static security PASS remains tied to source 8217aa4a13c0265efd8cb81473dd7f00c68d2c34 / handoff 5c44cb3549aebf02ddef84d8f4a04c5f82ae7f7d. Privileged DEV installation HOLD pending independent repair security review and separate human recovery approval; package .ops/reports/P1/security-repair/REPORT.md; runtime/E2E acceptance NOT_VERIFIED. Production untouched. P0.1 grants one bounded P1–P6 execution authorization. Advance sequentially only after full technical exit evidence is persisted, no human/operator action or concrete blocker remains, and V4 boundaries are unchanged. Record EXECUTION_PASS with INDEPENDENT_REVIEW PENDING; Codex never grants human PASS/FROZEN. Stop at WAITING_FOR_HUMAN, SECURITY_REVIEW_REQUIRED, HARD_BLOCKED or P6_REVIEW_READY. P7 needs separate human authorization.
- 
- Historical entries below retain their then-current evidence and are not current authorization.
- 
 diff --git a/.ops/PROJECT_STATUS.md b/.ops/PROJECT_STATUS.md
 index a74abd4..57b075e 100644
 --- a/.ops/PROJECT_STATUS.md
 +++ b/.ops/PROJECT_STATUS.md
-@@ -5,7 +5,7 @@ CURRENT PART:
- P1
- 
- STATE:
+@@ -8 +8 @@ STATE:
 -WAITING_FOR_HUMAN
 +SECURITY_REVIEW_REQUIRED
- 
- AUTHORIZATION:
- HUMAN_P0_1 — P1–P6_ORCHESTRATED
-@@ -32,13 +32,13 @@ STATIC SECURITY:
- V4 PASS
- 
- PRIVILEGED DEV INSTALL:
+@@ -35 +35 @@ PRIVILEGED DEV INSTALL:
 -HOLD — SEPARATE HUMAN/OPERATOR ACTION REQUIRED
 +HOLD — SECURITY REVIEW AND SEPARATE RECOVERY APPROVAL REQUIRED
- 
- PRODUCTION:
- UNTOUCHED
- 
- NEXT ALLOWED ACTION:
+@@ -41 +41 @@ NEXT ALLOWED ACTION:
 -Human review/installation/configuration per .ops/reports/P1/HUMAN_ACTION_REQUIRED.md
 +Independent security review of .ops/reports/P1/security-repair/REPORT.md; no installation
- 
- NEXT FORBIDDEN ACTION:
- Privileged agent execution or advancement with a pending gate
 diff --git a/.ops/reports/P1/CHECKSUMS.sha256 b/.ops/reports/P1/CHECKSUMS.sha256
 index dac8b1b..b25ffa4 100644
 --- a/.ops/reports/P1/CHECKSUMS.sha256
 +++ b/.ops/reports/P1/CHECKSUMS.sha256
-@@ -1,6 +1,6 @@
- 6d257c3188d083184eaa532a16269633dd1a9082de9ea7f38bc692a1ca76a3ef  ARTIFACT_VERIFICATION.json
+@@ -2,2 +2,2 @@
 -0caca2a3ee59f98020bee0cce05fca6b3bd02ab165d53046ddaee108c0a8a730  EVIDENCE.json
 -7da86a35a11cd2cb378f28354993b55cbde0729df4065b4655d1b90608cc33aa  HUMAN_ACTION_REQUIRED.md
 +45f7e2cb4065d8b6ca5ff550afbabbb000a8253a3561ec045cf8b16866ec8de3  EVIDENCE.json
 +2ecc6750d879abc0c8d865cce5650ff1dbd7531601f225b18b8b242236360f4d  HUMAN_ACTION_REQUIRED.md
- 819aa7ba15e4c9cba60745b86c08644aafb6b497ae069e28867371e2ffdb374d  LOCAL_CHECKS.md
- a1e7192357cd8ce599d476624846d07654b4f4572a1064099dd9aba18048e806  LOCAL_VALIDATION.txt
+@@ -6 +6 @@ a1e7192357cd8ce599d476624846d07654b4f4572a1064099dd9aba18048e806  LOCAL_VALIDATI
 -3afa6f863165afb52bc1330b2583ee14a7b749a5faf7cbddbb41ad3c856877a0  REPORT.md
 +6c3185dabb76274928e5b20d2b36583d3db187d9a57af2e26ae26330656a4b0f  REPORT.md
 diff --git a/.ops/reports/P1/EVIDENCE.json b/.ops/reports/P1/EVIDENCE.json
 index 5d2bb0d..809e47a 100644
 --- a/.ops/reports/P1/EVIDENCE.json
 +++ b/.ops/reports/P1/EVIDENCE.json
-@@ -3,7 +3,7 @@
-   "project": "gCreation Performance Doctor MVP v0.1",
-   "part": "P1",
-   "execution_state": "IN_PROGRESS",
+@@ -6 +6 @@
 -  "orchestrator_state": "WAITING_FOR_HUMAN",
 +  "orchestrator_state": "SECURITY_REVIEW_REQUIRED",
-   "independent_review": "PENDING",
-   "repair_cycle": 0,
-   "generated_at": "2026-10-06T03:31:48+00:00",
-@@ -295,6 +295,47 @@
-       "exit_code": null,
-       "evidence_reference": "HUMAN_ACTION_REQUIRED.md",
-       "limitations": "Blocked on a human/operator action, not a failed technical test. Installation evidence alone cannot satisfy later runtime criteria."
+@@ -297,0 +298,40 @@
 +    },
 +    {
 +      "criterion_id": "P1-ROOT-01-HOST-FAILURE",
@@ -185,45 +136,29 @@ index 5d2bb0d..809e47a 100644
 +      "exit_code": 1,
 +      "evidence_reference": "security-repair/HOST_FAILURE.json",
 +      "limitations": "Host failure human-attested; no agent privileged inspection. Candidate requires independent security review; not a deployed repair."
-     }
+@@ -299 +339,2 @@
 -  ]
 +  ],
 +  "updated_at": "2026-10-06T04:16:07+00:00"
- }
 diff --git a/.ops/reports/P1/HUMAN_ACTION_REQUIRED.md b/.ops/reports/P1/HUMAN_ACTION_REQUIRED.md
 index 51bb2b6..7503707 100644
 --- a/.ops/reports/P1/HUMAN_ACTION_REQUIRED.md
 +++ b/.ops/reports/P1/HUMAN_ACTION_REQUIRED.md
-@@ -1,5 +1,7 @@
- ## PURPOSE
- 
+@@ -2,0 +3,2 @@
 +SUPERSEDED — DO NOT EXECUTE. P1 is SECURITY_REVIEW_REQUIRED after the original installer failure. The commands below describe the previous gate only. Review security-repair/REPORT.md and obtain separate human recovery approval before any future installation; never modify the existing root snapshot.
 +
- Review and separately approve the exact retained V4 artifact, then manually install/configure the reviewed DEV foundation so P1 can validate real containment. Current state WAITING_FOR_HUMAN; no DEV installation/runtime acceptance is claimed.
- 
- ## WHY REQUIRED
 diff --git a/.ops/reports/P1/REPORT.md b/.ops/reports/P1/REPORT.md
 index ef02e08..935bd85 100644
 --- a/.ops/reports/P1/REPORT.md
 +++ b/.ops/reports/P1/REPORT.md
-@@ -1,6 +1,8 @@
- # P1 — Security & DEV Deployment Foundation
- 
+@@ -3 +3,3 @@
 -Checkpoint: WAITING_FOR_HUMAN. P1 execution IN_PROGRESS; independent review PENDING; repair cycle 0. P0 remains FROZEN / human PASS. P2–P7 NOT_STARTED. No technical failure or security defect is asserted. No installation, deployment request, live health probe or production operation was performed.
 +Current checkpoint: SECURITY_REVIEW_REQUIRED. Original preparation checkpoint below is historical and superseded. Human-reported installation failed; candidate package [security-repair/REPORT.md](security-repair/REPORT.md). Agent performed no privileged operation.
 +
 +Historical checkpoint: WAITING_FOR_HUMAN. P1 execution IN_PROGRESS; independent review PENDING; repair cycle 0. P0 remains FROZEN / human PASS. P2–P7 NOT_STARTED. No technical failure or security defect is asserted. No installation, deployment request, live health probe or production operation was performed.
- 
- Authority: [P0.1](../../../docs/P0_1_ORCHESTRATOR_AUTHORIZATION.md) and [P1 technical criteria](../../../PROJECT_TIMELINE.md). P0.1 setup commit: `5db7fde1e17b1f8097a80bf38881184bb1b88b29`. Tested retained implementation source: `8217aa4a13c0265efd8cb81473dd7f00c68d2c34`; static V4 handoff: `5c44cb3549aebf02ddef84d8f4a04c5f82ae7f7d`. The current report/governance commit is a descendant, not a new reviewed installation source.
- 
-@@ -16,6 +18,6 @@ Reviewed installation DATA artifact remains `.ops/test-artifacts/review-source-8
- 
- [Criterion-level evidence](EVIDENCE.json), [artifact integrity](ARTIFACT_VERIFICATION.json), [local check procedure](LOCAL_CHECKS.md), [targeted test output](LOCAL_VALIDATION.txt) and [human action](HUMAN_ACTION_REQUIRED.md) are bound by CHECKSUMS.sha256. The checksum manifest excludes itself. Reports retain no authentication values, tokens, contacts or payment credentials.
- 
+@@ -19 +21 @@ Reviewed installation DATA artifact remains `.ops/test-artifacts/review-source-8
 -## Next allowed action
 +## Historical next action — superseded; do not execute
- 
- The human reviews/approves the exact V4 artifact and carries out the separate bounded DEV installation/configuration action. Return sanitized installation identity/output and an explicit decision on one constrained DEV deployment of the same source. Codex then resumes P1, prepares the source DATA artifact/request only through the confirmed installed mechanism, observes status/health, and collects the remaining effective runtime/rollback evidence. Any later privileged inspection remains human-only. Human waiting spends no repair cycle. P2 begins only when every P1 technical criterion passes with persisted evidence and all operator/security gates are cleared. Independent review remains PENDING; P6 final handoff stops; P7 requires separate authorization.
 diff --git a/.ops/reports/P1/security-repair/HOST_FAILURE.json b/.ops/reports/P1/security-repair/HOST_FAILURE.json
 new file mode 100644
 index 0000000..661294c
@@ -462,44 +397,23 @@ diff --git a/ARCHITECTURE.md b/ARCHITECTURE.md
 index c87dbf5..8d95737 100644
 --- a/ARCHITECTURE.md
 +++ b/ARCHITECTURE.md
-@@ -1,6 +1,6 @@
- # Architecture
- 
+@@ -3 +3 @@
 -This is a description of the preserved approved V4 design, not a redesign. Execution authority: PROJECT_TIMELINE.md. Current P0 governance is FROZEN; human review PASS; P1 WAITING_FOR_HUMAN (execution IN_PROGRESS / independent review PENDING under P0.1); P2–P7 NOT_STARTED. V4 static security review PASS; privileged DEV installation HOLD pending separate human/operator installation/configuration. Real deployed acceptance pending, production untouched, P1–P6 advancement follows P0.1; P7 requires separate human authorization.
 +This is a description of the preserved approved V4 design, not a redesign. Execution authority: PROJECT_TIMELINE.md. Current P0 governance is FROZEN; human review PASS; P1 SECURITY_REVIEW_REQUIRED (execution IN_PROGRESS / independent review PENDING under P0.1); P2–P7 NOT_STARTED. V4 static security review PASS; privileged DEV installation HOLD pending security review and separate human recovery/installation approval. Real deployed acceptance pending, production untouched, P1–P6 advancement follows P0.1; P7 requires separate human authorization.
- 
- A modular monolith: WordPress/WooCommerce owns sales and payment truth; Fastify owns audit jobs, SQLite, discovery, browser measurements and SSE; deterministic rules own explanation; the plugin presents the HTML Fix Center.
- 
 diff --git a/MASTER_EXEC_PLAN.md b/MASTER_EXEC_PLAN.md
 index 8fca0c8..4c3de8f 100644
 --- a/MASTER_EXEC_PLAN.md
 +++ b/MASTER_EXEC_PLAN.md
-@@ -4,14 +4,14 @@ Authoritative execution order: [PROJECT_TIMELINE.md](PROJECT_TIMELINE.md). Produ
- 
- ## Current gate
- 
+@@ -7 +7 @@ Authoritative execution order: [PROJECT_TIMELINE.md](PROJECT_TIMELINE.md). Produ
 -P0 remains FROZEN / human review PASS at approved governance 1c6303e0c17b04952ee6e9c8b01d6868e53fe152 and freeze record 999ade0ea2695e92c1365a09a3e13f87bd4ef758. P0.1 authorizes sequential P1–P6 technical execution. Current Part P1: execution IN_PROGRESS, workflow WAITING_FOR_HUMAN, independent review PENDING, repair cycle 0. P2–P7 NOT_STARTED. Machine state: .ops/ORCHESTRATOR_STATUS.json. P0.1 grants one bounded P1–P6 execution authorization. Advance sequentially only after full technical exit evidence is persisted, no human/operator action or concrete blocker remains, and V4 boundaries are unchanged. Record EXECUTION_PASS with INDEPENDENT_REVIEW PENDING; Codex never grants human PASS/FROZEN. Stop at WAITING_FOR_HUMAN, SECURITY_REVIEW_REQUIRED, HARD_BLOCKED or P6_REVIEW_READY. P7 needs separate human authorization.
 +P0 remains FROZEN / human review PASS at approved governance 1c6303e0c17b04952ee6e9c8b01d6868e53fe152 and freeze record 999ade0ea2695e92c1365a09a3e13f87bd4ef758. P0.1 authorizes sequential P1–P6 technical execution. Current Part P1: execution IN_PROGRESS, workflow SECURITY_REVIEW_REQUIRED, independent review PENDING, repair cycle 0. P2–P7 NOT_STARTED. Machine state: .ops/ORCHESTRATOR_STATUS.json. P0.1 grants one bounded P1–P6 execution authorization. Advance sequentially only after full technical exit evidence is persisted, no human/operator action or concrete blocker remains, and V4 boundaries are unchanged. Record EXECUTION_PASS with INDEPENDENT_REVIEW PENDING; Codex never grants human PASS/FROZEN. Stop at WAITING_FOR_HUMAN, SECURITY_REVIEW_REQUIRED, HARD_BLOCKED or P6_REVIEW_READY. P7 needs separate human authorization.
- 
- V4 static security: PASS. Privileged DEV installation: HOLD pending separate human/operator installation/configuration. Real DEV/runtime/E2E acceptance is NOT_VERIFIED. Production untouched.
- 
- | Part | Completion state | Workflow state | Cycle record                              |
- | ---- | ---------------- | -------------- | ----------------------------------------- |
- | P0   | FROZEN           | FROZEN         | Human PASS; repair 1/repair 2 not used      |
+@@ -14 +14 @@ V4 static security: PASS. Privileged DEV installation: HOLD pending separate hum
 -| P1   | IN_PROGRESS      | WAITING_FOR_HUMAN | Initial cycle; independent review PENDING |
 +| P1   | IN_PROGRESS      | SECURITY_REVIEW_REQUIRED | Initial cycle; independent review PENDING |
- | P2   | NOT_STARTED      | NOT_STARTED    | No cycle started                          |
- | P3   | NOT_STARTED      | NOT_STARTED    | No cycle started                          |
- | P4   | NOT_STARTED      | NOT_STARTED    | No cycle started                          |
-@@ -53,8 +53,12 @@ P1: human-approved controlled installation and actual immutable-image/network/se
- 
- V2 source 7887fca/handoff 826a622 and V3 source 10dcabfe/handoff 02edd2da were HOLD checkpoints. Their findings and review bundles remain unchanged historical evidence. V4 remediation source 8217aa4/handoff 5c44cb3 preserved prior work and subsequently received human static PASS. Older third/fourth-review stop/install instructions in historical bundles are historical. Current authorization comes from PROJECT_TIMELINE.md as amended by P0.1, not an old continuation or installation recipe.
- 
+@@ -56 +56 @@ V2 source 7887fca/handoff 826a622 and V3 source 10dcabfe/handoff 02edd2da were H
 -## P1 checkpoint
 +## Historical P1 preparation checkpoint — superseded by security repair review
- 
- P0.1 setup pushed at 5db7fde1e17b1f8097a80bf38881184bb1b88b29. Exact accepted V4 archive/source/manifest/log identities verified;82 members,81 committed blobs,78 manifest hashes and30 influencing files match. Five focused fixture tests PASS. No implementation/kit/dependency/security edits; no real runtime/health/scan/installation or deployment request. [P1 report](.ops/reports/P1/REPORT.md), criterion evidence and checksums record LOCAL_TESTED versus NOT_VERIFIED. D24–D27 remain PENDING_HUMAN; other D/DEV acceptance unchanged. Repair cycle0; no technical failure asserted.
- 
+@@ -60 +60,5 @@ P0.1 setup pushed at 5db7fde1e17b1f8097a80bf38881184bb1b88b29. Exact accepted V4
 -Next allowed action: human installation/configuration and sanitized evidence per [.ops/reports/P1/HUMAN_ACTION_REQUIRED.md](.ops/reports/P1/HUMAN_ACTION_REQUIRED.md). Stop at WAITING_FOR_HUMAN. Resume the same Part after verified human evidence; do not advance to P2 while any P1 gate remains pending.
 +## Current P1 security repair checkpoint
 +
@@ -510,140 +424,76 @@ diff --git a/PLANS.md b/PLANS.md
 index 90fe620..b2bf2c7 100644
 --- a/PLANS.md
 +++ b/PLANS.md
-@@ -2,7 +2,7 @@
- 
- [PROJECT_TIMELINE.md](PROJECT_TIMELINE.md) is the only authoritative execution order. MASTER_EXEC_PLAN.md is the concise state/cycle ledger and REQUIREMENTS.md is the evidence cross-map. Product scope remains docs/MASTER_PRODUCT_SPEC.md, with the later P0 governance request overriding old automatic-continuation instructions.
- 
+@@ -5 +5 @@
 -Current gate: P0 governance FROZEN, human review PASS. V4 static security review PASS; P1 WAITING_FOR_HUMAN (execution IN_PROGRESS / independent review PENDING under P0.1); P2–P7 NOT_STARTED. Privileged DEV installation HOLD pending separate human/operator installation/configuration. Production untouched. Sequential P1–P6 execution follows docs/P0_1_ORCHESTRATOR_AUTHORIZATION.md; independent review remains PENDING, operator/security gates require a stop, and P7 requires separate human authorization.
 +Current gate: P0 governance FROZEN, human review PASS. V4 static security review PASS; P1 SECURITY_REVIEW_REQUIRED (execution IN_PROGRESS / independent review PENDING under P0.1); P2–P7 NOT_STARTED. Privileged DEV installation HOLD pending security review and separate human recovery/installation approval. Production untouched. Sequential P1–P6 execution follows docs/P0_1_ORCHESTRATOR_AUTHORIZATION.md; independent review remains PENDING, operator/security gates require a stop, and P7 requires separate human authorization.
- 
- Within the one authorized Part: inspect → reconcile → implement/validate only its scope → document exact evidence → commit/push develop → persist report/evidence/checksums → gated P0.1 transition or stop. Independent review PASS freezes a Part. Sequential P1–P6 technical execution instead follows P0.1; P7 needs separate explicit human instruction. Each Part has an initial cycle and at most two repairs; failed repair 2 becomes HARD_BLOCKED/human decision, not a speculative redesign.
- 
 diff --git a/PROJECT_TIMELINE.md b/PROJECT_TIMELINE.md
 index 161ec41..3a763ae 100644
 --- a/PROJECT_TIMELINE.md
 +++ b/PROJECT_TIMELINE.md
-@@ -4,7 +4,7 @@
- 
- This is the **single authoritative execution timeline**. Product intent remains docs/MASTER_PRODUCT_SPEC.md; original M0.1–M0.32 are preserved below. The human governance request in docs/P0_GOVERNANCE_FREEZE_REQUEST.md controls the frozen P0 baseline; docs/P0_1_ORCHESTRATOR_AUTHORIZATION.md narrowly amends P1–P6 execution sequencing, while preserving independent review and all operator/security gates. MASTER_EXEC_PLAN.md is only the current-state ledger; ROADMAP.md is an index; REQUIREMENTS.md is the D01–D31 evidence cross-map.
- 
+@@ -7 +7 @@ This is the **single authoritative execution timeline**. Product intent remains
 -Current Part: P1. Execution state: IN_PROGRESS under HUMAN_P0_1. Orchestrator state: WAITING_FOR_HUMAN; action file .ops/reports/P1/HUMAN_ACTION_REQUIRED.md. Independent review: PENDING. P0 remains FROZEN / human review PASS for governance commit 1c6303e0c17b04952ee6e9c8b01d6868e53fe152, freeze record 999ade0ea2695e92c1365a09a3e13f87bd4ef758. P2–P7: NOT_STARTED. V4 static security: PASS for source 8217aa4a13c0265efd8cb81473dd7f00c68d2c34 / handoff 5c44cb3549aebf02ddef84d8f4a04c5f82ae7f7d. Privileged DEV installation: HOLD pending separate human/operator action. Runtime/deployment/E2E acceptance remains pending. Production is untouched. Current machine state: .ops/ORCHESTRATOR_STATUS.json.
 +Current Part: P1. Execution state: IN_PROGRESS under HUMAN_P0_1. Orchestrator state: SECURITY_REVIEW_REQUIRED; candidate package .ops/reports/P1/security-repair/REPORT.md. Independent review: PENDING. P0 remains FROZEN / human review PASS for governance commit 1c6303e0c17b04952ee6e9c8b01d6868e53fe152, freeze record 999ade0ea2695e92c1365a09a3e13f87bd4ef758. P2–P7: NOT_STARTED. V4 static security: PASS for source 8217aa4a13c0265efd8cb81473dd7f00c68d2c34 / handoff 5c44cb3549aebf02ddef84d8f4a04c5f82ae7f7d. Privileged DEV installation: HOLD pending separate human/operator action. Runtime/deployment/E2E acceptance remains pending. Production is untouched. Current machine state: .ops/ORCHESTRATOR_STATUS.json.
- 
- There are exactly eight Parts, P0–P7. No additional top-level Part may be created without explicit human approval. Existing implementation is reconciled and validated within these Parts; NOT_STARTED refers to the newly governed execution/acceptance cycle, not absence of previously written code.
- 
-@@ -151,7 +151,7 @@ Any future Codex session must reject/defer these unless the human explicitly cha
- - **Purpose:** Prove the approved static foundation in the controlled DEV environment.
- - **Exact scope:** Reviewed artifact/root trust transition and frozen image/dependencies/proxy/gateway, separate credentials, dedicated verified networks, approved human installation/configuration, reproducible offline source build, internal/public health, bounded resources/status/rollback. Primary acceptance D24–D27; P5 rechecks effective limits/security under live work.
- - **Included original milestones:** M0.5–M0.7.
+@@ -154 +154 @@ Any future Codex session must reject/defer these unless the human explicitly cha
 -- **Current status:** WAITING_FOR_HUMAN; execution IN_PROGRESS under P0.1; independent review PENDING. Static security prerequisite PASS; real installation/runtime validation pending.
 +- **Current status:** SECURITY_REVIEW_REQUIRED after human-reported snapshot bytecode mismatch; execution IN_PROGRESS; independent review PENDING. Static security prerequisite PASS; real installation/runtime validation pending.
- - **Already implemented:** V4 kit, isolated toolchain, Fastify health and frozen security architecture at the approved source; no rebuild/redesign is authorized merely because live validation is pending.
- - **Only locally tested:** V4 boundary/socket tests, offline source gates, deterministic archive/hashes, mock deployment/rollback and loopback health.
- - **Requires real DEV validation:** Root-installed ownership/hash/image/dependency identity, network membership/egress boundary, secret placement0600, cgroups/seccomp/non-root/readonly/resource/log controls, actual offline build/deploy/status/health/rollback and stale-request refusal. No installation is inferred from static PASS.
-@@ -163,7 +163,7 @@ Any future Codex session must reject/defer these unless the human explicitly cha
- - **Dependencies:** P0 frozen; V4 static PASS and reviewed artifact; designated human installer/DEV configuration. P2 cannot start with unverified containment.
- - **Allowed human actions:** After explicit approval, manually install reviewed kit/image/systemd and configure DEV nginx/environment; inspect runtime boundaries and authorize one controlled deployment/rollback validation. No WP deployment by the watcher.
- - **Allowed Codex actions:** Only explicitly authorized ordinary-user artifact/request/status/loopback and DEV-health validation through the installed mechanism; gather readable evidence; scoped repairs/tests within P1 authority; develop commit/push/handoff. Never Docker socket/root/operator commands.
+@@ -166 +166 @@ Any future Codex session must reject/defer these unless the human explicitly cha
 -- **Completion state:** IN_PROGRESS; execution IN_PROGRESS; workflow WAITING_FOR_HUMAN; independent review PENDING; repair cycle 0.
 +- **Completion state:** IN_PROGRESS; execution IN_PROGRESS; workflow SECURITY_REVIEW_REQUIRED; independent review PENDING; repair cycle 0.
- 
- ## P2 — Audit Engine Live Validation
- 
 diff --git a/README.md b/README.md
 index a994f45..97e5a0f 100644
 --- a/README.md
 +++ b/README.md
-@@ -6,9 +6,9 @@ Start with [PROJECT_TIMELINE.md](PROJECT_TIMELINE.md), the single authoritative
- 
- ## Current checkpoint
- 
+@@ -9 +9 @@ Start with [PROJECT_TIMELINE.md](PROJECT_TIMELINE.md), the single authoritative
 -P0 governance: FROZEN; human review PASS for approved commit 1c6303e0c17b04952ee6e9c8b01d6868e53fe152. P1 WAITING_FOR_HUMAN (execution IN_PROGRESS / independent review PENDING under P0.1); P2–P7: NOT_STARTED. V4 static security review: PASS for source 8217aa4a13c0265efd8cb81473dd7f00c68d2c34/handoff 5c44cb3549aebf02ddef84d8f4a04c5f82ae7f7d, as supplied by the human. Static design approval is not deployed acceptance. Privileged DEV installation remains HOLD pending separate human/operator installation/configuration; browser/Lighthouse/WordPress/WooCommerce/E2E remain pending.
 +P0 governance: FROZEN; human review PASS for approved commit 1c6303e0c17b04952ee6e9c8b01d6868e53fe152. P1 SECURITY_REVIEW_REQUIRED (execution IN_PROGRESS / independent review PENDING under P0.1); P2–P7: NOT_STARTED. V4 static security review: PASS for source 8217aa4a13c0265efd8cb81473dd7f00c68d2c34/handoff 5c44cb3549aebf02ddef84d8f4a04c5f82ae7f7d, as supplied by the human. Static design approval is not deployed acceptance. Privileged DEV installation remains HOLD pending security review and separate human recovery/installation approval; browser/Lighthouse/WordPress/WooCommerce/E2E remain pending.
- 
+@@ -11 +11 @@ P0 governance: FROZEN; human review PASS for approved commit 1c6303e0c17b04952ee
 -Next allowed action: human action in .ops/reports/P1/HUMAN_ACTION_REQUIRED.md. Independent review alone grants human PASS/FROZEN. Sequential P1–P6 execution follows docs/P0_1_ORCHESTRATOR_AUTHORIZATION.md; independent review remains PENDING, operator/security gates require a stop, and P7 requires separate human authorization. P0 is frozen. P0.1 changes governance only; it grants bounded technical execution without changing the V4 implementation.
 +Next allowed action: independent security review of .ops/reports/P1/security-repair/REPORT.md; installation remains HOLD. Independent review alone grants human PASS/FROZEN. Sequential P1–P6 execution follows docs/P0_1_ORCHESTRATOR_AUTHORIZATION.md; independent review remains PENDING, operator/security gates require a stop, and P7 requires separate human authorization. P0 is frozen. P0.1 changes governance only; it grants bounded technical execution without changing the V4 implementation.
- 
- ## Existing development foundation — reference, not a P0 execution request
- 
 diff --git a/REQUIREMENTS.md b/REQUIREMENTS.md
 index 58f8af6..9affe65 100644
 --- a/REQUIREMENTS.md
 +++ b/REQUIREMENTS.md
-@@ -2,7 +2,7 @@
- 
- Authoritative product intent: docs/MASTER_PRODUCT_SPEC.md, all sections/deliverables and §50. Authoritative execution order: [PROJECT_TIMELINE.md](PROJECT_TIMELINE.md). Original requirements are retained; this is the clear D01–D31 → owner Part → original M0.x → existing evidence → remaining real DEV evidence cross-map. Referenced M0 dependencies can belong to earlier Parts; primary milestone ownership is defined once in the timeline.
- 
+@@ -5 +5 @@ Authoritative product intent: docs/MASTER_PRODUCT_SPEC.md, all sections/delivera
 -Current state: P0 governance FROZEN (human review PASS). P1 WAITING_FOR_HUMAN (execution IN_PROGRESS / independent review PENDING under P0.1); P2–P7 NOT_STARTED. V4 static security review PASS, supplied by the human. Privileged DEV installation HOLD pending separate human/operator installation/configuration. Production untouched. Sequential P1–P6 execution follows docs/P0_1_ORCHESTRATOR_AUTHORIZATION.md; independent review remains PENDING, operator/security gates require a stop, and P7 requires separate human authorization. All D statuses remain **PENDING**; local/static tests cannot become deployed acceptance.
 +Current state: P0 governance FROZEN (human review PASS). P1 SECURITY_REVIEW_REQUIRED (execution IN_PROGRESS / independent review PENDING under P0.1); P2–P7 NOT_STARTED. V4 static security review PASS, supplied by the human. Privileged DEV installation HOLD pending security review and separate human recovery/installation approval. Production untouched. Sequential P1–P6 execution follows docs/P0_1_ORCHESTRATOR_AUTHORIZATION.md; independent review remains PENDING, operator/security gates require a stop, and P7 requires separate human authorization. All D statuses remain **PENDING**; local/static tests cannot become deployed acceptance.
- 
- ## Acceptance cross-map
- 
-@@ -53,4 +53,4 @@ Current state: P0 governance FROZEN (human review PASS). P1 WAITING_FOR_HUMAN (e
- 
- Human V4 static PASS supersedes historical V2/V3 HOLD checkpoints for static design only. Their documents remain unchanged evidence. All accepted V4 immutable proxy/gateway/image/dependency/offline/network/secret/host-deny/archive/root-snapshot/human-only PHP/health-only nginx boundaries are preserved. Governance Markdown changes do not invalidate the original archived source hashes or authorize kit edits; historical manifests attest that original source, not the later governance tree.
- 
+@@ -56 +56 @@ Human V4 static PASS supersedes historical V2/V3 HOLD checkpoints for static des
 -[docs/DEV_VALIDATION_RUNBOOK.md](docs/DEV_VALIDATION_RUNBOOK.md) is a future evidence checklist subordinate to the timeline. It authorizes no action during P0. Privileged installs/configuration are approved human operations; WordPress needs its separate reviewed artifact/config.php mode 0600. Current next allowed action: human action in .ops/reports/P1/HUMAN_ACTION_REQUIRED.md; installation remains on HOLD.
 +[docs/DEV_VALIDATION_RUNBOOK.md](docs/DEV_VALIDATION_RUNBOOK.md) is a future evidence checklist subordinate to the timeline. It authorizes no action during P0. Privileged installs/configuration are approved human operations; WordPress needs its separate reviewed artifact/config.php mode 0600. Current next allowed action: independent security review of .ops/reports/P1/security-repair/REPORT.md; installation remains on HOLD.
 diff --git a/ROADMAP.md b/ROADMAP.md
 index eed4e16..5e92d7b 100644
 --- a/ROADMAP.md
 +++ b/ROADMAP.md
-@@ -5,7 +5,7 @@
- | Part | Fixed purpose                              | Original milestone ownership                 | Current state                                         |
- | ---- | ------------------------------------------ | -------------------------------------------- | ----------------------------------------------------- |
- | P0   | Governance Freeze                          | M0.1–M0.4                                    | FROZEN; human review PASS                               |
+@@ -8 +8 @@
 -| P1   | Security & DEV Deployment Foundation       | M0.5–M0.7                                    | WAITING_FOR_HUMAN; independent review PENDING           |
 +| P1   | Security & DEV Deployment Foundation       | M0.5–M0.7                                    | SECURITY_REVIEW_REQUIRED; independent review PENDING           |
- | P2   | Audit Engine Live Validation               | M0.8–M0.18                                   | NOT_STARTED; implementation largely present           |
- | P3   | WordPress Customer Flow                    | M0.19–M0.24                                  | NOT_STARTED; implementation largely present           |
- | P4   | Paid Service Flow                          | M0.25–M0.30                                  | NOT_STARTED; implementation largely present           |
-@@ -13,6 +13,6 @@
- | P6   | DEV Release Candidate                      | M0.32                                        | NOT_STARTED                                           |
- | P7   | First 100 Customer Validation              | Consumes M0.30 evidence; no new M0 milestone | NOT_STARTED                                           |
- 
+@@ -16 +16 @@
 -P0 human review PASS: approved governance commit 1c6303e0c17b04952ee6e9c8b01d6868e53fe152. Next allowed action: human action in .ops/reports/P1/HUMAN_ACTION_REQUIRED.md. V4 static security review: PASS. Privileged DEV installation: HOLD pending separate human/operator installation/configuration. Real deployment/runtime/E2E acceptance remains pending. Production is untouched. Sequential P1–P6 execution follows docs/P0_1_ORCHESTRATOR_AUTHORIZATION.md; independent review remains PENDING, operator/security gates require a stop, and P7 requires separate human authorization. Do not add top-level Parts without human approval.
 +P0 human review PASS: approved governance commit 1c6303e0c17b04952ee6e9c8b01d6868e53fe152. Next allowed action: independent security review of .ops/reports/P1/security-repair/REPORT.md. V4 static security review: PASS. Privileged DEV installation: HOLD pending security review and separate human recovery/installation approval. Real deployment/runtime/E2E acceptance remains pending. Production is untouched. Sequential P1–P6 execution follows docs/P0_1_ORCHESTRATOR_AUTHORIZATION.md; independent review remains PENDING, operator/security gates require a stop, and P7 requires separate human authorization. Do not add top-level Parts without human approval.
- 
- MVP SCOPE FREEZE and the two-repair limit are defined in PROJECT_TIMELINE.md and enforced by AGENTS.md. First 100 data informs future priorities; it does not authorize new infrastructure/features or production work.
 diff --git a/SECURITY.md b/SECURITY.md
 index 9728ec0..38c9874 100644
 --- a/SECURITY.md
 +++ b/SECURITY.md
-@@ -1,6 +1,6 @@
- # Security contract
- 
+@@ -3 +3 @@
 -Execution authority: PROJECT_TIMELINE.md. P0 governance FROZEN (human review PASS); P1 WAITING_FOR_HUMAN (execution IN_PROGRESS / independent review PENDING under P0.1); P2–P7 NOT_STARTED. Human V4 static security review PASS applies to source 8217aa4a13c0265efd8cb81473dd7f00c68d2c34/handoff 5c44cb3549aebf02ddef84d8f4a04c5f82ae7f7d. Static design approval is not installed/runtime/E2E acceptance. Privileged DEV installation remains HOLD pending separate human/operator installation/configuration. Production untouched; P1–P6 advancement follows P0.1; P7 requires separate human authorization. Historical V2/V3 findings/bundles remain unchanged evidence. This document describes preserved V4 boundaries, not a P0 implementation change or installation authorization.
 +Execution authority: PROJECT_TIMELINE.md. P0 governance FROZEN (human review PASS); P1 SECURITY_REVIEW_REQUIRED (execution IN_PROGRESS / independent review PENDING under P0.1); P2–P7 NOT_STARTED. Human V4 static security review PASS applies to source 8217aa4a13c0265efd8cb81473dd7f00c68d2c34/handoff 5c44cb3549aebf02ddef84d8f4a04c5f82ae7f7d. Static design approval is not installed/runtime/E2E acceptance. Privileged DEV installation remains HOLD pending security review and separate human recovery/installation approval. Production untouched; P1–P6 advancement follows P0.1; P7 requires separate human authorization. Historical V2/V3 findings/bundles remain unchanged evidence. This document describes preserved V4 boundaries, not a P0 implementation change or installation authorization.
- 
- Only HTTP(S), public DNS/IP destinations and default HTTP(S) ports. Reject credentials/fragments, internal/single-label names, private/reserved/mapped IPv6, metadata and the audit host. Resolve every connection, pin verified IPs, revalidate redirects and browser resources. Browser sandbox remains enabled; service workers/downloads are disabled. Validating proxy CONNECT permits public port 443 only. Time/body/inventory/request/concurrency caps remain mandatory.
- 
 diff --git a/docs/DEV_VALIDATION_RUNBOOK.md b/docs/DEV_VALIDATION_RUNBOOK.md
 index 6136090..6a0c617 100644
 --- a/docs/DEV_VALIDATION_RUNBOOK.md
 +++ b/docs/DEV_VALIDATION_RUNBOOK.md
-@@ -1,4 +1,4 @@
+@@ -1 +1 @@
 -Future evidence checklist only; execution authority is PROJECT_TIMELINE.md. Current P0 governance FROZEN (human review PASS), P1 WAITING_FOR_HUMAN (execution IN_PROGRESS / independent review PENDING under P0.1); P2–P7 NOT_STARTED. V4 static security review PASS; privileged DEV installation HOLD pending separate human/operator installation/configuration. Production untouched. Sequential P1–P6 execution follows docs/P0_1_ORCHESTRATOR_AUTHORIZATION.md; independent review remains PENDING, operator/security gates require a stop, and P7 requires separate human authorization. Do not execute this checklist during P0. Each later subsection requires its current authorized Part entry gate and human-approved action; installation recipes/review bundles alone are not permission.
 +Future evidence checklist only; execution authority is PROJECT_TIMELINE.md. Current P0 governance FROZEN (human review PASS), P1 SECURITY_REVIEW_REQUIRED (execution IN_PROGRESS / independent review PENDING under P0.1); P2–P7 NOT_STARTED. V4 static security review PASS; privileged DEV installation HOLD pending security review and separate human recovery/installation approval. Production untouched. Sequential P1–P6 execution follows docs/P0_1_ORCHESTRATOR_AUTHORIZATION.md; independent review remains PENDING, operator/security gates require a stop, and P7 requires separate human authorization. Do not execute this checklist during P0. Each later subsection requires its current authorized Part entry gate and human-approved action; installation recipes/review bundles alone are not permission.
- 
- # DEV acceptance runbook — pending actual runtime evidence
- 
 diff --git a/ops/dev/install-root.sh b/ops/dev/install-root.sh
 index 6cb3af4..c026748 100644
 --- a/ops/dev/install-root.sh
 +++ b/ops/dev/install-root.sh
-@@ -28,9 +28,9 @@ for reviewed_unit in gcreation-perf-dev-deploy.service gcreation-perf-dev-deploy
- done
- install -d -o root -g root -m 0700 /var/lib/gcreation-perf-dev
- # Freeze only verified reviewed manifests and trusted enforcement code.
+@@ -31 +31 @@ install -d -o root -g root -m 0700 /var/lib/gcreation-perf-dev
 -/usr/bin/python3 -I "$KIT_DIR/prepare_image.py" prepare "$ROOT_SNAPSHOT" "$APPROVED_SHA" "$REVIEWED_COMMIT"
 +/usr/bin/python3 -I -B "$KIT_DIR/prepare_image.py" prepare "$ROOT_SNAPSHOT" "$APPROVED_SHA" "$REVIEWED_COMMIT"
- DOCKER_BUILDKIT=1 docker build -f "$DEST/build-context/runtime.Dockerfile" -t gcreation-perf-dev-runtime:0.1 "$DEST/build-context"
+@@ -33 +33 @@ DOCKER_BUILDKIT=1 docker build -f "$DEST/build-context/runtime.Dockerfile" -t gc
 -/usr/bin/python3 -I "$KIT_DIR/prepare_image.py" seal "$ROOT_SNAPSHOT" "$APPROVED_SHA" "$REVIEWED_COMMIT"
 +/usr/bin/python3 -I -B "$KIT_DIR/prepare_image.py" seal "$ROOT_SNAPSHOT" "$APPROVED_SHA" "$REVIEWED_COMMIT"
- # Recheck all preflight conditions, including no trigger, immediately before enable.
- /usr/bin/python3 -I "$KIT_DIR/install_preflight.py" "$ROOT_SNAPSHOT" "$APPROVED_SHA" "$REVIEWED_COMMIT"
- systemctl daemon-reload
 diff --git a/tests/test_installer_bytecode.py b/tests/test_installer_bytecode.py
 new file mode 100644
 index 0000000..79ec0be

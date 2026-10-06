@@ -84,7 +84,7 @@ Review-metadata child additions/updates:
 - `.ops/ACTION_REQUIRED.md`
 - `MASTER_EXEC_PLAN.md`
 
-[CHANGED_FILES.json](CHANGED_FILES.json) is the machine-readable inventory. [SOURCE_DIFF.patch](SOURCE_DIFF.patch) is the complete source-commit diff versus its parent, including governance/test/evidence edits. This metadata child introduces no executable/privileged-source change; its diff is separately reviewable in Git. It cannot embed its own guessed commit ID.
+[CHANGED_FILES.json](CHANGED_FILES.json) is the machine-readable inventory. [SOURCE_DIFF.patch](SOURCE_DIFF.patch) is the complete source-commit diff versus its parent, including governance/test/evidence edits, generated with --binary --unified=0. Zero context preserves every change while avoiding whitespace-only blank context records in the saved artifact. The first metadata commit retained those context records and failed its whitespace check; this metadata-only follow-up corrects that artifact, without changing candidate source/archive or test results. This metadata child introduces no executable/privileged-source change; its diff is separately reviewable in Git. It cannot embed its own guessed commit ID.
 
 ## Fresh-stage recovery and existing partial install
 

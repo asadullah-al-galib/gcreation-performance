@@ -26,9 +26,15 @@ SOURCE CHECKS — PREVIOUSLY RECORDED, NOT RERUN:
 PASS — 59 Python / 26 TypeScript / 4 gateway;16 exact-candidate commands exit0
 
 NEW IMAGE:
-GATE B PASS — HUMAN_OPERATOR_ATTESTED_VERIFIED_HANDOFF
+GATE C PROMOTION PASS — HUMAN_OPERATOR_ATTESTED_VERIFIED_HANDOFF
 sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a
-NOT_PROMOTED / NOT_DEPLOYED
+PROMOTED_OPERATOR_ATTESTED / NOT_DEPLOYED
+
+PROMOTED DOCKERFILE SHA256:
+21ee8641969bc2eb92a91d1dcde28ed90e6420433bb022f1a25d1237c7eec152
+
+REPAIR_2 RUNTIME ACCEPTANCE:
+PENDING
 
 REPAIR CYCLE:
 1 — LAST CONSUMED RUNTIME CYCLE; REPAIR_2 SOURCE IMPLEMENTED
@@ -64,13 +70,13 @@ GATE B:
 PASS
 
 GATE C:
-PENDING_HUMAN_PROMOTION
+PASS
 
 NEXT ALLOWED ACTION:
-Human independent review/authorization of Gate C atomic promotion only. No deployment request is authorized by this checkpoint.
+Human independent authorization of exactly one candidate-pinned REPAIR_2 DEV deployment. No automatic retry. No deployment request is authorized by this checkpoint.
 
 EVIDENCE:
-.ops/reports/P1/REPAIR_2_GATE_B_VERIFICATION.json
+.ops/reports/P1/REPAIR_2_GATE_C_VERIFICATION.json
 
 OVERSIGHT:
 .ops/oversight/LATEST_CHECKPOINT.json / .md; EXTERNAL PENDING / NON-BLOCKING

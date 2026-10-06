@@ -788,6 +788,25 @@
         "automatic_retries": 0
       },
       "limitations": "Codex verifies handoff hash/content and local source/archive identities only. No direct root verification or runtime/P1 acceptance. Gate A PASS recorded under explicit human-owner instruction; raw preflight details not supplied."
+    },
+    {
+      "criterion_id": "P1-REPAIR2-IMAGE-GATE-C",
+      "part": "P1",
+      "requirement": "Record pinned human-operator promotion handoff without runtime action or deployment authority",
+      "result": "PASS_OPERATOR_ATTESTED",
+      "evidence_class": "HUMAN_OPERATOR_ATTESTED_VERIFIED_HANDOFF",
+      "timestamp": "2026-10-06T13:13:13.824319+00:00",
+      "evidence_reference": "REPAIR_2_GATE_C_VERIFICATION.json",
+      "observed": {
+        "handoff_sha256": "055c5dfdc80679d32ae3002a7ca9aebd142e36dba766a873edd0e9b40d6cb0ae",
+        "gate_c": "PASS",
+        "promoted_image_id": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a",
+        "promoted_dockerfile_sha256": "21ee8641969bc2eb92a91d1dcde28ed90e6420433bb022f1a25d1237c7eec152",
+        "runtime": "PENDING_NOT_STARTED",
+        "repair_2_attempts": 0,
+        "automatic_retries": 0
+      },
+      "limitations": "Readable handoff/local identity verification only; no direct privileged inspection, runtime acceptance or full P1 PASS. Single REPAIR_2 deployment still requires independent authorization."
     }
   ],
   "updated_at": "2026-10-06T10:50:27.735379+00:00",
@@ -812,11 +831,14 @@
   "authorization_reference": "docs/P0_2_AUTONOMOUS_AUTHORIZATION.md",
   "candidate_source_commit": "0ac34ba50ab3192abfe2ae425c4283879484258e",
   "candidate_archive_sha256": "958c6833da7e63d7843996a3171e540bf74b6978dcdfaf521c1eb55a39587ced",
-  "current_repair": "REPAIR_2_GATE_C_PENDING_HUMAN_PROMOTION",
+  "current_repair": "REPAIR_2_DEPLOYMENT_AUTHORIZATION_PENDING",
   "repair_2_attempts": 0,
   "image_gate_a": "PASS",
   "image_gate_b": "PASS",
-  "image_gate_c": "PENDING_HUMAN_PROMOTION",
+  "image_gate_c": "PASS",
   "new_proven_image_id": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a",
-  "image_evidence_class": "HUMAN_OPERATOR_ATTESTED_VERIFIED_HANDOFF"
+  "image_evidence_class": "HUMAN_OPERATOR_ATTESTED_VERIFIED_HANDOFF",
+  "promoted_image_id": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a",
+  "promoted_dockerfile_sha256": "21ee8641969bc2eb92a91d1dcde28ed90e6420433bb022f1a25d1237c7eec152",
+  "repair_2_runtime_acceptance": "PENDING"
 }

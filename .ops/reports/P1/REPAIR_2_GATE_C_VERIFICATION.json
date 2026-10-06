@@ -1,0 +1,286 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-10-06T13:13:13.824319+00:00",
+  "part": "P1",
+  "process": "repair2-gate-c-promotion-evidence-ingestion",
+  "result": "PASS_READABLE_HANDOFF",
+  "evidence_class": "HUMAN_OPERATOR_ATTESTED_VERIFIED_HANDOFF",
+  "handoff_original_path": "/home/codexperf/p1-repair2-gate-c-promotion-proof.txt",
+  "handoff_preserved_path": ".ops/reports/P1/REPAIR_2_GATE_C_OPERATOR_HANDOFF.txt",
+  "handoff_sha256": "055c5dfdc80679d32ae3002a7ca9aebd142e36dba766a873edd0e9b40d6cb0ae",
+  "handoff_bytes": 1846,
+  "sha256_verification": "PASS_EXACT_EXPECTED",
+  "operator_reported": {
+    "RESULT": "PASS",
+    "CHECKPOINT_COMMIT": "286f9f8e8bf5949669df3ed04e1b29ee96dcc2a3",
+    "CANDIDATE_COMMIT": "0ac34ba50ab3192abfe2ae425c4283879484258e",
+    "SOURCE_ARCHIVE_SHA256": "958c6833da7e63d7843996a3171e540bf74b6978dcdfaf521c1eb55a39587ced",
+    "SNAPSHOT_DIGEST": "44b5b3b45036ce787f2b9c4ecb20ae21c37db323904b6f18c7c341b976d528ae",
+    "GATE_B_HANDOFF_SHA256": "aa4b946f0b19f7cfe2cb83442aec86abc0da8f313919a370d1c480f03f28588d",
+    "OLD_IMAGE_ID": "sha256:f2bb2401f1f296115cd0d3dd5609ca6514446f55d4484f1884639f308a456f24",
+    "PROVEN_NEW_IMAGE_ID": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a",
+    "REJECTED_IMAGE_ID_PRESERVED": "sha256:d09888bbe949d9241c26682798793bbd5a2cdf668a586a35bd673a7f6795e756",
+    "OLD_DOCKERFILE_SHA256": "b57d39dc4bb75e625c308841a3e71be23718f4e1dde1aab25b9d6b974939dc07",
+    "PROMOTED_DOCKERFILE_SHA256": "21ee8641969bc2eb92a91d1dcde28ed90e6420433bb022f1a25d1237c7eec152",
+    "CONTROLLER_SHA256": "029c5d5714a13fbdd3565901bdc08341e36319c1ab90cf30ea6d4ab7e58c4039",
+    "BACKUP_RUNTIME_IMAGE_ID": "/var/lib/gcreation-perf-review/0ac34ba50ab3192abfe2ae425c4283879484258e/gate-c-backup-runtime-image-id",
+    "BACKUP_RUNTIME_DOCKERFILE": "/var/lib/gcreation-perf-review/0ac34ba50ab3192abfe2ae425c4283879484258e/gate-c-backup-runtime.Dockerfile",
+    "BACKUPS": "PASS_ROOT600_SINGLE_LINK",
+    "PROMOTION_ORDER": "DOCKERFILE_THEN_RUNTIME_IMAGE_POINTER",
+    "PROMOTED_DOCKERFILE": "PASS",
+    "PROMOTED_RUNTIME_IMAGE_POINTER": "PASS",
+    "INSTALLED_RUNTIME_IMAGE_ID": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a",
+    "ROLLBACK_RESULT": "NOT_REQUIRED_PROMOTION_PASS",
+    "OLD_IMAGE_PRESERVED": "YES",
+    "REJECTED_EVIDENCE_IMAGE_PRESERVED": "YES",
+    "WATCHER_ACTIVE_ENABLED": "YES",
+    "OFFICIAL_RUNTIME_STARTED": "NO",
+    "SERVICE_RESTART_RELOAD": "NO",
+    "DEPLOYMENT_REQUEST": "NO",
+    "DEPLOYMENT_CLAIM": "NO",
+    "REPAIR_2_ATTEMPT_CONSUMED": "NO",
+    "AUTOMATIC_DEPLOYMENT_RETRIES": "0",
+    "P2_STARTED": "NO",
+    "PRODUCTION_MAIN_TOUCHED_BY_THIS_SCRIPT": "NO",
+    "GATE_C": "PASS_HUMAN_OPERATOR_PROMOTION"
+  },
+  "readable_field_checks": [
+    {
+      "criterion": "RESULT",
+      "observed": "PASS",
+      "result": "PASS",
+      "verification": "Exact expected handoff field/identity reconciliation; actual privileged operation is operator-attested"
+    },
+    {
+      "criterion": "CHECKPOINT_COMMIT",
+      "observed": "286f9f8e8bf5949669df3ed04e1b29ee96dcc2a3",
+      "result": "PASS",
+      "verification": "Exact expected handoff field/identity reconciliation; actual privileged operation is operator-attested"
+    },
+    {
+      "criterion": "CANDIDATE_COMMIT",
+      "observed": "0ac34ba50ab3192abfe2ae425c4283879484258e",
+      "result": "PASS",
+      "verification": "Exact expected handoff field/identity reconciliation; actual privileged operation is operator-attested"
+    },
+    {
+      "criterion": "SOURCE_ARCHIVE_SHA256",
+      "observed": "958c6833da7e63d7843996a3171e540bf74b6978dcdfaf521c1eb55a39587ced",
+      "result": "PASS",
+      "verification": "Exact expected handoff field/identity reconciliation; actual privileged operation is operator-attested"
+    },
+    {
+      "criterion": "SNAPSHOT_DIGEST",
+      "observed": "44b5b3b45036ce787f2b9c4ecb20ae21c37db323904b6f18c7c341b976d528ae",
+      "result": "PASS",
+      "verification": "Exact expected handoff field/identity reconciliation; actual privileged operation is operator-attested"
+    },
+    {
+      "criterion": "GATE_B_HANDOFF_SHA256",
+      "observed": "aa4b946f0b19f7cfe2cb83442aec86abc0da8f313919a370d1c480f03f28588d",
+      "result": "PASS",
+      "verification": "Exact expected handoff field/identity reconciliation; actual privileged operation is operator-attested"
+    },
+    {
+      "criterion": "OLD_IMAGE_ID",
+      "observed": "sha256:f2bb2401f1f296115cd0d3dd5609ca6514446f55d4484f1884639f308a456f24",
+      "result": "PASS",
+      "verification": "Exact expected handoff field/identity reconciliation; actual privileged operation is operator-attested"
+    },
+    {
+      "criterion": "PROVEN_NEW_IMAGE_ID",
+      "observed": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a",
+      "result": "PASS",
+      "verification": "Exact expected handoff field/identity reconciliation; actual privileged operation is operator-attested"
+    },
+    {
+      "criterion": "REJECTED_IMAGE_ID_PRESERVED",
+      "observed": "sha256:d09888bbe949d9241c26682798793bbd5a2cdf668a586a35bd673a7f6795e756",
+      "result": "PASS",
+      "verification": "Exact expected handoff field/identity reconciliation; actual privileged operation is operator-attested"
+    },
+    {
+      "criterion": "OLD_DOCKERFILE_SHA256",
+      "observed": "b57d39dc4bb75e625c308841a3e71be23718f4e1dde1aab25b9d6b974939dc07",
+      "result": "PASS",
+      "verification": "Exact expected handoff field/identity reconciliation; actual privileged operation is operator-attested"
+    },
+    {
+      "criterion": "PROMOTED_DOCKERFILE_SHA256",
+      "observed": "21ee8641969bc2eb92a91d1dcde28ed90e6420433bb022f1a25d1237c7eec152",
+      "result": "PASS",
+      "verification": "Exact expected handoff field/identity reconciliation; actual privileged operation is operator-attested"
+    },
+    {
+      "criterion": "CONTROLLER_SHA256",
+      "observed": "029c5d5714a13fbdd3565901bdc08341e36319c1ab90cf30ea6d4ab7e58c4039",
+      "result": "PASS",
+      "verification": "Exact expected handoff field/identity reconciliation; actual privileged operation is operator-attested"
+    },
+    {
+      "criterion": "BACKUP_RUNTIME_IMAGE_ID",
+      "observed": "/var/lib/gcreation-perf-review/0ac34ba50ab3192abfe2ae425c4283879484258e/gate-c-backup-runtime-image-id",
+      "result": "PASS",
+      "verification": "Exact expected handoff field/identity reconciliation; actual privileged operation is operator-attested"
+    },
+    {
+      "criterion": "BACKUP_RUNTIME_DOCKERFILE",
+      "observed": "/var/lib/gcreation-perf-review/0ac34ba50ab3192abfe2ae425c4283879484258e/gate-c-backup-runtime.Dockerfile",
+      "result": "PASS",
+      "verification": "Exact expected handoff field/identity reconciliation; actual privileged operation is operator-attested"
+    },
+    {
+      "criterion": "BACKUPS",
+      "observed": "PASS_ROOT600_SINGLE_LINK",
+      "result": "PASS",
+      "verification": "Exact expected handoff field/identity reconciliation; actual privileged operation is operator-attested"
+    },
+    {
+      "criterion": "PROMOTION_ORDER",
+      "observed": "DOCKERFILE_THEN_RUNTIME_IMAGE_POINTER",
+      "result": "PASS",
+      "verification": "Exact expected handoff field/identity reconciliation; actual privileged operation is operator-attested"
+    },
+    {
+      "criterion": "PROMOTED_DOCKERFILE",
+      "observed": "PASS",
+      "result": "PASS",
+      "verification": "Exact expected handoff field/identity reconciliation; actual privileged operation is operator-attested"
+    },
+    {
+      "criterion": "PROMOTED_RUNTIME_IMAGE_POINTER",
+      "observed": "PASS",
+      "result": "PASS",
+      "verification": "Exact expected handoff field/identity reconciliation; actual privileged operation is operator-attested"
+    },
+    {
+      "criterion": "INSTALLED_RUNTIME_IMAGE_ID",
+      "observed": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a",
+      "result": "PASS",
+      "verification": "Exact expected handoff field/identity reconciliation; actual privileged operation is operator-attested"
+    },
+    {
+      "criterion": "ROLLBACK_RESULT",
+      "observed": "NOT_REQUIRED_PROMOTION_PASS",
+      "result": "PASS",
+      "verification": "Exact expected handoff field/identity reconciliation; actual privileged operation is operator-attested"
+    },
+    {
+      "criterion": "OLD_IMAGE_PRESERVED",
+      "observed": "YES",
+      "result": "PASS",
+      "verification": "Exact expected handoff field/identity reconciliation; actual privileged operation is operator-attested"
+    },
+    {
+      "criterion": "REJECTED_EVIDENCE_IMAGE_PRESERVED",
+      "observed": "YES",
+      "result": "PASS",
+      "verification": "Exact expected handoff field/identity reconciliation; actual privileged operation is operator-attested"
+    },
+    {
+      "criterion": "WATCHER_ACTIVE_ENABLED",
+      "observed": "YES",
+      "result": "PASS",
+      "verification": "Exact expected handoff field/identity reconciliation; actual privileged operation is operator-attested"
+    },
+    {
+      "criterion": "OFFICIAL_RUNTIME_STARTED",
+      "observed": "NO",
+      "result": "PASS",
+      "verification": "Exact expected handoff field/identity reconciliation; actual privileged operation is operator-attested"
+    },
+    {
+      "criterion": "SERVICE_RESTART_RELOAD",
+      "observed": "NO",
+      "result": "PASS",
+      "verification": "Exact expected handoff field/identity reconciliation; actual privileged operation is operator-attested"
+    },
+    {
+      "criterion": "DEPLOYMENT_REQUEST",
+      "observed": "NO",
+      "result": "PASS",
+      "verification": "Exact expected handoff field/identity reconciliation; actual privileged operation is operator-attested"
+    },
+    {
+      "criterion": "DEPLOYMENT_CLAIM",
+      "observed": "NO",
+      "result": "PASS",
+      "verification": "Exact expected handoff field/identity reconciliation; actual privileged operation is operator-attested"
+    },
+    {
+      "criterion": "REPAIR_2_ATTEMPT_CONSUMED",
+      "observed": "NO",
+      "result": "PASS",
+      "verification": "Exact expected handoff field/identity reconciliation; actual privileged operation is operator-attested"
+    },
+    {
+      "criterion": "AUTOMATIC_DEPLOYMENT_RETRIES",
+      "observed": "0",
+      "result": "PASS",
+      "verification": "Exact expected handoff field/identity reconciliation; actual privileged operation is operator-attested"
+    },
+    {
+      "criterion": "P2_STARTED",
+      "observed": "NO",
+      "result": "PASS",
+      "verification": "Exact expected handoff field/identity reconciliation; actual privileged operation is operator-attested"
+    },
+    {
+      "criterion": "PRODUCTION_MAIN_TOUCHED_BY_THIS_SCRIPT",
+      "observed": "NO",
+      "result": "PASS",
+      "verification": "Exact expected handoff field/identity reconciliation; actual privileged operation is operator-attested"
+    },
+    {
+      "criterion": "GATE_C",
+      "observed": "PASS_HUMAN_OPERATOR_PROMOTION",
+      "result": "PASS",
+      "verification": "Exact expected handoff field/identity reconciliation; actual privileged operation is operator-attested"
+    }
+  ],
+  "gate_a": "PASS_RETAINED_FROM_PRIOR_CHECKPOINT",
+  "gate_b": "PASS_RETAINED_FROM_PRIOR_CHECKPOINT",
+  "gate_c": "PASS_HUMAN_OPERATOR_PROMOTION",
+  "promoted_image_id": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a",
+  "promoted_dockerfile_sha256": "21ee8641969bc2eb92a91d1dcde28ed90e6420433bb022f1a25d1237c7eec152",
+  "prior_gate_b_record": ".ops/reports/P1/REPAIR_2_GATE_B_VERIFICATION.json",
+  "prior_gate_b_handoff_sha256": "aa4b946f0b19f7cfe2cb83442aec86abc0da8f313919a370d1c480f03f28588d",
+  "canonical_gate": "ops/dev/REPAIR_2_IMAGE_UPGRADE_GATE.md",
+  "canonical_gate_sha256": "d0dc42534aa03f352a58a9d172cb5f6e87575a700b190c53ed3295a0dcae69a4",
+  "promotion_order": "DOCKERFILE_THEN_RUNTIME_IMAGE_POINTER",
+  "backup_verification": "PASS_ROOT600_SINGLE_LINK_OPERATOR_ATTESTED",
+  "rollback": "NOT_REQUIRED_PROMOTION_PASS_OPERATOR_ATTESTED",
+  "old_and_rejected_images_preserved": true,
+  "controller_unchanged_sha256": "029c5d5714a13fbdd3565901bdc08341e36319c1ab90cf30ea6d4ab7e58c4039",
+  "local_verification": {
+    "baseline_head": "286f9f8e8bf5949669df3ed04e1b29ee96dcc2a3",
+    "baseline_origin_develop_equal": true,
+    "baseline_working_tree_clean": true,
+    "checkpoint_ancestor": "PASS",
+    "candidate_source_byte_equality": "PASS",
+    "candidate_archive_sha256": "PASS",
+    "archive_regular_members": 182,
+    "canonical_snapshot_digest": "PASS",
+    "gate_b_handoff_binding": "PASS",
+    "dockerfile_controller_hash_binding": "PASS",
+    "request_claim_absence": "PASS",
+    "prior_failed_status_unchanged": "PASS"
+  },
+  "codex_direct_privileged_observation": false,
+  "codex_privileged_or_runtime_action_performed": false,
+  "backup_root_paths_accessed_by_codex": false,
+  "deployment_authorized_by_this_record": false,
+  "repair_2_runtime_acceptance": "PENDING",
+  "full_p1_independent_review": "PENDING",
+  "repair_cycle_preserved": 1,
+  "repair_2_attempts": 0,
+  "automatic_retries": 0,
+  "p1_execution": "IN_PROGRESS",
+  "p2": "NOT_STARTED",
+  "production_touched": false,
+  "limitations": [
+    "Codex independently verified only readable handoff hash/field consistency and local committed source/archive identities. Installed files/images/backup modes/preservation/watcher state and promotion are human-operator attestations.",
+    "The minimum sanitized handoff does not include raw privileged commands/times, all inventory rows or direct lock/snapshot/ownership postcheck outputs. No direct root verification is claimed.",
+    "Promotion PASS is distinct from deployment authorization, real runtime health/security/resource/rollback-retention acceptance and full P1 PASS. Prior failed REPAIR_1 evidence/counters are retained."
+  ]
+}

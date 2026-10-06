@@ -19,7 +19,7 @@
       "repair_cycle": 1,
       "report_directory": ".ops/reports/P1",
       "repair_path": "REPAIR_2",
-      "repair_state": "GATE_A_B_PASS_GATE_C_PENDING_HUMAN_PROMOTION",
+      "repair_state": "GATE_A_B_C_PASS_DEPLOYMENT_AUTHORIZATION_PENDING",
       "failed_repair_cycles": 1,
       "repair_independent_review": "PASS_EXACT_PATCH",
       "next_repair_cycle": 2,
@@ -54,9 +54,9 @@
   "human_gate": {
     "part": "P1",
     "repair": "REPAIR_2",
-    "purpose": "Separate human independent review/authorization of Gate C atomic image reference and Dockerfile DATA promotion only",
-    "status": "PENDING_HUMAN_PROMOTION",
-    "action_file": "ops/dev/REPAIR_2_IMAGE_UPGRADE_GATE.md",
+    "purpose": "Independent authorization of exactly one accepted candidate-pinned REPAIR_2 DEV watcher deployment",
+    "status": "PENDING_INDEPENDENT_DEPLOYMENT_AUTHORIZATION",
+    "action_file": ".ops/ACTION_REQUIRED.md",
     "accepted_source_commit": "0ac34ba50ab3192abfe2ae425c4283879484258e",
     "archive_sha256": "958c6833da7e63d7843996a3171e540bf74b6978dcdfaf521c1eb55a39587ced",
     "root_review_stage": "/var/lib/gcreation-perf-review/0ac34ba50ab3192abfe2ae425c4283879484258e",
@@ -66,20 +66,21 @@
     "max_new_deployment_requests": 0,
     "automatic_retries": 0,
     "capability_verified": false,
-    "human_action": "Human independent review/authorization of Gate C atomic promotion only. No deployment request is authorized by this checkpoint.",
+    "human_action": "Human independent authorization of exactly one candidate-pinned REPAIR_2 DEV deployment. No automatic retry. No deployment request is authorized by this checkpoint.",
     "old_image_preserved": "sha256:f2bb2401f1f296115cd0d3dd5609ca6514446f55d4484f1884639f308a456f24",
-    "action_file_sha256": "d0dc42534aa03f352a58a9d172cb5f6e87575a700b190c53ed3295a0dcae69a4",
+    "action_file_sha256": "eb16a44978c592098193de0728c06c1c14a86f720703423b827147c9bac6317e",
     "gate_a": "PASS",
     "gate_b": "PASS",
-    "gate_c": "PENDING_HUMAN_PROMOTION",
+    "gate_c": "PASS",
     "new_proven_image_id": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a",
     "image_acceptance_evidence_class": "HUMAN_OPERATOR_ATTESTED_VERIFIED_HANDOFF",
-    "verification_record": ".ops/reports/P1/REPAIR_2_GATE_B_VERIFICATION.json"
+    "verification_record": ".ops/reports/P1/REPAIR_2_GATE_C_VERIFICATION.json",
+    "promoted_image_id": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a"
   },
   "hard_blocker": null,
   "production_touched": false,
   "p7": "NOT_STARTED",
-  "updated_at": "2026-10-06T12:57:34.661910+00:00",
+  "updated_at": "2026-10-06T13:13:13.824319+00:00",
   "p7_authorization": "SEPARATE_HUMAN_REQUIRED",
   "security_review": {
     "part": "P1",
@@ -111,7 +112,9 @@
     "implemented_package_checksums_sha256": "dcb9e169f0db5473c377b7e7ac54a638a7486e81dd3b18e8a8a46a1948de366d",
     "approval_record_sha256": "01de9fb2b3f3e4e3762c90ecd867fd0c099273634ee764621d1a53268b08a245",
     "candidate_image_evidence_class": "HUMAN_OPERATOR_ATTESTED_VERIFIED_HANDOFF",
-    "image_promotion_performed": false
+    "image_promotion_performed": true,
+    "promoted_image_id": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a",
+    "promoted_dockerfile_sha256": "21ee8641969bc2eb92a91d1dcde28ed90e6420433bb022f1a25d1237c7eec152"
   },
   "installation_gate": {
     "status": "PASS",
@@ -264,11 +267,11 @@
     "diagnosis": "UID10001 cannot traverse three root-owned0700 gateway image ancestors; exact file/hash/launcher are correct",
     "evidence_file": ".ops/reports/P1/gateway-repair-2-proposal/FINAL_ROOT_CAUSE.json",
     "status": "HUMAN_CAPABILITY_GATE",
-    "next_action": "Human independent review/authorization of Gate C atomic promotion only. No deployment request is authorized by this checkpoint.",
-    "smallest_remediation": "Human-authorized Gate C atomic promotion of exact proven image and reviewed Dockerfile DATA; no runtime request",
+    "next_action": "Human independent authorization of exactly one candidate-pinned REPAIR_2 DEV deployment. No automatic retry. No deployment request is authorized by this checkpoint.",
+    "smallest_remediation": "Independent authorization for one exact candidate/archive/promoted-image REPAIR_2 watcher attempt; no automatic retry",
     "source_remediation_status": "PASS_SOURCE_TESTS",
-    "runtime_remediation_status": "IMAGE_ACCEPTED_OPERATOR_ATTESTED_NOT_PROMOTED_NOT_DEPLOYED",
-    "current_pending_criterion": "Gate C separate human authorization"
+    "runtime_remediation_status": "IMAGE_PROMOTED_OPERATOR_ATTESTED_NOT_DEPLOYED",
+    "current_pending_criterion": "Explicit independent REPAIR_2 deployment authorization"
   },
   "external_oversight": "PENDING",
   "deployment_authority": {
@@ -288,20 +291,20 @@
     "repair_2_source_candidate": "0ac34ba50ab3192abfe2ae425c4283879484258e"
   },
   "capability_gate": {
-    "process": "repair2-gate-c-promotion-handoff",
-    "status": "PENDING_HUMAN_PROMOTION",
+    "process": "repair2-deployment-authorization-handoff",
+    "status": "PENDING_INDEPENDENT_DEPLOYMENT_AUTHORIZATION",
     "scope_class": "SECURITY_CRITICAL",
     "business_mapping": [
       "RELIABILITY",
       "SECURITY",
       "MVP_RELEASE"
     ],
-    "evidence_file": ".ops/reports/P1/REPAIR_2_GATE_B_VERIFICATION.json",
-    "reason": "Gate A/B PASS recorded from verified sanitized human-operator handoff; Gate C atomic promotion still requires separate human/root authorization",
+    "evidence_file": ".ops/reports/P1/REPAIR_2_GATE_C_VERIFICATION.json",
+    "reason": "Promotion handoff PASS recorded; single official REPAIR_2 DEV deployment still requires explicit independent authorization under the latest human instruction",
     "root_interface_available": false,
     "approval_already_granted": false,
     "repair_cycle_consumed": false,
-    "operator_action": "ops/dev/REPAIR_2_IMAGE_UPGRADE_GATE.md#c",
+    "operator_action": ".ops/ACTION_REQUIRED.md",
     "source_review_approval_granted": true
   },
   "execution_policy": {
@@ -329,7 +332,7 @@
   "oversight_checkpoint": {
     "latest_json": ".ops/oversight/LATEST_CHECKPOINT.json",
     "latest_markdown": ".ops/oversight/LATEST_CHECKPOINT.md",
-    "event": ".ops/oversight/events/0009-P1-repair2-gate-c-promotion-handoff.json"
+    "event": ".ops/oversight/events/0010-P1-repair2-deployment-authorization-handoff.json"
   },
   "controller_refresh": {
     "operator_reported_result": "PASS",
@@ -354,11 +357,16 @@
     "root_cause": "UID10001_DIRECTORY_TRAVERSAL_FAILURE"
   },
   "runtime_acceptance": {
-    "result": "FAIL",
+    "result": "PENDING",
+    "repair": "REPAIR_2",
+    "source_commit": "0ac34ba50ab3192abfe2ae425c4283879484258e",
+    "candidate_archive_sha256": "958c6833da7e63d7843996a3171e540bf74b6978dcdfaf521c1eb55a39587ced",
+    "promoted_image_id_operator_attested": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a",
     "deployed_identity": null,
-    "failing_criterion": "P1 runtime start/health",
-    "failure_evidence": ".ops/reports/P1/REPAIR_1_DEPLOYMENT_ATTEMPT.json",
-    "root_cause": "UID10001_DIRECTORY_TRAVERSAL_FAILURE"
+    "attempts_used": 0,
+    "full_validation_performed": false,
+    "evidence_reference": ".ops/reports/P1/REPAIR_2_GATE_C_VERIFICATION.json",
+    "prior_consumed_repair_1_failure": ".ops/reports/P1/REPAIR_1_DEPLOYMENT_ATTEMPT.json"
   },
   "runtime_diagnostics": {
     "collection": "PASS",
@@ -374,7 +382,7 @@
   "image_upgrade": {
     "gate_a": "PASS",
     "gate_b": "PASS",
-    "gate_c": "PENDING_HUMAN_PROMOTION",
+    "gate_c": "PASS",
     "evidence_class": "HUMAN_OPERATOR_ATTESTED_VERIFIED_HANDOFF",
     "verification_record": ".ops/reports/P1/REPAIR_2_GATE_B_VERIFICATION.json",
     "handoff_sha256": "aa4b946f0b19f7cfe2cb83442aec86abc0da8f313919a370d1c480f03f28588d",
@@ -384,10 +392,30 @@
     "new_proven_image_id": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a",
     "new_proven_image_tag": "gcreation-perf-dev-runtime:repair2-recovery2-0ac34ba50ab3192abfe2ae425c4283879484258e",
     "rejected_cached_image_id": "sha256:d09888bbe949d9241c26682798793bbd5a2cdf668a586a35bd673a7f6795e756",
-    "installed_image_id_operator_attested": "sha256:f2bb2401f1f296115cd0d3dd5609ca6514446f55d4484f1884639f308a456f24",
-    "promotion_performed": false,
-    "gate_c_authorized": false,
+    "installed_image_id_operator_attested": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a",
+    "promotion_performed": true,
     "runtime_accepted": false,
-    "codex_direct_privileged_verification": false
-  }
+    "codex_direct_privileged_verification": false,
+    "promoted_image_id": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a",
+    "promoted_dockerfile_sha256": "21ee8641969bc2eb92a91d1dcde28ed90e6420433bb022f1a25d1237c7eec152",
+    "gate_c_verification_record": ".ops/reports/P1/REPAIR_2_GATE_C_VERIFICATION.json",
+    "gate_c_handoff_sha256": "055c5dfdc80679d32ae3002a7ca9aebd142e36dba766a873edd0e9b40d6cb0ae",
+    "gate_c_operator_completion": "PASS_HUMAN_OPERATOR_PROMOTION",
+    "runtime_acceptance": "PENDING",
+    "privileged_action_authorized_by_this_checkpoint": false
+  },
+  "runtime_acceptance_history": [
+    {
+      "repair": "REPAIR_1",
+      "source_commit": "134ddfbe393168ce7cef99c44817329c84a8d6eb",
+      "acceptance": {
+        "result": "FAIL",
+        "deployed_identity": null,
+        "failing_criterion": "P1 runtime start/health",
+        "failure_evidence": ".ops/reports/P1/REPAIR_1_DEPLOYMENT_ATTEMPT.json",
+        "root_cause": "UID10001_DIRECTORY_TRAVERSAL_FAILURE"
+      },
+      "preserved_at_checkpoint": "286f9f8e8bf5949669df3ed04e1b29ee96dcc2a3"
+    }
+  ]
 }

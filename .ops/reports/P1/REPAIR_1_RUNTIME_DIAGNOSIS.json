@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "part": "P1",
+  "process": "repair1-runtime-diagnostic-analysis",
+  "scope_class": "RELIABILITY_CRITICAL",
+  "business_mapping": [
+    "RELIABILITY",
+    "SECURITY",
+    "MVP_RELEASE"
+  ],
+  "result": "HOLD",
+  "state": "HUMAN_CAPABILITY_GATE",
+  "source_commit": "134ddfbe393168ce7cef99c44817329c84a8d6eb",
+  "archive_sha256": "d2c69e1a49342ae09867bd206e39e89d969c8d0e39eb3c6e9b1eaaf93c1e68b0",
+  "recorded_at_utc": "2026-10-06T10:20:21.738274+00:00",
+  "handoff_sha256": "3f977213681df1ba867ddd0495c9e2183c5246c9e4b095442e29c6dfe008eecf",
+  "diagnostic_collection_result": "PASS",
+  "exact_failed_operation": "deploy() -> start_runtime(release) -> readiness loop; line340 raises RuntimeError after health() failed to return successfully across30 iterations",
+  "exact_error": "Runtime readiness deadline exceeded",
+  "root_cause": "NOT_ESTABLISHED",
+  "established_facts": [
+    "Reported service exit1 aligns with candidate FAILED/runtime-health status and attempt window",
+    "Installed controller bytes match exact accepted Git candidate; traceback lines392/340 match source",
+    "Reviewed control flow reaches readiness loop only after runtime-start Docker commands and network rechecks return successfully; this is a code-flow inference, not effective container acceptance",
+    "health() checks internal localhost health response/identity and then public DEV homepage; readiness catches Exception without retaining failing probe/error",
+    "All fixed DEV containers absent in post-failure collection; their logs unavailable",
+    "Installed/image-inspection pinned image matches; this does not prove a healthy runtime",
+    "Old stages and two failed releases preserved by human attestation; no manual runtime mutation during collection"
+  ],
+  "missing_evidence": [
+    "Actual health() exception from the failed readiness loop identifying the failing probe and error/status/identity mismatch",
+    "Pre-cleanup app/proxy/gateway startup or exit/log evidence if failure originated inside a container"
+  ],
+  "remediation": {
+    "classification": "RELIABILITY_CRITICAL diagnosis only; implementation not selected",
+    "smallest_source_fix": null,
+    "reason": "No concrete underlying defect established; cannot select a justified REPAIR_2 source/config change",
+    "frozen_v4_boundary_change": "NOT_ASSESSED_FOR_UNSELECTED_REMEDIATION",
+    "boundary_changes_made": false,
+    "future_gate": "Any required frozen V4 boundary change must stop at SECURITY_REVIEW_REQUIRED before implementation"
+  },
+  "repair_counters": {
+    "current_repair_cycle": 1,
+    "initial": "CONSUMED",
+    "REPAIR_1": "FAILED_CONSUMED",
+    "repair_1_attempts_used": 1,
+    "repair_1_limit": 1,
+    "automatic_retries": 0,
+    "repair_2_attempts_used": 0
+  },
+  "source_runtime_privileged_changes": false,
+  "production_touched": false,
+  "P2": "NOT_STARTED",
+  "next_allowed_step": "Provide preserved failed-probe/per-container evidence if available. If no such evidence survived, a human decision on a bounded diagnostic approach is required; do not retry/recreate to obtain it.",
+  "limitations": "This collection establishes exact readiness failure, not its underlying cause. Source inspection/static reasoning cannot replace missing real-host startup/probe evidence."
+}

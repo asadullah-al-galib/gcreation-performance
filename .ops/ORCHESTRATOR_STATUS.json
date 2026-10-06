@@ -53,8 +53,8 @@
   "human_gate": {
     "part": "P1",
     "repair": "REPAIR_1",
-    "purpose": "Read-only diagnostics for consumed REPAIR_1 runtime failure",
-    "status": "PENDING_DIAGNOSTIC_CAPABILITY",
+    "purpose": "Missing preserved failure evidence or human diagnostic decision; no runtime action",
+    "status": "PENDING_FAILURE_EVIDENCE",
     "action_file": ".ops/reports/P1/REPAIR_1_RUNTIME_DIAGNOSTICS_GATE.md",
     "action_file_sha256": "11fa7189cee4c81eff99da010edcddf7f3815e0bfe2167b452dbe4b2770425e3",
     "accepted_source_commit": "134ddfbe393168ce7cef99c44817329c84a8d6eb",
@@ -74,7 +74,7 @@
     ],
     "approval_granted_by": "HUMAN_P0_2_SECTION_8",
     "capability_verified": false,
-    "human_action": "Return bounded sanitized read-only service/journal/fixed DEV container/image diagnostics under REPAIR_1_RUNTIME_DIAGNOSTICS_GATE.md. No rerun, retry, restart, cleanup or configuration change.",
+    "human_action": "Provide preserved failed-probe/per-container evidence if available. If no such evidence survived, a human decision on a bounded diagnostic approach is required; do not retry/recreate to obtain it.",
     "operator_reported_result": "PASS",
     "installed_candidate_bytes_locally_verified": true,
     "full_refresh_verified": true,
@@ -83,7 +83,7 @@
   "hard_blocker": null,
   "production_touched": false,
   "p7": "NOT_STARTED",
-  "updated_at": "2026-10-06T10:09:33.901630+00:00",
+  "updated_at": "2026-10-06T10:20:55.495653+00:00",
   "p7_authorization": "SEPARATE_HUMAN_REQUIRED",
   "security_review": {
     "part": "P1",
@@ -231,12 +231,12 @@
   },
   "blocker": {
     "criterion": "P1 runtime start/health",
-    "command": "Accepted installed deploy_controller.py start_runtime(release), after constrained build and before final-health",
-    "error": "Terminal FAILED / runtime-health / RuntimeError / rollback=false",
-    "diagnosis": "NOT_ESTABLISHED; RuntimeError does not identify subprocess or root cause",
-    "evidence_file": ".ops/reports/P1/REPAIR_1_DEPLOYMENT_ATTEMPT.json",
+    "command": "deploy() -> start_runtime(release) -> readiness loop; line340 raises RuntimeError after health() failed to return successfully across30 iterations",
+    "error": "Runtime readiness deadline exceeded",
+    "diagnosis": "NOT_ESTABLISHED; actual failing health probe/exception and pre-cleanup container startup evidence absent",
+    "evidence_file": ".ops/reports/P1/REPAIR_1_RUNTIME_DIAGNOSIS.json",
     "status": "HUMAN_CAPABILITY_GATE",
-    "next_action": "Return bounded sanitized read-only service/journal/fixed DEV container/image diagnostics under REPAIR_1_RUNTIME_DIAGNOSTICS_GATE.md. No rerun, retry, restart, cleanup or configuration change.",
+    "next_action": "Provide preserved failed-probe/per-container evidence if available. If no such evidence survived, a human decision on a bounded diagnostic approach is required; do not retry/recreate to obtain it.",
     "smallest_remediation": "Obtain read-only diagnostic evidence before proposing any relevant REPAIR_2 change; no unchanged retry"
   },
   "external_oversight": "PENDING",
@@ -251,10 +251,11 @@
     "condition_met": true,
     "request_ready": false,
     "prior_initial_attempt_consumed": true,
-    "submitted_at_utc": "2026-10-06T10:03:32.917576+00:00"
+    "submitted_at_utc": "2026-10-06T10:03:32.917576+00:00",
+    "repair_2_attempts_used": 0
   },
   "capability_gate": {
-    "process": "repair1-runtime-failure-diagnostics",
+    "process": "repair1-runtime-diagnostic-analysis",
     "status": "PENDING_CAPABILITY",
     "scope_class": "RELIABILITY_CRITICAL",
     "business_mapping": [
@@ -262,12 +263,12 @@
       "SECURITY",
       "MVP_RELEASE"
     ],
-    "evidence_file": ".ops/reports/P1/REPAIR_1_DEPLOYMENT_ATTEMPT.json",
-    "reason": "REPAIR_1 attempt consumed with RuntimeError at runtime-health; root-private service/container diagnostics unavailable through approved agent interface. Exact failed command/cause cannot be established from sanitized status alone.",
+    "evidence_file": ".ops/reports/P1/REPAIR_1_RUNTIME_DIAGNOSIS.json",
+    "reason": "Exact readiness deadline operation established; discarded health exceptions and unavailable removed-container logs prevent a supported underlying root cause.",
     "root_interface_available": false,
     "approval_already_granted": true,
     "repair_cycle_consumed": false,
-    "operator_action": "Return bounded sanitized read-only service/journal/fixed DEV container/image diagnostics under REPAIR_1_RUNTIME_DIAGNOSTICS_GATE.md. No rerun, retry, restart, cleanup or configuration change."
+    "operator_action": "Provide preserved failed-probe/per-container evidence if available. If no such evidence survived, a human decision on a bounded diagnostic approach is required; do not retry/recreate to obtain it."
   },
   "execution_policy": {
     "routine_micro_approvals_required": false,
@@ -294,7 +295,7 @@
   "oversight_checkpoint": {
     "latest_json": ".ops/oversight/LATEST_CHECKPOINT.json",
     "latest_markdown": ".ops/oversight/LATEST_CHECKPOINT.md",
-    "event": ".ops/oversight/events/0004-P1-repair1-runtime-failure.json"
+    "event": ".ops/oversight/events/0005-P1-repair1-runtime-diagnostic-analysis.json"
   },
   "controller_refresh": {
     "operator_reported_result": "PASS",
@@ -314,7 +315,9 @@
     "automatic_retries": 0,
     "stage": "runtime-health",
     "error": "RuntimeError",
-    "rollback": false
+    "rollback": false,
+    "exact_error": "Runtime readiness deadline exceeded",
+    "root_cause": "NOT_ESTABLISHED"
   },
   "runtime_acceptance": {
     "result": "FAIL",
@@ -322,5 +325,12 @@
     "failing_criterion": "P1 runtime start/health",
     "failure_evidence": ".ops/reports/P1/REPAIR_1_DEPLOYMENT_ATTEMPT.json",
     "root_cause": "NOT_ESTABLISHED"
+  },
+  "runtime_diagnostics": {
+    "collection": "PASS",
+    "analysis": "HOLD",
+    "exact_operation_established": true,
+    "root_cause": "NOT_ESTABLISHED",
+    "evidence_file": ".ops/reports/P1/REPAIR_1_RUNTIME_DIAGNOSIS.json"
   }
 }

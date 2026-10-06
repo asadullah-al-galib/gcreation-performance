@@ -686,9 +686,27 @@
       "observed": "Public DEV engine health404; sampled forbidden/admin paths404; session localhost health connection refused (host namespace equivalence not verified)",
       "evidence_reference": "REPAIR_1_HEALTH_OBSERVATIONS.json",
       "limitations": "No nginx/configuration mutation or production probe; sample does not prove complete route isolation."
+    },
+    {
+      "criterion_id": "P1-REPAIR_1-DIAGNOSTIC-ROOT-CAUSE",
+      "part": "P1",
+      "requirement": "Establish concrete underlying root cause before a relevant REPAIR_2 change",
+      "expected": "Preserved actual failed health probe/error or container startup evidence",
+      "observed": [
+        "Actual health() exception from the failed readiness loop identifying the failing probe and error/status/identity mismatch",
+        "Pre-cleanup app/proxy/gateway startup or exit/log evidence if failure originated inside a container"
+      ],
+      "result": "PENDING_HUMAN",
+      "checkpoint_result": "HOLD",
+      "evidence_class": "HUMAN_ATTESTED",
+      "verification_domain": "READ_ONLY_DIAGNOSTICS_PLUS_ACCEPTED_SOURCE_RECONCILIATION",
+      "timestamp": "2026-10-06T10:20:21.738274+00:00",
+      "source_commit": "134ddfbe393168ce7cef99c44817329c84a8d6eb",
+      "evidence_reference": "REPAIR_1_RUNTIME_DIAGNOSIS.json",
+      "limitations": "Collection PASS and exact readiness operation established; underlying cause unproven. No source fix, tests, privileged changes or repair2 attempt."
     }
   ],
-  "updated_at": "2026-10-06T10:07:46.187566+00:00",
+  "updated_at": "2026-10-06T10:20:21.738274+00:00",
   "repair_path": "REPAIR_1",
   "repair_state": "HUMAN_CAPABILITY_GATE",
   "current_candidate_commit": "134ddfbe393168ce7cef99c44817329c84a8d6eb",

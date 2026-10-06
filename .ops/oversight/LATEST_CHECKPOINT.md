@@ -4,13 +4,13 @@ PART:
 P1
 
 PROCESS:
-repair1-runtime-failure
+repair1-runtime-diagnostic-analysis
 
 RESULT:
-FAIL — HUMAN_CAPABILITY_GATE
+HOLD — HUMAN_CAPABILITY_GATE
 
 BUSINESS OUTCOME:
-Exactly one accepted candidate-pinned REPAIR_1 watcher request consumed; terminal FAILED at runtime-health/RuntimeError/rollback=false. Constrained build return0 inferred from reviewed stage progression. Root cause unknown; current read-only runtime diagnostics require an unavailable approved capability. Controller refresh remains PASS.
+Diagnostic handoff SHA3f977213... matches. Collection PASS; exact failure is start_runtime readiness loop ending with Runtime readiness deadline exceeded. Underlying root cause NOT_ESTABLISHED: health exceptions were discarded and all fixed containers/logs are unavailable. No justified REPAIR_2 remediation selected or implemented.
 
 SOURCE COMMIT:
 134ddfbe393168ce7cef99c44817329c84a8d6eb
@@ -22,10 +22,10 @@ WHAT CHANGED:
 Current governance and criterion evidence; accepted source/security kit unchanged.
 
 TARGETED TESTS:
-["One deterministic committed artifact/request; no workspace-byte deployment", "Observed candidate terminal FAILED/runtime-health/RuntimeError; request/claim absent", "No resubmission/retry/refresh/installer/image rebuild", "Read-only protected runtime paths inaccessible; root cause NOT_ESTABLISHED"]
+["Exact supplied diagnostic SHA256 verified", "Service exit1/time window/candidate/archive reconciled with consumed attempt", "Traceback392/340 matched accepted installed/Git controller bytes", "Collection reports fixed containers absent and logs unavailable", "No underlying failing health exception in returned evidence"]
 
 REAL DEV EVIDENCE:
-[{"url": "http://127.0.0.1:3101/health", "observed_at_utc": "2026-10-06T10:06:24.017504+00:00", "no_auth_cookies": true, "redirects_followed": false, "max_body_bytes": 8192, "timeout_seconds": 10, "error_class": "URLError", "reason_class": "ConnectionRefusedError", "reason": "[Errno 111] Connection refused"}, {"url": "https://dev.gcreation.agency/perf-engine/health", "observed_at_utc": "2026-10-06T10:06:24.021025+00:00", "no_auth_cookies": true, "redirects_followed": false, "max_body_bytes": 8192, "timeout_seconds": 10, "http_status": 404, "response_body_not_logged": true}, {"url": "https://dev.gcreation.agency/perf-engine/admin", "observed_at_utc": "2026-10-06T10:06:24.046810+00:00", "no_auth_cookies": true, "redirects_followed": false, "max_body_bytes": 8192, "timeout_seconds": 10, "http_status": 404, "response_body_not_logged": true}, {"url": "https://dev.gcreation.agency/perf-engine/api/admin", "observed_at_utc": "2026-10-06T10:06:24.067570+00:00", "no_auth_cookies": true, "redirects_followed": false, "max_body_bytes": 8192, "timeout_seconds": 10, "http_status": 404, "response_body_not_logged": true}]
+["Human-attested service FAILED/exit1 and readiness deadline trace", "Human-attested fixed containers absent; no logs retained", "Pinned image ID/config-user/workdir match; failed release and root stages preserved; no runtime mutations"]
 
 SECURITY:
 V4 PRESERVED
@@ -40,10 +40,10 @@ KNOWN LIMITATIONS:
 Full P1 independent review PENDING; private-host proof is human-attested.
 
 NEXT AUTOMATIC STEP:
-Obtain bounded sanitized read-only diagnostics; establish exact failed operation/cause before any relevant REPAIR_2 change. No new request or P2.
+Provide preserved failing health-probe exception or pre-cleanup container startup evidence if available; otherwise a human decision on a bounded diagnostic approach is required. No unchanged retry or REPAIR_2 attempt.
 
 HUMAN ACTION:
-Designated operator returns one sanitized read-only service traceback/fixed DEV container/image diagnostic bundle under .ops/reports/P1/REPAIR_1_RUNTIME_DIAGNOSTICS_GATE.md; no rerun, retry, restart, cleanup or configuration change.
+Return any preserved readiness-probe error/container startup evidence. If none survived, state that and decide the bounded diagnostic approach; no rerun/restart/recreate/configuration change requested.
 
 EXTERNAL OVERSIGHT:
 PENDING

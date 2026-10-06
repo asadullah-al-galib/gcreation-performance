@@ -3,7 +3,7 @@
   "project": "gCreation Performance Doctor MVP v0.1",
   "mode": "P1-P6_AUTONOMOUS_V2",
   "current_part": "P1",
-  "state": "HUMAN_CAPABILITY_GATE",
+  "state": "IN_PROGRESS",
   "authorization": "HUMAN_P0_2",
   "authorization_reference": "docs/P0_2_AUTONOMOUS_AUTHORIZATION.md",
   "p0": "FROZEN",
@@ -19,7 +19,7 @@
       "repair_cycle": 1,
       "report_directory": ".ops/reports/P1",
       "repair_path": "REPAIR_1",
-      "repair_state": "HUMAN_CAPABILITY_GATE",
+      "repair_state": "IN_PROGRESS",
       "failed_repair_cycles": 0,
       "repair_independent_review": "PASS"
     },
@@ -53,7 +53,7 @@
     "part": "P1",
     "repair": "REPAIR_1",
     "purpose": "P0.2-approved candidate-only controller refresh: verification unchanged, approved constrained interface/operator required",
-    "status": "PENDING_EVIDENCE_COMPLETENESS",
+    "status": "COMPLETED_HUMAN_ATTESTED",
     "action_file": ".ops/reports/P1/TRUSTED_CONTROLLER_REFRESH_GATE.md",
     "action_file_sha256": "4179975781ab7aea497a04fdfd4b995379dbc10fb49bce414dc40a48802d92e6",
     "accepted_source_commit": "134ddfbe393168ce7cef99c44817329c84a8d6eb",
@@ -61,8 +61,8 @@
     "root_review_stage": "/var/lib/gcreation-perf-review/134ddfbe393168ce7cef99c44817329c84a8d6eb",
     "controller_refresh_authorized": true,
     "installation_authorized": false,
-    "deployment_authorized": false,
-    "max_new_deployment_requests": 0,
+    "deployment_authorized": true,
+    "max_new_deployment_requests": 1,
     "prior_deployment_authorization_consumed": true,
     "automatic_retries": 0,
     "scope": [
@@ -72,16 +72,17 @@
       "READ_ONLY_IDENTITY_AND_PRESERVATION_CHECKS"
     ],
     "approval_granted_by": "HUMAN_P0_2_SECTION_8",
-    "capability_verified": false,
-    "human_action": "Return the relevant sanitized contents of the already-created controller-refresh proof covering observation times, actual scoped commands/exit codes, and backup path/hash/ownership/mode/link count/byte equality. No rerun, new approval or privileged mutation requested.",
+    "capability_verified": true,
+    "human_action": null,
     "operator_reported_result": "PASS",
     "installed_candidate_bytes_locally_verified": true,
-    "full_refresh_verified": false
+    "full_refresh_verified": true,
+    "controller_refresh_result": "PASS"
   },
   "hard_blocker": null,
   "production_touched": false,
   "p7": "NOT_STARTED",
-  "updated_at": "2026-10-06T09:25:03.384451+00:00",
+  "updated_at": "2026-10-06T09:57:47.927767+00:00",
   "p7_authorization": "SEPARATE_HUMAN_REQUIRED",
   "security_review": {
     "part": "P1",
@@ -177,6 +178,13 @@
       "prior_deployment_authorization_consumed": true,
       "action_file_commit": "e179e19613af37648023f22b495f8fa3b1c3f71c",
       "acceptance_record": ".ops/reports/P1/REPAIR_1_ACCEPTANCE.json"
+    },
+    {
+      "part": "P1",
+      "purpose": "Candidate-only reviewed controller refresh",
+      "status": "COMPLETED_HUMAN_ATTESTED",
+      "source_commit": "134ddfbe393168ce7cef99c44817329c84a8d6eb",
+      "evidence_file": ".ops/reports/P1/CONTROLLER_REFRESH_ACCEPTANCE.json"
     }
   ],
   "security_review_history": [
@@ -227,8 +235,8 @@
     "evidence_file": ".ops/reports/P1/runtime-repair-1/HOST_FAILURE.json",
     "diagnosis": "UMask0077 masks requested0755 source directory modes to root-owned0700",
     "smallest_remediation": "Normalize release/source/nested-source directories0755 after creation; preserve source0644 and all controls",
-    "next_action": "Verify the supplemental proof against the unchanged gate; only if fully PASS resolve capability gate and submit exactly one candidate-pinned watcher deployment, retries0.",
-    "status": "HUMAN_CAPABILITY_GATE"
+    "next_action": "Exactly one P0.2-authorized REPAIR_1 candidate-pinned watcher deployment, retry0",
+    "status": "PENDING_REAL_RUNTIME_VALIDATION"
   },
   "external_oversight": "PENDING",
   "deployment_authority": {
@@ -239,8 +247,8 @@
     "attempts_used_this_cycle": 0,
     "automatic_retries": 0,
     "condition": "Successful verified accepted controller refresh and all deployment preconditions",
-    "condition_met": false,
-    "request_ready": false,
+    "condition_met": true,
+    "request_ready": true,
     "prior_initial_attempt_consumed": true
   },
   "capability_gate": {
@@ -251,11 +259,13 @@
       "SECURITY",
       "MVP_RELEASE"
     ],
-    "reason": "Root-private proof inaccessible; required returned observation/command/exit-code and rollback-backup provenance incomplete.",
+    "reason": null,
     "approval_already_granted": true,
     "root_interface_available": false,
-    "operator_action": "Return the relevant sanitized contents of the already-created controller-refresh proof covering observation times, actual scoped commands/exit codes, and backup path/hash/ownership/mode/link count/byte equality. No rerun, new approval or privileged mutation requested.",
-    "repair_cycle_consumed": false
+    "operator_action": null,
+    "repair_cycle_consumed": false,
+    "status": "RESOLVED",
+    "resolution_reference": ".ops/reports/P1/CONTROLLER_REFRESH_ACCEPTANCE.json"
   },
   "execution_policy": {
     "routine_micro_approvals_required": false,
@@ -282,14 +292,15 @@
   "oversight_checkpoint": {
     "latest_json": ".ops/oversight/LATEST_CHECKPOINT.json",
     "latest_markdown": ".ops/oversight/LATEST_CHECKPOINT.md",
-    "event": ".ops/oversight/events/0002-P1-controller-refresh-evidence-verification.json"
+    "event": ".ops/oversight/events/0003-P1-controller-refresh-acceptance.json"
   },
   "controller_refresh": {
     "operator_reported_result": "PASS",
     "installed_candidate_bytes_locally_verified": true,
-    "verification_result": "HOLD",
-    "full_gate_verified": false,
+    "verification_result": "PASS",
+    "full_gate_verified": true,
     "operator_evidence": ".ops/reports/P1/CONTROLLER_REFRESH_OPERATOR_EVIDENCE.json",
-    "verification_evidence": ".ops/reports/P1/CONTROLLER_REFRESH_VERIFICATION.json"
+    "verification_evidence": ".ops/reports/P1/CONTROLLER_REFRESH_VERIFICATION.json",
+    "acceptance_file": ".ops/reports/P1/CONTROLLER_REFRESH_ACCEPTANCE.json"
   }
 }

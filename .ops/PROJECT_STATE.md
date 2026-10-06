@@ -1,10 +1,8 @@
 # gCreation Performance Doctor MVP v0.1 — persistent state
 
-## Current operational state — controller refresh proof verification
+## Current operational state — P1
 
-P0 remains FROZEN / human review PASS. Current authority docs/P0_2_AUTONOMOUS_AUTHORIZATION.md; accepted source review and historical installation evidence remain unchanged.
-
-Controller-refresh evidence checkpoint: operator reports PASS for accepted134ddfbe source/archive/manifest/snapshot. Read-only installed candidate SHA029c5d57.../0644/single-link verified. Full gate verification HOLD: required observation times/scoped commands/exit codes and explicit rollback backup location/hash are not supplied; root-private proof access PermissionError13. State HUMAN_CAPABILITY_GATE, P1 IN_PROGRESS/full independent review PENDING, repair_cycle1, REPAIR_1 attempts0/1/retries0; prior INITIAL consumed. Smallest action is return sanitized missing proof details from the existing report, without rerun/new approval/mutation. No request, runtime action, P2 or production/main change. Evidence .ops/reports/P1/CONTROLLER_REFRESH_VERIFICATION.json.
+P0 FROZEN / human review PASS. Authority docs/P0_2_AUTONOMOUS_AUTHORIZATION.md. State IN_PROGRESS. Controller refresh fully PASS; supplemental proof closes returned-evidence omissions. Exact archive106 members/105 committed Git blobs/manifest/snapshot and installed candidate hash independently verified. REPAIR_1 request not yet submitted. P1 execution IN_PROGRESS / full independent review PENDING; repair_cycle1; REPAIR_1 attempts0/1, automatic retries0; prior INITIAL consumed; P2–P7 NOT_STARTED; production/main untouched. Next allowed step: Submit exactly one accepted candidate/archive REPAIR_1 request through the installed watcher; automatic retries0, then P1 real DEV validation. Evidence: .ops/reports/P1/CONTROLLER_REFRESH_ACCEPTANCE.json.
 
 Historical entries below retain their then-current evidence and are not current authorization.
 

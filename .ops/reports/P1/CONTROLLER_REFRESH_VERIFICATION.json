@@ -2,8 +2,8 @@
   "schema_version": 1,
   "part": "P1",
   "process": "controller-refresh-evidence-verification",
-  "result": "HOLD",
-  "state": "HUMAN_CAPABILITY_GATE",
+  "result": "PASS",
+  "state": "IN_PROGRESS",
   "recorded_at_utc": "2026-10-06T09:25:03.384451+00:00",
   "source_commit": "134ddfbe393168ce7cef99c44817329c84a8d6eb",
   "parent_or_baseline": "7cfe71409979bf58a96432e7678c36724b9b72fc",
@@ -15,7 +15,7 @@
   "gate_file": ".ops/reports/P1/TRUSTED_CONTROLLER_REFRESH_GATE.md",
   "gate_sha256": "4179975781ab7aea497a04fdfd4b995379dbc10fb49bce414dc40a48802d92e6",
   "operator_reported_result": "PASS",
-  "full_gate_verified": false,
+  "full_gate_verified": true,
   "installed_controller_local_observation": {
     "sha256": "029c5d5714a13fbdd3565901bdc08341e36319c1ab90cf30ea6d4ab7e58c4039",
     "regular": true,
@@ -33,18 +33,7 @@
     "errno": 13,
     "contents_read": false
   },
-  "missing_criteria": [
-    {
-      "criterion": "SANITIZED EVIDENCE TO RETURN: observation times and exact scoped commands/exit codes",
-      "observed": "Not included in chat summary; private proof cannot be read (PermissionError errno13).",
-      "required": "Sanitized operator observation time(s), actual scoped command/check identifiers and exit codes, including reviewed preflight exit0."
-    },
-    {
-      "criterion": "SANITIZED EVIDENCE TO RETURN / SAFE COMMAND/UI STEPS 8: backup location/hash",
-      "observed": "CONTROLLER_BACKUP=PASS / ROLLBACK BACKUP=PRESERVED; explicit backup location/hash not supplied.",
-      "required": "Backup path and observed SHA256 matching pinned parent1a0b509e..., with root:root0600/single-link/parent-byte-equality attestation."
-    }
-  ],
+  "missing_criteria": [],
   "local_request_and_claim": "ABSENT",
   "prior_status": {
     "state": "FAILED",
@@ -63,11 +52,34 @@
   "deployment_request_created": false,
   "full_p1_independent_review": "PENDING",
   "external_oversight": "PENDING",
-  "smallest_human_action": "Return the relevant sanitized contents of the already-created controller-refresh proof covering observation times, actual scoped commands/exit codes, and backup path/hash/ownership/mode/link count/byte equality. No rerun, new approval or privileged mutation requested.",
-  "next_allowed_step": "Verify the supplemental proof against the unchanged gate; only if fully PASS resolve capability gate and submit exactly one candidate-pinned watcher deployment, retries0.",
+  "smallest_human_action": null,
+  "next_allowed_step": "Exactly one P0.2-authorized REPAIR_1 candidate-pinned watcher deployment, retry0",
   "limitations": [
-    "Operator summary PASS is human attestation, not independently inspected private proof.",
-    "Absence of required returned details is an evidence-completeness hold, not a claimed refresh failure.",
-    "No runtime/deployment acceptance or P2 advancement."
-  ]
+    "Protected root checks are human-attested; installed bytes/archive/Git identity independently checked read-only.",
+    "Controller refresh PASS does not grant runtime/P1 acceptance."
+  ],
+  "prior_hold": {
+    "recorded_at_utc": "2026-10-06T09:25:03.384451+00:00",
+    "missing_criteria": [
+      {
+        "criterion": "SANITIZED EVIDENCE TO RETURN: observation times and exact scoped commands/exit codes",
+        "observed": "Not included in chat summary; private proof cannot be read (PermissionError errno13).",
+        "required": "Sanitized operator observation time(s), actual scoped command/check identifiers and exit codes, including reviewed preflight exit0."
+      },
+      {
+        "criterion": "SANITIZED EVIDENCE TO RETURN / SAFE COMMAND/UI STEPS 8: backup location/hash",
+        "observed": "CONTROLLER_BACKUP=PASS / ROLLBACK BACKUP=PRESERVED; explicit backup location/hash not supplied.",
+        "required": "Backup path and observed SHA256 matching pinned parent1a0b509e..., with root:root0600/single-link/parent-byte-equality attestation."
+      }
+    ]
+  },
+  "verified_at_utc": "2026-10-06T09:56:32.110692+00:00",
+  "supplement_reference": "CONTROLLER_REFRESH_SUPPLEMENT.txt",
+  "supplement_sha256": "241d3de8b3c5c385fd8b5aff0e0443dbd33093d901b6601c848274e5cd445100",
+  "verification_basis": "Independent reconciliation of human-attested original/supplemental host evidence with exact gate, plus read-only installed-byte and exact archive/Git verification; no root action by Codex",
+  "evidence_class": "HUMAN_ATTESTED",
+  "verification_level": "REAL_DEV_VERIFIED",
+  "verification_domain": "CONTROLLER_REFRESH_ONLY",
+  "supplement_source_sha256": "77395203e41d15a6b0bdedcb7746cbb838d5455a6b1405b50308b01b4afca88e",
+  "supplement_transcription": "Trailing command-line whitespace trimmed in committed transcript; original operator file unchanged and its SHA256 retained."
 }

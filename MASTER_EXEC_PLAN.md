@@ -4,20 +4,20 @@ Authoritative execution order: [PROJECT_TIMELINE.md](PROJECT_TIMELINE.md). Produ
 
 ## Current gate
 
-P0 remains FROZEN / human review PASS at approved governance 1c6303e0c17b04952ee6e9c8b01d6868e53fe152 and freeze record 999ade0ea2695e92c1365a09a3e13f87bd4ef758. P0.2 authorizes bounded sequential P1–P6 technical execution. Current Part P1: execution IN_PROGRESS, workflow HUMAN_CAPABILITY_GATE, REPAIR_1 source/security review PASS, full-Part independent review PENDING, repair cycle1. P0.2 Master Authorization V2 is recorded in docs/P0_2_AUTONOMOUS_AUTHORIZATION.md; routine DEV approvals are replaced by constrained capability checks. P2–P7 NOT_STARTED. Machine state: .ops/ORCHESTRATOR_STATUS.json. P0.2 grants bounded P1–P6 DEV execution through approved constrained interfaces. Advance sequentially only after full technical exit evidence is persisted, no human/operator action or concrete blocker remains, and V4 boundaries are unchanged. Record EXECUTION_PASS with INDEPENDENT_REVIEW PENDING; Codex never grants human PASS/FROZEN. Stop only at the seven P0.2§34 conditions; missing capability is HUMAN_CAPABILITY_GATE. P7 needs separate human authorization.
+P0 remains FROZEN / human review PASS at approved governance 1c6303e0c17b04952ee6e9c8b01d6868e53fe152 and freeze record 999ade0ea2695e92c1365a09a3e13f87bd4ef758. P0.2 authorizes bounded sequential P1–P6 technical execution. Current Part P1: execution IN_PROGRESS, workflow IN_PROGRESS, REPAIR_1 source/security review PASS, full-Part independent review PENDING, repair cycle1. P0.2 Master Authorization V2 is recorded in docs/P0_2_AUTONOMOUS_AUTHORIZATION.md; routine DEV approvals are replaced by constrained capability checks. P2–P7 NOT_STARTED. Machine state: .ops/ORCHESTRATOR_STATUS.json. P0.2 grants bounded P1–P6 DEV execution through approved constrained interfaces. Advance sequentially only after full technical exit evidence is persisted, no human/operator action or concrete blocker remains, and V4 boundaries are unchanged. Record EXECUTION_PASS with INDEPENDENT_REVIEW PENDING; Codex never grants human PASS/FROZEN. Stop only at the seven P0.2§34 conditions; missing capability is HUMAN_CAPABILITY_GATE. P7 needs separate human authorization.
 
 V4 static security: PASS. Installation gate: PASS from HUMAN_ATTESTED / REAL_DEV_VERIFIED installation evidence. The one approved runtime deployment FAILED at non-root-build; its request1/1 authority is consumed. REPAIR_1 source/security review PASS. P0.2 grants this exact controller refresh subject to unchanged verification requirements, and one REPAIR_1 deployment only after refresh proof. No constrained refresh capability is available; no request is ready. Full runtime/health/containment/rollback/E2E acceptance remains pending. Production untouched.
 
-| Part | Completion state | Workflow state        | Cycle record                                   |
-| ---- | ---------------- | --------------------- | ---------------------------------------------- |
-| P0   | FROZEN           | FROZEN                | Human PASS; repair 1/repair 2 not used         |
-| P1   | IN_PROGRESS      | HUMAN_CAPABILITY_GATE | REPAIR_1 source PASS; full-Part review PENDING |
-| P2   | NOT_STARTED      | NOT_STARTED           | No cycle started                               |
-| P3   | NOT_STARTED      | NOT_STARTED           | No cycle started                               |
-| P4   | NOT_STARTED      | NOT_STARTED           | No cycle started                               |
-| P5   | NOT_STARTED      | NOT_STARTED           | No cycle started                               |
-| P6   | NOT_STARTED      | NOT_STARTED           | No cycle started                               |
-| P7   | NOT_STARTED      | NOT_STARTED           | No cycle started                               |
+| Part | Completion state | Workflow state                                              | Cycle record                           |
+| ---- | ---------------- | ----------------------------------------------------------- | -------------------------------------- |
+| P0   | FROZEN           | FROZEN                                                      | Human PASS; repair 1/repair 2 not used |
+| P1   | IN_PROGRESS      | IN_PROGRESS  REPAIR_1 source PASS; full-Part review PENDING |
+| P2   | NOT_STARTED      | NOT_STARTED                                                 | No cycle started                       |
+| P3   | NOT_STARTED      | NOT_STARTED                                                 | No cycle started                       |
+| P4   | NOT_STARTED      | NOT_STARTED                                                 | No cycle started                       |
+| P5   | NOT_STARTED      | NOT_STARTED                                                 | No cycle started                       |
+| P6   | NOT_STARTED      | NOT_STARTED                                                 | No cycle started                       |
+| P7   | NOT_STARTED      | NOT_STARTED                                                 | No cycle started                       |
 
 ## Preserved baseline and evidence
 
@@ -85,6 +85,10 @@ Master Authorization V2 grants bounded P1–P6 execution, current exact controll
 
 State HUMAN_CAPABILITY_GATE, not an approval wait: controller refresh is already approved by P0.2§8 but capability/protected verification is unavailable. Smallest human action: designated operator performs the existing candidate-pinned refresh gate and returns sanitized proof. No installer rerun/image build, cleanup or new deployment request. Repair_cycle1 unchanged; prior INITIAL attempt consumed, REPAIR_1 attempts0/1/retries0; full P1 review PENDING; P2–P7 NOT_STARTED; production untouched. Evidence .ops/reports/P1/P0_2_CAPABILITY_PREFLIGHT.json; oversight bridge .ops/oversight/LATEST_CHECKPOINT.json/.md and append-only events. External oversight PENDING does not block execution; missing required capability does. After proof, resume the authorized single REPAIR_1 runtime attempt and ordered exit validation. STOP per P0.2§7/§34.
 
-## Current controller-refresh evidence verification
+## Historical controller-refresh evidence verification
 
 Controller-refresh evidence checkpoint: operator reports PASS for accepted134ddfbe source/archive/manifest/snapshot. Read-only installed candidate SHA029c5d57.../0644/single-link verified. Full gate verification HOLD: required observation times/scoped commands/exit codes and explicit rollback backup location/hash are not supplied; root-private proof access PermissionError13. State HUMAN_CAPABILITY_GATE, P1 IN_PROGRESS/full independent review PENDING, repair_cycle1, REPAIR_1 attempts0/1/retries0; prior INITIAL consumed. Smallest action is return sanitized missing proof details from the existing report, without rerun/new approval/mutation. No request, runtime action, P2 or production/main change. Evidence .ops/reports/P1/CONTROLLER_REFRESH_VERIFICATION.json.
+
+## P1 checkpoint 0003 — controller-refresh-acceptance
+
+State IN_PROGRESS. Controller refresh fully PASS; supplemental proof closes returned-evidence omissions. Exact archive106 members/105 committed Git blobs/manifest/snapshot and installed candidate hash independently verified. REPAIR_1 request not yet submitted. P1 execution IN_PROGRESS / full independent review PENDING; repair_cycle1; REPAIR_1 attempts0/1, automatic retries0; prior INITIAL consumed; P2–P7 NOT_STARTED; production/main untouched. Next allowed step: Submit exactly one accepted candidate/archive REPAIR_1 request through the installed watcher; automatic retries0, then P1 real DEV validation. Evidence: .ops/reports/P1/CONTROLLER_REFRESH_ACCEPTANCE.json.

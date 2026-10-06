@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "evidence_class": "HUMAN_ATTESTED",
+  "reported_at": "2026-10-06T04:16:07+00:00",
+  "host_observation_timestamp": null,
+  "source_commit": "8217aa4a13c0265efd8cb81473dd7f00c68d2c34",
+  "archive_sha256": "ecef5a23ef175096cc6312ca99dc0b306ecd76dc3cd4af8aca7de94c6e0443a7",
+  "preflight_result": "PASS",
+  "installer_exit_code": 1,
+  "error": "ValueError: Reviewed snapshot content mismatch",
+  "generated_file": "snapshot/ops/dev/__pycache__/install_preflight.cpython-36.pyc",
+  "partial_installation": {
+    "installed_directory": "EXISTS_WITH_REVIEWED_COPIED_FILES",
+    "systemd_unit_files": "COPIED",
+    "build_context": "ABSENT",
+    "runtime_image": "ABSENT",
+    "watcher_active": false,
+    "watcher_enabled": false,
+    "runtime_deployment_occurred": false
+  },
+  "production_touched": false,
+  "limitations": "Reported by the human in this chat; agent has not inspected or modified protected host paths or independently measured installed state."
+}

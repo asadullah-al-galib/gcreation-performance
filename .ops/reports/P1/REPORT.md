@@ -1,6 +1,8 @@
 # P1 — Security & DEV Deployment Foundation
 
-Checkpoint: WAITING_FOR_HUMAN. P1 execution IN_PROGRESS; independent review PENDING; repair cycle 0. P0 remains FROZEN / human PASS. P2–P7 NOT_STARTED. No technical failure or security defect is asserted. No installation, deployment request, live health probe or production operation was performed.
+Current checkpoint: SECURITY_REVIEW_REQUIRED. Original preparation checkpoint below is historical and superseded. Human-reported installation failed; candidate package [security-repair/REPORT.md](security-repair/REPORT.md). Agent performed no privileged operation.
+
+Historical checkpoint: WAITING_FOR_HUMAN. P1 execution IN_PROGRESS; independent review PENDING; repair cycle 0. P0 remains FROZEN / human PASS. P2–P7 NOT_STARTED. No technical failure or security defect is asserted. No installation, deployment request, live health probe or production operation was performed.
 
 Authority: [P0.1](../../../docs/P0_1_ORCHESTRATOR_AUTHORIZATION.md) and [P1 technical criteria](../../../PROJECT_TIMELINE.md). P0.1 setup commit: `5db7fde1e17b1f8097a80bf38881184bb1b88b29`. Tested retained implementation source: `8217aa4a13c0265efd8cb81473dd7f00c68d2c34`; static V4 handoff: `5c44cb3549aebf02ddef84d8f4a04c5f82ae7f7d`. The current report/governance commit is a descendant, not a new reviewed installation source.
 
@@ -16,6 +18,6 @@ Reviewed installation DATA artifact remains `.ops/test-artifacts/review-source-8
 
 [Criterion-level evidence](EVIDENCE.json), [artifact integrity](ARTIFACT_VERIFICATION.json), [local check procedure](LOCAL_CHECKS.md), [targeted test output](LOCAL_VALIDATION.txt) and [human action](HUMAN_ACTION_REQUIRED.md) are bound by CHECKSUMS.sha256. The checksum manifest excludes itself. Reports retain no authentication values, tokens, contacts or payment credentials.
 
-## Next allowed action
+## Historical next action — superseded; do not execute
 
 The human reviews/approves the exact V4 artifact and carries out the separate bounded DEV installation/configuration action. Return sanitized installation identity/output and an explicit decision on one constrained DEV deployment of the same source. Codex then resumes P1, prepares the source DATA artifact/request only through the confirmed installed mechanism, observes status/health, and collects the remaining effective runtime/rollback evidence. Any later privileged inspection remains human-only. Human waiting spends no repair cycle. P2 begins only when every P1 technical criterion passes with persisted evidence and all operator/security gates are cleared. Independent review remains PENDING; P6 final handoff stops; P7 requires separate authorization.

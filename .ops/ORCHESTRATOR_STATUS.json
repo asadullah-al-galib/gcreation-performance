@@ -3,7 +3,7 @@
   "project": "gCreation Performance Doctor MVP v0.1",
   "mode": "P1-P6_ORCHESTRATED",
   "current_part": "P1",
-  "state": "WAITING_FOR_HUMAN",
+  "state": "SECURITY_REVIEW_REQUIRED",
   "authorization": "HUMAN_P0_1",
   "authorization_reference": "docs/P0_1_ORCHESTRATOR_AUTHORIZATION.md",
   "p0": "FROZEN",
@@ -47,15 +47,24 @@
   },
   "human_gate": {
     "part": "P1",
-    "purpose": "Separately approved human V4 DEV installation/configuration and sanitized identity evidence",
+    "purpose": "Installation paused after snapshot bytecode mismatch; candidate requires independent security review, then separate recovery approval",
     "action_file": ".ops/reports/P1/HUMAN_ACTION_REQUIRED.md",
     "reviewed_source_commit": "8217aa4a13c0265efd8cb81473dd7f00c68d2c34",
     "reviewed_archive_sha256": "ecef5a23ef175096cc6312ca99dc0b306ecd76dc3cd4af8aca7de94c6e0443a7",
-    "status": "PENDING"
+    "status": "SUPERSEDED_BY_SECURITY_REVIEW"
   },
   "hard_blocker": null,
   "production_touched": false,
   "p7": "NOT_STARTED",
-  "updated_at": "2026-10-06T03:31:48+00:00",
-  "p7_authorization": "SEPARATE_HUMAN_REQUIRED"
+  "updated_at": "2026-10-06T04:14:07+00:00",
+  "p7_authorization": "SEPARATE_HUMAN_REQUIRED",
+  "security_review": {
+    "part": "P1",
+    "status": "REQUIRED",
+    "report": ".ops/reports/P1/security-repair/REPORT.md",
+    "repair_cycle_consumed": false,
+    "failing_criterion": "P1-ROOT-01",
+    "old_source_commit": "8217aa4a13c0265efd8cb81473dd7f00c68d2c34",
+    "reason": "prepare_image import writes bytecode before verify_snapshot, invalidating the reviewed snapshot file map"
+  }
 }

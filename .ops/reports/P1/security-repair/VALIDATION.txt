@@ -1,0 +1,199 @@
+Python interpreter: /usr/bin/python3 3.6.8
+
+Targeted reproduction before source repair:
+PYTHONPATH=tests python3 -B -m unittest -v test_installer_bytecode.InstallerBytecodeTests.test_old_isolated_import_invalidates_approved_snapshot
+EXIT 0; 1 test passed, confirming original import creates bytecode and unchanged verification rejects it.
+
+Initial combined-process run (not the repository's normal suite isolation):
+COMMAND: PYTHONPATH=tests python3 -B -m unittest -v test_deployment_kit test_security_review_v3 test_security_review_v4 test_installer_bytecode
+EXIT 1
+test_atomic_status_replaces_symlink_without_touching_target (test_deployment_kit.DeploymentBoundaryTests) ... ok
+test_directory_fd_stays_anchored_on_path_swap (test_deployment_kit.DeploymentBoundaryTests) ... ok
+test_failed_release_retention_preserves_active_rollback_source (test_deployment_kit.DeploymentBoundaryTests) ... ok
+test_hardlink_special_and_traversal_rejected (test_deployment_kit.DeploymentBoundaryTests) ... ok
+test_privileged_runtime_contract (test_deployment_kit.DeploymentBoundaryTests) ... ok
+test_request_arriving_during_deployment_survives_claim_cleanup (test_deployment_kit.DeploymentBoundaryTests) ... ERROR
+test_rollback_backup_preserves_plugin_configuration (test_deployment_kit.DeploymentBoundaryTests) ... ok
+test_safe_snapshot_contents (test_deployment_kit.DeploymentBoundaryTests) ... ok
+test_simulated_health_failure_preserves_wordpress_and_restores_prior_runtime (test_deployment_kit.DeploymentBoundaryTests) ... ERROR
+test_simulated_runtime_deploy_never_changes_wordpress_and_records_source_digest (test_deployment_kit.DeploymentBoundaryTests) ... ERROR
+test_snapshot_excludes_local_credentials_and_caches (test_deployment_kit.DeploymentBoundaryTests) ... ok
+test_symlink_directory_and_file_rejected (test_deployment_kit.DeploymentBoundaryTests) ... ok
+test_auto_watcher_has_no_wordpress_write_or_deploy_capability (test_security_review_v3.ThirdReviewTests) ... ok
+test_base_images_are_digest_pinned_and_match_recorded_verification (test_security_review_v3.ThirdReviewTests) ... ok
+test_bootstrap_extracts_only_data_and_records_exact_identity (test_security_review_v3.ThirdReviewTests) ... ok
+test_bootstrap_rejects_links_and_traversal_before_extraction (test_security_review_v3.ThirdReviewTests) ... ok
+test_docker_and_systemd_preflight_capabilities_fail_closed (test_security_review_v3.ThirdReviewTests) ... ok
+test_git_archive_export_is_deterministic_and_refuses_root (test_security_review_v3.ThirdReviewTests) ... ok
+test_installer_inputs_are_root_snapshot_only_and_preflight_precedes_install (test_security_review_v3.ThirdReviewTests) ... ok
+test_network_configuration_and_persisted_identity_fail_closed (test_security_review_v3.ThirdReviewTests) ... ok
+test_network_creation_failure_is_not_ignored (test_security_review_v3.ThirdReviewTests) ... ok
+test_network_mismatch_prevents_starting_any_runtime_container (test_security_review_v3.ThirdReviewTests) ... ok
+test_plugin_secret_is_0600_owned_and_readable_by_writer_only (test_security_review_v3.ThirdReviewTests) ... ok
+test_public_proxy_exposes_only_health_and_no_client_secret (test_security_review_v3.ThirdReviewTests) ... ok
+test_request_is_atomically_claimed_and_next_request_is_not_deleted (test_security_review_v3.ThirdReviewTests) ... ok
+test_request_schema_rejects_executable_or_extra_inputs (test_security_review_v3.ThirdReviewTests) ... ok
+test_root_secret_file_permission_policy_rejects_shared_group_read (test_security_review_v3.ThirdReviewTests) ... ok
+test_root_staging_sha_mismatch_aborts_before_extraction (test_security_review_v3.ThirdReviewTests) ... ok
+test_secure_environment_rejects_missing_or_injectable_secret (test_security_review_v3.ThirdReviewTests) ... ok
+test_snapshot_digest_distinguishes_filename_content_boundaries (test_security_review_v3.ThirdReviewTests) ... ok
+test_snapshot_hash_verifier_rejects_changed_reviewed_files (test_security_review_v3.ThirdReviewTests) ... ok
+test_stale_preflight_failure_prevents_docker_and_service_operations (test_security_review_v3.ThirdReviewTests) ... ok
+test_stale_regular_and_symlink_request_block_installation (test_security_review_v3.ThirdReviewTests) ... ok
+test_artifact_hash_marker_and_snapshot_identity_are_bound (test_security_review_v4.FourthReviewTests) ... ok
+test_builder_offline_frozen_dependencies_and_no_credentials (test_security_review_v4.FourthReviewTests) ... ok
+test_clean_root_environment_precedes_interpreters (test_security_review_v4.FourthReviewTests) ... ok
+test_dependency_manifest_changes_and_unsafe_archives_rejected (test_security_review_v4.FourthReviewTests) ... ok
+test_dev_dns_child_is_isolated_fixed_and_bounded (test_security_review_v4.FourthReviewTests) ... ok
+test_egress_identity_configuration_and_unrelated_members_fail_closed (test_security_review_v4.FourthReviewTests) ... ok
+test_named_member_cannot_impersonate_reviewed_proxy_or_add_default_bridge (test_security_review_v4.FourthReviewTests) ... ok
+test_preflight_requires_raw_server_ip_and_every_public_dev_dns_answer (test_security_review_v4.FourthReviewTests) ... ok
+test_request_requires_archive_hash_and_rejects_old_workspace_semantics (test_security_review_v4.FourthReviewTests) ... ok
+test_reviewed_image_copies_only_fixed_snapshot_files_and_freezes_hashes (test_security_review_v4.FourthReviewTests) ... ok
+test_secrets_have_distinct_exact_ownership_and_private_env_inputs (test_security_review_v4.FourthReviewTests) ... ok
+test_source_artifact_links_special_files_and_symlink_inputs_rejected (test_security_review_v4.FourthReviewTests) ... ok
+test_trusted_containers_never_mount_mutable_source_or_receive_master_proxy_secret (test_security_review_v4.FourthReviewTests) ... ok
+test_old_isolated_import_invalidates_approved_snapshot (test_installer_bytecode.InstallerBytecodeTests) ... ok
+test_prepare_and_seal_invocations_disable_bytecode_at_startup (test_installer_bytecode.InstallerBytecodeTests) ... ok
+test_repaired_modes_still_reject_added_and_modified_source (test_installer_bytecode.InstallerBytecodeTests) ... ok
+test_repaired_prepare_and_seal_preserve_exact_snapshot_file_map (test_installer_bytecode.InstallerBytecodeTests) ... ok
+
+======================================================================
+ERROR: test_request_arriving_during_deployment_survives_claim_cleanup (test_deployment_kit.DeploymentBoundaryTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/codexperf/projects/gcreation-performance/tests/test_deployment_kit.py", line 227, in test_request_arriving_during_deployment_survives_claim_cleanup
+    _, _, ops, _, _, _, _ = self.simulate_deployment(next_request=True)
+  File "/home/codexperf/projects/gcreation-performance/tests/test_deployment_kit.py", line 188, in simulate_deployment
+    controller.deploy()
+  File "/home/codexperf/projects/gcreation-performance/ops/dev/deploy_controller.py", line 363, in deploy
+    environment = secure_environment()
+  File "/home/codexperf/projects/gcreation-performance/ops/dev/install_preflight.py", line 125, in secure_environment
+    require_root_owned(ENVIRONMENT, regular=True, private=True)
+  File "/home/codexperf/projects/gcreation-performance/ops/dev/install_preflight.py", line 30, in require_root_owned
+    raise ValueError('Root-owned non-writable path required')
+ValueError: Root-owned non-writable path required
+
+======================================================================
+ERROR: test_simulated_health_failure_preserves_wordpress_and_restores_prior_runtime (test_deployment_kit.DeploymentBoundaryTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/codexperf/projects/gcreation-performance/tests/test_deployment_kit.py", line 211, in test_simulated_health_failure_preserves_wordpress_and_restores_prior_runtime
+    plugin, state, ops, expected_owner, ownership, _, runtime = self.simulate_deployment(True)
+  File "/home/codexperf/projects/gcreation-performance/tests/test_deployment_kit.py", line 186, in simulate_deployment
+    controller.deploy()
+  File "/home/codexperf/projects/gcreation-performance/ops/dev/deploy_controller.py", line 363, in deploy
+    environment = secure_environment()
+  File "/home/codexperf/projects/gcreation-performance/ops/dev/install_preflight.py", line 125, in secure_environment
+    require_root_owned(ENVIRONMENT, regular=True, private=True)
+  File "/home/codexperf/projects/gcreation-performance/ops/dev/install_preflight.py", line 30, in require_root_owned
+    raise ValueError('Root-owned non-writable path required')
+ValueError: Root-owned non-writable path required
+
+======================================================================
+ERROR: test_simulated_runtime_deploy_never_changes_wordpress_and_records_source_digest (test_deployment_kit.DeploymentBoundaryTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/codexperf/projects/gcreation-performance/tests/test_deployment_kit.py", line 192, in test_simulated_runtime_deploy_never_changes_wordpress_and_records_source_digest
+    plugin, state, ops, _, _, commands, runtime = self.simulate_deployment()
+  File "/home/codexperf/projects/gcreation-performance/tests/test_deployment_kit.py", line 188, in simulate_deployment
+    controller.deploy()
+  File "/home/codexperf/projects/gcreation-performance/ops/dev/deploy_controller.py", line 363, in deploy
+    environment = secure_environment()
+  File "/home/codexperf/projects/gcreation-performance/ops/dev/install_preflight.py", line 125, in secure_environment
+    require_root_owned(ENVIRONMENT, regular=True, private=True)
+  File "/home/codexperf/projects/gcreation-performance/ops/dev/install_preflight.py", line 30, in require_root_owned
+    raise ValueError('Root-owned non-writable path required')
+ValueError: Root-owned non-writable path required
+
+----------------------------------------------------------------------
+Ran 50 tests in 0.973s
+
+FAILED (errors=3)
+
+Diagnosis: both test_deployment_kit and test_security_review_v3 register different modules as sys.modules['install_preflight']. Collection replaced the former module, so deploy() dynamically imported the latter while the deployment tests mocked the former. Tests normally execute in separate processes in package.json. No runtime/test requirements changed; rerun each suite in that intended isolation.
+
+Final isolated-process runs:
+COMMAND: python3 -B tests/test_deployment_kit.py -v
+EXIT 0
+test_atomic_status_replaces_symlink_without_touching_target (__main__.DeploymentBoundaryTests) ... ok
+test_directory_fd_stays_anchored_on_path_swap (__main__.DeploymentBoundaryTests) ... ok
+test_failed_release_retention_preserves_active_rollback_source (__main__.DeploymentBoundaryTests) ... ok
+test_hardlink_special_and_traversal_rejected (__main__.DeploymentBoundaryTests) ... ok
+test_privileged_runtime_contract (__main__.DeploymentBoundaryTests) ... ok
+test_request_arriving_during_deployment_survives_claim_cleanup (__main__.DeploymentBoundaryTests) ... ok
+test_rollback_backup_preserves_plugin_configuration (__main__.DeploymentBoundaryTests) ... ok
+test_safe_snapshot_contents (__main__.DeploymentBoundaryTests) ... ok
+test_simulated_health_failure_preserves_wordpress_and_restores_prior_runtime (__main__.DeploymentBoundaryTests) ... ok
+test_simulated_runtime_deploy_never_changes_wordpress_and_records_source_digest (__main__.DeploymentBoundaryTests) ... ok
+test_snapshot_excludes_local_credentials_and_caches (__main__.DeploymentBoundaryTests) ... ok
+test_symlink_directory_and_file_rejected (__main__.DeploymentBoundaryTests) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 0.197s
+
+OK
+
+COMMAND: python3 -B tests/test_security_review_v3.py -v
+EXIT 0
+test_auto_watcher_has_no_wordpress_write_or_deploy_capability (__main__.ThirdReviewTests) ... ok
+test_base_images_are_digest_pinned_and_match_recorded_verification (__main__.ThirdReviewTests) ... ok
+test_bootstrap_extracts_only_data_and_records_exact_identity (__main__.ThirdReviewTests) ... ok
+test_bootstrap_rejects_links_and_traversal_before_extraction (__main__.ThirdReviewTests) ... ok
+test_docker_and_systemd_preflight_capabilities_fail_closed (__main__.ThirdReviewTests) ... ok
+test_git_archive_export_is_deterministic_and_refuses_root (__main__.ThirdReviewTests) ... ok
+test_installer_inputs_are_root_snapshot_only_and_preflight_precedes_install (__main__.ThirdReviewTests) ... ok
+test_network_configuration_and_persisted_identity_fail_closed (__main__.ThirdReviewTests) ... ok
+test_network_creation_failure_is_not_ignored (__main__.ThirdReviewTests) ... ok
+test_network_mismatch_prevents_starting_any_runtime_container (__main__.ThirdReviewTests) ... ok
+test_plugin_secret_is_0600_owned_and_readable_by_writer_only (__main__.ThirdReviewTests) ... ok
+test_public_proxy_exposes_only_health_and_no_client_secret (__main__.ThirdReviewTests) ... ok
+test_request_is_atomically_claimed_and_next_request_is_not_deleted (__main__.ThirdReviewTests) ... ok
+test_request_schema_rejects_executable_or_extra_inputs (__main__.ThirdReviewTests) ... ok
+test_root_secret_file_permission_policy_rejects_shared_group_read (__main__.ThirdReviewTests) ... ok
+test_root_staging_sha_mismatch_aborts_before_extraction (__main__.ThirdReviewTests) ... ok
+test_secure_environment_rejects_missing_or_injectable_secret (__main__.ThirdReviewTests) ... ok
+test_snapshot_digest_distinguishes_filename_content_boundaries (__main__.ThirdReviewTests) ... ok
+test_snapshot_hash_verifier_rejects_changed_reviewed_files (__main__.ThirdReviewTests) ... ok
+test_stale_preflight_failure_prevents_docker_and_service_operations (__main__.ThirdReviewTests) ... ok
+test_stale_regular_and_symlink_request_block_installation (__main__.ThirdReviewTests) ... ok
+
+----------------------------------------------------------------------
+Ran 21 tests in 0.138s
+
+OK
+
+COMMAND: python3 -B tests/test_security_review_v4.py -v
+EXIT 0
+test_artifact_hash_marker_and_snapshot_identity_are_bound (__main__.FourthReviewTests) ... ok
+test_builder_offline_frozen_dependencies_and_no_credentials (__main__.FourthReviewTests) ... ok
+test_clean_root_environment_precedes_interpreters (__main__.FourthReviewTests) ... ok
+test_dependency_manifest_changes_and_unsafe_archives_rejected (__main__.FourthReviewTests) ... ok
+test_dev_dns_child_is_isolated_fixed_and_bounded (__main__.FourthReviewTests) ... ok
+test_egress_identity_configuration_and_unrelated_members_fail_closed (__main__.FourthReviewTests) ... ok
+test_named_member_cannot_impersonate_reviewed_proxy_or_add_default_bridge (__main__.FourthReviewTests) ... ok
+test_preflight_requires_raw_server_ip_and_every_public_dev_dns_answer (__main__.FourthReviewTests) ... ok
+test_request_requires_archive_hash_and_rejects_old_workspace_semantics (__main__.FourthReviewTests) ... ok
+test_reviewed_image_copies_only_fixed_snapshot_files_and_freezes_hashes (__main__.FourthReviewTests) ... ok
+test_secrets_have_distinct_exact_ownership_and_private_env_inputs (__main__.FourthReviewTests) ... ok
+test_source_artifact_links_special_files_and_symlink_inputs_rejected (__main__.FourthReviewTests) ... ok
+test_trusted_containers_never_mount_mutable_source_or_receive_master_proxy_secret (__main__.FourthReviewTests) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 0.096s
+
+OK
+
+COMMAND: python3 -B tests/test_installer_bytecode.py -v
+EXIT 0
+test_old_isolated_import_invalidates_approved_snapshot (__main__.InstallerBytecodeTests) ... ok
+test_prepare_and_seal_invocations_disable_bytecode_at_startup (__main__.InstallerBytecodeTests) ... ok
+test_repaired_modes_still_reject_added_and_modified_source (__main__.InstallerBytecodeTests) ... ok
+test_repaired_prepare_and_seal_preserve_exact_snapshot_file_map (__main__.InstallerBytecodeTests) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.854s
+
+OK
+
+Additional checks: bash -n ops/dev/install-root.sh; git diff --check; EXIT 0.

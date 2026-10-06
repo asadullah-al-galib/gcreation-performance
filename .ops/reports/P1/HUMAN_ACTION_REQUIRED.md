@@ -1,5 +1,7 @@
 ## PURPOSE
 
+SUPERSEDED — DO NOT EXECUTE. P1 is SECURITY_REVIEW_REQUIRED after the original installer failure. The commands below describe the previous gate only. Review security-repair/REPORT.md and obtain separate human recovery approval before any future installation; never modify the existing root snapshot.
+
 Review and separately approve the exact retained V4 artifact, then manually install/configure the reviewed DEV foundation so P1 can validate real containment. Current state WAITING_FOR_HUMAN; no DEV installation/runtime acceptance is claimed.
 
 ## WHY REQUIRED

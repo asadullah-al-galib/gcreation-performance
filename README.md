@@ -6,9 +6,9 @@ Start with [PROJECT_TIMELINE.md](PROJECT_TIMELINE.md), the single authoritative 
 
 ## Current checkpoint
 
-P0 governance: FROZEN; human review PASS for approved commit 1c6303e0c17b04952ee6e9c8b01d6868e53fe152. P1 WAITING_FOR_HUMAN (execution IN_PROGRESS / independent review PENDING under P0.1); P2–P7: NOT_STARTED. V4 static security review: PASS for source 8217aa4a13c0265efd8cb81473dd7f00c68d2c34/handoff 5c44cb3549aebf02ddef84d8f4a04c5f82ae7f7d, as supplied by the human. Static design approval is not deployed acceptance. Privileged DEV installation remains HOLD pending separate human/operator installation/configuration; browser/Lighthouse/WordPress/WooCommerce/E2E remain pending.
+P0 governance: FROZEN; human review PASS for approved commit 1c6303e0c17b04952ee6e9c8b01d6868e53fe152. P1 SECURITY_REVIEW_REQUIRED (execution IN_PROGRESS / independent review PENDING under P0.1); P2–P7: NOT_STARTED. V4 static security review: PASS for source 8217aa4a13c0265efd8cb81473dd7f00c68d2c34/handoff 5c44cb3549aebf02ddef84d8f4a04c5f82ae7f7d, as supplied by the human. Static design approval is not deployed acceptance. Privileged DEV installation remains HOLD pending security review and separate human recovery/installation approval; browser/Lighthouse/WordPress/WooCommerce/E2E remain pending.
 
-Next allowed action: human action in .ops/reports/P1/HUMAN_ACTION_REQUIRED.md. Independent review alone grants human PASS/FROZEN. Sequential P1–P6 execution follows docs/P0_1_ORCHESTRATOR_AUTHORIZATION.md; independent review remains PENDING, operator/security gates require a stop, and P7 requires separate human authorization. P0 is frozen. P0.1 changes governance only; it grants bounded technical execution without changing the V4 implementation.
+Next allowed action: independent security review of .ops/reports/P1/security-repair/REPORT.md; installation remains HOLD. Independent review alone grants human PASS/FROZEN. Sequential P1–P6 execution follows docs/P0_1_ORCHESTRATOR_AUTHORIZATION.md; independent review remains PENDING, operator/security gates require a stop, and P7 requires separate human authorization. P0 is frozen. P0.1 changes governance only; it grants bounded technical execution without changing the V4 implementation.
 
 ## Existing development foundation — reference, not a P0 execution request
 

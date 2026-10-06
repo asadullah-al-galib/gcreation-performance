@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "part": "P1",
+  "cycle": "REPAIR_1",
+  "result": "FAIL",
+  "full_p1_pass": false,
+  "recorded_at_utc": "2026-10-06T10:09:09.395481+00:00",
+  "source_commit": "134ddfbe393168ce7cef99c44817329c84a8d6eb",
+  "repair_cycle": 1,
+  "attempts_used": 1,
+  "attempt_limit": 1,
+  "automatic_retries": 0,
+  "criteria": {
+    "accepted_source_archive_identity": {
+      "result": "PASS",
+      "evidence_or_limitation": "Exact committed Git export archive SHA verified before publication"
+    },
+    "controller_refresh": {
+      "result": "PASS",
+      "evidence_or_limitation": "Complete operator evidence and independent read-only identity/archive checks; refresh only"
+    },
+    "request_submitted_and_consumed_once": {
+      "result": "PASS",
+      "evidence_or_limitation": "One durable attempt journal/publication; candidate terminal status; request and claim absent"
+    },
+    "constrained_non_root_build_command": {
+      "result": "PASS",
+      "evidence_or_limitation": "Return0 inferred from reviewed control flow advancing past command(build_command(...)) to runtime-health; individual test output/effective builder controls not captured"
+    },
+    "runtime_start_and_internal_health": {
+      "result": "FAIL",
+      "evidence_or_limitation": "Watcher terminal FAILED/runtime-health/RuntimeError; session localhost connection refused with host namespace equivalence unverified"
+    },
+    "public_engine_health": {
+      "result": "FAIL",
+      "evidence_or_limitation": "Bounded DEV /perf-engine/health404"
+    },
+    "sampled_forbidden_public_admin_routes": {
+      "result": "PASS",
+      "evidence_or_limitation": "Two sampled public engine admin paths404 only; no complete route exposure proof"
+    },
+    "runtime_image_identity": {
+      "result": "NOT_VERIFIED",
+      "evidence_or_limitation": "Pinned immutable image accepted predeployment; no actual successful runtime image identity"
+    },
+    "container_identities": {
+      "result": "NOT_VERIFIED",
+      "evidence_or_limitation": "No approved agent container inspection capability"
+    },
+    "network_membership_isolation": {
+      "result": "NOT_VERIFIED",
+      "evidence_or_limitation": "No effective container/network evidence from this attempt"
+    },
+    "uid_gid": {
+      "result": "NOT_VERIFIED",
+      "evidence_or_limitation": "Configured flags do not establish effective runtime UID/GID"
+    },
+    "cap_drop": {
+      "result": "NOT_VERIFIED",
+      "evidence_or_limitation": "Effective runtime evidence unavailable"
+    },
+    "no_new_privileges": {
+      "result": "NOT_VERIFIED",
+      "evidence_or_limitation": "Effective runtime evidence unavailable"
+    },
+    "seccomp": {
+      "result": "NOT_VERIFIED",
+      "evidence_or_limitation": "Effective runtime evidence unavailable"
+    },
+    "readonly_mounts_socket_exclusion": {
+      "result": "NOT_VERIFIED",
+      "evidence_or_limitation": "Effective runtime evidence unavailable"
+    },
+    "pid_cpu_memory_limits": {
+      "result": "NOT_VERIFIED",
+      "evidence_or_limitation": "Effective build/runtime inspect/cgroup evidence unavailable"
+    },
+    "aggregate_slice_limits": {
+      "result": "NOT_VERIFIED",
+      "evidence_or_limitation": "Effective cgroup evidence unavailable"
+    },
+    "secret_separation": {
+      "result": "NOT_VERIFIED",
+      "evidence_or_limitation": "Preflight acceptance retained; effective runtime receiver evidence absent"
+    },
+    "release_archive_snapshot_identity": {
+      "result": "NOT_VERIFIED",
+      "evidence_or_limitation": "FAILED status does not publish a successful release/snapshot identity"
+    },
+    "bounded_logs_evidence_retention": {
+      "result": "NOT_VERIFIED",
+      "evidence_or_limitation": "Recorded outputs bounded; actual release/log retention inventory unavailable"
+    },
+    "rollback_restoration": {
+      "result": "PENDING",
+      "evidence_or_limitation": "Reported rollback=false; no prior successful runtime restoration proof; no restoration claim"
+    },
+    "production_main_untouched": {
+      "result": "PASS",
+      "evidence_or_limitation": "Only authorized DEV request/health evidence; main remote verification required before handoff"
+    }
+  },
+  "full_independent_review": "PENDING",
+  "P2": "NOT_STARTED",
+  "production_touched": false
+}

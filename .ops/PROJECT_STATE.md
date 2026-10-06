@@ -2,7 +2,7 @@
 
 ## Current operational state — P1
 
-P0 FROZEN / human review PASS. Authority docs/P0_2_AUTONOMOUS_AUTHORIZATION.md. State IN_PROGRESS. Controller refresh fully PASS; supplemental proof closes returned-evidence omissions. Exact archive106 members/105 committed Git blobs/manifest/snapshot and installed candidate hash independently verified. REPAIR_1 request not yet submitted. P1 execution IN_PROGRESS / full independent review PENDING; repair_cycle1; REPAIR_1 attempts0/1, automatic retries0; prior INITIAL consumed; P2–P7 NOT_STARTED; production/main untouched. Next allowed step: Submit exactly one accepted candidate/archive REPAIR_1 request through the installed watcher; automatic retries0, then P1 real DEV validation. Evidence: .ops/reports/P1/CONTROLLER_REFRESH_ACCEPTANCE.json.
+P0 FROZEN / human review PASS. Authority docs/P0_2_AUTONOMOUS_AUTHORIZATION.md. State HUMAN_CAPABILITY_GATE. Exactly one accepted candidate-pinned REPAIR_1 watcher request consumed; terminal FAILED at runtime-health/RuntimeError/rollback=false. Constrained build return0 inferred from reviewed stage progression. Root cause unknown; current read-only runtime diagnostics require an unavailable approved capability. Controller refresh remains PASS. P1 execution IN_PROGRESS / full independent review PENDING; repair_cycle1; REPAIR_1 attempts1/1, automatic retries0; prior INITIAL consumed; P2–P7 NOT_STARTED; production/main untouched. Next allowed step: Obtain bounded sanitized read-only diagnostics; establish exact failed operation/cause before any relevant REPAIR_2 change. No new request or P2. Evidence: .ops/reports/P1/REPAIR_1_DEPLOYMENT_ATTEMPT.json.
 
 Historical entries below retain their then-current evidence and are not current authorization.
 

@@ -4,13 +4,13 @@ PART:
 P1
 
 PROCESS:
-controller-refresh-acceptance
+repair1-runtime-failure
 
 RESULT:
-PASS — IN_PROGRESS
+FAIL — HUMAN_CAPABILITY_GATE
 
 BUSINESS OUTCOME:
-Controller refresh fully PASS; supplemental proof closes returned-evidence omissions. Exact archive106 members/105 committed Git blobs/manifest/snapshot and installed candidate hash independently verified. REPAIR_1 request not yet submitted.
+Exactly one accepted candidate-pinned REPAIR_1 watcher request consumed; terminal FAILED at runtime-health/RuntimeError/rollback=false. Constrained build return0 inferred from reviewed stage progression. Root cause unknown; current read-only runtime diagnostics require an unavailable approved capability. Controller refresh remains PASS.
 
 SOURCE COMMIT:
 134ddfbe393168ce7cef99c44817329c84a8d6eb
@@ -22,16 +22,16 @@ WHAT CHANGED:
 Current governance and criterion evidence; accepted source/security kit unchanged.
 
 TARGETED TESTS:
-["Supplement18 checks/times/commands/exit0/backup provenance reconciled PASS", "Installed controller hash/mode/single-link PASS", "Exact archive/Git/manifest/canonical digest PASS", "Request/claim absent before submission"]
+["One deterministic committed artifact/request; no workspace-byte deployment", "Observed candidate terminal FAILED/runtime-health/RuntimeError; request/claim absent", "No resubmission/retry/refresh/installer/image rebuild", "Read-only protected runtime paths inaccessible; root cause NOT_ESTABLISHED"]
 
 REAL DEV EVIDENCE:
-["Human-attested reviewed preflight/backup/atomic-only refresh/preservation/watcher PASS; installation/controller-refresh only"]
+[{"url": "http://127.0.0.1:3101/health", "observed_at_utc": "2026-10-06T10:06:24.017504+00:00", "no_auth_cookies": true, "redirects_followed": false, "max_body_bytes": 8192, "timeout_seconds": 10, "error_class": "URLError", "reason_class": "ConnectionRefusedError", "reason": "[Errno 111] Connection refused"}, {"url": "https://dev.gcreation.agency/perf-engine/health", "observed_at_utc": "2026-10-06T10:06:24.021025+00:00", "no_auth_cookies": true, "redirects_followed": false, "max_body_bytes": 8192, "timeout_seconds": 10, "http_status": 404, "response_body_not_logged": true}, {"url": "https://dev.gcreation.agency/perf-engine/admin", "observed_at_utc": "2026-10-06T10:06:24.046810+00:00", "no_auth_cookies": true, "redirects_followed": false, "max_body_bytes": 8192, "timeout_seconds": 10, "http_status": 404, "response_body_not_logged": true}, {"url": "https://dev.gcreation.agency/perf-engine/api/admin", "observed_at_utc": "2026-10-06T10:06:24.067570+00:00", "no_auth_cookies": true, "redirects_followed": false, "max_body_bytes": 8192, "timeout_seconds": 10, "http_status": 404, "response_body_not_logged": true}]
 
 SECURITY:
 V4 PRESERVED
 
 REPAIR CYCLE:
-1; REPAIR_1 attempts0/1; retries0
+1; REPAIR_1 attempts1/1; retries0
 
 PRODUCTION/MAIN:
 UNTOUCHED
@@ -40,10 +40,10 @@ KNOWN LIMITATIONS:
 Full P1 independent review PENDING; private-host proof is human-attested.
 
 NEXT AUTOMATIC STEP:
-Submit exactly one accepted candidate/archive REPAIR_1 request through the installed watcher; automatic retries0, then P1 real DEV validation.
+Obtain bounded sanitized read-only diagnostics; establish exact failed operation/cause before any relevant REPAIR_2 change. No new request or P2.
 
 HUMAN ACTION:
-NONE
+Designated operator returns one sanitized read-only service traceback/fixed DEV container/image diagnostic bundle under .ops/reports/P1/REPAIR_1_RUNTIME_DIAGNOSTICS_GATE.md; no rerun, retry, restart, cleanup or configuration change.
 
 EXTERNAL OVERSIGHT:
 PENDING

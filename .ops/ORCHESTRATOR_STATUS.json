@@ -3,7 +3,7 @@
   "project": "gCreation Performance Doctor MVP v0.1",
   "mode": "P1-P6_AUTONOMOUS_V2",
   "current_part": "P1",
-  "state": "IN_PROGRESS",
+  "state": "HUMAN_CAPABILITY_GATE",
   "authorization": "HUMAN_P0_2",
   "authorization_reference": "docs/P0_2_AUTONOMOUS_AUTHORIZATION.md",
   "p0": "FROZEN",
@@ -19,9 +19,10 @@
       "repair_cycle": 1,
       "report_directory": ".ops/reports/P1",
       "repair_path": "REPAIR_1",
-      "repair_state": "IN_PROGRESS",
-      "failed_repair_cycles": 0,
-      "repair_independent_review": "PASS"
+      "repair_state": "HUMAN_CAPABILITY_GATE",
+      "failed_repair_cycles": 1,
+      "repair_independent_review": "PASS",
+      "next_repair_cycle": 2
     },
     "P2": {
       "execution_state": "NOT_STARTED",
@@ -52,17 +53,17 @@
   "human_gate": {
     "part": "P1",
     "repair": "REPAIR_1",
-    "purpose": "P0.2-approved candidate-only controller refresh: verification unchanged, approved constrained interface/operator required",
-    "status": "COMPLETED_HUMAN_ATTESTED",
-    "action_file": ".ops/reports/P1/TRUSTED_CONTROLLER_REFRESH_GATE.md",
-    "action_file_sha256": "4179975781ab7aea497a04fdfd4b995379dbc10fb49bce414dc40a48802d92e6",
+    "purpose": "Read-only diagnostics for consumed REPAIR_1 runtime failure",
+    "status": "PENDING_DIAGNOSTIC_CAPABILITY",
+    "action_file": ".ops/reports/P1/REPAIR_1_RUNTIME_DIAGNOSTICS_GATE.md",
+    "action_file_sha256": "11fa7189cee4c81eff99da010edcddf7f3815e0bfe2167b452dbe4b2770425e3",
     "accepted_source_commit": "134ddfbe393168ce7cef99c44817329c84a8d6eb",
     "archive_sha256": "d2c69e1a49342ae09867bd206e39e89d969c8d0e39eb3c6e9b1eaaf93c1e68b0",
     "root_review_stage": "/var/lib/gcreation-perf-review/134ddfbe393168ce7cef99c44817329c84a8d6eb",
     "controller_refresh_authorized": true,
     "installation_authorized": false,
-    "deployment_authorized": true,
-    "max_new_deployment_requests": 1,
+    "deployment_authorized": false,
+    "max_new_deployment_requests": 0,
     "prior_deployment_authorization_consumed": true,
     "automatic_retries": 0,
     "scope": [
@@ -72,8 +73,8 @@
       "READ_ONLY_IDENTITY_AND_PRESERVATION_CHECKS"
     ],
     "approval_granted_by": "HUMAN_P0_2_SECTION_8",
-    "capability_verified": true,
-    "human_action": null,
+    "capability_verified": false,
+    "human_action": "Return bounded sanitized read-only service/journal/fixed DEV container/image diagnostics under REPAIR_1_RUNTIME_DIAGNOSTICS_GATE.md. No rerun, retry, restart, cleanup or configuration change.",
     "operator_reported_result": "PASS",
     "installed_candidate_bytes_locally_verified": true,
     "full_refresh_verified": true,
@@ -82,7 +83,7 @@
   "hard_blocker": null,
   "production_touched": false,
   "p7": "NOT_STARTED",
-  "updated_at": "2026-10-06T09:57:47.927767+00:00",
+  "updated_at": "2026-10-06T10:09:33.901630+00:00",
   "p7_authorization": "SEPARATE_HUMAN_REQUIRED",
   "security_review": {
     "part": "P1",
@@ -229,14 +230,14 @@
     "evidence_sha256": "784cb843c6863660d47186da21536e7aff0749495ed0f68a2fe6cbff7bef972d"
   },
   "blocker": {
-    "criterion": "P1-BUILD-01",
-    "command": "build_command(snapshot, output): constrained offline cp -R /source/. /app/ followed by unchanged gates",
-    "error": "RuntimeError; non-root-build subprocess exit1",
-    "evidence_file": ".ops/reports/P1/runtime-repair-1/HOST_FAILURE.json",
-    "diagnosis": "UMask0077 masks requested0755 source directory modes to root-owned0700",
-    "smallest_remediation": "Normalize release/source/nested-source directories0755 after creation; preserve source0644 and all controls",
-    "next_action": "Exactly one P0.2-authorized REPAIR_1 candidate-pinned watcher deployment, retry0",
-    "status": "PENDING_REAL_RUNTIME_VALIDATION"
+    "criterion": "P1 runtime start/health",
+    "command": "Accepted installed deploy_controller.py start_runtime(release), after constrained build and before final-health",
+    "error": "Terminal FAILED / runtime-health / RuntimeError / rollback=false",
+    "diagnosis": "NOT_ESTABLISHED; RuntimeError does not identify subprocess or root cause",
+    "evidence_file": ".ops/reports/P1/REPAIR_1_DEPLOYMENT_ATTEMPT.json",
+    "status": "HUMAN_CAPABILITY_GATE",
+    "next_action": "Return bounded sanitized read-only service/journal/fixed DEV container/image diagnostics under REPAIR_1_RUNTIME_DIAGNOSTICS_GATE.md. No rerun, retry, restart, cleanup or configuration change.",
+    "smallest_remediation": "Obtain read-only diagnostic evidence before proposing any relevant REPAIR_2 change; no unchanged retry"
   },
   "external_oversight": "PENDING",
   "deployment_authority": {
@@ -244,28 +245,29 @@
     "cycle": "REPAIR_1",
     "repair_cycle": 1,
     "max_attempts_this_cycle": 1,
-    "attempts_used_this_cycle": 0,
+    "attempts_used_this_cycle": 1,
     "automatic_retries": 0,
     "condition": "Successful verified accepted controller refresh and all deployment preconditions",
     "condition_met": true,
-    "request_ready": true,
-    "prior_initial_attempt_consumed": true
+    "request_ready": false,
+    "prior_initial_attempt_consumed": true,
+    "submitted_at_utc": "2026-10-06T10:03:32.917576+00:00"
   },
   "capability_gate": {
-    "process": "controller-refresh-evidence-verification",
-    "evidence_file": ".ops/reports/P1/CONTROLLER_REFRESH_VERIFICATION.json",
-    "scope_class": "SECURITY_CRITICAL",
+    "process": "repair1-runtime-failure-diagnostics",
+    "status": "PENDING_CAPABILITY",
+    "scope_class": "RELIABILITY_CRITICAL",
     "business_mapping": [
+      "RELIABILITY",
       "SECURITY",
       "MVP_RELEASE"
     ],
-    "reason": null,
-    "approval_already_granted": true,
+    "evidence_file": ".ops/reports/P1/REPAIR_1_DEPLOYMENT_ATTEMPT.json",
+    "reason": "REPAIR_1 attempt consumed with RuntimeError at runtime-health; root-private service/container diagnostics unavailable through approved agent interface. Exact failed command/cause cannot be established from sanitized status alone.",
     "root_interface_available": false,
-    "operator_action": null,
+    "approval_already_granted": true,
     "repair_cycle_consumed": false,
-    "status": "RESOLVED",
-    "resolution_reference": ".ops/reports/P1/CONTROLLER_REFRESH_ACCEPTANCE.json"
+    "operator_action": "Return bounded sanitized read-only service/journal/fixed DEV container/image diagnostics under REPAIR_1_RUNTIME_DIAGNOSTICS_GATE.md. No rerun, retry, restart, cleanup or configuration change."
   },
   "execution_policy": {
     "routine_micro_approvals_required": false,
@@ -292,7 +294,7 @@
   "oversight_checkpoint": {
     "latest_json": ".ops/oversight/LATEST_CHECKPOINT.json",
     "latest_markdown": ".ops/oversight/LATEST_CHECKPOINT.md",
-    "event": ".ops/oversight/events/0003-P1-controller-refresh-acceptance.json"
+    "event": ".ops/oversight/events/0004-P1-repair1-runtime-failure.json"
   },
   "controller_refresh": {
     "operator_reported_result": "PASS",
@@ -302,5 +304,23 @@
     "operator_evidence": ".ops/reports/P1/CONTROLLER_REFRESH_OPERATOR_EVIDENCE.json",
     "verification_evidence": ".ops/reports/P1/CONTROLLER_REFRESH_VERIFICATION.json",
     "acceptance_file": ".ops/reports/P1/CONTROLLER_REFRESH_ACCEPTANCE.json"
+  },
+  "runtime_attempt": {
+    "state": "FAILED",
+    "source_commit": "134ddfbe393168ce7cef99c44817329c84a8d6eb",
+    "archive_sha256": "d2c69e1a49342ae09867bd206e39e89d969c8d0e39eb3c6e9b1eaaf93c1e68b0",
+    "record": ".ops/reports/P1/REPAIR_1_DEPLOYMENT_ATTEMPT.json",
+    "request_publication_count": 1,
+    "automatic_retries": 0,
+    "stage": "runtime-health",
+    "error": "RuntimeError",
+    "rollback": false
+  },
+  "runtime_acceptance": {
+    "result": "FAIL",
+    "deployed_identity": null,
+    "failing_criterion": "P1 runtime start/health",
+    "failure_evidence": ".ops/reports/P1/REPAIR_1_DEPLOYMENT_ATTEMPT.json",
+    "root_cause": "NOT_ESTABLISHED"
   }
 }

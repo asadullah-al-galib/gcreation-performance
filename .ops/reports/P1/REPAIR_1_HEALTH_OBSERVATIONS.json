@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "part": "P1",
+  "source_commit": "134ddfbe393168ce7cef99c44817329c84a8d6eb",
+  "deployment_attempt": "REPAIR_1",
+  "evidence_class": "REAL_DEV_VERIFIED",
+  "verification_domain": "READ_ONLY_HEALTH_EXPOSURE_PROBES_ONLY",
+  "requests": [
+    {
+      "url": "http://127.0.0.1:3101/health",
+      "observed_at_utc": "2026-10-06T10:06:24.017504+00:00",
+      "no_auth_cookies": true,
+      "redirects_followed": false,
+      "max_body_bytes": 8192,
+      "timeout_seconds": 10,
+      "error_class": "URLError",
+      "reason_class": "ConnectionRefusedError",
+      "reason": "[Errno 111] Connection refused"
+    },
+    {
+      "url": "https://dev.gcreation.agency/perf-engine/health",
+      "observed_at_utc": "2026-10-06T10:06:24.021025+00:00",
+      "no_auth_cookies": true,
+      "redirects_followed": false,
+      "max_body_bytes": 8192,
+      "timeout_seconds": 10,
+      "http_status": 404,
+      "response_body_not_logged": true
+    },
+    {
+      "url": "https://dev.gcreation.agency/perf-engine/admin",
+      "observed_at_utc": "2026-10-06T10:06:24.046810+00:00",
+      "no_auth_cookies": true,
+      "redirects_followed": false,
+      "max_body_bytes": 8192,
+      "timeout_seconds": 10,
+      "http_status": 404,
+      "response_body_not_logged": true
+    },
+    {
+      "url": "https://dev.gcreation.agency/perf-engine/api/admin",
+      "observed_at_utc": "2026-10-06T10:06:24.067570+00:00",
+      "no_auth_cookies": true,
+      "redirects_followed": false,
+      "max_body_bytes": 8192,
+      "timeout_seconds": 10,
+      "http_status": 404,
+      "response_body_not_logged": true
+    }
+  ],
+  "production_touched": false,
+  "limitations": "HTTP refusal sample does not prove all route exposure or effective runtime controls; deployment failed and no runtime acceptance.",
+  "probe_vantage": "Agent session network; equivalence of localhost to host network namespace NOT_VERIFIED."
+}

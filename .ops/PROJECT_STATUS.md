@@ -5,7 +5,7 @@ CURRENT PART:
 P1
 
 STATE:
-IN_PROGRESS
+HUMAN_CAPABILITY_GATE
 
 AUTHORIZATION:
 HUMAN_P0_2 — APPROVED CONSTRAINED DEV CAPABILITIES ONLY
@@ -26,7 +26,7 @@ REPAIR CYCLE:
 1
 
 REPAIR_1 DEPLOYMENT ATTEMPTS:
-0 / 1
+1 / 1
 
 AUTOMATIC RETRIES:
 0
@@ -44,16 +44,16 @@ PRODUCTION/MAIN:
 UNTOUCHED
 
 CURRENT OBSERVATION:
-Controller refresh fully PASS; supplemental proof closes returned-evidence omissions. Exact archive106 members/105 committed Git blobs/manifest/snapshot and installed candidate hash independently verified. REPAIR_1 request not yet submitted.
+Exactly one accepted candidate-pinned REPAIR_1 watcher request consumed; terminal FAILED at runtime-health/RuntimeError/rollback=false. Constrained build return0 inferred from reviewed stage progression. Root cause unknown; current read-only runtime diagnostics require an unavailable approved capability. Controller refresh remains PASS.
 
 NEXT ALLOWED ACTION:
-Submit exactly one accepted candidate/archive REPAIR_1 request through the installed watcher; automatic retries0, then P1 real DEV validation.
+Obtain bounded sanitized read-only diagnostics; establish exact failed operation/cause before any relevant REPAIR_2 change. No new request or P2.
 
 MACHINE STATE:
 .ops/ORCHESTRATOR_STATUS.json
 
 EVIDENCE:
-.ops/reports/P1/CONTROLLER_REFRESH_ACCEPTANCE.json
+.ops/reports/P1/REPAIR_1_DEPLOYMENT_ATTEMPT.json
 
 OVERSIGHT:
 .ops/oversight/LATEST_CHECKPOINT.json / .md; EXTERNAL PENDING / NON-BLOCKING

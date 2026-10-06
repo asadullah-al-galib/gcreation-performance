@@ -1,3 +1,5 @@
+> CONSUMED / FAILED — HISTORICAL GATE; DO NOT RERUN. The approved request1/1 failed at non-root-build; retries0. Current action is runtime-repair-1/HUMAN_REVIEW_GATE.md; no new request or runtime action authorized. Preserve this recipe as review-time evidence only.
+
 ## PURPOSE
 
 Obtain explicit approval for exactly ONE controlled DEV source deployment through the already installed reviewed watcher, followed by bounded read-only runtime validation. Source `08b395cf08523dbc5ab27f744d174b8a19bb2b4b`, archive SHA `80b206bf89d62f9a6b253970fea6a3a9cbe21b3106876e6e1e807df01a618929`, immutable image `sha256:f2bb2401f1f296115cd0d3dd5609ca6514446f55d4484f1884639f308a456f24`. P1 remains WAITING_FOR_HUMAN / execution IN_PROGRESS / full-Part independent review PENDING / repair_cycle0. Preparing this gate creates no artifact/request and performs no runtime or privileged action.

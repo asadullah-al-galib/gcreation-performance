@@ -1,0 +1,106 @@
+
+COMMAND: scripts/npm-dev.sh run format:check
+
+> gcreation-performance@0.1.0 format:check
+> prettier --check apps packages tests wordpress/gcreation-performance/*.js *.md *.json
+
+Checking formatting...
+[warn] MASTER_EXEC_PLAN.md
+[warn] ROADMAP.md
+[warn] Code style issues found in 2 files. Run Prettier with --write to fix.
+EXIT: 1
+
+COMMAND: scripts/npm-dev.sh run lint:ts
+
+> gcreation-performance@0.1.0 lint:ts
+> eslint apps packages tests
+
+EXIT: 0
+
+COMMAND: scripts/npm-dev.sh run typecheck
+
+> gcreation-performance@0.1.0 typecheck
+> tsc --noEmit
+
+EXIT: 0
+
+COMMAND: scripts/npm-dev.sh test
+
+> gcreation-performance@0.1.0 test
+> tsx --test --test-concurrency=2 tests/*.test.ts && node --test tests/trusted-gateway.test.mjs
+
+✔ all sixteen rule families have measured fixtures and complete fix evidence (3.855271ms)
+✔ unsafe resources defer jobs with a bounded wait budget and never launch the browser (26.698276ms)
+✔ sitemap caps disclose truncation and reject cross-origin discovery (82.739736ms)
+✔ custom expert review is idempotent; admin verification requires a completed retest (409.299808ms)
+✔ paid retest is restricted to previously audited pages and exposes measured before/after (24.399684ms)
+✔ persistent free admission quotas and concurrent API submissions remain bounded (35.904765ms)
+{"level":40,"time":1791269621744,"pid":96,"hostname":"ipv4-62-86.99itbd.com","event":"request.rejected","errorType":"Error"}
+{"level":40,"time":1791269621749,"pid":96,"hostname":"ipv4-62-86.99itbd.com","event":"request.rejected","errorType":"Error"}
+{"level":40,"time":1791269621751,"pid":96,"hostname":"ipv4-62-86.99itbd.com","event":"request.rejected","errorType":"Error"}
+{"level":40,"time":1791269621752,"pid":96,"hostname":"ipv4-62-86.99itbd.com","event":"request.rejected","errorType":"Error"}
+✔ health public, management protected, scan SSRF rejected (541.632939ms)
+✔ worker lifecycle, real events, pricing, idempotent payment and secure Fix Center (59.289988ms)
+✔ SQLite lifecycle survives reopening and stale running job fails visibly (85.435135ms)
+✔ URL schemes, internal hosts, credentials and ports are rejected (3.486639ms)
+✔ private, reserved, metadata and mapped IPv6 are blocked (4.125969ms)
+✔ every DNS answer and redirect destination is revalidated (3.256281ms)
+✔ trusted pricing exact boundaries and custom review (0.686757ms)
+✔ report tokens require token/order/contact and do not grant access by ID (0.951513ms)
+✔ unknown byte measurements stay unknown and rules use thresholds (1.485043ms)
+✔ SQLite migrations, persisted lifecycle and single worker claim (5.528639ms)
+✔ sitemap index discovery, platform detection and representative products (2.56864ms)
+✔ scanner closes the browser after a navigation failure while keeping sandbox/proxy controls (8.765638ms)
+✔ scanner refuses browser work without a validating egress proxy (0.583167ms)
+✔ safeFetch rejects a redirect to private or unsupported targets before transport (9.716473ms)
+✔ safeFetch follows bounded safe redirects and pins transport destinations (5.307066ms)
+✔ egress HTTP and CONNECT reject local destinations through a real proxy socket (37.384391ms)
+✔ hard policy denies raw server IP even without configured deny list (1.104391ms)
+✔ fetch bridge accepts only its scoped credential and rejects raw self host (34.819443ms)
+✔ scan UI renders actual persisted progress and safely escapes evidence (226.305219ms)
+✔ secure Fix Center removes token from URL and sends credentials in POST only (61.412253ms)
+ℹ tests 26
+ℹ suites 0
+ℹ pass 26
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 8545.773987
+✔ trusted ingress authenticates master and forwards only scoped app credential (60.597619ms)
+✔ missing, incorrect and app-hop credentials cannot enter master business boundary (16.823068ms)
+✔ unauthenticated health carries no credential to mutable app (8.934545ms)
+✔ gateway rejects upstream redirects and never relays sensitive headers (16.221297ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 292.52535
+EXIT: 0
+
+COMMAND: scripts/npm-dev.sh run build
+
+> gcreation-performance@0.1.0 build
+> tsc -p tsconfig.build.json
+
+EXIT: 0
+
+COMMAND: scripts/npm-dev.sh exec tsc -- -p ops/dev/trusted/tsconfig.json
+EXIT: 0
+
+COMMAND: php -l wordpress/gcreation-performance/gcreation-performance.php
+No syntax errors detected in wordpress/gcreation-performance/gcreation-performance.php
+EXIT: 0
+
+COMMAND: php tests/wordpress-integration.php
+WooCommerce contract: trusted pricing, session ownership and idempotent synchronization passed.
+EXIT: 0
+
+COMMAND: bash -n ops/dev/install-root.sh
+EXIT: 0
+
+COMMAND: sh -n ops/dev/deploy-dev.sh
+EXIT: 0

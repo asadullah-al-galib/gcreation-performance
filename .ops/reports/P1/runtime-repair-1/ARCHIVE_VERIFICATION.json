@@ -1,0 +1,23 @@
+{
+  "candidate_commit": "134ddfbe393168ce7cef99c44817329c84a8d6eb",
+  "parent_commit": "08b395cf08523dbc5ab27f744d174b8a19bb2b4b",
+  "prior_develop": "4e3323b95f16812449d5601568858243f9e422b1",
+  "superseded_candidate": "fb4cba7a8327b0117fffcb27613c4945526597c7",
+  "changed_source_files": [
+    "MASTER_EXEC_PLAN.md",
+    "ROADMAP.md",
+    "ops/dev/deploy_controller.py",
+    "tests/test_source_permissions.py"
+  ],
+  "note": "One REPAIR_1 preparation, no deployment; superseded candidate retained because its inherited formatting gate failed.",
+  "archive_path": "/home/codexperf/projects/gcreation-performance/.ops/test-artifacts/review-source-134ddfbe393168ce7cef99c44817329c84a8d6eb.tar.gz",
+  "archive_sha256": "d2c69e1a49342ae09867bd206e39e89d969c8d0e39eb3c6e9b1eaaf93c1e68b0",
+  "source_manifest_sha256": "b8900ea6c39fa2baf3b3481263e6ef778e3f5eb54fcb019ffb600ca6014d5a95",
+  "expected_snapshot_digest": "8425d68350e9c9d93f941f62591142cd21a68835b35df188ee63cc415b3054b5",
+  "archive_regular_members": 106,
+  "committed_blobs_verified": 105,
+  "deterministic_reexport": "IDENTICAL_BYTES",
+  "source_fixture": "/home/codexperf/projects/gcreation-performance/.ops/test-artifacts/runtime-repair-1-source-134ddfbe393168ce7cef99c44817329c84a8d6eb",
+  "v4_audit_files": 50,
+  "v4_audit_unchanged": 49
+}

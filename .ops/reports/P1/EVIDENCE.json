@@ -2,10 +2,10 @@
   "schema_version": 1,
   "project": "gCreation Performance Doctor MVP v0.1",
   "part": "P1",
-  "execution_state": "IN_PROGRESS",
-  "orchestrator_state": "WAITING_FOR_HUMAN",
+  "execution_state": "BLOCKED",
+  "orchestrator_state": "SECURITY_REVIEW_REQUIRED",
   "independent_review": "PENDING",
-  "repair_cycle": 0,
+  "repair_cycle": 1,
   "generated_at": "2026-10-06T03:31:48+00:00",
   "source_commit": "8217aa4a13c0265efd8cb81473dd7f00c68d2c34",
   "governance_commit": "5db7fde1e17b1f8097a80bf38881184bb1b88b29",
@@ -533,7 +533,48 @@
       "exit_code": null,
       "evidence_reference": "INSTALLATION_EVIDENCE.json",
       "limitations": "Installation evidence human-attested; no agent host inspection. Not a runtime deployment, effective containment/health/rollback result, D24\u2013D27 completion or full P1 independent PASS."
+    },
+    {
+      "criterion_id": "P1-BUILD-01",
+      "part": "P1",
+      "requirement": "Reviewed source readable by constrained non-root offline builder",
+      "expected": "Terminal successful build/deployment with preserved security controls",
+      "observed": {
+        "state": "FAILED",
+        "stage": "non-root-build",
+        "error": "RuntimeError",
+        "build_command_exit": 1,
+        "rollback": false,
+        "request_count": 1,
+        "approved_request_limit": 1,
+        "automatic_retries": 0
+      },
+      "result": "FAIL",
+      "evidence_class": "HUMAN_ATTESTED",
+      "verification_level": "REAL_DEV_VERIFIED",
+      "timestamp": "2026-10-06T07:00:01.856154+00:00",
+      "source_commit": "08b395cf08523dbc5ab27f744d174b8a19bb2b4b",
+      "governance_commit": "4e3323b95f16812449d5601568858243f9e422b1",
+      "deployed_archive_sha256": null,
+      "deployed_snapshot_sha256": null,
+      "runtime_image_identity": null,
+      "attempted_archive_sha256": "80b206bf89d62f9a6b253970fea6a3a9cbe21b3106876e6e1e807df01a618929",
+      "observed_builder_image_identity": "sha256:f2bb2401f1f296115cd0d3dd5609ca6514446f55d4484f1884639f308a456f24",
+      "command_or_test": "Operator approved one constrained watcher attempt; build_command failed during non-root-build",
+      "exit_code": 1,
+      "evidence_reference": "runtime-repair-1/HOST_FAILURE.json",
+      "limitations": "Human-supplied sanitized real-host evidence. Raw builder stderr and deployed snapshot digest were not supplied; no message, timestamp or digest is invented. Listed builder flags are observed configuration, not proof of full runtime or aggregate containment."
     }
   ],
-  "updated_at": "2026-10-06T04:48:22+00:00"
+  "updated_at": "2026-10-06T04:48:22+00:00",
+  "repair_path": "REPAIR_1",
+  "repair_state": "REVIEW_READY",
+  "current_candidate_commit": "134ddfbe393168ce7cef99c44817329c84a8d6eb",
+  "runtime_repair": {
+    "candidate_commit": "134ddfbe393168ce7cef99c44817329c84a8d6eb",
+    "status": "REVIEW_READY",
+    "independent_review": "PENDING",
+    "deployment_authorized": false,
+    "evidence_reference": "runtime-repair-1/REPORT.md"
+  }
 }

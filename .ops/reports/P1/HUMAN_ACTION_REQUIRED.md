@@ -1,6 +1,6 @@
 ## PURPOSE
 
-SUPERSEDED — DO NOT EXECUTE. These commands describe the failed old-source gate only; its contaminated snapshot must never be reused or cleaned. Current P1 state WAITING_FOR_HUMAN after repair-source independent security PASS; fresh-stage installation is now verified by INSTALLATION_EVIDENCE.json. Current action is CONTROLLED_DEV_RUNTIME_GATE.md; no old-source installation or request is authorized now.
+SUPERSEDED — DO NOT EXECUTE. These commands describe the failed old-source gate only; its contaminated snapshot must never be reused or cleaned. Current P1 state BLOCKED / REPAIR_1 REVIEW_READY, orchestrator SECURITY_REVIEW_REQUIRED. Installation verified by INSTALLATION_EVIDENCE.json; subsequent deployment gate consumed/FAILED. Current action is runtime-repair-1/HUMAN_REVIEW_GATE.md; no installation or request authorized now.
 
 Review and separately approve the exact retained V4 artifact, then manually install/configure the reviewed DEV foundation so P1 can validate real containment. Current state WAITING_FOR_HUMAN; no DEV installation/runtime acceptance is claimed.
 

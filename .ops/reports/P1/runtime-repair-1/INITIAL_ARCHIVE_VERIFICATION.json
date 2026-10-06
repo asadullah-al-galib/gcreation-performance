@@ -1,0 +1,20 @@
+{
+  "candidate_commit": "fb4cba7a8327b0117fffcb27613c4945526597c7",
+  "parent_commit": "08b395cf08523dbc5ab27f744d174b8a19bb2b4b",
+  "integration_commit": "28ab9c4f0bd7d136d86054e836b4c2d797e80c07",
+  "prior_develop": "4e3323b95f16812449d5601568858243f9e422b1",
+  "changed_source_files": [
+    "ops/dev/deploy_controller.py",
+    "tests/test_source_permissions.py"
+  ],
+  "archive_path": "/home/codexperf/projects/gcreation-performance/.ops/test-artifacts/review-source-fb4cba7a8327b0117fffcb27613c4945526597c7.tar.gz",
+  "archive_sha256": "e73c3ace7606890d9a800dafd3c9ebd8376fef22a3aac7fd372bdbebc178f7ab",
+  "source_manifest_sha256": "517bf2220e3e26310917accb296e36f89707c4a59a1ac3e210309f1bfa0dec47",
+  "expected_snapshot_digest": "632935d057acce08f1eb0446ed74ffcb92c22785bd710cb38a4e3b5960762108",
+  "archive_regular_members": 106,
+  "committed_blobs_verified": 105,
+  "deterministic_reexport": "IDENTICAL_BYTES",
+  "source_fixture": "/home/codexperf/projects/gcreation-performance/.ops/test-artifacts/runtime-repair-1-source-fb4cba7a8327b0117fffcb27613c4945526597c7",
+  "v4_audit_files": 50,
+  "v4_audit_unchanged": 49
+}

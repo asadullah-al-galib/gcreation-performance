@@ -1,0 +1,83 @@
+[
+  {
+    "command": [
+      "scripts/npm-dev.sh",
+      "run",
+      "format:check"
+    ],
+    "exit": 1
+  },
+  {
+    "command": [
+      "scripts/npm-dev.sh",
+      "run",
+      "lint:ts"
+    ],
+    "exit": 0
+  },
+  {
+    "command": [
+      "scripts/npm-dev.sh",
+      "run",
+      "typecheck"
+    ],
+    "exit": 0
+  },
+  {
+    "command": [
+      "scripts/npm-dev.sh",
+      "test"
+    ],
+    "exit": 0
+  },
+  {
+    "command": [
+      "scripts/npm-dev.sh",
+      "run",
+      "build"
+    ],
+    "exit": 0
+  },
+  {
+    "command": [
+      "scripts/npm-dev.sh",
+      "exec",
+      "tsc",
+      "--",
+      "-p",
+      "ops/dev/trusted/tsconfig.json"
+    ],
+    "exit": 0
+  },
+  {
+    "command": [
+      "php",
+      "-l",
+      "wordpress/gcreation-performance/gcreation-performance.php"
+    ],
+    "exit": 0
+  },
+  {
+    "command": [
+      "php",
+      "tests/wordpress-integration.php"
+    ],
+    "exit": 0
+  },
+  {
+    "command": [
+      "bash",
+      "-n",
+      "ops/dev/install-root.sh"
+    ],
+    "exit": 0
+  },
+  {
+    "command": [
+      "sh",
+      "-n",
+      "ops/dev/deploy-dev.sh"
+    ],
+    "exit": 0
+  }
+]

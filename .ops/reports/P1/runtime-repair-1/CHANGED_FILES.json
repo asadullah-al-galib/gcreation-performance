@@ -1,0 +1,65 @@
+{
+  "source_candidate": "134ddfbe393168ce7cef99c44817329c84a8d6eb",
+  "source_parent": "08b395cf08523dbc5ab27f744d174b8a19bb2b4b",
+  "exact_source_candidate_changes": [
+    "MASTER_EXEC_PLAN.md",
+    "ROADMAP.md",
+    "ops/dev/deploy_controller.py",
+    "tests/test_source_permissions.py"
+  ],
+  "privileged_source_changes": [
+    "ops/dev/deploy_controller.py"
+  ],
+  "security_regression_changes": [
+    "tests/test_source_permissions.py"
+  ],
+  "source_format_gate_changes": [
+    "MASTER_EXEC_PLAN.md",
+    "ROADMAP.md"
+  ],
+  "develop_transaction_baseline": "4e3323b95f16812449d5601568858243f9e422b1",
+  "develop_transaction_changed_files": [
+    ".ops/ACTION_REQUIRED.md",
+    ".ops/ORCHESTRATOR_STATUS.json",
+    ".ops/PROJECT_STATE.md",
+    ".ops/PROJECT_STATUS.md",
+    ".ops/reports/P1/CHECKSUMS.sha256",
+    ".ops/reports/P1/CONTROLLED_DEV_RUNTIME_GATE.md",
+    ".ops/reports/P1/EVIDENCE.json",
+    ".ops/reports/P1/HUMAN_ACTION_REQUIRED.md",
+    ".ops/reports/P1/REPORT.md",
+    ".ops/reports/P1/runtime-repair-1/ARCHIVE_VERIFICATION.json",
+    ".ops/reports/P1/runtime-repair-1/BASELINE_REGRESSION.txt",
+    ".ops/reports/P1/runtime-repair-1/CANDIDATE_REGRESSIONS.txt",
+    ".ops/reports/P1/runtime-repair-1/CANDIDATE_TEST_RESULTS.json",
+    ".ops/reports/P1/runtime-repair-1/CHANGED_FILES.json",
+    ".ops/reports/P1/runtime-repair-1/CHECKSUMS.sha256",
+    ".ops/reports/P1/runtime-repair-1/HOST_FAILURE.json",
+    ".ops/reports/P1/runtime-repair-1/HUMAN_REVIEW_GATE.md",
+    ".ops/reports/P1/runtime-repair-1/INITIAL_ARCHIVE_VERIFICATION.json",
+    ".ops/reports/P1/runtime-repair-1/INITIAL_CANDIDATE_REGRESSIONS.txt",
+    ".ops/reports/P1/runtime-repair-1/INITIAL_CANDIDATE_TEST_RESULTS.json",
+    ".ops/reports/P1/runtime-repair-1/OTHER_REGRESSIONS.txt",
+    ".ops/reports/P1/runtime-repair-1/PRIVILEGED_DIFF.patch",
+    ".ops/reports/P1/runtime-repair-1/PYTHON_REGRESSIONS.txt",
+    ".ops/reports/P1/runtime-repair-1/REPORT.md",
+    ".ops/reports/P1/runtime-repair-1/ROOT_CAUSE_REPRODUCTION.txt",
+    ".ops/reports/P1/runtime-repair-1/SOURCE_DIFF.patch",
+    ".ops/reports/P1/runtime-repair-1/SOURCE_MANIFEST.sha256",
+    ".ops/reports/P1/runtime-repair-1/TEST_RESULTS.json",
+    ".ops/reports/P1/runtime-repair-1/V4_BOUNDARIES.json",
+    ".ops/reports/P1/runtime-repair-1/V4_POLICY_FUNCTIONS.json",
+    "ARCHITECTURE.md",
+    "MASTER_EXEC_PLAN.md",
+    "PLANS.md",
+    "PROJECT_TIMELINE.md",
+    "README.md",
+    "REQUIREMENTS.md",
+    "ROADMAP.md",
+    "SECURITY.md",
+    "docs/DEV_VALIDATION_RUNBOOK.md",
+    "ops/dev/deploy_controller.py",
+    "tests/test_source_permissions.py"
+  ],
+  "note": "Source candidate is exact four-file child of08b395c. Develop preserves all prior governance/evidence and initial local candidate ancestry; current state/report is a later merge handoff. No prior commit reset/amended and no new installed/runtime action."
+}

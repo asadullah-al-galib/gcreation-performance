@@ -1,0 +1,14 @@
+diff --git a/ops/dev/deploy_controller.py b/ops/dev/deploy_controller.py
+index 65f0680..a8e71fd 100644
+--- a/ops/dev/deploy_controller.py
++++ b/ops/dev/deploy_controller.py
+@@ -228,0 +229,5 @@ def artifact_snapshot(ops_fd, request, snapshot):
++        # The private service UMask must not prevent UID10001 source traversal.
++        parent = target.parent
++        while parent != snapshot:
++            parent.chmod(0o755)
++            parent = parent.parent
+@@ -369,0 +375 @@ def deploy():
++        release.chmod(0o755)
+@@ -370,0 +377 @@ def deploy():
++        snapshot.chmod(0o755)

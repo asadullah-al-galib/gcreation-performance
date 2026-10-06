@@ -1,0 +1,37 @@
+{
+  "baseline": "08b395cf08523dbc5ab27f744d174b8a19bb2b4b",
+  "candidate": "134ddfbe393168ce7cef99c44817329c84a8d6eb",
+  "unchanged_functions": [
+    "build_command",
+    "check_path",
+    "claim_request",
+    "command",
+    "container_flags",
+    "copy_entry",
+    "docker_json",
+    "ensure_egress_network",
+    "ensure_internal_network",
+    "ensure_network",
+    "health",
+    "open_directory",
+    "prune_releases",
+    "runtime_image",
+    "snapshot_digest",
+    "start_runtime",
+    "status",
+    "verify_dependencies"
+  ],
+  "changed_functions": [
+    "artifact_snapshot",
+    "deploy"
+  ],
+  "changes": "Only explicit source-directory normalization; see exact privileged diff",
+  "unchanged_installer_B": true,
+  "unchanged_systemd_umask": true,
+  "source_docs_format_only": true,
+  "root_source_ownership_mutation_added": false,
+  "no_group_or_other_write_introduced": true,
+  "security_boundary_changes": "NONE",
+  "audit": "PASS_LOCAL_STATIC",
+  "independent_review": "PENDING"
+}

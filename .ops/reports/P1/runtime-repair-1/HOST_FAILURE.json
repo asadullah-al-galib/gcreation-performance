@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "part": "P1",
+  "evidence_class": "HUMAN_ATTESTED",
+  "verification_level": "REAL_DEV_VERIFIED",
+  "verification_domain": "FAILED_DEPLOYMENT_AND_BUILDER_INSPECTION_ONLY",
+  "agent_observed_host": false,
+  "recorded_at": "2026-10-06T07:00:01.856154+00:00",
+  "host_observation_timestamp": null,
+  "source_commit": "08b395cf08523dbc5ab27f744d174b8a19bb2b4b",
+  "archive_sha256": "80b206bf89d62f9a6b253970fea6a3a9cbe21b3106876e6e1e807df01a618929",
+  "immutable_image": "sha256:f2bb2401f1f296115cd0d3dd5609ca6514446f55d4484f1884639f308a456f24",
+  "deployment": {
+    "state": "FAILED",
+    "stage": "non-root-build",
+    "error": "RuntimeError",
+    "build_command_exit": 1,
+    "rollback": false,
+    "request_count": 1,
+    "approved_request_limit": 1,
+    "automatic_retries": 0
+  },
+  "builder": {
+    "USER": "10001:10001",
+    "NETWORK": "none",
+    "READONLY_ROOTFS": true,
+    "PIDS_LIMIT": 192,
+    "NANO_CPUS": 3500000000,
+    "MEMORY": 1572864000,
+    "MEMORY_SWAP": 1572864000,
+    "CGROUP_PARENT": "gcreation-perf-dev.slice",
+    "CAP_DROP": [
+      "ALL"
+    ],
+    "no_new_privileges_present": true,
+    "reviewed_seccomp_present": true
+  },
+  "failed_release_permissions": {
+    "release": {
+      "owner": "root:root",
+      "mode": "0700"
+    },
+    "source": {
+      "owner": "root:root",
+      "mode": "0700"
+    },
+    "output": {
+      "owner": "10001:10001",
+      "mode": "0700"
+    }
+  },
+  "preserved_state": {
+    "request": "ABSENT",
+    "claim": "ABSENT",
+    "failed_release": "RETAINED",
+    "active_release": "ABSENT",
+    "runtime_containers": "ABSENT",
+    "DEV_networks": "RETAINED",
+    "old_review_stage": "UNCHANGED",
+    "accepted_fresh_review_stage": "UNCHANGED",
+    "source_artifact": "PRESERVED",
+    "status_and_evidence": "PRESERVED"
+  },
+  "rollback_explanation": "No prior successful runtime existed; rollback=false is not evidence of a rollback-restoration defect.",
+  "internal_health": "NOT_VERIFIED",
+  "public_health": "NOT_VERIFIED",
+  "effective_aggregate_resource_acceptance": "NOT_VERIFIED",
+  "runtime_acceptance": "NOT_VERIFIED",
+  "D24_D27": "PENDING",
+  "production_touched": false,
+  "limitations": "Human-supplied sanitized real-host evidence. Raw builder stderr and deployed snapshot digest were not supplied; no message, timestamp or digest is invented. Listed builder flags are observed configuration, not proof of full runtime or aggregate containment."
+}

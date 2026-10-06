@@ -1,0 +1,135 @@
+[
+  {
+    "command": [
+      "python3",
+      "-B",
+      "tests/test_source_permissions.py",
+      "-v"
+    ],
+    "exit": 0
+  },
+  {
+    "command": [
+      "python3",
+      "-B",
+      "tests/test_deployment_kit.py",
+      "-v"
+    ],
+    "exit": 0
+  },
+  {
+    "command": [
+      "python3",
+      "-B",
+      "tests/test_security_review_v3.py",
+      "-v"
+    ],
+    "exit": 0
+  },
+  {
+    "command": [
+      "python3",
+      "-B",
+      "tests/test_security_review_v4.py",
+      "-v"
+    ],
+    "exit": 0
+  },
+  {
+    "command": [
+      "python3",
+      "-B",
+      "tests/test_installer_bytecode.py",
+      "-v"
+    ],
+    "exit": 0
+  },
+  {
+    "command": [
+      "/home/codexperf/projects/gcreation-performance/.ops/toolchain/node_modules/node/bin/node",
+      "/opt/plesk/node/26/lib/node_modules/npm/bin/npm-cli.js",
+      "run",
+      "format:check"
+    ],
+    "exit": 0
+  },
+  {
+    "command": [
+      "/home/codexperf/projects/gcreation-performance/.ops/toolchain/node_modules/node/bin/node",
+      "/opt/plesk/node/26/lib/node_modules/npm/bin/npm-cli.js",
+      "run",
+      "lint:ts"
+    ],
+    "exit": 0
+  },
+  {
+    "command": [
+      "/home/codexperf/projects/gcreation-performance/.ops/toolchain/node_modules/node/bin/node",
+      "/opt/plesk/node/26/lib/node_modules/npm/bin/npm-cli.js",
+      "run",
+      "typecheck"
+    ],
+    "exit": 0
+  },
+  {
+    "command": [
+      "/home/codexperf/projects/gcreation-performance/.ops/toolchain/node_modules/node/bin/node",
+      "/opt/plesk/node/26/lib/node_modules/npm/bin/npm-cli.js",
+      "run",
+      "test"
+    ],
+    "exit": 0
+  },
+  {
+    "command": [
+      "/home/codexperf/projects/gcreation-performance/.ops/toolchain/node_modules/node/bin/node",
+      "/opt/plesk/node/26/lib/node_modules/npm/bin/npm-cli.js",
+      "run",
+      "build"
+    ],
+    "exit": 0
+  },
+  {
+    "command": [
+      "/home/codexperf/projects/gcreation-performance/.ops/toolchain/node_modules/node/bin/node",
+      "/opt/plesk/node/26/lib/node_modules/npm/bin/npm-cli.js",
+      "exec",
+      "tsc",
+      "--",
+      "-p",
+      "ops/dev/trusted/tsconfig.json"
+    ],
+    "exit": 0
+  },
+  {
+    "command": [
+      "php",
+      "-l",
+      "wordpress/gcreation-performance/gcreation-performance.php"
+    ],
+    "exit": 0
+  },
+  {
+    "command": [
+      "php",
+      "tests/wordpress-integration.php"
+    ],
+    "exit": 0
+  },
+  {
+    "command": [
+      "bash",
+      "-n",
+      "ops/dev/install-root.sh"
+    ],
+    "exit": 0
+  },
+  {
+    "command": [
+      "sh",
+      "-n",
+      "ops/dev/deploy-dev.sh"
+    ],
+    "exit": 0
+  }
+]

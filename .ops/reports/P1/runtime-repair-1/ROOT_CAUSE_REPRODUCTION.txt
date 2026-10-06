@@ -1,0 +1,23 @@
+BASELINE: 08b395cf08523dbc5ab27f744d174b8a19bb2b4b controller unchanged; UID=10023; process UMask=0077
+release mode=0700 different-UID-builder-readable=False
+release/source mode=0700 different-UID-builder-readable=False
+release/source/REVIEW_SOURCE_COMMIT mode=0644 different-UID-builder-readable=True
+release/source/apps mode=0700 different-UID-builder-readable=False
+release/source/apps/audit-service mode=0700 different-UID-builder-readable=False
+release/source/apps/audit-service/src mode=0700 different-UID-builder-readable=False
+release/source/apps/audit-service/src/main.ts mode=0644 different-UID-builder-readable=True
+release/source/ops mode=0700 different-UID-builder-readable=False
+release/source/ops/dev mode=0700 different-UID-builder-readable=False
+release/source/ops/dev/trusted mode=0700 different-UID-builder-readable=False
+release/source/ops/dev/trusted/gateway.mjs mode=0644 different-UID-builder-readable=True
+release/source/package-lock.json mode=0644 different-UID-builder-readable=True
+release/source/package.json mode=0644 different-UID-builder-readable=True
+release/source/packages mode=0700 different-UID-builder-readable=False
+release/source/packages/scanner mode=0700 different-UID-builder-readable=False
+release/source/packages/scanner/src mode=0700 different-UID-builder-readable=False
+release/source/packages/scanner/src/proxy.ts mode=0644 different-UID-builder-readable=True
+release/source/tests mode=0700 different-UID-builder-readable=False
+release/source/tests/deep mode=0700 different-UID-builder-readable=False
+release/source/tests/deep/nested mode=0700 different-UID-builder-readable=False
+release/source/tests/deep/nested/fixture.txt mode=0644 different-UID-builder-readable=True
+No Docker/root/controller entrypoint used; permission model only, fixture ownership is ordinary UID, not root.

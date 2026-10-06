@@ -1,0 +1,16 @@
+test_archive_and_dependency_verification_remain_fail_closed (__main__.SourcePermissionTests) ... ok
+test_builder_identity_isolation_and_limits_remain_exact (__main__.SourcePermissionTests) ... ok
+test_private_umask_source_roots_nested_directories_and_files_are_builder_readable (__main__.SourcePermissionTests) ... FAIL
+
+======================================================================
+FAIL: test_private_umask_source_roots_nested_directories_and_files_are_builder_readable (__main__.SourcePermissionTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "tests/test_source_permissions.py", line 94, in test_private_umask_source_roots_nested_directories_and_files_are_builder_readable
+    self.assertEqual(mode, 0o755 if path.is_dir() else 0o644, str(path))
+AssertionError: 448 != 493 : /home/codexperf/projects/gcreation-performance/.ops/test-artifacts/tmphmm63zjq/state/release-1791269571686172
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.033s
+
+FAILED (failures=1)

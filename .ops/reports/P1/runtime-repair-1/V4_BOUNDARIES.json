@@ -1,0 +1,312 @@
+{
+  "baseline": "08b395cf08523dbc5ab27f744d174b8a19bb2b4b",
+  "candidate": "134ddfbe393168ce7cef99c44817329c84a8d6eb",
+  "files": [
+    {
+      "path": "apps/audit-service/src/main.ts",
+      "baseline_sha256": "5039bc4573364b57b1bbdd742f724659e91208a7ba8d365e502800673c4f23f2",
+      "candidate_sha256": "5039bc4573364b57b1bbdd742f724659e91208a7ba8d365e502800673c4f23f2",
+      "unchanged": true
+    },
+    {
+      "path": "apps/audit-service/src/server.ts",
+      "baseline_sha256": "366975a3a25115ca961c00dc5a2f74c0eccd35efe717d5fb3c313c630e45cf38",
+      "candidate_sha256": "366975a3a25115ca961c00dc5a2f74c0eccd35efe717d5fb3c313c630e45cf38",
+      "unchanged": true
+    },
+    {
+      "path": "apps/audit-service/src/store.ts",
+      "baseline_sha256": "fcaf9b70af27c45307a05a9c994a9ed686b649a352038cdfa575f2fb6503a4ea",
+      "candidate_sha256": "fcaf9b70af27c45307a05a9c994a9ed686b649a352038cdfa575f2fb6503a4ea",
+      "unchanged": true
+    },
+    {
+      "path": "apps/audit-service/src/worker.ts",
+      "baseline_sha256": "1e207586ac5dc44402584aa0abe12630f6d0b288bae415894c198eb0e4fe4b8d",
+      "candidate_sha256": "1e207586ac5dc44402584aa0abe12630f6d0b288bae415894c198eb0e4fe4b8d",
+      "unchanged": true
+    },
+    {
+      "path": "ops/dev/BASE_IMAGE_DIGESTS.json",
+      "baseline_sha256": "af4e2dfd54887cf8ff7c97651ca82f34dbb8b8ee4d089dd2a1e3664aa6b989f7",
+      "candidate_sha256": "af4e2dfd54887cf8ff7c97651ca82f34dbb8b8ee4d089dd2a1e3664aa6b989f7",
+      "unchanged": true
+    },
+    {
+      "path": "ops/dev/HUMAN_PLUGIN_ARTIFACT.md",
+      "baseline_sha256": "868022a6881b997b4f6e7571d8a156e1ae05866395772c59dd54d0d3ef2a671c",
+      "candidate_sha256": "868022a6881b997b4f6e7571d8a156e1ae05866395772c59dd54d0d3ef2a671c",
+      "unchanged": true
+    },
+    {
+      "path": "ops/dev/README.md",
+      "baseline_sha256": "aebc2866fc3af376bfce2e4e04d5a0c1723f3eb00f0da117bcb96a13bf87d2c0",
+      "candidate_sha256": "aebc2866fc3af376bfce2e4e04d5a0c1723f3eb00f0da117bcb96a13bf87d2c0",
+      "unchanged": true
+    },
+    {
+      "path": "ops/dev/ROOT_TRUST_TRANSITION.md",
+      "baseline_sha256": "40e8fb9bbd19e008769f6b5d2641544cb71f4e7575900f37262ec8db0570562a",
+      "candidate_sha256": "40e8fb9bbd19e008769f6b5d2641544cb71f4e7575900f37262ec8db0570562a",
+      "unchanged": true
+    },
+    {
+      "path": "ops/dev/SECURITY_REVIEW_BUNDLE.md",
+      "baseline_sha256": "7bc24cead10faf6085a2382676f444dc3870b1141b7fd4ac1d3f5df7d9142fdf",
+      "candidate_sha256": "7bc24cead10faf6085a2382676f444dc3870b1141b7fd4ac1d3f5df7d9142fdf",
+      "unchanged": true
+    },
+    {
+      "path": "ops/dev/SECURITY_REVIEW_BUNDLE_V3.md",
+      "baseline_sha256": "1c584c96d5ccdb2d8234371afb91443c4ac3d3631c859a4687856b7e2547d07f",
+      "candidate_sha256": "1c584c96d5ccdb2d8234371afb91443c4ac3d3631c859a4687856b7e2547d07f",
+      "unchanged": true
+    },
+    {
+      "path": "ops/dev/SECURITY_REVIEW_SHA256SUMS",
+      "baseline_sha256": "d3c8da3d321299c7d14e70420818e94a91fccc2f32968f63776731b7381f9cf4",
+      "candidate_sha256": "d3c8da3d321299c7d14e70420818e94a91fccc2f32968f63776731b7381f9cf4",
+      "unchanged": true
+    },
+    {
+      "path": "ops/dev/SECURITY_REVIEW_SHA256SUMS_V3",
+      "baseline_sha256": "fe075fbf6194832151d243bd91ddac5ef8aaca109349557b2199bfa44b7d4482",
+      "candidate_sha256": "fe075fbf6194832151d243bd91ddac5ef8aaca109349557b2199bfa44b7d4482",
+      "unchanged": true
+    },
+    {
+      "path": "ops/dev/deploy-dev.sh",
+      "baseline_sha256": "9e2d02f9cfddf4176b4380ac18e0f85c48ab649c67b91144cf7c0ce98931bc1a",
+      "candidate_sha256": "9e2d02f9cfddf4176b4380ac18e0f85c48ab649c67b91144cf7c0ce98931bc1a",
+      "unchanged": true
+    },
+    {
+      "path": "ops/dev/deploy_controller.py",
+      "baseline_sha256": "1a0b509e14777329932771fe5332d05798f368e0788220256b5de9403f72dc54",
+      "candidate_sha256": "029c5d5714a13fbdd3565901bdc08341e36319c1ab90cf30ea6d4ab7e58c4039",
+      "unchanged": false
+    },
+    {
+      "path": "ops/dev/gcreation-perf-dev-deploy.path",
+      "baseline_sha256": "8e39f174d037edb19df62495b55dd68fc20ea8bf563689308bd52d306d5f3f49",
+      "candidate_sha256": "8e39f174d037edb19df62495b55dd68fc20ea8bf563689308bd52d306d5f3f49",
+      "unchanged": true
+    },
+    {
+      "path": "ops/dev/gcreation-perf-dev-deploy.service",
+      "baseline_sha256": "70ed8af8ce3867c3c199b150cbd00f910a22fc68c88e7e74668dcbe6f4968440",
+      "candidate_sha256": "70ed8af8ce3867c3c199b150cbd00f910a22fc68c88e7e74668dcbe6f4968440",
+      "unchanged": true
+    },
+    {
+      "path": "ops/dev/gcreation-perf-dev.slice",
+      "baseline_sha256": "5e0d7042c1fc99ad74dde521ab38fc6ced81d6204abc874723453f30c3ee9a4b",
+      "candidate_sha256": "5e0d7042c1fc99ad74dde521ab38fc6ced81d6204abc874723453f30c3ee9a4b",
+      "unchanged": true
+    },
+    {
+      "path": "ops/dev/install-reviewed-plugin.py",
+      "baseline_sha256": "97f3e250360470c96b13991dcc9e0e4e184819a198bdb3c3595415334c1b1098",
+      "candidate_sha256": "97f3e250360470c96b13991dcc9e0e4e184819a198bdb3c3595415334c1b1098",
+      "unchanged": true
+    },
+    {
+      "path": "ops/dev/install-root.sh",
+      "baseline_sha256": "aeb16e42a9ea90489e224531e6fe322ef200a76e3f5dc5e3d31c36aa287053a5",
+      "candidate_sha256": "aeb16e42a9ea90489e224531e6fe322ef200a76e3f5dc5e3d31c36aa287053a5",
+      "unchanged": true
+    },
+    {
+      "path": "ops/dev/install_preflight.py",
+      "baseline_sha256": "04614b8dbaadcc4cd9a419078124273c6b12f3a75855bdba48406df613d1dee0",
+      "candidate_sha256": "04614b8dbaadcc4cd9a419078124273c6b12f3a75855bdba48406df613d1dee0",
+      "unchanged": true
+    },
+    {
+      "path": "ops/dev/nginx-dev.conf.example",
+      "baseline_sha256": "eaa0a325be0ae02a8c2cae2408486c4cde56150e7b3b173d123719213baadb69",
+      "candidate_sha256": "eaa0a325be0ae02a8c2cae2408486c4cde56150e7b3b173d123719213baadb69",
+      "unchanged": true
+    },
+    {
+      "path": "ops/dev/prepare_image.py",
+      "baseline_sha256": "af5bbbfe6440681031384567cca7105a5595865ac3754456a62cb1fb899c35c7",
+      "candidate_sha256": "af5bbbfe6440681031384567cca7105a5595865ac3754456a62cb1fb899c35c7",
+      "unchanged": true
+    },
+    {
+      "path": "ops/dev/review_archive.py",
+      "baseline_sha256": "ad271896a2caf80402d37daf4deac87436b3884e5e609dc65d96b06cc46f452f",
+      "candidate_sha256": "ad271896a2caf80402d37daf4deac87436b3884e5e609dc65d96b06cc46f452f",
+      "unchanged": true
+    },
+    {
+      "path": "ops/dev/runtime.Dockerfile",
+      "baseline_sha256": "b57d39dc4bb75e625c308841a3e71be23718f4e1dde1aab25b9d6b974939dc07",
+      "candidate_sha256": "b57d39dc4bb75e625c308841a3e71be23718f4e1dde1aab25b9d6b974939dc07",
+      "unchanged": true
+    },
+    {
+      "path": "ops/dev/seccomp_profile.json",
+      "baseline_sha256": "cc3e61cabda6bbc1e53e54d27ba4d55a9d3be829b6dd1a596f4a7b31b1cc7849",
+      "candidate_sha256": "cc3e61cabda6bbc1e53e54d27ba4d55a9d3be829b6dd1a596f4a7b31b1cc7849",
+      "unchanged": true
+    },
+    {
+      "path": "ops/dev/trusted/gateway.mjs",
+      "baseline_sha256": "d9616a205b5f7a7e2d11779a2a98a1a5367ec76d992b2d3b8bb51e5a25343c4c",
+      "candidate_sha256": "d9616a205b5f7a7e2d11779a2a98a1a5367ec76d992b2d3b8bb51e5a25343c4c",
+      "unchanged": true
+    },
+    {
+      "path": "ops/dev/trusted/tsconfig.json",
+      "baseline_sha256": "e32271ca4d7f7cc03655494ef20943305e92c16cfdc42a5ab37e6d0a1e24b62c",
+      "candidate_sha256": "e32271ca4d7f7cc03655494ef20943305e92c16cfdc42a5ab37e6d0a1e24b62c",
+      "unchanged": true
+    },
+    {
+      "path": "packages/contracts/src/index.ts",
+      "baseline_sha256": "e7af2b88ede0d6db3b6a2067af45320a8151520053eba3e0b2a69428c71ce794",
+      "candidate_sha256": "e7af2b88ede0d6db3b6a2067af45320a8151520053eba3e0b2a69428c71ce794",
+      "unchanged": true
+    },
+    {
+      "path": "packages/discovery/src/index.ts",
+      "baseline_sha256": "dbc653505f9a81d4086b761acf76599e5af90c52086101a028bf8379d2153927",
+      "candidate_sha256": "dbc653505f9a81d4086b761acf76599e5af90c52086101a028bf8379d2153927",
+      "unchanged": true
+    },
+    {
+      "path": "packages/metrics/src/index.ts",
+      "baseline_sha256": "942eea3ab9046d13282a6650062e7866346036687162045a9d5376436ac1005f",
+      "candidate_sha256": "942eea3ab9046d13282a6650062e7866346036687162045a9d5376436ac1005f",
+      "unchanged": true
+    },
+    {
+      "path": "packages/report-engine/src/index.ts",
+      "baseline_sha256": "f249aa981e930dbd0262a0157a3152ade01f99dc927a8a9991bdadc4c2f36c9b",
+      "candidate_sha256": "f249aa981e930dbd0262a0157a3152ade01f99dc927a8a9991bdadc4c2f36c9b",
+      "unchanged": true
+    },
+    {
+      "path": "packages/rules/src/index.ts",
+      "baseline_sha256": "b2f82c459cf7a676d0352a167a8c67a0820c34e40eeca4adbdcf1fc439eabc80",
+      "candidate_sha256": "b2f82c459cf7a676d0352a167a8c67a0820c34e40eeca4adbdcf1fc439eabc80",
+      "unchanged": true
+    },
+    {
+      "path": "packages/rules/src/recommendations.ts",
+      "baseline_sha256": "d70e788dbdeee5ece4c7fbed500564227244a6bbf8984614dec709533f67b33b",
+      "candidate_sha256": "d70e788dbdeee5ece4c7fbed500564227244a6bbf8984614dec709533f67b33b",
+      "unchanged": true
+    },
+    {
+      "path": "packages/scanner/src/index.ts",
+      "baseline_sha256": "2b6bf93b6fa541c12e86d5f8f0477ef9cf2795742a42e668fece9788c490ef38",
+      "candidate_sha256": "2b6bf93b6fa541c12e86d5f8f0477ef9cf2795742a42e668fece9788c490ef38",
+      "unchanged": true
+    },
+    {
+      "path": "packages/scanner/src/proxy-main.ts",
+      "baseline_sha256": "4d071d5d2e2de572a35cfce4ba6731f20096216bee23c675fc3b850a955bc242",
+      "candidate_sha256": "4d071d5d2e2de572a35cfce4ba6731f20096216bee23c675fc3b850a955bc242",
+      "unchanged": true
+    },
+    {
+      "path": "packages/scanner/src/proxy.ts",
+      "baseline_sha256": "11ee85b1d93f4fe1df931e61397d7bac65d4af59dd6bf35626bb17e90e9e32f9",
+      "candidate_sha256": "11ee85b1d93f4fe1df931e61397d7bac65d4af59dd6bf35626bb17e90e9e32f9",
+      "unchanged": true
+    },
+    {
+      "path": "packages/shared/src/auth.ts",
+      "baseline_sha256": "ec7570462826be1a70027d64a6d3e891135380b1212fb18f74a0ac864db9c739",
+      "candidate_sha256": "ec7570462826be1a70027d64a6d3e891135380b1212fb18f74a0ac864db9c739",
+      "unchanged": true
+    },
+    {
+      "path": "packages/shared/src/pricing.ts",
+      "baseline_sha256": "68622eb8540f805bcb76d98c967007d4aa35d1d635df189aaee596189e2233ae",
+      "candidate_sha256": "68622eb8540f805bcb76d98c967007d4aa35d1d635df189aaee596189e2233ae",
+      "unchanged": true
+    },
+    {
+      "path": "packages/shared/src/security.ts",
+      "baseline_sha256": "659ba25a3fcc7d5b048c2a64d080885ac5af2c0fb89261bf506e60b1a0bd6115",
+      "candidate_sha256": "659ba25a3fcc7d5b048c2a64d080885ac5af2c0fb89261bf506e60b1a0bd6115",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/bootstrap-toolchain.sh",
+      "baseline_sha256": "252f1c021338355bce8f133160500991c8cef8718440ecd3a875b487c19e9917",
+      "candidate_sha256": "252f1c021338355bce8f133160500991c8cef8718440ecd3a875b487c19e9917",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/check_dev.py",
+      "baseline_sha256": "8cd0a997237d62bfc0d743ae6244a3316b5f32a958c2438d0b14e6604cd0b6c8",
+      "candidate_sha256": "8cd0a997237d62bfc0d743ae6244a3316b5f32a958c2438d0b14e6604cd0b6c8",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/npm-dev.sh",
+      "baseline_sha256": "4af0d0a4b27f113f3935b9e650f94d9f3813d372b6e9417623025c7e602be7a2",
+      "candidate_sha256": "4af0d0a4b27f113f3935b9e650f94d9f3813d372b6e9417623025c7e602be7a2",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/repo-git.sh",
+      "baseline_sha256": "4dbdff02b170ea7c3503492da3a7ee2794620a1283b3e6c392c6fb418bd0f583",
+      "candidate_sha256": "4dbdff02b170ea7c3503492da3a7ee2794620a1283b3e6c392c6fb418bd0f583",
+      "unchanged": true
+    },
+    {
+      "path": "wordpress/gcreation-performance/app.css",
+      "baseline_sha256": "a56b21016335c7f628f4b06380dd128f71a60b9461d1266d8c056484e7bf6dd9",
+      "candidate_sha256": "a56b21016335c7f628f4b06380dd128f71a60b9461d1266d8c056484e7bf6dd9",
+      "unchanged": true
+    },
+    {
+      "path": "wordpress/gcreation-performance/app.js",
+      "baseline_sha256": "15fb16bc7c1b29ca16fdd4272d72c804019d532f8230747c8e85e20ff8d68c66",
+      "candidate_sha256": "15fb16bc7c1b29ca16fdd4272d72c804019d532f8230747c8e85e20ff8d68c66",
+      "unchanged": true
+    },
+    {
+      "path": "wordpress/gcreation-performance/gcreation-performance.php",
+      "baseline_sha256": "132da547996114933da745bbc4e7b1c71a5c42bad1e9a0f61c340704cae56c88",
+      "candidate_sha256": "132da547996114933da745bbc4e7b1c71a5c42bad1e9a0f61c340704cae56c88",
+      "unchanged": true
+    },
+    {
+      "path": "package.json",
+      "baseline_sha256": "14f6784d17c750694d2fcbc676cb10ff33012cc889ef5a89d352f48c5c5d0d4d",
+      "candidate_sha256": "14f6784d17c750694d2fcbc676cb10ff33012cc889ef5a89d352f48c5c5d0d4d",
+      "unchanged": true
+    },
+    {
+      "path": "package-lock.json",
+      "baseline_sha256": "6f5d3ca53539410f8282f25742ce9b99b4d25e8009faf1e5c52ebd95b82214c9",
+      "candidate_sha256": "6f5d3ca53539410f8282f25742ce9b99b4d25e8009faf1e5c52ebd95b82214c9",
+      "unchanged": true
+    },
+    {
+      "path": "tsconfig.json",
+      "baseline_sha256": "9f733dfb33d29d0d925f5baca3113a64642f8e051fe902f77ad667182317005a",
+      "candidate_sha256": "9f733dfb33d29d0d925f5baca3113a64642f8e051fe902f77ad667182317005a",
+      "unchanged": true
+    },
+    {
+      "path": "docs/MASTER_PRODUCT_SPEC.md",
+      "baseline_sha256": "1ca3cf8953bf390f9810c5a7679bb7aa0a54b6b11c50680f00ec8db6d8ea53a0",
+      "candidate_sha256": "1ca3cf8953bf390f9810c5a7679bb7aa0a54b6b11c50680f00ec8db6d8ea53a0",
+      "unchanged": true
+    }
+  ],
+  "changed_privileged_or_security_sources": [
+    "ops/dev/deploy_controller.py"
+  ],
+  "boundary_changes": "NONE",
+  "audit_result": "PASS_LOCAL_STATIC",
+  "independent_review": "PENDING"
+}

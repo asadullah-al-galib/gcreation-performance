@@ -2,9 +2,9 @@
 
 ## Authority and current checkpoint
 
-This is the **single authoritative execution timeline**. Product intent remains docs/MASTER_PRODUCT_SPEC.md; original M0.1–M0.32 are preserved below. The later human governance request in docs/P0_GOVERNANCE_FREEZE_REQUEST.md controls sequencing, freezes and handoffs. MASTER_EXEC_PLAN.md is only the current-state ledger; ROADMAP.md is an index; REQUIREMENTS.md is the D01–D31 evidence cross-map.
+This is the **single authoritative execution timeline**. Product intent remains docs/MASTER_PRODUCT_SPEC.md; original M0.1–M0.32 are preserved below. The human governance request in docs/P0_GOVERNANCE_FREEZE_REQUEST.md controls the frozen P0 baseline; docs/P0_1_ORCHESTRATOR_AUTHORIZATION.md narrowly amends P1–P6 execution sequencing, while preserving independent review and all operator/security gates. MASTER_EXEC_PLAN.md is only the current-state ledger; ROADMAP.md is an index; REQUIREMENTS.md is the D01–D31 evidence cross-map.
 
-Current Part: P0. Completion state: FROZEN. Human review: PASS for approved governance commit 1c6303e0c17b04952ee6e9c8b01d6868e53fe152. Workflow state: FROZEN. Next allowed action: Explicit human start of P1. P1–P7: NOT_STARTED. V4 static security review: PASS, supplied by the human for implementation source 8217aa4a13c0265efd8cb81473dd7f00c68d2c34 and V4 handoff 5c44cb3549aebf02ddef84d8f4a04c5f82ae7f7d. Privileged DEV installation remains HOLD pending P1 explicit human start. Real runtime/deployment/E2E acceptance remains pending. Production is untouched. No automatic next-Part execution.
+Current Part: P1. Execution state: IN_PROGRESS under HUMAN_P0_1. Independent review: PENDING. P0 remains FROZEN / human review PASS for governance commit 1c6303e0c17b04952ee6e9c8b01d6868e53fe152, freeze record 999ade0ea2695e92c1365a09a3e13f87bd4ef758. P2–P7: NOT_STARTED. V4 static security: PASS for source 8217aa4a13c0265efd8cb81473dd7f00c68d2c34 / handoff 5c44cb3549aebf02ddef84d8f4a04c5f82ae7f7d. Privileged DEV installation: HOLD pending separate human/operator action. Runtime/deployment/E2E acceptance remains pending. Production is untouched. Current machine state: .ops/ORCHESTRATOR_STATUS.json.
 
 There are exactly eight Parts, P0–P7. No additional top-level Part may be created without explicit human approval. Existing implementation is reconciled and validated within these Parts; NOT_STARTED refers to the newly governed execution/acceptance cycle, not absence of previously written code.
 
@@ -58,8 +58,8 @@ Every original milestone has exactly one primary Part. Original intent is copied
 ## Fixed execution rules
 
 1. Work only one Part at a time.
-2. Do not begin the next Part until the current Part receives human-review PASS.
-3. A PASS Part becomes FROZEN; persist the decision and exact source/handoff/evidence identity.
+2. P0.1 grants one bounded P1–P6 execution authorization. Advance sequentially only after full technical exit evidence is persisted, no human/operator action or concrete blocker remains, and V4 boundaries are unchanged. Record EXECUTION_PASS with INDEPENDENT_REVIEW PENDING; Codex never grants human PASS/FROZEN. Stop at WAITING_FOR_HUMAN, SECURITY_REVIEW_REQUIRED, HARD_BLOCKED or P6_REVIEW_READY. P7 needs separate human authorization.
+3. Only recorded independent human review grants PASS/FROZEN; persist that decision and exact source/handoff/evidence identity. EXECUTION_PASS alone leaves independent review PENDING.
 4. Frozen Parts cannot be redesigned unless a later concrete defect proves a narrowly scoped repair necessary. Record the defect and affected baseline, preserve accepted boundaries, and obtain review of the repair; no reset/rewrite of valid history.
 5. Every Part has at most an initial implementation/validation cycle, repair cycle 1 and repair cycle 2.
 6. After two failed repair cycles, stop and report the concrete blocker. No endless redesign or retry loop.
@@ -72,13 +72,15 @@ Every original milestone has exactly one primary Part. Original intent is copied
 13. Commit/push only develop. Never modify main or discard valid accepted history.
 14. Preserve all accepted V4 security boundaries: immutable reviewed proxy/gateway/image; frozen manifests/dependencies; offline mutable builds; dedicated verified networks/membership; separated secrets; verified host deny; deterministic archive identity; reviewed root snapshot/clean isolated interpreters; human-only PHP/config.php mode 0600; health-only public nginx; SSRF/sandbox/resource/log/retention/rollback/concurrency controls.
 15. Human approval is required before root execution, privileged Docker installation, systemd installation, Plesk/nginx changes, WordPress plugin installation or WooCommerce manual configuration changing DEV. These are designated human/operator actions. Codex never gains root/escalation, Docker socket/group, Plesk-admin or direct production access from such approval.
-16. Codex must not autonomously start the next Part. Human PASS/FROZEN of the current Part is necessary but insufficient: an explicit human start of the next Part is also required.
+16. P1–P6 use the bounded P0.1 umbrella authorization in rule 2. P7 remains separately human-authorized. A pending operator or security gate forbids next-Part advancement.
 17. Timebox work to the current exit gate. Planning estimates below exclude external human wait time and are not measurements or promises. Bound each initial cycle to its estimated upper active-time limit; each repair cycle has at most that same upper limit. If the budget/exit gate cannot be met, report the exact blocker and seek a human decision; do not silently expand scope/time.
 18. No “while I am here” feature additions.
 
-Record cycle number, failing criterion/evidence and human decision in MASTER_EXEC_PLAN.md/.ops/ACTION_REQUIRED.md. A human-review wait is REVIEW_READY, not a fabricated technical blocker. Available independent work is limited to the current Part and current authorization. Static V4 PASS is a prerequisite, not P1 PASS or installation authorization.
+Record cycle number, failing criterion/evidence and human decision in MASTER_EXEC_PLAN.md/.ops/ACTION_REQUIRED.md. A human/operator wait is WAITING_FOR_HUMAN under P0.1, not a technical failure; repair cycles are not consumed by waiting. Available independent work is limited to the current Part and current authorization. Static V4 PASS is a prerequisite, not P1 PASS or installation authorization.
 
-## Project state machine
+## Independent acceptance state machine — frozen P0 model
+
+The diagram below describes independent acceptance and the original P0 workflow. P1–P6 execution now uses the separate P0.1 states below; this diagram never authorizes Codex to award human PASS/FROZEN.
 
 ```mermaid
 stateDiagram-v2
@@ -97,7 +99,13 @@ stateDiagram-v2
     HARD_BLOCKED --> HUMAN_DECISION: stop for human decision, no automatic retry
 ```
 
-Use the cycle ledger to disambiguate REVIEW_READY's outgoing failure path: initial failure → BLOCKED/REPAIR_1; repair 1 failure → REPAIR_2; repair 2 failure → HARD_BLOCKED/HUMAN_DECISION. HUMAN_DECISION is a terminal agent wait, not permission to reset counters or create a third repair cycle. A frozen-Part defect requires an explicit, evidenced repair decision; it does not reopen adjacent Parts. Human review is mandatory after every handoff, and the agent stops even when its own checks pass.
+Use the cycle ledger to disambiguate REVIEW_READY's outgoing failure path: initial failure → BLOCKED/REPAIR_1; repair 1 failure → REPAIR_2; repair 2 failure → HARD_BLOCKED/HUMAN_DECISION. HUMAN_DECISION is a terminal agent wait, not permission to reset counters or create a third repair cycle. A frozen-Part defect requires an explicit, evidenced repair decision; it does not reopen adjacent Parts. Independent review remains mandatory for human PASS/FROZEN. P0.1 allows sequential technical execution of P1–P6 before that review only under rule 2; operator/security gates still require a stop.
+
+## Orchestrated P1–P6 execution states
+
+Authoritative authorization and evidence schema: docs/P0_1_ORCHESTRATOR_AUTHORIZATION.md. .ops/ORCHESTRATOR_STATUS.json records IN_PROGRESS, SELF_REPAIR_1, SELF_REPAIR_2, EXECUTION_PASS, WAITING_FOR_HUMAN, SECURITY_REVIEW_REQUIRED, HARD_BLOCKED or P6_REVIEW_READY. Only an initial cycle and at most two repairs are allowed. The specific Part-exit instruction uses execution_state EXECUTION_PASS (rather than the introductory shorthand PASS); independent_review remains PENDING. Human evidence resumes the same Part without spending a repair. Any apparent need to change a frozen V4 boundary stops at SECURITY_REVIEW_REQUIRED before implementation.
+
+Each Part persists criterion-level REPORT.md, EVIDENCE.json and CHECKSUMS.sha256 under .ops/reports/<PART>/. Human gates additionally require HUMAN_ACTION_REQUIRED.md with the ten human-specified fields. Reports distinguish IMPLEMENTED, LOCAL_TESTED, REAL_DEV_VERIFIED, HUMAN_ATTESTED and NOT_VERIFIED. Evidence results are PASS, FAIL, PENDING_HUMAN or NOT_APPLICABLE; code presence never proves DEV PASS. No secrets or customer identifiers enter these files. P6 binds all identities/D01–D31 and .ops/FINAL_AUDIT_INDEX.md, sets P6_REVIEW_READY and stops.
 
 ## MVP SCOPE FREEZE
 
@@ -136,26 +144,26 @@ Any future Codex session must reject/defer these unless the human explicitly cha
 - **Dependencies:** The human P0 request and preserved V4 baseline/static decision.
 - **Allowed human actions:** Review P0 documentation and return an explicit governance PASS or concrete failing criterion. No install decision is requested in P0.
 - **Allowed Codex actions:** Read project/attachment/history; edit governance Markdown; run non-privileged documentation/integrity checks; commit/push develop; provide the exact P0 handoff and stop.
-- **Completion state:** FROZEN; human review PASS; workflow FROZEN. P1 remains NOT_STARTED awaiting explicit human start.
+- **Completion state:** FROZEN; human review PASS; workflow FROZEN. P1 is now separately authorized by P0.1; this does not reopen P0 or authorize operator actions.
 
 ## P1 — Security & DEV Deployment Foundation
 
 - **Purpose:** Prove the approved static foundation in the controlled DEV environment.
 - **Exact scope:** Reviewed artifact/root trust transition and frozen image/dependencies/proxy/gateway, separate credentials, dedicated verified networks, approved human installation/configuration, reproducible offline source build, internal/public health, bounded resources/status/rollback. Primary acceptance D24–D27; P5 rechecks effective limits/security under live work.
 - **Included original milestones:** M0.5–M0.7.
-- **Current status:** NOT_STARTED. Static security prerequisite PASS; real installation/runtime validation pending.
+- **Current status:** IN_PROGRESS under P0.1; independent review PENDING. Static security prerequisite PASS; real installation/runtime validation pending.
 - **Already implemented:** V4 kit, isolated toolchain, Fastify health and frozen security architecture at the approved source; no rebuild/redesign is authorized merely because live validation is pending.
 - **Only locally tested:** V4 boundary/socket tests, offline source gates, deterministic archive/hashes, mock deployment/rollback and loopback health.
 - **Requires real DEV validation:** Root-installed ownership/hash/image/dependency identity, network membership/egress boundary, secret placement0600, cgroups/seccomp/non-root/readonly/resource/log controls, actual offline build/deploy/status/health/rollback and stale-request refusal. No installation is inferred from static PASS.
-- **Exact entry criteria:** P0 human PASS/FROZEN; explicit human P1 start; preserved V4 approved commit/archive/hash; separate approval for each privileged human action; human-controlled root mechanism/configuration/DEV target authority and approved artifact available; no stale trigger. Review any later concrete security defect before implementation changes.
-- **Exact exit criteria:** Human-installed immutable reviewed components and frozen dependency baseline match approved hashes; every V4 network/secret/self-host/artifact/sandbox/resource boundary has direct sanitized runtime proof; offline constrained deploy reaches terminal successful status with archive/snapshot identity; internal/public GET health 200 with development/service/version identity; public business routes 404 and no browser master secret; controlled rollback/retention verified; D24–D27 evidence recorded without promoting later E2E criteria. Human P1 review PASS/FROZEN, then stop.
+- **Exact entry criteria:** P0 human PASS/FROZEN; P0.1 umbrella authorization for unprivileged preparation; preserved V4 approved commit/archive/hash; separate approval for each privileged human action; human-controlled root mechanism/configuration/DEV target authority and approved artifact available; no stale trigger. Review any later concrete security defect before implementation changes.
+- **Exact exit criteria:** Human-installed immutable reviewed components and frozen dependency baseline match approved hashes; every V4 network/secret/self-host/artifact/sandbox/resource boundary has direct sanitized runtime proof; offline constrained deploy reaches terminal successful status with archive/snapshot identity; internal/public GET health 200 with development/service/version identity; public business routes 404 and no browser master secret; controlled rollback/retention verified; D24–D27 evidence recorded without promoting later E2E criteria. Record P1 EXECUTION_PASS / independent review PENDING only when all technical criteria pass; persist report/evidence/checksums and advance to P2 only under P0.1 conditions.
 - **Evidence required:** Human attestation/output for privileged actions, reviewed hashes/image ID, sanitized ownership/network/container/cgroup inspections, dependency rejection/offline-build results, timestamped deployment/status/health/rollback observations. Never secrets, cookies or tokens.
-- **Explicit non-goals:** Autonomous root/Docker/systemd/Plesk actions; automatic PHP deployment; application feature expansion; scans of unrelated sites; production; P2 start.
+- **Explicit non-goals:** Autonomous root/Docker/systemd/Plesk actions; automatic PHP deployment; application feature expansion; scans of unrelated sites; production; P2 before full technical exit and cleared operator/security gates.
 - **Estimated execution time:** Initial active work 4–8 hours; each permitted repair at most 8 hours; human installation/review wait excluded.
 - **Dependencies:** P0 frozen; V4 static PASS and reviewed artifact; designated human installer/DEV configuration. P2 cannot start with unverified containment.
 - **Allowed human actions:** After explicit approval, manually install reviewed kit/image/systemd and configure DEV nginx/environment; inspect runtime boundaries and authorize one controlled deployment/rollback validation. No WP deployment by the watcher.
 - **Allowed Codex actions:** Only explicitly authorized ordinary-user artifact/request/status/loopback and DEV-health validation through the installed mechanism; gather readable evidence; scoped repairs/tests within P1 authority; develop commit/push/handoff. Never Docker socket/root/operator commands.
-- **Completion state:** NOT_STARTED; workflow NOT_STARTED.
+- **Completion state:** IN_PROGRESS; execution IN_PROGRESS; independent review PENDING; repair cycle 0.
 
 ## P2 — Audit Engine Live Validation
 
@@ -166,14 +174,14 @@ Any future Codex session must reject/defer these unless the human explicitly cha
 - **Already implemented:** Migrations/jobs/admission/queues, bounded inventory and classification, scanner/Lighthouse adapters, observed-only normalized metrics,16 deterministic rules, persisted progress/report surfaces.
 - **Only locally tested:** SQLite reopen/concurrency, mocked scanner success/failure/cleanup, controlled DNS/redirect/discovery/metrics/rules/API/SSE fixtures. Actual Lighthouse is not proved by compilation.
 - **Requires real DEV validation:** Authorized browser/Lighthouse traffic through trusted egress, actual measured/stored values and findings, sitemap/product representative discovery, single heavy browser job, honest queue/progress/partial-failure output and cleanup.
-- **Exact entry criteria:** P1 human PASS/FROZEN plus explicit P2 start; proven containment/runtime/health; approved separate public read-only fixture with sitemap/product/redirect cases; safe resource budget and evidence retention rules.
-- **Exact exit criteria:** Controlled free/home/product/representative audits complete; migrations/jobs survive restart and retain one running browser job; all DNS/redirect/subresources/Lighthouse enforcement holds; metrics contain measured values or explicitly unknown fields; stored findings match captured measurements/thresholds; real events/free-report API and crash/timeout cleanup observed; D04–D13 and engine contributions documented. Human P2 review PASS/FROZEN, then stop.
+- **Exact entry criteria:** P1 EXECUTION_PASS with persisted complete technical evidence and no pending operator/security/blocker gate; P0.1 umbrella authorization; proven containment/runtime/health; approved separate public read-only fixture with sitemap/product/redirect cases; safe resource budget and evidence retention rules.
+- **Exact exit criteria:** Controlled free/home/product/representative audits complete; migrations/jobs survive restart and retain one running browser job; all DNS/redirect/subresources/Lighthouse enforcement holds; metrics contain measured values or explicitly unknown fields; stored findings match captured measurements/thresholds; real events/free-report API and crash/timeout cleanup observed; D04–D13 and engine contributions documented. Record P2 EXECUTION_PASS / independent review PENDING only when all technical criteria pass; persist report/evidence/checksums and advance to P3 only under P0.1 conditions.
 - **Evidence required:** Exact deployed source/archive/snapshot, fixture authorization, timestamps/job IDs, sanitized measurements/DB rows/events/limits/cleanup observations and focused regression outputs. Never fabricated progress or invented causes.
-- **Explicit non-goals:** Customer site optimization, paid AI, scanning arbitrary customers, speculative engine replacement/new infrastructure, WP/commerce configuration, production, P3 start.
+- **Explicit non-goals:** Customer site optimization, paid AI, scanning arbitrary customers, speculative engine replacement/new infrastructure, WP/commerce configuration, production; P3 before full technical exit and cleared operator/security gates.
 - **Estimated execution time:** Initial active work 6–12 hours; each permitted repair at most 12 hours; fixture/human wait excluded.
 - **Dependencies:** P1 frozen/proven runtime and authorized fixture. All rule explanations remain deterministic/replaceable.
 - **Allowed human actions:** Authorize fixture and controlled scans; provide sanitized runtime/browser inspection and bounded resource observations; approve any necessary scoped frozen-boundary repair separately.
-- **Allowed Codex actions:** Ordinary-user app-visible scans/status/metrics and focused local tests/repairs within P2; readable evidence; develop commit/push/handoff. No privileged execution or automatic P3.
+- **Allowed Codex actions:** Ordinary-user app-visible scans/status/metrics and focused local tests/repairs within P2; readable evidence; develop commit/push/handoff. No privileged execution; advance to P3 only under P0.1 conditions.
 - **Completion state:** NOT_STARTED; workflow NOT_STARTED.
 
 ## P3 — WordPress Customer Flow
@@ -185,12 +193,12 @@ Any future Codex session must reject/defer these unless the human explicitly cha
 - **Already implemented:** Plugin/nonce/session gateway and admin foundation, JS UI/progress/free reports, bounded inventory count, tier/package selection, WooCommerce hooks/metadata/idempotency foundations.
 - **Only locally tested:** jsdom rendering/escaping/token handling; server pricing/tamper boundary fixtures; PHP lint and stubbed commerce/session/security contract. No activated WordPress proof.
 - **Requires real DEV validation:** Actual approved plugin activation/readability, page/session/nonce isolation, real free flow/progress/report and pricing boundary behavior, BDT/manual DEV WooCommerce checkout and protected master-secret transport.
-- **Exact entry criteria:** P2 human PASS/FROZEN plus explicit P3 start; approved human-only plugin commit/hash artifact; verified DEV PHP owner and config.php mode 0600; separate approval for plugin installation and DEV WooCommerce manual configuration; test/manual payment plan and fixture authorization.
-- **Exact exit criteria:** Customer submits controlled URL and sees real persisted progress/free report; dangerous submission refused; nonce/session ownership and escaping hold; size/tier/scope/mode/custom-review cases obey specification and server price; DEV checkout/order metadata match quote and session; browser has no master secret; D01/D06/D14–D17 live evidence recorded. Human P3 review PASS/FROZEN, then stop.
+- **Exact entry criteria:** P2 EXECUTION_PASS with persisted complete technical evidence and no pending operator/security/blocker gate; P0.1 umbrella authorization; approved human-only plugin commit/hash artifact; verified DEV PHP owner and config.php mode 0600; separate approval for plugin installation and DEV WooCommerce manual configuration; test/manual payment plan and fixture authorization.
+- **Exact exit criteria:** Customer submits controlled URL and sees real persisted progress/free report; dangerous submission refused; nonce/session ownership and escaping hold; size/tier/scope/mode/custom-review cases obey specification and server price; DEV checkout/order metadata match quote and session; browser has no master secret; D01/D06/D14–D17 live evidence recorded. Record P3 EXECUTION_PASS / independent review PENDING only when all technical criteria pass; persist report/evidence/checksums and advance to P4 only under P0.1 conditions.
 - **Evidence required:** Separate plugin approval/hash and human install/config attestation, sanitized browser/session/order observations, real report/count/price records, negative session/tamper checks and focused tests. No live payment secrets.
-- **Explicit non-goals:** Autonomous PHP installation or watcher PHP updates, live payment configuration, additional dashboards/customer features, production, P4 start.
+- **Explicit non-goals:** Autonomous PHP installation or watcher PHP updates, live payment configuration, additional dashboards/customer features, production; P4 before full technical exit and cleared operator/security gates.
 - **Estimated execution time:** Initial active work 6–12 hours; each permitted repair at most 12 hours; human plugin/commerce wait excluded.
-- **Dependencies:** P2 frozen; WP/WooCommerce human configuration and approved artifact; root security kit remains frozen.
+- **Dependencies:** P2 EXECUTION_PASS and complete retained technical evidence; WP/WooCommerce human configuration and approved artifact; root security kit remains frozen.
 - **Allowed human actions:** Explicitly approved DEV plugin installation/activation as verified PHP owner; DEV page/BDT/manual-payment configuration; controlled checkout actions and sanitized evidence.
 - **Allowed Codex actions:** Ordinary-user browser/API verification of authorized flow; plugin/UI/business-source scoped repairs and tests within P3; prepare separately reviewed artifacts, commit/push/handoff; no direct WP/Plesk/privileged installation.
 - **Completion state:** NOT_STARTED; workflow NOT_STARTED.
@@ -204,10 +212,10 @@ Any future Codex session must reject/defer these unless the human explicitly cha
 - **Already implemented:** Unique paid order/job lifecycle, token hashes/order/contact authorization, fix evidence/templates/claim states, bounded retest reuse/comparison, expert tasks/requests/admin states, typed analytics/resource sampling.
 - **Only locally tested:** Controlled orders/payments/tokens/claim/retest/expert/admin/analytics API fixtures and jsdom report access; scanner measurements are injected.
 - **Requires real DEV validation:** Human-approved manual test payment creates exactly one actual paid audit, secure report delivery/access denial, customer Fix Center/retest and measured before-after, expert reuse/admin controls and authentic labeled DEV events/resource records.
-- **Exact entry criteria:** P3 human PASS/FROZEN plus explicit P4 start; real free/checkout flow and approved test payment procedure; controlled fixture and authorized test identities; P1/P2 security/measurement baseline unchanged.
-- **Exact exit criteria:** Repeated test payment callbacks create one paid audit; correct token/order/contact/session required and rate limits observed; Fix Center evidence/claim distinction holds; retest restricted/idempotent and comparisons measured; expert requests reuse evidence and state verification is enforced; D18–D22 recorded from actual labeled controlled DEV journeys. D22 proves instrumentation with real DEV activity, not a fabricated100-customer cohort. Human P4 review PASS/FROZEN, then stop.
+- **Exact entry criteria:** P3 EXECUTION_PASS with persisted complete technical evidence and no pending operator/security/blocker gate; P0.1 umbrella authorization; real free/checkout flow and approved test payment procedure; controlled fixture and authorized test identities; P1/P2 security/measurement baseline unchanged.
+- **Exact exit criteria:** Repeated test payment callbacks create one paid audit; correct token/order/contact/session required and rate limits observed; Fix Center evidence/claim distinction holds; retest restricted/idempotent and comparisons measured; expert requests reuse evidence and state verification is enforced; D18–D22 recorded from actual labeled controlled DEV journeys. D22 proves instrumentation with real DEV activity, not a fabricated100-customer cohort. Record P4 EXECUTION_PASS / independent review PENDING only when all technical criteria pass; persist report/evidence/checksums and advance to P5 only under P0.1 conditions.
 - **Evidence required:** Sanitized order/job/report identifiers, duplicate-hook results, authorization negatives, measured reports/retest comparisons/expert states, event/DB counts and resource observations. No secret-bearing links or customer contact values in logs.
-- **Explicit non-goals:** Paid AI, live payment secrets, automatic website changes, claiming a fixed checkbox verifies remediation, new customer accounts/features, production, P5 start.
+- **Explicit non-goals:** Paid AI, live payment secrets, automatic website changes, claiming a fixed checkbox verifies remediation, new customer accounts/features, production; P5 before full technical exit and cleared operator/security gates.
 - **Estimated execution time:** Initial active work 6–12 hours; each permitted repair at most 12 hours; human test-payment/review wait excluded.
 - **Dependencies:** P3 frozen and real engine measurements; approved manual payment and permitted expert test identities.
 - **Allowed human actions:** Approved DEV test-payment/order/admin operations; approve risky live-site changes separately if ever requested (none required by this Part); review sanitized report/expert behavior.
@@ -223,14 +231,14 @@ Any future Codex session must reject/defer these unless the human explicitly cha
 - **Already implemented:** Local tests and approved V4 security design; existing feature/resource/retention controls. Deployment observations have not established effective enforcement.
 - **Only locally tested:** Previously recorded46 Python/30 Node tests, PHP/quality/snapshot gates; runtime boundaries mocked or static, scanner fixtures injected.
 - **Requires real DEV validation:** End-to-end submit→progress→free→package→test order→paid→secure report→expert, retest; hostile subresources/redirect/rebinding where controlled; actual resource ceilings/pressure/waits/process cleanup/network isolation and log/artifact/privacy proof.
-- **Exact entry criteria:** P4 human PASS/FROZEN plus explicit P5 start; P1–P4 evidence identity and approved adversarial fixture; approved bounded failure/rollback/resource tests and sanitized human runtime inspection available.
-- **Exact exit criteria:** D01–D29 each PASS from direct current DEV evidence; all critical automated unit/integration/security/E2E gates pass for exact tested artifact; resource/queue/deadline/sandbox/network/secret controls hold under bounded success/error/crash/pressure cases; raw artifacts/logs/releases bounded; no production action; no unresolved failing criterion. D30/D31 remain final P6 release-ledger gates and are checked as readiness here, not preemptively claimed complete. Human P5 review PASS/FROZEN, then stop.
+- **Exact entry criteria:** P4 EXECUTION_PASS with persisted complete technical evidence and no pending operator/security/blocker gate; P0.1 umbrella authorization; P1–P4 evidence identity and approved adversarial fixture; approved bounded failure/rollback/resource tests and sanitized human runtime inspection available.
+- **Exact exit criteria:** D01–D29 each PASS from direct current DEV evidence; all critical automated unit/integration/security/E2E gates pass for exact tested artifact; resource/queue/deadline/sandbox/network/secret controls hold under bounded success/error/crash/pressure cases; raw artifacts/logs/releases bounded; no production action; no unresolved failing criterion. D30/D31 remain final P6 release-ledger gates and are checked as readiness here, not preemptively claimed complete. Record P5 EXECUTION_PASS / independent review PENDING only when all technical criteria pass; persist report/evidence/checksums and advance to P6 only under P0.1 conditions.
 - **Evidence required:** Per-D criterion timestamps/commands/output/IDs/measurements/limitations, deployed artifact hashes, sanitized human cgroup/network/process/secret-permission inspection, full controlled E2E and regression results; exact blockers follow the two-repair policy.
-- **Explicit non-goals:** Acceptance by mock alone, unrelated stress/load testing, unapproved frozen-Part redesign, speculative features/infrastructure, production, P6 start.
+- **Explicit non-goals:** Acceptance by mock alone, unrelated stress/load testing, unapproved frozen-Part redesign, speculative features/infrastructure, production; P6 before full technical exit and cleared operator/security gates.
 - **Estimated execution time:** Initial active work 8–16 hours; each permitted repair at most 16 hours; human/fixture wait excluded.
-- **Dependencies:** P4 frozen and retained prior Part evidence; human runtime inspections and safe test authority.
+- **Dependencies:** P4 EXECUTION_PASS and retained complete prior Part evidence; human runtime inspections and safe test authority.
 - **Allowed human actions:** Approve/perform necessary bounded DEV fault/resource/operator observations; confirm no production changes and containment evidence; review the full acceptance matrix.
-- **Allowed Codex actions:** Authorized non-privileged E2E/security checks and evidence; smallest concrete scoped repair with focused regressions; develop commit/push/handoff; no host security changes/root/Docker or automatic release Part.
+- **Allowed Codex actions:** Authorized non-privileged E2E/security checks and evidence; smallest concrete scoped repair with focused regressions; develop commit/push/handoff; no host security changes/root/Docker; P6 advancement only after the complete P5 technical gate under P0.1.
 - **Completion state:** NOT_STARTED; workflow NOT_STARTED.
 
 ## P6 — DEV Release Candidate
@@ -242,12 +250,12 @@ Any future Codex session must reject/defer these unless the human explicitly cha
 - **Already implemented:** Source/export/hash tools and local release preparation foundation; prior develop commits are not a completed DEV RC.
 - **Only locally tested:** Previous source reproducibility/hash/commit/push and mock rollback, not a live RC release decision.
 - **Requires real DEV validation:** Match reviewed deployed candidate to P5 evidence; final current health/runtime/plugin/ledger identity, safe reproducibility and retained rollback compatibility.
-- **Exact entry criteria:** P5 human PASS/FROZEN plus explicit P6 start; all D01–D29 live PASS and no unresolved defect; reviewed source/plugin identities and final candidate evidence available.
-- **Exact exit criteria:** All D01–D31 PASS for exact DEV candidate; final accepted state ledger matches deployed/source/plugin identities; develop committed/pushed/clean and main/production untouched; complete RC handoff/rollback evidence; human DEV RC review PASS/FROZEN. Stop; do not publish production or start customers automatically.
-- **Evidence required:** Exact commits/archives/SHA/snapshot and installed plugin identity, final per-D evidence cross-map, remote develop equality/clean tree, health/rollback/reproducibility observations and human RC decision.
+- **Exact entry criteria:** P5 EXECUTION_PASS with persisted complete technical evidence and no pending operator/security/blocker gate; P0.1 umbrella authorization; all D01–D29 live PASS and no unresolved defect; reviewed source/plugin identities and final candidate evidence available.
+- **Exact exit criteria:** All D01–D31 PASS for exact DEV candidate; final accepted state ledger matches deployed/source/plugin identities; develop committed/pushed/clean and main/production untouched; complete RC handoff/rollback evidence; persist P6 report/evidence/checksums and FINAL_AUDIT_INDEX, record execution EXECUTION_PASS / independent review PENDING, set P6_REVIEW_READY and stop. Do not publish production or start P7.
+- **Evidence required:** Exact commits/archives/SHA/snapshot and installed plugin identity, final per-D evidence cross-map, remote develop equality/clean tree, health/rollback/reproducibility observations and independent human RC review remains PENDING until actually supplied.
 - **Explicit non-goals:** Production release/main merge, new features, scaling, bypassing missing evidence, P7 start.
 - **Estimated execution time:** Initial active work 2–4 hours; each permitted repair at most 4 hours; human RC review wait excluded.
-- **Dependencies:** P5 frozen and current complete DEV evidence; no implementation rewrite is planned for packaging.
+- **Dependencies:** P5 EXECUTION_PASS and current complete DEV evidence; no implementation rewrite is planned for packaging.
 - **Allowed human actions:** Review/accept exact DEV release candidate; approve any needed controlled DEV artifact step separately; explicitly decide whether to start P7.
 - **Allowed Codex actions:** Reconcile documentary/source identities, ordinary-user readable health/reproducibility evidence, develop-only commit/push and handoff; no production publish or privileged/operator action.
 - **Completion state:** NOT_STARTED; workflow NOT_STARTED.
@@ -271,9 +279,9 @@ Any future Codex session must reject/defer these unless the human explicitly cha
 - **Allowed Codex actions:** Authorized readonly scans through accepted runtime, aggregate existing evidence without secret leakage, report actual observed counts/limits and smallest concrete defect; scoped approved repair/develop handoff only. No expansion or autonomous production/customer-site action.
 - **Completion state:** NOT_STARTED; workflow NOT_STARTED.
 
-## Exact Part handoff and stop
+## Independent review handoff template and orchestrator stops
 
-The following is the required handoff structure. SOURCE COMMIT identifies the tested Part source; HANDOFF COMMIT identifies its review metadata, or the same commit for a governance-only single-commit handoff. Never insert a guessed/self-referencing Git ID. CURRENT PART STATE PASS means the agent's exit-criterion assessment, not human approval; the workflow stays REVIEW_READY until a human PASS is recorded. P0's initial review handoff used the separately specified P0 GOVERNANCE HANDOFF format with CURRENT STATE REVIEW_READY. Following human PASS, the final state-recording response uses the human-specified P0 FREEZE RECORD format and stops without starting P1.
+The following is the original independent-review handoff structure; P1–P6 execution uses the reports and human-gate/final response formats in P0.1. SOURCE COMMIT identifies the tested Part source; HANDOFF COMMIT identifies its review metadata, or the same commit for a governance-only single-commit handoff. Never insert a guessed/self-referencing Git ID. In the original independent-review workflow, CURRENT PART STATE PASS meant the agent's exit assessment, not human approval, and REVIEW_READY awaited human review. Under P0.1, use EXECUTION_PASS with INDEPENDENT_REVIEW PENDING; never treat it as human PASS/FROZEN. P0's initial review handoff used the separately specified P0 GOVERNANCE HANDOFF format with CURRENT STATE REVIEW_READY. Following human PASS, the final state-recording response uses the human-specified P0 FREEZE RECORD format and stops without starting P1.
 
 ```text
 PART:
@@ -308,4 +316,4 @@ NEXT PART:
 DO NOT START UNTIL HUMAN REVIEW
 ```
 
-Codex must stop after the handoff. Human review of the current Part and explicit authorization to start the next Part are separate decisions. Missing human review is not permission, and static V4 approval is not a replacement for real acceptance evidence.
+For P1–P6, persist the report/evidence/checksums at every Part exit, use the P0.1 human-gate/final-chat formats and advance only under rule 2. Stop at operator/security/hard-blocked gates and at P6_REVIEW_READY. Independent review remains PENDING until supplied. P7 requires its separate explicit human authorization. Static V4 approval never replaces real acceptance evidence.

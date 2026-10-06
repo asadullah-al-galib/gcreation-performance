@@ -1,17 +1,17 @@
 # Current execution ledger
 
-Authoritative execution order: [PROJECT_TIMELINE.md](PROJECT_TIMELINE.md). Product intent remains [docs/MASTER_PRODUCT_SPEC.md](docs/MASTER_PRODUCT_SPEC.md). The later [human P0 governance request](docs/P0_GOVERNANCE_FREEZE_REQUEST.md) controls sequencing and review gates. [REQUIREMENTS.md](REQUIREMENTS.md) is the D01–D31 evidence cross-map; [.ops/PROJECT_STATUS.md](.ops/PROJECT_STATUS.md) is the compact current status.
+Authoritative execution order: [PROJECT_TIMELINE.md](PROJECT_TIMELINE.md). Product intent remains [docs/MASTER_PRODUCT_SPEC.md](docs/MASTER_PRODUCT_SPEC.md). The frozen [P0 governance request](docs/P0_GOVERNANCE_FREEZE_REQUEST.md) is narrowly amended for P1–P6 execution by [P0.1](docs/P0_1_ORCHESTRATOR_AUTHORIZATION.md); operator/security gates and independent review remain separate. [REQUIREMENTS.md](REQUIREMENTS.md) is the D01–D31 evidence cross-map; [.ops/PROJECT_STATUS.md](.ops/PROJECT_STATUS.md) is the compact current status.
 
 ## Current gate
 
-P0 completion state is FROZEN; human review PASS for approved governance commit 1c6303e0c17b04952ee6e9c8b01d6868e53fe152. Workflow state is FROZEN. P1–P7 are NOT_STARTED. No automatic next-Part execution. Next allowed action: Explicit human start of P1. P1 also requires separate approval of its privileged human actions; this freeze record does not authorize them.
+P0 remains FROZEN / human review PASS at approved governance 1c6303e0c17b04952ee6e9c8b01d6868e53fe152 and freeze record 999ade0ea2695e92c1365a09a3e13f87bd4ef758. P0.1 authorizes sequential P1–P6 technical execution. Current Part P1: IN_PROGRESS, independent review PENDING, repair cycle 0. P2–P7 NOT_STARTED. Machine state: .ops/ORCHESTRATOR_STATUS.json. P0.1 grants one bounded P1–P6 execution authorization. Advance sequentially only after full technical exit evidence is persisted, no human/operator action or concrete blocker remains, and V4 boundaries are unchanged. Record EXECUTION_PASS with INDEPENDENT_REVIEW PENDING; Codex never grants human PASS/FROZEN. Stop at WAITING_FOR_HUMAN, SECURITY_REVIEW_REQUIRED, HARD_BLOCKED or P6_REVIEW_READY. P7 needs separate human authorization.
 
-V4 static security review: **PASS**, as supplied by the human in the P0 request. This approves static security design and controlled DEV installation preparation only. Installation: **HOLD pending P1 explicit human start**. DEV installation/runtime/browser/Lighthouse/WordPress/WooCommerce/E2E acceptance remains pending. Production is untouched.
+V4 static security: PASS. Privileged DEV installation: HOLD pending separate human/operator installation/configuration. Real DEV/runtime/E2E acceptance is NOT_VERIFIED. Production untouched.
 
 | Part | Completion state | Workflow state | Cycle record                              |
 | ---- | ---------------- | -------------- | ----------------------------------------- |
 | P0   | FROZEN           | FROZEN         | Human PASS; repair 1/repair 2 not used      |
-| P1   | NOT_STARTED      | NOT_STARTED    | No cycle started                          |
+| P1   | IN_PROGRESS      | IN_PROGRESS    | Initial cycle; independent review PENDING |
 | P2   | NOT_STARTED      | NOT_STARTED    | No cycle started                          |
 | P3   | NOT_STARTED      | NOT_STARTED    | No cycle started                          |
 | P4   | NOT_STARTED      | NOT_STARTED    | No cycle started                          |
@@ -51,6 +51,6 @@ P1: human-approved controlled installation and actual immutable-image/network/se
 
 ## Historical review facts — no current authorization
 
-V2 source 7887fca/handoff 826a622 and V3 source 10dcabfe/handoff 02edd2da were HOLD checkpoints. Their findings and review bundles remain unchanged historical evidence. V4 remediation source 8217aa4/handoff 5c44cb3 preserved prior work and subsequently received human static PASS. Older third/fourth-review stop/install instructions in historical bundles are historical. Current authorization comes only from PROJECT_TIMELINE.md and the P0 human gate, not an old continuation or installation recipe.
+V2 source 7887fca/handoff 826a622 and V3 source 10dcabfe/handoff 02edd2da were HOLD checkpoints. Their findings and review bundles remain unchanged historical evidence. V4 remediation source 8217aa4/handoff 5c44cb3 preserved prior work and subsequently received human static PASS. Older third/fourth-review stop/install instructions in historical bundles are historical. Current authorization comes from PROJECT_TIMELINE.md as amended by P0.1, not an old continuation or installation recipe.
 
-Next allowed action: Explicit human start of P1. Stop after this P0 freeze record. Do not start P1, write a deployment request, execute privileged components or change production.
+Next allowed action: P1 unprivileged preparation and exact artifact verification, then the minimum human/operator gate. No installation or deployment request before that gate is satisfied.

@@ -6,9 +6,9 @@ Start with [PROJECT_TIMELINE.md](PROJECT_TIMELINE.md), the single authoritative 
 
 ## Current checkpoint
 
-P0 governance: FROZEN; human review PASS for approved commit 1c6303e0c17b04952ee6e9c8b01d6868e53fe152. P1–P7: NOT_STARTED. V4 static security review: PASS for source 8217aa4a13c0265efd8cb81473dd7f00c68d2c34/handoff 5c44cb3549aebf02ddef84d8f4a04c5f82ae7f7d, as supplied by the human. Static design approval is not deployed acceptance. Privileged DEV installation remains HOLD pending explicit human P1 start; browser/Lighthouse/WordPress/WooCommerce/E2E remain pending.
+P0 governance: FROZEN; human review PASS for approved commit 1c6303e0c17b04952ee6e9c8b01d6868e53fe152. P1 execution IN_PROGRESS / independent review PENDING under P0.1; P2–P7: NOT_STARTED. V4 static security review: PASS for source 8217aa4a13c0265efd8cb81473dd7f00c68d2c34/handoff 5c44cb3549aebf02ddef84d8f4a04c5f82ae7f7d, as supplied by the human. Static design approval is not deployed acceptance. Privileged DEV installation remains HOLD pending separate human/operator installation/configuration; browser/Lighthouse/WordPress/WooCommerce/E2E remain pending.
 
-Next allowed action: Explicit human start of P1. Every Part stops at its handoff, requires human PASS/FROZEN, and needs an explicit human start before the next Part. No automatic next-Part execution. P0 is frozen. This final state-recording transaction changes governance documentation only, with no application/runtime/security-kit change or application suite rerun.
+Next allowed action: P1 unprivileged preparation, then the minimum human/operator gate. Independent review alone grants human PASS/FROZEN. Sequential P1–P6 execution follows docs/P0_1_ORCHESTRATOR_AUTHORIZATION.md; independent review remains PENDING, operator/security gates require a stop, and P7 requires separate human authorization. P0 is frozen. P0.1 changes governance only; it grants bounded technical execution without changing the V4 implementation.
 
 ## Existing development foundation — reference, not a P0 execution request
 
@@ -20,4 +20,4 @@ Approved V4 design: WordPress PHP holds ENGINE_SECRET and calls the trusted loca
 
 Original .git is read-only. scripts/repo-git.sh uses preserved writable metadata at .ops/git-metadata. Commit/push only develop; never modify main or reset valid history. Develop only inside /home/codexperf/projects/gcreation-performance.
 
-[Current human action](.ops/ACTION_REQUIRED.md) is an explicit human start of P1, which has not been given; no installation commands are authorized by this freeze record. [V4 DEV kit](ops/dev/README.md) and its archived review recipes are historical/static design evidence; they do not start P1 or authorize installation. Codex never executes root/Docker/systemd/Plesk/WordPress installation or production operations. Later privileged human actions require separate explicit approval. Scope freeze and maximum two repair cycles are defined in the timeline.
+[Current human action](.ops/ACTION_REQUIRED.md) is the separately approved P1 human installation/configuration gate; P0.1 grants preparation, not agent privilege. [V4 DEV kit](ops/dev/README.md) and its archived review recipes are historical/static design evidence; they do not start P1 or authorize installation. Codex never executes root/Docker/systemd/Plesk/WordPress installation or production operations. Later privileged human actions require separate explicit approval. Scope freeze and maximum two repair cycles are defined in the timeline.

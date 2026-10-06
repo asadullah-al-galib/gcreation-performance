@@ -1,12 +1,12 @@
 # gCreation Performance Doctor MVP v0.1 — persistent state
 
-## Current operational state — P0 FROZEN
+## Current operational state — P1 orchestrated preparation
 
-Execution authority: PROJECT_TIMELINE.md. P0 completion state FROZEN; human review PASS for approved governance commit 1c6303e0c17b04952ee6e9c8b01d6868e53fe152; workflow FROZEN. P1–P7 are NOT_STARTED. V4 static security review PASS was supplied by the human for source8217aa4a13c0265efd8cb81473dd7f00c68d2c34/handoff5c44cb3549aebf02ddef84d8f4a04c5f82ae7f7d. Static design approval does not prove DEV deployment/runtime/E2E.
+P0 remains FROZEN / human review PASS at governance commit 1c6303e0c17b04952ee6e9c8b01d6868e53fe152 and freeze record 999ade0ea2695e92c1365a09a3e13f87bd4ef758. P1 execution IN_PROGRESS; independent review PENDING; repair cycle 0. P2–P7 NOT_STARTED. P0.1 authorization: docs/P0_1_ORCHESTRATOR_AUTHORIZATION.md. Execution authority: PROJECT_TIMELINE.md; machine state: ORCHESTRATOR_STATUS.json; ledger: MASTER_EXEC_PLAN.md.
 
-Privileged DEV installation remains HOLD pending explicit human P1 start and approval of its human actions. Next allowed action: Explicit human start of P1. No automatic next-Part execution; stop at this documentation handoff. Production remains untouched. Current concise ledger: MASTER_EXEC_PLAN.md; acceptance: REQUIREMENTS.md; compact state: PROJECT_STATUS.md.
+V4 static security PASS remains tied to source 8217aa4a13c0265efd8cb81473dd7f00c68d2c34 / handoff 5c44cb3549aebf02ddef84d8f4a04c5f82ae7f7d. Privileged DEV installation HOLD pending separate human/operator action; runtime/E2E acceptance NOT_VERIFIED. Production untouched. P0.1 grants one bounded P1–P6 execution authorization. Advance sequentially only after full technical exit evidence is persisted, no human/operator action or concrete blocker remains, and V4 boundaries are unchanged. Record EXECUTION_PASS with INDEPENDENT_REVIEW PENDING; Codex never grants human PASS/FROZEN. Stop at WAITING_FOR_HUMAN, SECURITY_REVIEW_REQUIRED, HARD_BLOCKED or P6_REVIEW_READY. P7 needs separate human authorization.
 
-P0 preserves application/runtime/security kit and archived V4 evidence. No expensive application tests are rerun for governance-only changes. Historical ledger entries below describe their then-current state and commands, not current authorization or next steps.
+Historical entries below retain their then-current evidence and are not current authorization.
 
 ## Historical chronology — preserved, superseded by the current state above
 

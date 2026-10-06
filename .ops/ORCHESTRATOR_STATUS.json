@@ -56,7 +56,7 @@
   "hard_blocker": null,
   "production_touched": false,
   "p7": "NOT_STARTED",
-  "updated_at": "2026-10-06T04:14:07+00:00",
+  "updated_at": "2026-10-06T04:19:56+00:00",
   "p7_authorization": "SEPARATE_HUMAN_REQUIRED",
   "security_review": {
     "part": "P1",
@@ -65,6 +65,13 @@
     "repair_cycle_consumed": false,
     "failing_criterion": "P1-ROOT-01",
     "old_source_commit": "8217aa4a13c0265efd8cb81473dd7f00c68d2c34",
-    "reason": "prepare_image import writes bytecode before verify_snapshot, invalidating the reviewed snapshot file map"
+    "reason": "prepare_image import writes bytecode before verify_snapshot, invalidating the reviewed snapshot file map",
+    "candidate_source_commit": "08b395cf08523dbc5ab27f744d174b8a19bb2b4b",
+    "candidate_archive_path": "/home/codexperf/projects/gcreation-performance/.ops/test-artifacts/review-source-08b395cf08523dbc5ab27f744d174b8a19bb2b4b.tar.gz",
+    "proposed_archive_sha256": "80b206bf89d62f9a6b253970fea6a3a9cbe21b3106876e6e1e807df01a618929",
+    "source_manifest_sha256": "11b0c7507058a4fbd56e12398b96547ed7d2b9724153d05ecd44e747460a28d7",
+    "checksums_sha256": "fb7790603c4a2bf38479ff0734daeb9fe50d961df43b634a365d9f79f783f8b6",
+    "independent_review": "PENDING",
+    "installation_authorized": false
   }
 }

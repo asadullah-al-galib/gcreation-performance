@@ -1,0 +1,16 @@
+diff --git a/ops/dev/install-root.sh b/ops/dev/install-root.sh
+index 6cb3af4..c026748 100644
+--- a/ops/dev/install-root.sh
++++ b/ops/dev/install-root.sh
+@@ -28,9 +28,9 @@ for reviewed_unit in gcreation-perf-dev-deploy.service gcreation-perf-dev-deploy
+ done
+ install -d -o root -g root -m 0700 /var/lib/gcreation-perf-dev
+ # Freeze only verified reviewed manifests and trusted enforcement code.
+-/usr/bin/python3 -I "$KIT_DIR/prepare_image.py" prepare "$ROOT_SNAPSHOT" "$APPROVED_SHA" "$REVIEWED_COMMIT"
++/usr/bin/python3 -I -B "$KIT_DIR/prepare_image.py" prepare "$ROOT_SNAPSHOT" "$APPROVED_SHA" "$REVIEWED_COMMIT"
+ DOCKER_BUILDKIT=1 docker build -f "$DEST/build-context/runtime.Dockerfile" -t gcreation-perf-dev-runtime:0.1 "$DEST/build-context"
+-/usr/bin/python3 -I "$KIT_DIR/prepare_image.py" seal "$ROOT_SNAPSHOT" "$APPROVED_SHA" "$REVIEWED_COMMIT"
++/usr/bin/python3 -I -B "$KIT_DIR/prepare_image.py" seal "$ROOT_SNAPSHOT" "$APPROVED_SHA" "$REVIEWED_COMMIT"
+ # Recheck all preflight conditions, including no trigger, immediately before enable.
+ /usr/bin/python3 -I "$KIT_DIR/install_preflight.py" "$ROOT_SNAPSHOT" "$APPROVED_SHA" "$REVIEWED_COMMIT"
+ systemctl daemon-reload

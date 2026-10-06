@@ -1,0 +1,803 @@
+diff --git a/.ops/ACTION_REQUIRED.md b/.ops/ACTION_REQUIRED.md
+index 375dadb..4cad1e1 100644
+--- a/.ops/ACTION_REQUIRED.md
++++ b/.ops/ACTION_REQUIRED.md
+@@ -1,17 +1,14 @@
+ STATUS:
+-P1 WAITING_FOR_HUMAN — HUMAN ACTION REQUIRED
++P1 SECURITY_REVIEW_REQUIRED — MINIMAL REPAIR CANDIDATE ONLY
+ 
+-P0 remains FROZEN / human review PASS. P1 execution IN_PROGRESS / independent review PENDING; repair cycle0. P2–P7 NOT_STARTED. This is an operator wait, not a technical failure.
++P0 remains FROZEN / human review PASS. P1 execution IN_PROGRESS / independent review PENDING / repair_cycle0. P2–P7 NOT_STARTED. Preparing this candidate consumes no repair cycle.
+ 
+-ACTION FILE: [.ops/reports/P1/HUMAN_ACTION_REQUIRED.md](reports/P1/HUMAN_ACTION_REQUIRED.md)
++FAILING CRITERION: P1-ROOT-01, reviewed snapshot identity during privileged image preparation. Human reports original source 8217aa4a13c0265efd8cb81473dd7f00c68d2c34 / archive ecef5a23ef175096cc6312ca99dc0b306ecd76dc3cd4af8aca7de94c6e0443a7: preflight PASS, installer EXIT1, ValueError: Reviewed snapshot content mismatch. Generated snapshot/ops/dev/__pycache__/install_preflight.cpython-36.pyc. Exact partial-host record: reports/P1/security-repair/HOST_FAILURE.json (human attested, not agent inspected).
+ 
+-NEXT ALLOWED ACTION: Human separately reviews/approves and performs the exact V4 DEV installation/configuration, returns sanitized identity evidence, and explicitly approves or declines one constrained source deployment. Privileged DEV install HOLD until that human action. Codex stops; no request has been created.
++ROOT CAUSE: prepare_image imports install_preflight before verify_snapshot; -I does not disable import bytecode. Non-privileged fixture reproduces rejection. Proposed source repair adds -B only to the two prepare/seal interpreter invocations; verifier and all other privileged boundaries remain unchanged.
+ 
+-EXACT INSTALLATION SOURCE: 8217aa4a13c0265efd8cb81473dd7f00c68d2c34
+-ARCHIVE SHA-256: ecef5a23ef175096cc6312ca99dc0b306ecd76dc3cd4af8aca7de94c6e0443a7
+-V4 STATIC SECURITY: PASS; local artifact checks and5 targeted tests PASS; installed/runtime/E2E acceptance NOT_VERIFIED.
++REVIEW PACKAGE: [reports/P1/security-repair/REPORT.md](reports/P1/security-repair/REPORT.md). Candidate source/archive/manifest identities will be bound at its metadata handoff; no repair approval is implied.
+ 
+-REPORT/EVIDENCE/CHECKSUMS: .ops/reports/P1/
+-MACHINE STATE: .ops/ORCHESTRATOR_STATUS.json
++NEXT ALLOWED ACTION: Independent security review of this candidate. STOP. A review PASS, if later supplied, still requires separate human approval of fresh-stage recovery/installation. Earlier P1 installation procedure is superseded and must not be executed now. Existing root snapshot and copied installation remain untouched; no bytecode deletion, bypass or in-place snapshot repair.
+ 
+-P1–P6 advance only under docs/P0_1_ORCHESTRATOR_AUTHORIZATION.md after full technical evidence and cleared gates. Independent review remains PENDING; P7 requires separate authorization. Production/main/WordPress/WooCommerce untouched.
++V4 STATIC SECURITY: Original static design PASS remains historical; this installer-path amendment requires new security review. PRIVILEGED DEV INSTALL: HOLD. No deployment request, runtime installation, root/Docker/systemd/Plesk/nginx/WordPress operation or P2 start by Codex. Production/main untouched.
+diff --git a/.ops/ORCHESTRATOR_STATUS.json b/.ops/ORCHESTRATOR_STATUS.json
+index 47aa5f2..f18e8d9 100644
+--- a/.ops/ORCHESTRATOR_STATUS.json
++++ b/.ops/ORCHESTRATOR_STATUS.json
+@@ -3,7 +3,7 @@
+   "project": "gCreation Performance Doctor MVP v0.1",
+   "mode": "P1-P6_ORCHESTRATED",
+   "current_part": "P1",
+-  "state": "WAITING_FOR_HUMAN",
++  "state": "SECURITY_REVIEW_REQUIRED",
+   "authorization": "HUMAN_P0_1",
+   "authorization_reference": "docs/P0_1_ORCHESTRATOR_AUTHORIZATION.md",
+   "p0": "FROZEN",
+@@ -47,15 +47,24 @@
+   },
+   "human_gate": {
+     "part": "P1",
+-    "purpose": "Separately approved human V4 DEV installation/configuration and sanitized identity evidence",
++    "purpose": "Installation paused after snapshot bytecode mismatch; candidate requires independent security review, then separate recovery approval",
+     "action_file": ".ops/reports/P1/HUMAN_ACTION_REQUIRED.md",
+     "reviewed_source_commit": "8217aa4a13c0265efd8cb81473dd7f00c68d2c34",
+     "reviewed_archive_sha256": "ecef5a23ef175096cc6312ca99dc0b306ecd76dc3cd4af8aca7de94c6e0443a7",
+-    "status": "PENDING"
++    "status": "SUPERSEDED_BY_SECURITY_REVIEW"
+   },
+   "hard_blocker": null,
+   "production_touched": false,
+   "p7": "NOT_STARTED",
+-  "updated_at": "2026-10-06T03:31:48+00:00",
+-  "p7_authorization": "SEPARATE_HUMAN_REQUIRED"
++  "updated_at": "2026-10-06T04:14:07+00:00",
++  "p7_authorization": "SEPARATE_HUMAN_REQUIRED",
++  "security_review": {
++    "part": "P1",
++    "status": "REQUIRED",
++    "report": ".ops/reports/P1/security-repair/REPORT.md",
++    "repair_cycle_consumed": false,
++    "failing_criterion": "P1-ROOT-01",
++    "old_source_commit": "8217aa4a13c0265efd8cb81473dd7f00c68d2c34",
++    "reason": "prepare_image import writes bytecode before verify_snapshot, invalidating the reviewed snapshot file map"
++  }
+ }
+diff --git a/.ops/PROJECT_STATE.md b/.ops/PROJECT_STATE.md
+index dbd1256..2ebad52 100644
+--- a/.ops/PROJECT_STATE.md
++++ b/.ops/PROJECT_STATE.md
+@@ -2,9 +2,9 @@
+ 
+ ## Current operational state — P1 orchestrated preparation
+ 
+-P0 remains FROZEN / human review PASS at governance commit 1c6303e0c17b04952ee6e9c8b01d6868e53fe152 and freeze record 999ade0ea2695e92c1365a09a3e13f87bd4ef758. P1 execution IN_PROGRESS; workflow WAITING_FOR_HUMAN; independent review PENDING; repair cycle 0. P2–P7 NOT_STARTED. P0.1 authorization: docs/P0_1_ORCHESTRATOR_AUTHORIZATION.md. Execution authority: PROJECT_TIMELINE.md; machine state: ORCHESTRATOR_STATUS.json; ledger: MASTER_EXEC_PLAN.md.
++P0 remains FROZEN / human review PASS at governance commit 1c6303e0c17b04952ee6e9c8b01d6868e53fe152 and freeze record 999ade0ea2695e92c1365a09a3e13f87bd4ef758. P1 execution IN_PROGRESS; workflow SECURITY_REVIEW_REQUIRED; independent review PENDING; repair cycle 0. P2–P7 NOT_STARTED. P0.1 authorization: docs/P0_1_ORCHESTRATOR_AUTHORIZATION.md. Execution authority: PROJECT_TIMELINE.md; machine state: ORCHESTRATOR_STATUS.json; ledger: MASTER_EXEC_PLAN.md.
+ 
+-V4 static security PASS remains tied to source 8217aa4a13c0265efd8cb81473dd7f00c68d2c34 / handoff 5c44cb3549aebf02ddef84d8f4a04c5f82ae7f7d. Privileged DEV installation HOLD pending separate human/operator action at .ops/reports/P1/HUMAN_ACTION_REQUIRED.md; runtime/E2E acceptance NOT_VERIFIED. Production untouched. P0.1 grants one bounded P1–P6 execution authorization. Advance sequentially only after full technical exit evidence is persisted, no human/operator action or concrete blocker remains, and V4 boundaries are unchanged. Record EXECUTION_PASS with INDEPENDENT_REVIEW PENDING; Codex never grants human PASS/FROZEN. Stop at WAITING_FOR_HUMAN, SECURITY_REVIEW_REQUIRED, HARD_BLOCKED or P6_REVIEW_READY. P7 needs separate human authorization.
++V4 static security PASS remains tied to source 8217aa4a13c0265efd8cb81473dd7f00c68d2c34 / handoff 5c44cb3549aebf02ddef84d8f4a04c5f82ae7f7d. Privileged DEV installation HOLD pending independent repair security review and separate human recovery approval; package .ops/reports/P1/security-repair/REPORT.md; runtime/E2E acceptance NOT_VERIFIED. Production untouched. P0.1 grants one bounded P1–P6 execution authorization. Advance sequentially only after full technical exit evidence is persisted, no human/operator action or concrete blocker remains, and V4 boundaries are unchanged. Record EXECUTION_PASS with INDEPENDENT_REVIEW PENDING; Codex never grants human PASS/FROZEN. Stop at WAITING_FOR_HUMAN, SECURITY_REVIEW_REQUIRED, HARD_BLOCKED or P6_REVIEW_READY. P7 needs separate human authorization.
+ 
+ Historical entries below retain their then-current evidence and are not current authorization.
+ 
+diff --git a/.ops/PROJECT_STATUS.md b/.ops/PROJECT_STATUS.md
+index a74abd4..57b075e 100644
+--- a/.ops/PROJECT_STATUS.md
++++ b/.ops/PROJECT_STATUS.md
+@@ -5,7 +5,7 @@ CURRENT PART:
+ P1
+ 
+ STATE:
+-WAITING_FOR_HUMAN
++SECURITY_REVIEW_REQUIRED
+ 
+ AUTHORIZATION:
+ HUMAN_P0_1 — P1–P6_ORCHESTRATED
+@@ -32,13 +32,13 @@ STATIC SECURITY:
+ V4 PASS
+ 
+ PRIVILEGED DEV INSTALL:
+-HOLD — SEPARATE HUMAN/OPERATOR ACTION REQUIRED
++HOLD — SECURITY REVIEW AND SEPARATE RECOVERY APPROVAL REQUIRED
+ 
+ PRODUCTION:
+ UNTOUCHED
+ 
+ NEXT ALLOWED ACTION:
+-Human review/installation/configuration per .ops/reports/P1/HUMAN_ACTION_REQUIRED.md
++Independent security review of .ops/reports/P1/security-repair/REPORT.md; no installation
+ 
+ NEXT FORBIDDEN ACTION:
+ Privileged agent execution or advancement with a pending gate
+diff --git a/.ops/reports/P1/CHECKSUMS.sha256 b/.ops/reports/P1/CHECKSUMS.sha256
+index dac8b1b..b25ffa4 100644
+--- a/.ops/reports/P1/CHECKSUMS.sha256
++++ b/.ops/reports/P1/CHECKSUMS.sha256
+@@ -1,6 +1,6 @@
+ 6d257c3188d083184eaa532a16269633dd1a9082de9ea7f38bc692a1ca76a3ef  ARTIFACT_VERIFICATION.json
+-0caca2a3ee59f98020bee0cce05fca6b3bd02ab165d53046ddaee108c0a8a730  EVIDENCE.json
+-7da86a35a11cd2cb378f28354993b55cbde0729df4065b4655d1b90608cc33aa  HUMAN_ACTION_REQUIRED.md
++45f7e2cb4065d8b6ca5ff550afbabbb000a8253a3561ec045cf8b16866ec8de3  EVIDENCE.json
++2ecc6750d879abc0c8d865cce5650ff1dbd7531601f225b18b8b242236360f4d  HUMAN_ACTION_REQUIRED.md
+ 819aa7ba15e4c9cba60745b86c08644aafb6b497ae069e28867371e2ffdb374d  LOCAL_CHECKS.md
+ a1e7192357cd8ce599d476624846d07654b4f4572a1064099dd9aba18048e806  LOCAL_VALIDATION.txt
+-3afa6f863165afb52bc1330b2583ee14a7b749a5faf7cbddbb41ad3c856877a0  REPORT.md
++6c3185dabb76274928e5b20d2b36583d3db187d9a57af2e26ae26330656a4b0f  REPORT.md
+diff --git a/.ops/reports/P1/EVIDENCE.json b/.ops/reports/P1/EVIDENCE.json
+index 5d2bb0d..809e47a 100644
+--- a/.ops/reports/P1/EVIDENCE.json
++++ b/.ops/reports/P1/EVIDENCE.json
+@@ -3,7 +3,7 @@
+   "project": "gCreation Performance Doctor MVP v0.1",
+   "part": "P1",
+   "execution_state": "IN_PROGRESS",
+-  "orchestrator_state": "WAITING_FOR_HUMAN",
++  "orchestrator_state": "SECURITY_REVIEW_REQUIRED",
+   "independent_review": "PENDING",
+   "repair_cycle": 0,
+   "generated_at": "2026-10-06T03:31:48+00:00",
+@@ -295,6 +295,47 @@
+       "exit_code": null,
+       "evidence_reference": "HUMAN_ACTION_REQUIRED.md",
+       "limitations": "Blocked on a human/operator action, not a failed technical test. Installation evidence alone cannot satisfy later runtime criteria."
++    },
++    {
++      "criterion_id": "P1-ROOT-01-HOST-FAILURE",
++      "part": "P1",
++      "requirement": "Reviewed snapshot content must remain exact through installer image setup",
++      "expected": "Verified snapshot has no unapproved import-generated bytecode.",
++      "observed": {
++        "schema_version": 1,
++        "evidence_class": "HUMAN_ATTESTED",
++        "reported_at": "2026-10-06T04:16:07+00:00",
++        "host_observation_timestamp": null,
++        "source_commit": "8217aa4a13c0265efd8cb81473dd7f00c68d2c34",
++        "archive_sha256": "ecef5a23ef175096cc6312ca99dc0b306ecd76dc3cd4af8aca7de94c6e0443a7",
++        "preflight_result": "PASS",
++        "installer_exit_code": 1,
++        "error": "ValueError: Reviewed snapshot content mismatch",
++        "generated_file": "snapshot/ops/dev/__pycache__/install_preflight.cpython-36.pyc",
++        "partial_installation": {
++          "installed_directory": "EXISTS_WITH_REVIEWED_COPIED_FILES",
++          "systemd_unit_files": "COPIED",
++          "build_context": "ABSENT",
++          "runtime_image": "ABSENT",
++          "watcher_active": false,
++          "watcher_enabled": false,
++          "runtime_deployment_occurred": false
++        },
++        "production_touched": false,
++        "limitations": "Reported by the human in this chat; agent has not inspected or modified protected host paths or independently measured installed state."
++      },
++      "result": "FAIL",
++      "evidence_class": "HUMAN_ATTESTED",
++      "timestamp": "2026-10-06T04:16:07+00:00",
++      "source_commit": "8217aa4a13c0265efd8cb81473dd7f00c68d2c34",
++      "deployed_archive_sha256": null,
++      "deployed_snapshot_sha256": null,
++      "runtime_image_identity": null,
++      "command_or_test": "Human execution of original root-snapshot install-root.sh prepare phase, as reported in chat",
++      "exit_code": 1,
++      "evidence_reference": "security-repair/HOST_FAILURE.json",
++      "limitations": "Host failure human-attested; no agent privileged inspection. Candidate requires independent security review; not a deployed repair."
+     }
+-  ]
++  ],
++  "updated_at": "2026-10-06T04:16:07+00:00"
+ }
+diff --git a/.ops/reports/P1/HUMAN_ACTION_REQUIRED.md b/.ops/reports/P1/HUMAN_ACTION_REQUIRED.md
+index 51bb2b6..7503707 100644
+--- a/.ops/reports/P1/HUMAN_ACTION_REQUIRED.md
++++ b/.ops/reports/P1/HUMAN_ACTION_REQUIRED.md
+@@ -1,5 +1,7 @@
+ ## PURPOSE
+ 
++SUPERSEDED — DO NOT EXECUTE. P1 is SECURITY_REVIEW_REQUIRED after the original installer failure. The commands below describe the previous gate only. Review security-repair/REPORT.md and obtain separate human recovery approval before any future installation; never modify the existing root snapshot.
++
+ Review and separately approve the exact retained V4 artifact, then manually install/configure the reviewed DEV foundation so P1 can validate real containment. Current state WAITING_FOR_HUMAN; no DEV installation/runtime acceptance is claimed.
+ 
+ ## WHY REQUIRED
+diff --git a/.ops/reports/P1/REPORT.md b/.ops/reports/P1/REPORT.md
+index ef02e08..935bd85 100644
+--- a/.ops/reports/P1/REPORT.md
++++ b/.ops/reports/P1/REPORT.md
+@@ -1,6 +1,8 @@
+ # P1 — Security & DEV Deployment Foundation
+ 
+-Checkpoint: WAITING_FOR_HUMAN. P1 execution IN_PROGRESS; independent review PENDING; repair cycle 0. P0 remains FROZEN / human PASS. P2–P7 NOT_STARTED. No technical failure or security defect is asserted. No installation, deployment request, live health probe or production operation was performed.
++Current checkpoint: SECURITY_REVIEW_REQUIRED. Original preparation checkpoint below is historical and superseded. Human-reported installation failed; candidate package [security-repair/REPORT.md](security-repair/REPORT.md). Agent performed no privileged operation.
++
++Historical checkpoint: WAITING_FOR_HUMAN. P1 execution IN_PROGRESS; independent review PENDING; repair cycle 0. P0 remains FROZEN / human PASS. P2–P7 NOT_STARTED. No technical failure or security defect is asserted. No installation, deployment request, live health probe or production operation was performed.
+ 
+ Authority: [P0.1](../../../docs/P0_1_ORCHESTRATOR_AUTHORIZATION.md) and [P1 technical criteria](../../../PROJECT_TIMELINE.md). P0.1 setup commit: `5db7fde1e17b1f8097a80bf38881184bb1b88b29`. Tested retained implementation source: `8217aa4a13c0265efd8cb81473dd7f00c68d2c34`; static V4 handoff: `5c44cb3549aebf02ddef84d8f4a04c5f82ae7f7d`. The current report/governance commit is a descendant, not a new reviewed installation source.
+ 
+@@ -16,6 +18,6 @@ Reviewed installation DATA artifact remains `.ops/test-artifacts/review-source-8
+ 
+ [Criterion-level evidence](EVIDENCE.json), [artifact integrity](ARTIFACT_VERIFICATION.json), [local check procedure](LOCAL_CHECKS.md), [targeted test output](LOCAL_VALIDATION.txt) and [human action](HUMAN_ACTION_REQUIRED.md) are bound by CHECKSUMS.sha256. The checksum manifest excludes itself. Reports retain no authentication values, tokens, contacts or payment credentials.
+ 
+-## Next allowed action
++## Historical next action — superseded; do not execute
+ 
+ The human reviews/approves the exact V4 artifact and carries out the separate bounded DEV installation/configuration action. Return sanitized installation identity/output and an explicit decision on one constrained DEV deployment of the same source. Codex then resumes P1, prepares the source DATA artifact/request only through the confirmed installed mechanism, observes status/health, and collects the remaining effective runtime/rollback evidence. Any later privileged inspection remains human-only. Human waiting spends no repair cycle. P2 begins only when every P1 technical criterion passes with persisted evidence and all operator/security gates are cleared. Independent review remains PENDING; P6 final handoff stops; P7 requires separate authorization.
+diff --git a/.ops/reports/P1/security-repair/HOST_FAILURE.json b/.ops/reports/P1/security-repair/HOST_FAILURE.json
+new file mode 100644
+index 0000000..661294c
+--- /dev/null
++++ b/.ops/reports/P1/security-repair/HOST_FAILURE.json
+@@ -0,0 +1,23 @@
++{
++  "schema_version": 1,
++  "evidence_class": "HUMAN_ATTESTED",
++  "reported_at": "2026-10-06T04:16:07+00:00",
++  "host_observation_timestamp": null,
++  "source_commit": "8217aa4a13c0265efd8cb81473dd7f00c68d2c34",
++  "archive_sha256": "ecef5a23ef175096cc6312ca99dc0b306ecd76dc3cd4af8aca7de94c6e0443a7",
++  "preflight_result": "PASS",
++  "installer_exit_code": 1,
++  "error": "ValueError: Reviewed snapshot content mismatch",
++  "generated_file": "snapshot/ops/dev/__pycache__/install_preflight.cpython-36.pyc",
++  "partial_installation": {
++    "installed_directory": "EXISTS_WITH_REVIEWED_COPIED_FILES",
++    "systemd_unit_files": "COPIED",
++    "build_context": "ABSENT",
++    "runtime_image": "ABSENT",
++    "watcher_active": false,
++    "watcher_enabled": false,
++    "runtime_deployment_occurred": false
++  },
++  "production_touched": false,
++  "limitations": "Reported by the human in this chat; agent has not inspected or modified protected host paths or independently measured installed state."
++}
+diff --git a/.ops/reports/P1/security-repair/VALIDATION.txt b/.ops/reports/P1/security-repair/VALIDATION.txt
+new file mode 100644
+index 0000000..b974728
+--- /dev/null
++++ b/.ops/reports/P1/security-repair/VALIDATION.txt
+@@ -0,0 +1,199 @@
++Python interpreter: /usr/bin/python3 3.6.8
++
++Targeted reproduction before source repair:
++PYTHONPATH=tests python3 -B -m unittest -v test_installer_bytecode.InstallerBytecodeTests.test_old_isolated_import_invalidates_approved_snapshot
++EXIT 0; 1 test passed, confirming original import creates bytecode and unchanged verification rejects it.
++
++Initial combined-process run (not the repository's normal suite isolation):
++COMMAND: PYTHONPATH=tests python3 -B -m unittest -v test_deployment_kit test_security_review_v3 test_security_review_v4 test_installer_bytecode
++EXIT 1
++test_atomic_status_replaces_symlink_without_touching_target (test_deployment_kit.DeploymentBoundaryTests) ... ok
++test_directory_fd_stays_anchored_on_path_swap (test_deployment_kit.DeploymentBoundaryTests) ... ok
++test_failed_release_retention_preserves_active_rollback_source (test_deployment_kit.DeploymentBoundaryTests) ... ok
++test_hardlink_special_and_traversal_rejected (test_deployment_kit.DeploymentBoundaryTests) ... ok
++test_privileged_runtime_contract (test_deployment_kit.DeploymentBoundaryTests) ... ok
++test_request_arriving_during_deployment_survives_claim_cleanup (test_deployment_kit.DeploymentBoundaryTests) ... ERROR
++test_rollback_backup_preserves_plugin_configuration (test_deployment_kit.DeploymentBoundaryTests) ... ok
++test_safe_snapshot_contents (test_deployment_kit.DeploymentBoundaryTests) ... ok
++test_simulated_health_failure_preserves_wordpress_and_restores_prior_runtime (test_deployment_kit.DeploymentBoundaryTests) ... ERROR
++test_simulated_runtime_deploy_never_changes_wordpress_and_records_source_digest (test_deployment_kit.DeploymentBoundaryTests) ... ERROR
++test_snapshot_excludes_local_credentials_and_caches (test_deployment_kit.DeploymentBoundaryTests) ... ok
++test_symlink_directory_and_file_rejected (test_deployment_kit.DeploymentBoundaryTests) ... ok
++test_auto_watcher_has_no_wordpress_write_or_deploy_capability (test_security_review_v3.ThirdReviewTests) ... ok
++test_base_images_are_digest_pinned_and_match_recorded_verification (test_security_review_v3.ThirdReviewTests) ... ok
++test_bootstrap_extracts_only_data_and_records_exact_identity (test_security_review_v3.ThirdReviewTests) ... ok
++test_bootstrap_rejects_links_and_traversal_before_extraction (test_security_review_v3.ThirdReviewTests) ... ok
++test_docker_and_systemd_preflight_capabilities_fail_closed (test_security_review_v3.ThirdReviewTests) ... ok
++test_git_archive_export_is_deterministic_and_refuses_root (test_security_review_v3.ThirdReviewTests) ... ok
++test_installer_inputs_are_root_snapshot_only_and_preflight_precedes_install (test_security_review_v3.ThirdReviewTests) ... ok
++test_network_configuration_and_persisted_identity_fail_closed (test_security_review_v3.ThirdReviewTests) ... ok
++test_network_creation_failure_is_not_ignored (test_security_review_v3.ThirdReviewTests) ... ok
++test_network_mismatch_prevents_starting_any_runtime_container (test_security_review_v3.ThirdReviewTests) ... ok
++test_plugin_secret_is_0600_owned_and_readable_by_writer_only (test_security_review_v3.ThirdReviewTests) ... ok
++test_public_proxy_exposes_only_health_and_no_client_secret (test_security_review_v3.ThirdReviewTests) ... ok
++test_request_is_atomically_claimed_and_next_request_is_not_deleted (test_security_review_v3.ThirdReviewTests) ... ok
++test_request_schema_rejects_executable_or_extra_inputs (test_security_review_v3.ThirdReviewTests) ... ok
++test_root_secret_file_permission_policy_rejects_shared_group_read (test_security_review_v3.ThirdReviewTests) ... ok
++test_root_staging_sha_mismatch_aborts_before_extraction (test_security_review_v3.ThirdReviewTests) ... ok
++test_secure_environment_rejects_missing_or_injectable_secret (test_security_review_v3.ThirdReviewTests) ... ok
++test_snapshot_digest_distinguishes_filename_content_boundaries (test_security_review_v3.ThirdReviewTests) ... ok
++test_snapshot_hash_verifier_rejects_changed_reviewed_files (test_security_review_v3.ThirdReviewTests) ... ok
++test_stale_preflight_failure_prevents_docker_and_service_operations (test_security_review_v3.ThirdReviewTests) ... ok
++test_stale_regular_and_symlink_request_block_installation (test_security_review_v3.ThirdReviewTests) ... ok
++test_artifact_hash_marker_and_snapshot_identity_are_bound (test_security_review_v4.FourthReviewTests) ... ok
++test_builder_offline_frozen_dependencies_and_no_credentials (test_security_review_v4.FourthReviewTests) ... ok
++test_clean_root_environment_precedes_interpreters (test_security_review_v4.FourthReviewTests) ... ok
++test_dependency_manifest_changes_and_unsafe_archives_rejected (test_security_review_v4.FourthReviewTests) ... ok
++test_dev_dns_child_is_isolated_fixed_and_bounded (test_security_review_v4.FourthReviewTests) ... ok
++test_egress_identity_configuration_and_unrelated_members_fail_closed (test_security_review_v4.FourthReviewTests) ... ok
++test_named_member_cannot_impersonate_reviewed_proxy_or_add_default_bridge (test_security_review_v4.FourthReviewTests) ... ok
++test_preflight_requires_raw_server_ip_and_every_public_dev_dns_answer (test_security_review_v4.FourthReviewTests) ... ok
++test_request_requires_archive_hash_and_rejects_old_workspace_semantics (test_security_review_v4.FourthReviewTests) ... ok
++test_reviewed_image_copies_only_fixed_snapshot_files_and_freezes_hashes (test_security_review_v4.FourthReviewTests) ... ok
++test_secrets_have_distinct_exact_ownership_and_private_env_inputs (test_security_review_v4.FourthReviewTests) ... ok
++test_source_artifact_links_special_files_and_symlink_inputs_rejected (test_security_review_v4.FourthReviewTests) ... ok
++test_trusted_containers_never_mount_mutable_source_or_receive_master_proxy_secret (test_security_review_v4.FourthReviewTests) ... ok
++test_old_isolated_import_invalidates_approved_snapshot (test_installer_bytecode.InstallerBytecodeTests) ... ok
++test_prepare_and_seal_invocations_disable_bytecode_at_startup (test_installer_bytecode.InstallerBytecodeTests) ... ok
++test_repaired_modes_still_reject_added_and_modified_source (test_installer_bytecode.InstallerBytecodeTests) ... ok
++test_repaired_prepare_and_seal_preserve_exact_snapshot_file_map (test_installer_bytecode.InstallerBytecodeTests) ... ok
++
++======================================================================
++ERROR: test_request_arriving_during_deployment_survives_claim_cleanup (test_deployment_kit.DeploymentBoundaryTests)
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/home/codexperf/projects/gcreation-performance/tests/test_deployment_kit.py", line 227, in test_request_arriving_during_deployment_survives_claim_cleanup
++    _, _, ops, _, _, _, _ = self.simulate_deployment(next_request=True)
++  File "/home/codexperf/projects/gcreation-performance/tests/test_deployment_kit.py", line 188, in simulate_deployment
++    controller.deploy()
++  File "/home/codexperf/projects/gcreation-performance/ops/dev/deploy_controller.py", line 363, in deploy
++    environment = secure_environment()
++  File "/home/codexperf/projects/gcreation-performance/ops/dev/install_preflight.py", line 125, in secure_environment
++    require_root_owned(ENVIRONMENT, regular=True, private=True)
++  File "/home/codexperf/projects/gcreation-performance/ops/dev/install_preflight.py", line 30, in require_root_owned
++    raise ValueError('Root-owned non-writable path required')
++ValueError: Root-owned non-writable path required
++
++======================================================================
++ERROR: test_simulated_health_failure_preserves_wordpress_and_restores_prior_runtime (test_deployment_kit.DeploymentBoundaryTests)
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/home/codexperf/projects/gcreation-performance/tests/test_deployment_kit.py", line 211, in test_simulated_health_failure_preserves_wordpress_and_restores_prior_runtime
++    plugin, state, ops, expected_owner, ownership, _, runtime = self.simulate_deployment(True)
++  File "/home/codexperf/projects/gcreation-performance/tests/test_deployment_kit.py", line 186, in simulate_deployment
++    controller.deploy()
++  File "/home/codexperf/projects/gcreation-performance/ops/dev/deploy_controller.py", line 363, in deploy
++    environment = secure_environment()
++  File "/home/codexperf/projects/gcreation-performance/ops/dev/install_preflight.py", line 125, in secure_environment
++    require_root_owned(ENVIRONMENT, regular=True, private=True)
++  File "/home/codexperf/projects/gcreation-performance/ops/dev/install_preflight.py", line 30, in require_root_owned
++    raise ValueError('Root-owned non-writable path required')
++ValueError: Root-owned non-writable path required
++
++======================================================================
++ERROR: test_simulated_runtime_deploy_never_changes_wordpress_and_records_source_digest (test_deployment_kit.DeploymentBoundaryTests)
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/home/codexperf/projects/gcreation-performance/tests/test_deployment_kit.py", line 192, in test_simulated_runtime_deploy_never_changes_wordpress_and_records_source_digest
++    plugin, state, ops, _, _, commands, runtime = self.simulate_deployment()
++  File "/home/codexperf/projects/gcreation-performance/tests/test_deployment_kit.py", line 188, in simulate_deployment
++    controller.deploy()
++  File "/home/codexperf/projects/gcreation-performance/ops/dev/deploy_controller.py", line 363, in deploy
++    environment = secure_environment()
++  File "/home/codexperf/projects/gcreation-performance/ops/dev/install_preflight.py", line 125, in secure_environment
++    require_root_owned(ENVIRONMENT, regular=True, private=True)
++  File "/home/codexperf/projects/gcreation-performance/ops/dev/install_preflight.py", line 30, in require_root_owned
++    raise ValueError('Root-owned non-writable path required')
++ValueError: Root-owned non-writable path required
++
++----------------------------------------------------------------------
++Ran 50 tests in 0.973s
++
++FAILED (errors=3)
++
++Diagnosis: both test_deployment_kit and test_security_review_v3 register different modules as sys.modules['install_preflight']. Collection replaced the former module, so deploy() dynamically imported the latter while the deployment tests mocked the former. Tests normally execute in separate processes in package.json. No runtime/test requirements changed; rerun each suite in that intended isolation.
++
++Final isolated-process runs:
++COMMAND: python3 -B tests/test_deployment_kit.py -v
++EXIT 0
++test_atomic_status_replaces_symlink_without_touching_target (__main__.DeploymentBoundaryTests) ... ok
++test_directory_fd_stays_anchored_on_path_swap (__main__.DeploymentBoundaryTests) ... ok
++test_failed_release_retention_preserves_active_rollback_source (__main__.DeploymentBoundaryTests) ... ok
++test_hardlink_special_and_traversal_rejected (__main__.DeploymentBoundaryTests) ... ok
++test_privileged_runtime_contract (__main__.DeploymentBoundaryTests) ... ok
++test_request_arriving_during_deployment_survives_claim_cleanup (__main__.DeploymentBoundaryTests) ... ok
++test_rollback_backup_preserves_plugin_configuration (__main__.DeploymentBoundaryTests) ... ok
++test_safe_snapshot_contents (__main__.DeploymentBoundaryTests) ... ok
++test_simulated_health_failure_preserves_wordpress_and_restores_prior_runtime (__main__.DeploymentBoundaryTests) ... ok
++test_simulated_runtime_deploy_never_changes_wordpress_and_records_source_digest (__main__.DeploymentBoundaryTests) ... ok
++test_snapshot_excludes_local_credentials_and_caches (__main__.DeploymentBoundaryTests) ... ok
++test_symlink_directory_and_file_rejected (__main__.DeploymentBoundaryTests) ... ok
++
++----------------------------------------------------------------------
++Ran 12 tests in 0.197s
++
++OK
++
++COMMAND: python3 -B tests/test_security_review_v3.py -v
++EXIT 0
++test_auto_watcher_has_no_wordpress_write_or_deploy_capability (__main__.ThirdReviewTests) ... ok
++test_base_images_are_digest_pinned_and_match_recorded_verification (__main__.ThirdReviewTests) ... ok
++test_bootstrap_extracts_only_data_and_records_exact_identity (__main__.ThirdReviewTests) ... ok
++test_bootstrap_rejects_links_and_traversal_before_extraction (__main__.ThirdReviewTests) ... ok
++test_docker_and_systemd_preflight_capabilities_fail_closed (__main__.ThirdReviewTests) ... ok
++test_git_archive_export_is_deterministic_and_refuses_root (__main__.ThirdReviewTests) ... ok
++test_installer_inputs_are_root_snapshot_only_and_preflight_precedes_install (__main__.ThirdReviewTests) ... ok
++test_network_configuration_and_persisted_identity_fail_closed (__main__.ThirdReviewTests) ... ok
++test_network_creation_failure_is_not_ignored (__main__.ThirdReviewTests) ... ok
++test_network_mismatch_prevents_starting_any_runtime_container (__main__.ThirdReviewTests) ... ok
++test_plugin_secret_is_0600_owned_and_readable_by_writer_only (__main__.ThirdReviewTests) ... ok
++test_public_proxy_exposes_only_health_and_no_client_secret (__main__.ThirdReviewTests) ... ok
++test_request_is_atomically_claimed_and_next_request_is_not_deleted (__main__.ThirdReviewTests) ... ok
++test_request_schema_rejects_executable_or_extra_inputs (__main__.ThirdReviewTests) ... ok
++test_root_secret_file_permission_policy_rejects_shared_group_read (__main__.ThirdReviewTests) ... ok
++test_root_staging_sha_mismatch_aborts_before_extraction (__main__.ThirdReviewTests) ... ok
++test_secure_environment_rejects_missing_or_injectable_secret (__main__.ThirdReviewTests) ... ok
++test_snapshot_digest_distinguishes_filename_content_boundaries (__main__.ThirdReviewTests) ... ok
++test_snapshot_hash_verifier_rejects_changed_reviewed_files (__main__.ThirdReviewTests) ... ok
++test_stale_preflight_failure_prevents_docker_and_service_operations (__main__.ThirdReviewTests) ... ok
++test_stale_regular_and_symlink_request_block_installation (__main__.ThirdReviewTests) ... ok
++
++----------------------------------------------------------------------
++Ran 21 tests in 0.138s
++
++OK
++
++COMMAND: python3 -B tests/test_security_review_v4.py -v
++EXIT 0
++test_artifact_hash_marker_and_snapshot_identity_are_bound (__main__.FourthReviewTests) ... ok
++test_builder_offline_frozen_dependencies_and_no_credentials (__main__.FourthReviewTests) ... ok
++test_clean_root_environment_precedes_interpreters (__main__.FourthReviewTests) ... ok
++test_dependency_manifest_changes_and_unsafe_archives_rejected (__main__.FourthReviewTests) ... ok
++test_dev_dns_child_is_isolated_fixed_and_bounded (__main__.FourthReviewTests) ... ok
++test_egress_identity_configuration_and_unrelated_members_fail_closed (__main__.FourthReviewTests) ... ok
++test_named_member_cannot_impersonate_reviewed_proxy_or_add_default_bridge (__main__.FourthReviewTests) ... ok
++test_preflight_requires_raw_server_ip_and_every_public_dev_dns_answer (__main__.FourthReviewTests) ... ok
++test_request_requires_archive_hash_and_rejects_old_workspace_semantics (__main__.FourthReviewTests) ... ok
++test_reviewed_image_copies_only_fixed_snapshot_files_and_freezes_hashes (__main__.FourthReviewTests) ... ok
++test_secrets_have_distinct_exact_ownership_and_private_env_inputs (__main__.FourthReviewTests) ... ok
++test_source_artifact_links_special_files_and_symlink_inputs_rejected (__main__.FourthReviewTests) ... ok
++test_trusted_containers_never_mount_mutable_source_or_receive_master_proxy_secret (__main__.FourthReviewTests) ... ok
++
++----------------------------------------------------------------------
++Ran 13 tests in 0.096s
++
++OK
++
++COMMAND: python3 -B tests/test_installer_bytecode.py -v
++EXIT 0
++test_old_isolated_import_invalidates_approved_snapshot (__main__.InstallerBytecodeTests) ... ok
++test_prepare_and_seal_invocations_disable_bytecode_at_startup (__main__.InstallerBytecodeTests) ... ok
++test_repaired_modes_still_reject_added_and_modified_source (__main__.InstallerBytecodeTests) ... ok
++test_repaired_prepare_and_seal_preserve_exact_snapshot_file_map (__main__.InstallerBytecodeTests) ... ok
++
++----------------------------------------------------------------------
++Ran 4 tests in 0.854s
++
++OK
++
++Additional checks: bash -n ops/dev/install-root.sh; git diff --check; EXIT 0.
+diff --git a/ARCHITECTURE.md b/ARCHITECTURE.md
+index c87dbf5..8d95737 100644
+--- a/ARCHITECTURE.md
++++ b/ARCHITECTURE.md
+@@ -1,6 +1,6 @@
+ # Architecture
+ 
+-This is a description of the preserved approved V4 design, not a redesign. Execution authority: PROJECT_TIMELINE.md. Current P0 governance is FROZEN; human review PASS; P1 WAITING_FOR_HUMAN (execution IN_PROGRESS / independent review PENDING under P0.1); P2–P7 NOT_STARTED. V4 static security review PASS; privileged DEV installation HOLD pending separate human/operator installation/configuration. Real deployed acceptance pending, production untouched, P1–P6 advancement follows P0.1; P7 requires separate human authorization.
++This is a description of the preserved approved V4 design, not a redesign. Execution authority: PROJECT_TIMELINE.md. Current P0 governance is FROZEN; human review PASS; P1 SECURITY_REVIEW_REQUIRED (execution IN_PROGRESS / independent review PENDING under P0.1); P2–P7 NOT_STARTED. V4 static security review PASS; privileged DEV installation HOLD pending security review and separate human recovery/installation approval. Real deployed acceptance pending, production untouched, P1–P6 advancement follows P0.1; P7 requires separate human authorization.
+ 
+ A modular monolith: WordPress/WooCommerce owns sales and payment truth; Fastify owns audit jobs, SQLite, discovery, browser measurements and SSE; deterministic rules own explanation; the plugin presents the HTML Fix Center.
+ 
+diff --git a/MASTER_EXEC_PLAN.md b/MASTER_EXEC_PLAN.md
+index 8fca0c8..4c3de8f 100644
+--- a/MASTER_EXEC_PLAN.md
++++ b/MASTER_EXEC_PLAN.md
+@@ -4,14 +4,14 @@ Authoritative execution order: [PROJECT_TIMELINE.md](PROJECT_TIMELINE.md). Produ
+ 
+ ## Current gate
+ 
+-P0 remains FROZEN / human review PASS at approved governance 1c6303e0c17b04952ee6e9c8b01d6868e53fe152 and freeze record 999ade0ea2695e92c1365a09a3e13f87bd4ef758. P0.1 authorizes sequential P1–P6 technical execution. Current Part P1: execution IN_PROGRESS, workflow WAITING_FOR_HUMAN, independent review PENDING, repair cycle 0. P2–P7 NOT_STARTED. Machine state: .ops/ORCHESTRATOR_STATUS.json. P0.1 grants one bounded P1–P6 execution authorization. Advance sequentially only after full technical exit evidence is persisted, no human/operator action or concrete blocker remains, and V4 boundaries are unchanged. Record EXECUTION_PASS with INDEPENDENT_REVIEW PENDING; Codex never grants human PASS/FROZEN. Stop at WAITING_FOR_HUMAN, SECURITY_REVIEW_REQUIRED, HARD_BLOCKED or P6_REVIEW_READY. P7 needs separate human authorization.
++P0 remains FROZEN / human review PASS at approved governance 1c6303e0c17b04952ee6e9c8b01d6868e53fe152 and freeze record 999ade0ea2695e92c1365a09a3e13f87bd4ef758. P0.1 authorizes sequential P1–P6 technical execution. Current Part P1: execution IN_PROGRESS, workflow SECURITY_REVIEW_REQUIRED, independent review PENDING, repair cycle 0. P2–P7 NOT_STARTED. Machine state: .ops/ORCHESTRATOR_STATUS.json. P0.1 grants one bounded P1–P6 execution authorization. Advance sequentially only after full technical exit evidence is persisted, no human/operator action or concrete blocker remains, and V4 boundaries are unchanged. Record EXECUTION_PASS with INDEPENDENT_REVIEW PENDING; Codex never grants human PASS/FROZEN. Stop at WAITING_FOR_HUMAN, SECURITY_REVIEW_REQUIRED, HARD_BLOCKED or P6_REVIEW_READY. P7 needs separate human authorization.
+ 
+ V4 static security: PASS. Privileged DEV installation: HOLD pending separate human/operator installation/configuration. Real DEV/runtime/E2E acceptance is NOT_VERIFIED. Production untouched.
+ 
+ | Part | Completion state | Workflow state | Cycle record                              |
+ | ---- | ---------------- | -------------- | ----------------------------------------- |
+ | P0   | FROZEN           | FROZEN         | Human PASS; repair 1/repair 2 not used      |
+-| P1   | IN_PROGRESS      | WAITING_FOR_HUMAN | Initial cycle; independent review PENDING |
++| P1   | IN_PROGRESS      | SECURITY_REVIEW_REQUIRED | Initial cycle; independent review PENDING |
+ | P2   | NOT_STARTED      | NOT_STARTED    | No cycle started                          |
+ | P3   | NOT_STARTED      | NOT_STARTED    | No cycle started                          |
+ | P4   | NOT_STARTED      | NOT_STARTED    | No cycle started                          |
+@@ -53,8 +53,12 @@ P1: human-approved controlled installation and actual immutable-image/network/se
+ 
+ V2 source 7887fca/handoff 826a622 and V3 source 10dcabfe/handoff 02edd2da were HOLD checkpoints. Their findings and review bundles remain unchanged historical evidence. V4 remediation source 8217aa4/handoff 5c44cb3 preserved prior work and subsequently received human static PASS. Older third/fourth-review stop/install instructions in historical bundles are historical. Current authorization comes from PROJECT_TIMELINE.md as amended by P0.1, not an old continuation or installation recipe.
+ 
+-## P1 checkpoint
++## Historical P1 preparation checkpoint — superseded by security repair review
+ 
+ P0.1 setup pushed at 5db7fde1e17b1f8097a80bf38881184bb1b88b29. Exact accepted V4 archive/source/manifest/log identities verified;82 members,81 committed blobs,78 manifest hashes and30 influencing files match. Five focused fixture tests PASS. No implementation/kit/dependency/security edits; no real runtime/health/scan/installation or deployment request. [P1 report](.ops/reports/P1/REPORT.md), criterion evidence and checksums record LOCAL_TESTED versus NOT_VERIFIED. D24–D27 remain PENDING_HUMAN; other D/DEV acceptance unchanged. Repair cycle0; no technical failure asserted.
+ 
+-Next allowed action: human installation/configuration and sanitized evidence per [.ops/reports/P1/HUMAN_ACTION_REQUIRED.md](.ops/reports/P1/HUMAN_ACTION_REQUIRED.md). Stop at WAITING_FOR_HUMAN. Resume the same Part after verified human evidence; do not advance to P2 while any P1 gate remains pending.
++## Current P1 security repair checkpoint
++
++Human installation of original V4 source failed after preflight PASS: EXIT1 / Reviewed snapshot content mismatch, with install_preflight bytecode generated inside the root snapshot. Partial copied files/units exist, build-context/image absent and watcher disabled/inactive, per sanitized human evidence; no agent host inspection. Source repair candidate changes only the two prepare_image interpreter starts to -I -B. Focused regression replays the actual import/verify AST on ordinary-user fixtures; verify_snapshot stays byte-identical and fail-closed. Current package: .ops/reports/P1/security-repair/REPORT.md. Original V4 static PASS does not approve this candidate.
++
++Next allowed action: independent security review only. P1 remains execution IN_PROGRESS / independent review PENDING; repair_cycle0 unchanged. Fresh-stage recovery/installation needs a separate human approval after review. Existing root snapshot/partial installation untouched; no deployment request or P2 start. Stop at SECURITY_REVIEW_REQUIRED.
+diff --git a/PLANS.md b/PLANS.md
+index 90fe620..b2bf2c7 100644
+--- a/PLANS.md
++++ b/PLANS.md
+@@ -2,7 +2,7 @@
+ 
+ [PROJECT_TIMELINE.md](PROJECT_TIMELINE.md) is the only authoritative execution order. MASTER_EXEC_PLAN.md is the concise state/cycle ledger and REQUIREMENTS.md is the evidence cross-map. Product scope remains docs/MASTER_PRODUCT_SPEC.md, with the later P0 governance request overriding old automatic-continuation instructions.
+ 
+-Current gate: P0 governance FROZEN, human review PASS. V4 static security review PASS; P1 WAITING_FOR_HUMAN (execution IN_PROGRESS / independent review PENDING under P0.1); P2–P7 NOT_STARTED. Privileged DEV installation HOLD pending separate human/operator installation/configuration. Production untouched. Sequential P1–P6 execution follows docs/P0_1_ORCHESTRATOR_AUTHORIZATION.md; independent review remains PENDING, operator/security gates require a stop, and P7 requires separate human authorization.
++Current gate: P0 governance FROZEN, human review PASS. V4 static security review PASS; P1 SECURITY_REVIEW_REQUIRED (execution IN_PROGRESS / independent review PENDING under P0.1); P2–P7 NOT_STARTED. Privileged DEV installation HOLD pending security review and separate human recovery/installation approval. Production untouched. Sequential P1–P6 execution follows docs/P0_1_ORCHESTRATOR_AUTHORIZATION.md; independent review remains PENDING, operator/security gates require a stop, and P7 requires separate human authorization.
+ 
+ Within the one authorized Part: inspect → reconcile → implement/validate only its scope → document exact evidence → commit/push develop → persist report/evidence/checksums → gated P0.1 transition or stop. Independent review PASS freezes a Part. Sequential P1–P6 technical execution instead follows P0.1; P7 needs separate explicit human instruction. Each Part has an initial cycle and at most two repairs; failed repair 2 becomes HARD_BLOCKED/human decision, not a speculative redesign.
+ 
+diff --git a/PROJECT_TIMELINE.md b/PROJECT_TIMELINE.md
+index 161ec41..3a763ae 100644
+--- a/PROJECT_TIMELINE.md
++++ b/PROJECT_TIMELINE.md
+@@ -4,7 +4,7 @@
+ 
+ This is the **single authoritative execution timeline**. Product intent remains docs/MASTER_PRODUCT_SPEC.md; original M0.1–M0.32 are preserved below. The human governance request in docs/P0_GOVERNANCE_FREEZE_REQUEST.md controls the frozen P0 baseline; docs/P0_1_ORCHESTRATOR_AUTHORIZATION.md narrowly amends P1–P6 execution sequencing, while preserving independent review and all operator/security gates. MASTER_EXEC_PLAN.md is only the current-state ledger; ROADMAP.md is an index; REQUIREMENTS.md is the D01–D31 evidence cross-map.
+ 
+-Current Part: P1. Execution state: IN_PROGRESS under HUMAN_P0_1. Orchestrator state: WAITING_FOR_HUMAN; action file .ops/reports/P1/HUMAN_ACTION_REQUIRED.md. Independent review: PENDING. P0 remains FROZEN / human review PASS for governance commit 1c6303e0c17b04952ee6e9c8b01d6868e53fe152, freeze record 999ade0ea2695e92c1365a09a3e13f87bd4ef758. P2–P7: NOT_STARTED. V4 static security: PASS for source 8217aa4a13c0265efd8cb81473dd7f00c68d2c34 / handoff 5c44cb3549aebf02ddef84d8f4a04c5f82ae7f7d. Privileged DEV installation: HOLD pending separate human/operator action. Runtime/deployment/E2E acceptance remains pending. Production is untouched. Current machine state: .ops/ORCHESTRATOR_STATUS.json.
++Current Part: P1. Execution state: IN_PROGRESS under HUMAN_P0_1. Orchestrator state: SECURITY_REVIEW_REQUIRED; candidate package .ops/reports/P1/security-repair/REPORT.md. Independent review: PENDING. P0 remains FROZEN / human review PASS for governance commit 1c6303e0c17b04952ee6e9c8b01d6868e53fe152, freeze record 999ade0ea2695e92c1365a09a3e13f87bd4ef758. P2–P7: NOT_STARTED. V4 static security: PASS for source 8217aa4a13c0265efd8cb81473dd7f00c68d2c34 / handoff 5c44cb3549aebf02ddef84d8f4a04c5f82ae7f7d. Privileged DEV installation: HOLD pending separate human/operator action. Runtime/deployment/E2E acceptance remains pending. Production is untouched. Current machine state: .ops/ORCHESTRATOR_STATUS.json.
+ 
+ There are exactly eight Parts, P0–P7. No additional top-level Part may be created without explicit human approval. Existing implementation is reconciled and validated within these Parts; NOT_STARTED refers to the newly governed execution/acceptance cycle, not absence of previously written code.
+ 
+@@ -151,7 +151,7 @@ Any future Codex session must reject/defer these unless the human explicitly cha
+ - **Purpose:** Prove the approved static foundation in the controlled DEV environment.
+ - **Exact scope:** Reviewed artifact/root trust transition and frozen image/dependencies/proxy/gateway, separate credentials, dedicated verified networks, approved human installation/configuration, reproducible offline source build, internal/public health, bounded resources/status/rollback. Primary acceptance D24–D27; P5 rechecks effective limits/security under live work.
+ - **Included original milestones:** M0.5–M0.7.
+-- **Current status:** WAITING_FOR_HUMAN; execution IN_PROGRESS under P0.1; independent review PENDING. Static security prerequisite PASS; real installation/runtime validation pending.
++- **Current status:** SECURITY_REVIEW_REQUIRED after human-reported snapshot bytecode mismatch; execution IN_PROGRESS; independent review PENDING. Static security prerequisite PASS; real installation/runtime validation pending.
+ - **Already implemented:** V4 kit, isolated toolchain, Fastify health and frozen security architecture at the approved source; no rebuild/redesign is authorized merely because live validation is pending.
+ - **Only locally tested:** V4 boundary/socket tests, offline source gates, deterministic archive/hashes, mock deployment/rollback and loopback health.
+ - **Requires real DEV validation:** Root-installed ownership/hash/image/dependency identity, network membership/egress boundary, secret placement0600, cgroups/seccomp/non-root/readonly/resource/log controls, actual offline build/deploy/status/health/rollback and stale-request refusal. No installation is inferred from static PASS.
+@@ -163,7 +163,7 @@ Any future Codex session must reject/defer these unless the human explicitly cha
+ - **Dependencies:** P0 frozen; V4 static PASS and reviewed artifact; designated human installer/DEV configuration. P2 cannot start with unverified containment.
+ - **Allowed human actions:** After explicit approval, manually install reviewed kit/image/systemd and configure DEV nginx/environment; inspect runtime boundaries and authorize one controlled deployment/rollback validation. No WP deployment by the watcher.
+ - **Allowed Codex actions:** Only explicitly authorized ordinary-user artifact/request/status/loopback and DEV-health validation through the installed mechanism; gather readable evidence; scoped repairs/tests within P1 authority; develop commit/push/handoff. Never Docker socket/root/operator commands.
+-- **Completion state:** IN_PROGRESS; execution IN_PROGRESS; workflow WAITING_FOR_HUMAN; independent review PENDING; repair cycle 0.
++- **Completion state:** IN_PROGRESS; execution IN_PROGRESS; workflow SECURITY_REVIEW_REQUIRED; independent review PENDING; repair cycle 0.
+ 
+ ## P2 — Audit Engine Live Validation
+ 
+diff --git a/README.md b/README.md
+index a994f45..97e5a0f 100644
+--- a/README.md
++++ b/README.md
+@@ -6,9 +6,9 @@ Start with [PROJECT_TIMELINE.md](PROJECT_TIMELINE.md), the single authoritative
+ 
+ ## Current checkpoint
+ 
+-P0 governance: FROZEN; human review PASS for approved commit 1c6303e0c17b04952ee6e9c8b01d6868e53fe152. P1 WAITING_FOR_HUMAN (execution IN_PROGRESS / independent review PENDING under P0.1); P2–P7: NOT_STARTED. V4 static security review: PASS for source 8217aa4a13c0265efd8cb81473dd7f00c68d2c34/handoff 5c44cb3549aebf02ddef84d8f4a04c5f82ae7f7d, as supplied by the human. Static design approval is not deployed acceptance. Privileged DEV installation remains HOLD pending separate human/operator installation/configuration; browser/Lighthouse/WordPress/WooCommerce/E2E remain pending.
++P0 governance: FROZEN; human review PASS for approved commit 1c6303e0c17b04952ee6e9c8b01d6868e53fe152. P1 SECURITY_REVIEW_REQUIRED (execution IN_PROGRESS / independent review PENDING under P0.1); P2–P7: NOT_STARTED. V4 static security review: PASS for source 8217aa4a13c0265efd8cb81473dd7f00c68d2c34/handoff 5c44cb3549aebf02ddef84d8f4a04c5f82ae7f7d, as supplied by the human. Static design approval is not deployed acceptance. Privileged DEV installation remains HOLD pending security review and separate human recovery/installation approval; browser/Lighthouse/WordPress/WooCommerce/E2E remain pending.
+ 
+-Next allowed action: human action in .ops/reports/P1/HUMAN_ACTION_REQUIRED.md. Independent review alone grants human PASS/FROZEN. Sequential P1–P6 execution follows docs/P0_1_ORCHESTRATOR_AUTHORIZATION.md; independent review remains PENDING, operator/security gates require a stop, and P7 requires separate human authorization. P0 is frozen. P0.1 changes governance only; it grants bounded technical execution without changing the V4 implementation.
++Next allowed action: independent security review of .ops/reports/P1/security-repair/REPORT.md; installation remains HOLD. Independent review alone grants human PASS/FROZEN. Sequential P1–P6 execution follows docs/P0_1_ORCHESTRATOR_AUTHORIZATION.md; independent review remains PENDING, operator/security gates require a stop, and P7 requires separate human authorization. P0 is frozen. P0.1 changes governance only; it grants bounded technical execution without changing the V4 implementation.
+ 
+ ## Existing development foundation — reference, not a P0 execution request
+ 
+diff --git a/REQUIREMENTS.md b/REQUIREMENTS.md
+index 58f8af6..9affe65 100644
+--- a/REQUIREMENTS.md
++++ b/REQUIREMENTS.md
+@@ -2,7 +2,7 @@
+ 
+ Authoritative product intent: docs/MASTER_PRODUCT_SPEC.md, all sections/deliverables and §50. Authoritative execution order: [PROJECT_TIMELINE.md](PROJECT_TIMELINE.md). Original requirements are retained; this is the clear D01–D31 → owner Part → original M0.x → existing evidence → remaining real DEV evidence cross-map. Referenced M0 dependencies can belong to earlier Parts; primary milestone ownership is defined once in the timeline.
+ 
+-Current state: P0 governance FROZEN (human review PASS). P1 WAITING_FOR_HUMAN (execution IN_PROGRESS / independent review PENDING under P0.1); P2–P7 NOT_STARTED. V4 static security review PASS, supplied by the human. Privileged DEV installation HOLD pending separate human/operator installation/configuration. Production untouched. Sequential P1–P6 execution follows docs/P0_1_ORCHESTRATOR_AUTHORIZATION.md; independent review remains PENDING, operator/security gates require a stop, and P7 requires separate human authorization. All D statuses remain **PENDING**; local/static tests cannot become deployed acceptance.
++Current state: P0 governance FROZEN (human review PASS). P1 SECURITY_REVIEW_REQUIRED (execution IN_PROGRESS / independent review PENDING under P0.1); P2–P7 NOT_STARTED. V4 static security review PASS, supplied by the human. Privileged DEV installation HOLD pending security review and separate human recovery/installation approval. Production untouched. Sequential P1–P6 execution follows docs/P0_1_ORCHESTRATOR_AUTHORIZATION.md; independent review remains PENDING, operator/security gates require a stop, and P7 requires separate human authorization. All D statuses remain **PENDING**; local/static tests cannot become deployed acceptance.
+ 
+ ## Acceptance cross-map
+ 
+@@ -53,4 +53,4 @@ Current state: P0 governance FROZEN (human review PASS). P1 WAITING_FOR_HUMAN (e
+ 
+ Human V4 static PASS supersedes historical V2/V3 HOLD checkpoints for static design only. Their documents remain unchanged evidence. All accepted V4 immutable proxy/gateway/image/dependency/offline/network/secret/host-deny/archive/root-snapshot/human-only PHP/health-only nginx boundaries are preserved. Governance Markdown changes do not invalidate the original archived source hashes or authorize kit edits; historical manifests attest that original source, not the later governance tree.
+ 
+-[docs/DEV_VALIDATION_RUNBOOK.md](docs/DEV_VALIDATION_RUNBOOK.md) is a future evidence checklist subordinate to the timeline. It authorizes no action during P0. Privileged installs/configuration are approved human operations; WordPress needs its separate reviewed artifact/config.php mode 0600. Current next allowed action: human action in .ops/reports/P1/HUMAN_ACTION_REQUIRED.md; installation remains on HOLD.
++[docs/DEV_VALIDATION_RUNBOOK.md](docs/DEV_VALIDATION_RUNBOOK.md) is a future evidence checklist subordinate to the timeline. It authorizes no action during P0. Privileged installs/configuration are approved human operations; WordPress needs its separate reviewed artifact/config.php mode 0600. Current next allowed action: independent security review of .ops/reports/P1/security-repair/REPORT.md; installation remains on HOLD.
+diff --git a/ROADMAP.md b/ROADMAP.md
+index eed4e16..5e92d7b 100644
+--- a/ROADMAP.md
++++ b/ROADMAP.md
+@@ -5,7 +5,7 @@
+ | Part | Fixed purpose                              | Original milestone ownership                 | Current state                                         |
+ | ---- | ------------------------------------------ | -------------------------------------------- | ----------------------------------------------------- |
+ | P0   | Governance Freeze                          | M0.1–M0.4                                    | FROZEN; human review PASS                               |
+-| P1   | Security & DEV Deployment Foundation       | M0.5–M0.7                                    | WAITING_FOR_HUMAN; independent review PENDING           |
++| P1   | Security & DEV Deployment Foundation       | M0.5–M0.7                                    | SECURITY_REVIEW_REQUIRED; independent review PENDING           |
+ | P2   | Audit Engine Live Validation               | M0.8–M0.18                                   | NOT_STARTED; implementation largely present           |
+ | P3   | WordPress Customer Flow                    | M0.19–M0.24                                  | NOT_STARTED; implementation largely present           |
+ | P4   | Paid Service Flow                          | M0.25–M0.30                                  | NOT_STARTED; implementation largely present           |
+@@ -13,6 +13,6 @@
+ | P6   | DEV Release Candidate                      | M0.32                                        | NOT_STARTED                                           |
+ | P7   | First 100 Customer Validation              | Consumes M0.30 evidence; no new M0 milestone | NOT_STARTED                                           |
+ 
+-P0 human review PASS: approved governance commit 1c6303e0c17b04952ee6e9c8b01d6868e53fe152. Next allowed action: human action in .ops/reports/P1/HUMAN_ACTION_REQUIRED.md. V4 static security review: PASS. Privileged DEV installation: HOLD pending separate human/operator installation/configuration. Real deployment/runtime/E2E acceptance remains pending. Production is untouched. Sequential P1–P6 execution follows docs/P0_1_ORCHESTRATOR_AUTHORIZATION.md; independent review remains PENDING, operator/security gates require a stop, and P7 requires separate human authorization. Do not add top-level Parts without human approval.
++P0 human review PASS: approved governance commit 1c6303e0c17b04952ee6e9c8b01d6868e53fe152. Next allowed action: independent security review of .ops/reports/P1/security-repair/REPORT.md. V4 static security review: PASS. Privileged DEV installation: HOLD pending security review and separate human recovery/installation approval. Real deployment/runtime/E2E acceptance remains pending. Production is untouched. Sequential P1–P6 execution follows docs/P0_1_ORCHESTRATOR_AUTHORIZATION.md; independent review remains PENDING, operator/security gates require a stop, and P7 requires separate human authorization. Do not add top-level Parts without human approval.
+ 
+ MVP SCOPE FREEZE and the two-repair limit are defined in PROJECT_TIMELINE.md and enforced by AGENTS.md. First 100 data informs future priorities; it does not authorize new infrastructure/features or production work.
+diff --git a/SECURITY.md b/SECURITY.md
+index 9728ec0..38c9874 100644
+--- a/SECURITY.md
++++ b/SECURITY.md
+@@ -1,6 +1,6 @@
+ # Security contract
+ 
+-Execution authority: PROJECT_TIMELINE.md. P0 governance FROZEN (human review PASS); P1 WAITING_FOR_HUMAN (execution IN_PROGRESS / independent review PENDING under P0.1); P2–P7 NOT_STARTED. Human V4 static security review PASS applies to source 8217aa4a13c0265efd8cb81473dd7f00c68d2c34/handoff 5c44cb3549aebf02ddef84d8f4a04c5f82ae7f7d. Static design approval is not installed/runtime/E2E acceptance. Privileged DEV installation remains HOLD pending separate human/operator installation/configuration. Production untouched; P1–P6 advancement follows P0.1; P7 requires separate human authorization. Historical V2/V3 findings/bundles remain unchanged evidence. This document describes preserved V4 boundaries, not a P0 implementation change or installation authorization.
++Execution authority: PROJECT_TIMELINE.md. P0 governance FROZEN (human review PASS); P1 SECURITY_REVIEW_REQUIRED (execution IN_PROGRESS / independent review PENDING under P0.1); P2–P7 NOT_STARTED. Human V4 static security review PASS applies to source 8217aa4a13c0265efd8cb81473dd7f00c68d2c34/handoff 5c44cb3549aebf02ddef84d8f4a04c5f82ae7f7d. Static design approval is not installed/runtime/E2E acceptance. Privileged DEV installation remains HOLD pending security review and separate human recovery/installation approval. Production untouched; P1–P6 advancement follows P0.1; P7 requires separate human authorization. Historical V2/V3 findings/bundles remain unchanged evidence. This document describes preserved V4 boundaries, not a P0 implementation change or installation authorization.
+ 
+ Only HTTP(S), public DNS/IP destinations and default HTTP(S) ports. Reject credentials/fragments, internal/single-label names, private/reserved/mapped IPv6, metadata and the audit host. Resolve every connection, pin verified IPs, revalidate redirects and browser resources. Browser sandbox remains enabled; service workers/downloads are disabled. Validating proxy CONNECT permits public port 443 only. Time/body/inventory/request/concurrency caps remain mandatory.
+ 
+diff --git a/docs/DEV_VALIDATION_RUNBOOK.md b/docs/DEV_VALIDATION_RUNBOOK.md
+index 6136090..6a0c617 100644
+--- a/docs/DEV_VALIDATION_RUNBOOK.md
++++ b/docs/DEV_VALIDATION_RUNBOOK.md
+@@ -1,4 +1,4 @@
+-Future evidence checklist only; execution authority is PROJECT_TIMELINE.md. Current P0 governance FROZEN (human review PASS), P1 WAITING_FOR_HUMAN (execution IN_PROGRESS / independent review PENDING under P0.1); P2–P7 NOT_STARTED. V4 static security review PASS; privileged DEV installation HOLD pending separate human/operator installation/configuration. Production untouched. Sequential P1–P6 execution follows docs/P0_1_ORCHESTRATOR_AUTHORIZATION.md; independent review remains PENDING, operator/security gates require a stop, and P7 requires separate human authorization. Do not execute this checklist during P0. Each later subsection requires its current authorized Part entry gate and human-approved action; installation recipes/review bundles alone are not permission.
++Future evidence checklist only; execution authority is PROJECT_TIMELINE.md. Current P0 governance FROZEN (human review PASS), P1 SECURITY_REVIEW_REQUIRED (execution IN_PROGRESS / independent review PENDING under P0.1); P2–P7 NOT_STARTED. V4 static security review PASS; privileged DEV installation HOLD pending security review and separate human recovery/installation approval. Production untouched. Sequential P1–P6 execution follows docs/P0_1_ORCHESTRATOR_AUTHORIZATION.md; independent review remains PENDING, operator/security gates require a stop, and P7 requires separate human authorization. Do not execute this checklist during P0. Each later subsection requires its current authorized Part entry gate and human-approved action; installation recipes/review bundles alone are not permission.
+ 
+ # DEV acceptance runbook — pending actual runtime evidence
+ 
+diff --git a/ops/dev/install-root.sh b/ops/dev/install-root.sh
+index 6cb3af4..c026748 100644
+--- a/ops/dev/install-root.sh
++++ b/ops/dev/install-root.sh
+@@ -28,9 +28,9 @@ for reviewed_unit in gcreation-perf-dev-deploy.service gcreation-perf-dev-deploy
+ done
+ install -d -o root -g root -m 0700 /var/lib/gcreation-perf-dev
+ # Freeze only verified reviewed manifests and trusted enforcement code.
+-/usr/bin/python3 -I "$KIT_DIR/prepare_image.py" prepare "$ROOT_SNAPSHOT" "$APPROVED_SHA" "$REVIEWED_COMMIT"
++/usr/bin/python3 -I -B "$KIT_DIR/prepare_image.py" prepare "$ROOT_SNAPSHOT" "$APPROVED_SHA" "$REVIEWED_COMMIT"
+ DOCKER_BUILDKIT=1 docker build -f "$DEST/build-context/runtime.Dockerfile" -t gcreation-perf-dev-runtime:0.1 "$DEST/build-context"
+-/usr/bin/python3 -I "$KIT_DIR/prepare_image.py" seal "$ROOT_SNAPSHOT" "$APPROVED_SHA" "$REVIEWED_COMMIT"
++/usr/bin/python3 -I -B "$KIT_DIR/prepare_image.py" seal "$ROOT_SNAPSHOT" "$APPROVED_SHA" "$REVIEWED_COMMIT"
+ # Recheck all preflight conditions, including no trigger, immediately before enable.
+ /usr/bin/python3 -I "$KIT_DIR/install_preflight.py" "$ROOT_SNAPSHOT" "$APPROVED_SHA" "$REVIEWED_COMMIT"
+ systemctl daemon-reload
+diff --git a/tests/test_installer_bytecode.py b/tests/test_installer_bytecode.py
+new file mode 100644
+index 0000000..79ec0be
+--- /dev/null
++++ b/tests/test_installer_bytecode.py
+@@ -0,0 +1,151 @@
++"""Replay the reviewed import/verification path with ordinary-user fixture DATA."""
++import hashlib
++import io
++import json
++import os
++from pathlib import Path
++import shlex
++import subprocess
++import tarfile
++import tempfile
++import unittest
++
++ROOT = Path(__file__).resolve().parents[1]
++
++# Execute the actual AST nodes, not a replacement snapshot verifier. Only the
++# fixed review directory and root-ownership observation are fixture substitutes.
++# No installer, image preparation, Docker or host administration is executed.
++REPLAY = r'''
++import ast
++from pathlib import Path
++import sys
++from unittest import mock
++snapshot = Path(sys.argv[2])
++actual = snapshot / 'ops/dev/prepare_image.py'
++tree = ast.parse(actual.read_text())
++entry = tree.body[-1].body
++insert = next(node for node in entry if isinstance(node, ast.Expr)
++              and isinstance(node.value, ast.Call)
++              and isinstance(node.value.func, ast.Attribute)
++              and node.value.func.attr == 'insert')
++import_node = next(node for node in entry if isinstance(node, ast.ImportFrom)
++                   and node.module == 'install_preflight')
++verify = next(node for node in entry if isinstance(node, ast.Expr)
++              and isinstance(node.value, ast.Call)
++              and isinstance(node.value.func, ast.Name)
++              and node.value.func.id == 'verify_snapshot')
++def execute(nodes):
++    module = ast.parse('')
++    module.body = nodes
++    exec(compile(ast.fix_missing_locations(module), str(actual), 'exec'), globals())
++execute([insert, import_node])
++preflight = sys.modules['install_preflight']
++with mock.patch.object(preflight, 'REVIEW_ROOT', snapshot.parent.parent), \
++        mock.patch.object(preflight, 'require_root_owned'):
++    execute([verify])
++print('VERIFIED')
++'''
++
++
++class InstallerBytecodeTests(unittest.TestCase):
++    def setUp(self):
++        self.assertNotEqual(os.geteuid(), 0, 'Ordinary-user tests only')
++        base = ROOT / '.ops/test-artifacts'
++        base.mkdir(parents=True, exist_ok=True)
++        self.temp = tempfile.TemporaryDirectory(dir=str(base))
++        self.root = Path(self.temp.name)
++
++    def tearDown(self):
++        self.temp.cleanup()  # Fixture disposal, never a snapshot repair strategy.
++
++    def invocation_flags(self, mode):
++        lines = (ROOT / 'ops/dev/install-root.sh').read_text().splitlines()
++        commands = [shlex.split(line) for line in lines
++                    if line.startswith('/usr/bin/python3 ')
++                    and '"$KIT_DIR/prepare_image.py" ' + mode + ' ' in line]
++        self.assertEqual(len(commands), 1)
++        command = commands[0]
++        self.assertEqual(command[-4:], [mode, '$ROOT_SNAPSHOT', '$APPROVED_SHA', '$REVIEWED_COMMIT'])
++        return command[0], command[1:-5]
++
++    def fixture(self):
++        commit = 'a' * 40
++        stage = Path(tempfile.mkdtemp(dir=str(self.root))) / commit
++        snapshot = stage / 'snapshot'
++        kit = snapshot / 'ops/dev'
++        kit.mkdir(parents=True)
++        for name in ('install_preflight.py', 'prepare_image.py'):
++            (kit / name).write_bytes((ROOT / 'ops/dev' / name).read_bytes())
++        (snapshot / 'REVIEW_SOURCE_COMMIT').write_text(commit + '\n')
++        archive = stage / 'reviewed-source.tar.gz'
++        with tarfile.open(str(archive), 'w:gz') as data:
++            for path in sorted(snapshot.rglob('*')):
++                if path.is_file():
++                    content = path.read_bytes()
++                    member = tarfile.TarInfo(str(path.relative_to(snapshot)))
++                    member.size = len(content)
++                    data.addfile(member, io.BytesIO(content))
++        digest = hashlib.sha256(archive.read_bytes()).hexdigest()
++        metadata = {'commit': commit, 'archive_sha256': digest,
++                    'files': self.file_map(snapshot)}
++        (stage / 'approved.json').write_text(json.dumps(metadata))
++        return snapshot, digest, commit, metadata['files']
++
++    def file_map(self, snapshot):
++        return {str(path.relative_to(snapshot)): hashlib.sha256(path.read_bytes()).hexdigest()
++                for path in snapshot.rglob('*') if path.is_file()}
++
++    def replay(self, flags, mode, snapshot, digest, commit):
++        return subprocess.run(['/usr/bin/python3'] + flags + ['-c', REPLAY, mode,
++                              str(snapshot), digest, commit], timeout=20,
++                              stdout=subprocess.PIPE, stderr=subprocess.PIPE,
++                              env={'PATH': '/usr/sbin:/usr/bin:/sbin:/bin'})
++
++    def test_old_isolated_import_invalidates_approved_snapshot(self):
++        snapshot, digest, commit, approved = self.fixture()
++        result = self.replay(['-I'], 'prepare', snapshot, digest, commit)
++        self.assertNotEqual(result.returncode, 0)
++        self.assertIn(b'Reviewed snapshot content mismatch', result.stderr)
++        added = set(self.file_map(snapshot)) - set(approved)
++        self.assertTrue(any(name.startswith('ops/dev/__pycache__/install_preflight.')
++                            and name.endswith('.pyc') for name in added), added)
++
++    def test_prepare_and_seal_invocations_disable_bytecode_at_startup(self):
++        for mode in ('prepare', 'seal'):
++            executable, flags = self.invocation_flags(mode)
++            self.assertEqual(executable, '/usr/bin/python3')
++            self.assertEqual(flags, ['-I', '-B'])
++        installer = (ROOT / 'ops/dev/install-root.sh').read_text()
++        self.assertNotIn('__pycache__', installer)
++        self.assertNotIn('.pyc', installer)
++        self.assertNotIn('dont_write_bytecode', installer)
++
++    def test_repaired_prepare_and_seal_preserve_exact_snapshot_file_map(self):
++        for mode in ('prepare', 'seal'):
++            with self.subTest(mode=mode):
++                _, flags = self.invocation_flags(mode)
++                snapshot, digest, commit, approved = self.fixture()
++                result = self.replay(flags, mode, snapshot, digest, commit)
++                self.assertEqual(result.returncode, 0, result.stderr.decode())
++                self.assertEqual(result.stdout, b'VERIFIED\n')
++                self.assertEqual(self.file_map(snapshot), approved)
++                self.assertFalse(list(snapshot.rglob('__pycache__')))
++
++    def test_repaired_modes_still_reject_added_and_modified_source(self):
++        for mode in ('prepare', 'seal'):
++            for mutation in ('added', 'modified'):
++                with self.subTest(mode=mode, mutation=mutation):
++                    _, flags = self.invocation_flags(mode)
++                    snapshot, digest, commit, _ = self.fixture()
++                    target = snapshot / ('unexpected.txt' if mutation == 'added'
++                                         else 'ops/dev/prepare_image.py')
++                    with target.open('a') as out:
++                        out.write('\n# Unapproved fixture mutation\n')
++                    result = self.replay(flags, mode, snapshot, digest, commit)
++                    self.assertNotEqual(result.returncode, 0)
++                    self.assertIn(b'Reviewed snapshot content mismatch', result.stderr)
++                    self.assertFalse(list(snapshot.rglob('__pycache__')))
++
++
++if __name__ == '__main__':
++    unittest.main()

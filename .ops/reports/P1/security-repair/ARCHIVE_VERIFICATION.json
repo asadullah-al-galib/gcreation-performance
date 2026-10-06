@@ -1,0 +1,18 @@
+{
+  "candidate_source_commit": "08b395cf08523dbc5ab27f744d174b8a19bb2b4b",
+  "archive_path": "/home/codexperf/projects/gcreation-performance/.ops/test-artifacts/review-source-08b395cf08523dbc5ab27f744d174b8a19bb2b4b.tar.gz",
+  "proposed_archive_sha256": "80b206bf89d62f9a6b253970fea6a3a9cbe21b3106876e6e1e807df01a618929",
+  "deterministic_reexport_identical": true,
+  "regular_members": 105,
+  "committed_blobs_verified": 104,
+  "source_manifest_path": ".ops/reports/P1/security-repair/SOURCE_MANIFEST.sha256",
+  "source_manifest_sha256": "11b0c7507058a4fbd56e12398b96547ed7d2b9724153d05ecd44e747460a28d7",
+  "expected_candidate_snapshot_sha256": "867f258b5bb1261317caa6f601becbb4c7294569ff3b5bc4903d95f926f98fc3",
+  "v4_boundary_files_checked": 50,
+  "v4_boundary_files_unchanged": 49,
+  "changed_privileged_sources": [
+    "ops/dev/install-root.sh"
+  ],
+  "verify_snapshot_module_unchanged": true,
+  "limitations": "Unprivileged DATA verification only. Candidate has no independent security PASS, approved new archive identity, root extraction, installed image or runtime acceptance."
+}

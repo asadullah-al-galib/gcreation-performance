@@ -13,6 +13,7 @@ RUN npm ci --ignore-scripts --no-audit --no-fund --cache=/tmp/reviewed-npm-cache
 WORKDIR /opt/gcreation-trusted
 COPY trusted-source/ ./
 RUN --network=none ln -s /opt/gcreation-deps/node_modules node_modules \
+ && chmod 0755 ops ops/dev ops/dev/trusted \
  && /usr/local/bin/node /opt/gcreation-deps/node_modules/typescript/bin/tsc -p ops/dev/trusted/tsconfig.json
 ENV PLAYWRIGHT_BROWSERS_PATH=/ms-playwright NODE_ENV=development
 USER 10001:10001

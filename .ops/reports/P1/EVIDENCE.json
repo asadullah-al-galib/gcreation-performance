@@ -3,7 +3,7 @@
   "project": "gCreation Performance Doctor MVP v0.1",
   "part": "P1",
   "execution_state": "IN_PROGRESS",
-  "orchestrator_state": "WAITING_FOR_HUMAN",
+  "orchestrator_state": "HUMAN_CAPABILITY_GATE",
   "independent_review": "PENDING",
   "repair_cycle": 1,
   "generated_at": "2026-10-06T03:31:48+00:00",
@@ -584,11 +584,31 @@
       "exit_code": null,
       "evidence_reference": "REPAIR_1_ACCEPTANCE.json",
       "limitations": "No installed refresh, deployment, runtime or full P1 PASS; no independently measured server archive bytes by reviewer."
+    },
+    {
+      "criterion_id": "P1-P0_2-CAPABILITY",
+      "part": "P1",
+      "requirement": "Approved constrained capability for accepted controller refresh",
+      "expected": "Verified fresh stage and candidate-only atomic refresh through approved constrained interface, with unchanged trust/rollback checks",
+      "observed": "Installed readable controller matches parent; private paths PermissionError13; no approved refresh interface; no request/claim; existing failed status retained; limited DEV HTTP reachability only",
+      "result": "PENDING_HUMAN",
+      "checkpoint_result": "BLOCKED",
+      "evidence_class": "LOCAL_TESTED",
+      "verification_domain": "READ_ONLY_CAPABILITY_PREFLIGHT_ONLY",
+      "timestamp": "2026-10-06T08:53:17.289277+00:00",
+      "source_commit": "134ddfbe393168ce7cef99c44817329c84a8d6eb",
+      "deployed_archive_sha256": null,
+      "deployed_snapshot_sha256": null,
+      "runtime_image_identity": null,
+      "command_or_test": "Bounded non-privileged Git/archive/installed-byte/interface/path/HTTP capability probes recorded in P0_2_CAPABILITY_PREFLIGHT.json",
+      "exit_code": null,
+      "evidence_reference": "P0_2_CAPABILITY_PREFLIGHT.json",
+      "limitations": "Approval already granted; missing capability stops. No privileged refresh/runtime inspection or Part acceptance. Namespace metadata does not attest host ownership; HTTP availability does not prove engine/runtime/WooCommerce acceptance."
     }
   ],
-  "updated_at": "2026-10-06T04:48:22+00:00",
+  "updated_at": "2026-10-06T08:53:17.289277+00:00",
   "repair_path": "REPAIR_1",
-  "repair_state": "WAITING_FOR_HUMAN",
+  "repair_state": "HUMAN_CAPABILITY_GATE",
   "current_candidate_commit": "134ddfbe393168ce7cef99c44817329c84a8d6eb",
   "runtime_repair": {
     "candidate_commit": "134ddfbe393168ce7cef99c44817329c84a8d6eb",
@@ -597,7 +617,10 @@
     "deployment_authorized": false,
     "evidence_reference": "runtime-repair-1/REPORT.md",
     "approval_record": "REPAIR_1_ACCEPTANCE.json",
-    "controller_refresh_authorized": false
+    "controller_refresh_authorized": true,
+    "deployment_condition": "P0.2\u00a79: only after verified successful refresh; attempts0/1/retries0",
+    "authorization_reference": "docs/P0_2_AUTONOMOUS_AUTHORIZATION.md"
   },
-  "repair_independent_review": "PASS"
+  "repair_independent_review": "PASS",
+  "authorization_reference": "docs/P0_2_AUTONOMOUS_AUTHORIZATION.md"
 }

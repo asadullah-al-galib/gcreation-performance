@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "project": "gCreation Performance Doctor MVP v0.1",
-  "mode": "P1-P6_ORCHESTRATED",
+  "mode": "P1-P6_AUTONOMOUS_V2",
   "current_part": "P1",
-  "state": "WAITING_FOR_HUMAN",
-  "authorization": "HUMAN_P0_1",
-  "authorization_reference": "docs/P0_1_ORCHESTRATOR_AUTHORIZATION.md",
+  "state": "HUMAN_CAPABILITY_GATE",
+  "authorization": "HUMAN_P0_2",
+  "authorization_reference": "docs/P0_2_AUTONOMOUS_AUTHORIZATION.md",
   "p0": "FROZEN",
   "p0_human_review": "PASS",
   "p0_governance_commit": "1c6303e0c17b04952ee6e9c8b01d6868e53fe152",
@@ -19,7 +19,7 @@
       "repair_cycle": 1,
       "report_directory": ".ops/reports/P1",
       "repair_path": "REPAIR_1",
-      "repair_state": "WAITING_FOR_HUMAN",
+      "repair_state": "HUMAN_CAPABILITY_GATE",
       "failed_repair_cycles": 0,
       "repair_independent_review": "PASS"
     },
@@ -52,14 +52,14 @@
   "human_gate": {
     "part": "P1",
     "repair": "REPAIR_1",
-    "purpose": "Separate approval/operator trusted-controller refresh ONLY from a NEW verified root-only candidate snapshot",
-    "status": "PENDING_HUMAN_APPROVAL",
+    "purpose": "P0.2-approved candidate-only controller refresh: verification unchanged, approved constrained interface/operator required",
+    "status": "PENDING_CAPABILITY",
     "action_file": ".ops/reports/P1/TRUSTED_CONTROLLER_REFRESH_GATE.md",
-    "action_file_sha256": "6963ec00f65b3f24147c23c220597433de503cad1b47d7c19b1a0682db9d8da0",
+    "action_file_sha256": "4179975781ab7aea497a04fdfd4b995379dbc10fb49bce414dc40a48802d92e6",
     "accepted_source_commit": "134ddfbe393168ce7cef99c44817329c84a8d6eb",
     "archive_sha256": "d2c69e1a49342ae09867bd206e39e89d969c8d0e39eb3c6e9b1eaaf93c1e68b0",
     "root_review_stage": "/var/lib/gcreation-perf-review/134ddfbe393168ce7cef99c44817329c84a8d6eb",
-    "controller_refresh_authorized": false,
+    "controller_refresh_authorized": true,
     "installation_authorized": false,
     "deployment_authorized": false,
     "max_new_deployment_requests": 0,
@@ -70,12 +70,15 @@
       "ONLY_INSTALLED_CONTROLLER_ATOMIC_REFRESH",
       "ROOT_PRIVATE_ROLLBACK_COPY",
       "READ_ONLY_IDENTITY_AND_PRESERVATION_CHECKS"
-    ]
+    ],
+    "approval_granted_by": "HUMAN_P0_2_SECTION_8",
+    "capability_verified": false,
+    "human_action": "Designated operator executes the already-approved refresh gate and returns sanitized proof; no additional authorization required"
   },
   "hard_blocker": null,
   "production_touched": false,
   "p7": "NOT_STARTED",
-  "updated_at": "2026-10-06T07:28:52.241684+00:00",
+  "updated_at": "2026-10-06T08:53:17.289277+00:00",
   "p7_authorization": "SEPARATE_HUMAN_REQUIRED",
   "security_review": {
     "part": "P1",
@@ -221,7 +224,61 @@
     "evidence_file": ".ops/reports/P1/runtime-repair-1/HOST_FAILURE.json",
     "diagnosis": "UMask0077 masks requested0755 source directory modes to root-owned0700",
     "smallest_remediation": "Normalize release/source/nested-source directories0755 after creation; preserve source0644 and all controls",
-    "next_action": "Separate human approval for trusted-controller refresh gate only; successful refresh still needs a new separate deployment approval",
-    "status": "PENDING_HUMAN_CONTROLLER_REFRESH_AND_RUNTIME_PROOF"
+    "next_action": "Already-authorized human operator controller refresh; verify proof then conditional P0.2 single REPAIR_1 deployment",
+    "status": "HUMAN_CAPABILITY_GATE"
+  },
+  "external_oversight": "PENDING",
+  "deployment_authority": {
+    "granted_by": "HUMAN_P0_2_SECTION_9",
+    "cycle": "REPAIR_1",
+    "repair_cycle": 1,
+    "max_attempts_this_cycle": 1,
+    "attempts_used_this_cycle": 0,
+    "automatic_retries": 0,
+    "condition": "Successful verified accepted controller refresh and all deployment preconditions",
+    "condition_met": false,
+    "request_ready": false,
+    "prior_initial_attempt_consumed": true
+  },
+  "capability_gate": {
+    "process": "controller-refresh-capability",
+    "evidence_file": ".ops/reports/P1/P0_2_CAPABILITY_PREFLIGHT.json",
+    "scope_class": "SECURITY_CRITICAL",
+    "business_mapping": [
+      "SECURITY",
+      "MVP_RELEASE"
+    ],
+    "reason": "No pre-approved constrained interface can establish/verify the new root-only review stage and atomically refresh only the installed controller. Private stage inspection gives PermissionError errno13 and installed bytes remain the approved parent.",
+    "approval_already_granted": true,
+    "root_interface_available": false,
+    "operator_action": "Execute the already-authorized candidate-pinned trusted-controller refresh gate as the designated operator and return its sanitized verification/rollback evidence. No new approval, installer rerun, image build, deployment or cleanup is requested.",
+    "repair_cycle_consumed": false
+  },
+  "execution_policy": {
+    "routine_micro_approvals_required": false,
+    "external_oversight_blocks_continuation": false,
+    "sequential_P1_P6": true,
+    "max_cycles": [
+      "INITIAL",
+      "REPAIR_1",
+      "REPAIR_2"
+    ],
+    "stop_conditions": [
+      "SECURITY_REVIEW_REQUIRED",
+      "HARD_BLOCKED",
+      "HUMAN_CAPABILITY_GATE",
+      "BUSINESS_DECISION_REQUIRED",
+      "EXTERNAL_CREDENTIAL_REQUIRED",
+      "P6_REVIEW_READY",
+      "PRODUCTION_GO_LIVE_REQUIRED"
+    ],
+    "P7_authorized": false,
+    "production_authorized": false,
+    "agent_unrestricted_privilege_authorized": false
+  },
+  "oversight_checkpoint": {
+    "latest_json": ".ops/oversight/LATEST_CHECKPOINT.json",
+    "latest_markdown": ".ops/oversight/LATEST_CHECKPOINT.md",
+    "event": ".ops/oversight/events/0001-P1-controller-refresh-capability.json"
   }
 }

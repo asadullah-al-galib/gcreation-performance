@@ -1,0 +1,181 @@
+{
+  "schema_version": 1,
+  "part": "P1",
+  "process": "controller-refresh-capability",
+  "result": "BLOCKED",
+  "orchestrator_state": "HUMAN_CAPABILITY_GATE",
+  "recorded_at_utc": "2026-10-06T08:46:50.613329+00:00",
+  "observed_at_utc": null,
+  "scope_class": "SECURITY_CRITICAL",
+  "business_mapping": [
+    "SECURITY",
+    "MVP_RELEASE"
+  ],
+  "authorization_reference": "docs/P0_2_AUTONOMOUS_AUTHORIZATION.md",
+  "source_authorization_sha256": "9cd3e57543172ca4332c57db0fe3b8e9ab8d4a054fe1462730649ca403df85be",
+  "normalized_record_sha256": "9c14ab934e07f41b8a95a398adc57dae9b66315c030810a7acf028db27651e3d",
+  "git": {
+    "repository_reachable": true,
+    "branch": "develop",
+    "head_before_changes": "ce45990adfe61f47db50387fd7a6b78168f41daf",
+    "origin_develop_before_changes": "ce45990adfe61f47db50387fd7a6b78168f41daf",
+    "working_tree_clean_before_changes": true,
+    "main_unchanged": "c724ac3b50bc44d71f8620bb4ac0cccfae890de2"
+  },
+  "server": {
+    "session_uid": 10023,
+    "available_constrained_interfaces": [
+      "Existing fixed runtime watcher request/status interface; read-only installed-code view"
+    ],
+    "refresh_interface_discovered": false,
+    "interface_discovery_scope": [
+      "Project-prefixed entries in /usr/local/bin and /usr/local/sbin",
+      "/usr/local/lib/gcreation-perf-dev installed inventory",
+      "Reviewed fixed watcher/controller source and enabled-path definition; no activation performed",
+      "Available callable tools: no project SSH/root-refresh/WordPress deployment connector"
+    ],
+    "root_escalation_attempted": false,
+    "docker_socket_or_group_used": false,
+    "installed_controller_sha256": "1a0b509e14777329932771fe5332d05798f368e0788220256b5de9403f72dc54",
+    "installed_controller_matches_parent": true,
+    "installed_controller_matches_candidate": false,
+    "controller_writable_from_agent": false,
+    "namespace_reported_installed_uid_gid": [
+      65534,
+      65534
+    ],
+    "namespace_ownership_limitation": "Namespace ownership metadata is not a verified real-host root:root attestation; fresh protected root-stage/ownership verification remains operator-only.",
+    "private_path_observations": [
+      {
+        "path": "/var/lib/gcreation-perf-review/8217aa4a13c0265efd8cb81473dd7f00c68d2c34",
+        "result": "NOT_ACCESSIBLE",
+        "error": "PermissionError",
+        "errno": 13,
+        "evidence_class": "ACTUAL_READ_ONLY_CAPABILITY_OBSERVATION",
+        "limitation": "Permission denial does not establish absence or changed host state."
+      },
+      {
+        "path": "/var/lib/gcreation-perf-review/08b395cf08523dbc5ab27f744d174b8a19bb2b4b",
+        "result": "NOT_ACCESSIBLE",
+        "error": "PermissionError",
+        "errno": 13,
+        "evidence_class": "ACTUAL_READ_ONLY_CAPABILITY_OBSERVATION",
+        "limitation": "Permission denial does not establish absence or changed host state."
+      },
+      {
+        "path": "/var/lib/gcreation-perf-review/134ddfbe393168ce7cef99c44817329c84a8d6eb",
+        "result": "NOT_ACCESSIBLE",
+        "error": "PermissionError",
+        "errno": 13,
+        "evidence_class": "ACTUAL_READ_ONLY_CAPABILITY_OBSERVATION",
+        "limitation": "Permission denial does not establish absence or changed host state."
+      },
+      {
+        "path": "/var/lib/gcreation-perf-dev/active.json",
+        "result": "NOT_ACCESSIBLE",
+        "error": "PermissionError",
+        "errno": 13,
+        "evidence_class": "ACTUAL_READ_ONLY_CAPABILITY_OBSERVATION",
+        "limitation": "Permission denial does not establish absence or changed host state."
+      },
+      {
+        "path": "/var/www/vhosts/gcreation.agency/dev.gcreation.agency",
+        "result": "NOT_ACCESSIBLE",
+        "error": "PermissionError",
+        "errno": 13,
+        "evidence_class": "ACTUAL_READ_ONLY_CAPABILITY_OBSERVATION",
+        "limitation": "Permission denial does not establish absence or changed host state."
+      },
+      {
+        "path": "/var/www/vhosts/gcreation.agency/dev.gcreation.agency/wp-content/plugins/gcreation-performance",
+        "result": "NOT_ACCESSIBLE",
+        "error": "PermissionError",
+        "errno": 13,
+        "evidence_class": "ACTUAL_READ_ONLY_CAPABILITY_OBSERVATION",
+        "limitation": "Permission denial does not establish absence or changed host state."
+      }
+    ],
+    "installed_image_identity_file": "sha256:f2bb2401f1f296115cd0d3dd5609ca6514446f55d4484f1884639f308a456f24",
+    "running_image_inspection": "NOT_VERIFIED",
+    "dependency_baseline_matches_candidate": true,
+    "installed_bytes_unchanged_against_candidate": {
+      "deploy-dev.sh": true,
+      "runtime.Dockerfile": true,
+      "seccomp_profile.json": true,
+      "install_preflight.py": true
+    },
+    "approved_runtime_request_activation": "NOT_TESTED_READ_ONLY_PREFLIGHT",
+    "watcher_live_active_enabled": "NOT_VERIFIED_IN_CURRENT_SESSION"
+  },
+  "http": {
+    "scope": "Exact DEV hostname only, bounded GET, TLS verification enabled, no redirect following, no cookies/authentication, no response body/headers containing secrets logged",
+    "max_requests": 4,
+    "timeout_per_request_seconds": 15,
+    "max_body_per_response_bytes": 131072,
+    "checks": [
+      {
+        "url": "https://dev.gcreation.agency/",
+        "status": 200,
+        "wordpress_html_marker_present": true,
+        "truncated": false
+      },
+      {
+        "url": "https://dev.gcreation.agency/wp-json/",
+        "status": 404,
+        "body_not_logged": true
+      },
+      {
+        "url": "https://dev.gcreation.agency/perf-engine/health",
+        "status": 404,
+        "body_not_logged": true
+      },
+      {
+        "url": "https://dev.gcreation.agency/?rest_route=/",
+        "status": 200,
+        "content_type": "application/json; charset=UTF-8",
+        "truncated": true,
+        "namespace_inventory": "NOT_VERIFIED_BOUNDED_BODY"
+      }
+    ]
+  },
+  "wordpress": {
+    "homepage_reachable": true,
+    "rest_fallback_reachable": true,
+    "plugin_update_capability": "NOT_AVAILABLE_THROUGH_DISCOVERED_INTERFACE",
+    "woocommerce_dev_configuration": "NOT_VERIFIED",
+    "mutation_or_checkout_performed": false,
+    "limitation": "HTTP availability does not prove configured WooCommerce/customer journey. No WP/Plesk path writes or production access."
+  },
+  "P1": {
+    "accepted_repair_source": "134ddfbe393168ce7cef99c44817329c84a8d6eb",
+    "independent_source_review": "PASS_ALREADY_RECORDED",
+    "repair_cycle": 1,
+    "full_part_independent_review": "PENDING",
+    "controller_refresh": "AUTHORIZED_BY_P0_2_BUT_CAPABILITY_UNAVAILABLE",
+    "root_snapshot_checks": "NOT_VERIFIED_INACCESSIBLE",
+    "request": "ABSENT",
+    "claim": "ABSENT",
+    "status": {
+      "state": "FAILED",
+      "commit": "08b395cf08523dbc5ab27f744d174b8a19bb2b4b",
+      "stage": "non-root-build",
+      "error": "RuntimeError",
+      "rollback": false
+    },
+    "current_running_containers": "NOT_VERIFIED",
+    "no_second_request_created": true,
+    "new_cycle_attempts_used": 0,
+    "automatic_retries": 0
+  },
+  "exact_blocker": "No pre-approved constrained interface can establish/verify the new root-only review stage and atomically refresh only the installed controller. Private stage inspection gives PermissionError errno13 and installed bytes remain the approved parent.",
+  "smallest_human_action": "Execute the already-authorized candidate-pinned trusted-controller refresh gate as the designated operator and return its sanitized verification/rollback evidence. No new approval, installer rerun, image build, deployment or cleanup is requested.",
+  "resume": "Validate returned controller refresh proof against the exact gate, then use existing runtime watcher for the P0.2-authorized single REPAIR_1 attempt with retry0, gather P1 real DEV evidence, and advance only after required technical exits.",
+  "production_touched": false,
+  "P2": "NOT_STARTED",
+  "external_oversight": "PENDING",
+  "tests_rerun": false,
+  "limitations": [
+    "Fresh host root ownership/stages/runtime identity require approved operator capability; prior human attestation is retained, not relabeled as this session verification.",
+    "Homepage/REST reachability are capability probes only, not P1/P3 or MVP acceptance."
+  ]
+}

@@ -1,0 +1,109 @@
+{
+  "schema_version": 1,
+  "event_id": "0001",
+  "timestamp_utc": "2026-10-06T08:55:12.770876+00:00",
+  "part": "P1",
+  "process": "controller-refresh-capability",
+  "result": "BLOCKED",
+  "orchestrator_state": "HUMAN_CAPABILITY_GATE",
+  "business_mapping": [
+    "SECURITY",
+    "MVP_RELEASE"
+  ],
+  "scope_class": "SECURITY_CRITICAL",
+  "source_commit": "134ddfbe393168ce7cef99c44817329c84a8d6eb",
+  "parent_or_baseline": "ce45990adfe61f47db50387fd7a6b78168f41daf",
+  "source_parent": "08b395cf08523dbc5ab27f744d174b8a19bb2b4b",
+  "deployed_identity": null,
+  "repair_cycle": 1,
+  "changed_files": [
+    ".ops/ACTION_REQUIRED.md",
+    ".ops/ORCHESTRATOR_STATUS.json",
+    ".ops/PROJECT_STATE.md",
+    ".ops/PROJECT_STATUS.md",
+    ".ops/oversight/LATEST_CHECKPOINT.json",
+    ".ops/oversight/LATEST_CHECKPOINT.md",
+    ".ops/oversight/events/0001-P1-controller-refresh-capability.json",
+    ".ops/reports/P1/CHECKSUMS.sha256",
+    ".ops/reports/P1/EVIDENCE.json",
+    ".ops/reports/P1/P0_2_CAPABILITY_PREFLIGHT.json",
+    ".ops/reports/P1/P0_2_DOCUMENTATION_CHECKS.md",
+    ".ops/reports/P1/REPORT.md",
+    ".ops/reports/P1/TRUSTED_CONTROLLER_REFRESH_GATE.md",
+    "AGENTS.md",
+    "ARCHITECTURE.md",
+    "MASTER_EXEC_PLAN.md",
+    "PLANS.md",
+    "PROJECT_TIMELINE.md",
+    "README.md",
+    "REQUIREMENTS.md",
+    "ROADMAP.md",
+    "SECURITY.md",
+    "docs/DEV_VALIDATION_RUNBOOK.md",
+    "docs/P0_2_AUTONOMOUS_AUTHORIZATION.md",
+    "docs/POST_100_BACKLOG.md"
+  ],
+  "tests": {
+    "targeted": [
+      "Initial bounded read-only capability preflight: Git/source-archive/manifest/installed-byte/interface/path checks; refresh capability unavailable"
+    ],
+    "regression": [
+      "Documentation/state/authority/JSON consistency PASS",
+      "Protected code/review/criterion/history/gate-command/rollback preservation PASS",
+      "Changed root documentation formatting PASS",
+      "git diff --check PASS",
+      "Control-file preservation and candidate archive SHA256 PASS"
+    ],
+    "real_dev": [
+      {
+        "url": "https://dev.gcreation.agency/",
+        "status": 200,
+        "wordpress_html_marker_present": true,
+        "truncated": false
+      },
+      {
+        "url": "https://dev.gcreation.agency/wp-json/",
+        "status": 404,
+        "body_not_logged": true
+      },
+      {
+        "url": "https://dev.gcreation.agency/perf-engine/health",
+        "status": 404,
+        "body_not_logged": true
+      },
+      {
+        "url": "https://dev.gcreation.agency/?rest_route=/",
+        "status": 200,
+        "content_type": "application/json; charset=UTF-8",
+        "truncated": true,
+        "namespace_inventory": "NOT_VERIFIED_BOUNDED_BODY"
+      }
+    ]
+  },
+  "evidence_paths": [
+    "docs/P0_2_AUTONOMOUS_AUTHORIZATION.md",
+    ".ops/reports/P1/P0_2_CAPABILITY_PREFLIGHT.json",
+    ".ops/reports/P1/P0_2_DOCUMENTATION_CHECKS.md",
+    ".ops/reports/P1/TRUSTED_CONTROLLER_REFRESH_GATE.md",
+    ".ops/reports/P1/EVIDENCE.json",
+    ".ops/reports/P1/REPORT.md",
+    ".ops/reports/P1/CHECKSUMS.sha256",
+    ".ops/ORCHESTRATOR_STATUS.json",
+    ".ops/ACTION_REQUIRED.md"
+  ],
+  "security_boundary_change": false,
+  "production_touched": false,
+  "human_action_required": true,
+  "external_oversight": "PENDING",
+  "known_limitations": [
+    "Fresh host root ownership/stages/runtime identity require approved operator capability; prior human attestation is retained, not relabeled as this session verification.",
+    "Homepage/REST reachability are capability probes only, not P1/P3 or MVP acceptance.",
+    "No approved constrained refresh interface found; private-stage verification inaccessible; controller refresh not performed.",
+    "Current runtime/container identity NOT_VERIFIED; HTTP responses do not grant P1 or WooCommerce acceptance.",
+    "No repair attempt or deployment request consumed by capability preflight; full P1 independent review remains PENDING."
+  ],
+  "next_allowed_step": "Verify the designated operator's sanitized proof for the already-authorized candidate-only controller refresh; only then run the single P0.2-authorized REPAIR_1 watcher deployment and validate required P1 exits, retry0.",
+  "smallest_human_action": "Execute the already-authorized candidate-pinned trusted-controller refresh gate as the designated operator and return its sanitized verification/rollback evidence. No new approval, installer rerun, image build, deployment or cleanup is requested.",
+  "authorization_reference": "docs/P0_2_AUTONOMOUS_AUTHORIZATION.md",
+  "approval_already_granted": true
+}

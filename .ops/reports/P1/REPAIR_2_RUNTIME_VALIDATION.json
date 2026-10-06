@@ -1,0 +1,127 @@
+{
+  "schema_version": 1,
+  "part": "P1",
+  "repair": "REPAIR_2",
+  "result": "FAIL",
+  "orchestrator_state": "HARD_BLOCKED",
+  "process": "repair2-deployment-failed",
+  "source_commit": "0ac34ba50ab3192abfe2ae425c4283879484258e",
+  "archive_sha256": "958c6833da7e63d7843996a3171e540bf74b6978dcdfaf521c1eb55a39587ced",
+  "expected_snapshot_sha256": "44b5b3b45036ce787f2b9c4ecb20ae21c37db323904b6f18c7c341b976d528ae",
+  "promoted_image_id_pre_submission_pointer_and_operator_attestation": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a",
+  "running_image_id": null,
+  "deployed_snapshot_sha256": null,
+  "criteria": {
+    "accepted_source_archive_identity": {
+      "result": "PASS",
+      "evidence_or_limitation": "Exact reviewed archive hash, owned ordinary single-link source DATA and byte equality verified before one-shot publication."
+    },
+    "promoted_installed_file_identities": {
+      "result": "PASS_BYTES_ONLY",
+      "evidence_or_limitation": "Ordinary-user image pointer, Dockerfile and controller reads match authorized identities. Visible namespace UID/GID65534 do not independently prove host root ownership or running image identity."
+    },
+    "request_submitted_and_consumed_once": {
+      "result": "PASS",
+      "evidence_or_limitation": "One fsynced request atomically published with RENAME_NOREPLACE; matching RUNNING, claim observed, final request/claim absent; attempts1/1/retries0."
+    },
+    "non_root_build_command_completion": {
+      "result": "INFERRED_EXIT_ZERO",
+      "evidence_or_limitation": "Reviewed controller advances to runtime-health only after offline build command returns0. Individual build output and effective containment were not inspected."
+    },
+    "runtime_start_and_health": {
+      "result": "FAIL",
+      "evidence_or_limitation": "Sanitized watcher FAILED/runtime-health/RuntimeError/rollback=false. Underlying exception text and root cause are unavailable; no unsupported cause is asserted."
+    },
+    "terminal_archive_identity": {
+      "result": "NOT_PRESENT_IN_FAILED_STATUS",
+      "evidence_or_limitation": "Pinned archive observed in RUNNING. Terminal FAIL is attributed by the recorded one-shot sequence and same commit; no exact terminal archive match is claimed."
+    },
+    "deployed_release_snapshot_identity": {
+      "result": "NOT_VERIFIED",
+      "evidence_or_limitation": "FAILED does not publish deployed snapshot identity. Expected44b5b3b4 remains an input, not an observed deployment."
+    },
+    "ordinary_user_internal_health": {
+      "result": "NOT_RUN",
+      "evidence_or_limitation": "User authorized health probes only after exact COMPLETED; deployment failed."
+    },
+    "public_engine_health": {
+      "result": "NOT_RUN",
+      "evidence_or_limitation": "No post-failure HTTP probes authorized or performed."
+    },
+    "public_admin_refusal": {
+      "result": "NOT_RUN",
+      "evidence_or_limitation": "No post-failure HTTP probes authorized or performed."
+    },
+    "rollback_restoration": {
+      "result": "NOT_VERIFIED",
+      "evidence_or_limitation": "Watcher reports rollback=false; no successful restoration is claimed."
+    },
+    "production_main_untouched": {
+      "result": "PASS_SCOPE",
+      "evidence_or_limitation": "Agent only published authorized DEV DATA/request and read status/ordinary installed identities; remote main remains c724ac3b50bc44d71f8620bb4ac0cccfae890de2. No production/WordPress/Plesk/nginx action."
+    },
+    "running_container_image_identities": {
+      "result": "NOT_VERIFIED",
+      "evidence_or_limitation": "No privileged Docker/systemd inspection by agent. Failed deployment does not establish effective runtime acceptance."
+    },
+    "container_identities": {
+      "result": "NOT_VERIFIED",
+      "evidence_or_limitation": "No privileged Docker/systemd inspection by agent. Failed deployment does not establish effective runtime acceptance."
+    },
+    "uid_gid": {
+      "result": "NOT_VERIFIED",
+      "evidence_or_limitation": "No privileged Docker/systemd inspection by agent. Failed deployment does not establish effective runtime acceptance."
+    },
+    "cap_drop": {
+      "result": "NOT_VERIFIED",
+      "evidence_or_limitation": "No privileged Docker/systemd inspection by agent. Failed deployment does not establish effective runtime acceptance."
+    },
+    "no_new_privileges": {
+      "result": "NOT_VERIFIED",
+      "evidence_or_limitation": "No privileged Docker/systemd inspection by agent. Failed deployment does not establish effective runtime acceptance."
+    },
+    "seccomp": {
+      "result": "NOT_VERIFIED",
+      "evidence_or_limitation": "No privileged Docker/systemd inspection by agent. Failed deployment does not establish effective runtime acceptance."
+    },
+    "read_only_roots_mounts": {
+      "result": "NOT_VERIFIED",
+      "evidence_or_limitation": "No privileged Docker/systemd inspection by agent. Failed deployment does not establish effective runtime acceptance."
+    },
+    "network_membership_isolation": {
+      "result": "NOT_VERIFIED",
+      "evidence_or_limitation": "No privileged Docker/systemd inspection by agent. Failed deployment does not establish effective runtime acceptance."
+    },
+    "cpu_memory_pid_limits": {
+      "result": "NOT_VERIFIED",
+      "evidence_or_limitation": "No privileged Docker/systemd inspection by agent. Failed deployment does not establish effective runtime acceptance."
+    },
+    "aggregate_slice_limits": {
+      "result": "NOT_VERIFIED",
+      "evidence_or_limitation": "No privileged Docker/systemd inspection by agent. Failed deployment does not establish effective runtime acceptance."
+    },
+    "secret_separation": {
+      "result": "NOT_VERIFIED",
+      "evidence_or_limitation": "No privileged Docker/systemd inspection by agent. Failed deployment does not establish effective runtime acceptance."
+    },
+    "bounded_logs_retention": {
+      "result": "NOT_VERIFIED",
+      "evidence_or_limitation": "No privileged Docker/systemd inspection by agent. Failed deployment does not establish effective runtime acceptance."
+    }
+  },
+  "attempts_used": 1,
+  "attempt_limit": 1,
+  "automatic_retries": 0,
+  "repair_cycle": 2,
+  "failed_repair_cycles": 2,
+  "repair_budget_exhausted": true,
+  "root_cause": "NOT_ESTABLISHED",
+  "full_p1_pass": false,
+  "full_independent_review": "PENDING",
+  "P2": "NOT_STARTED",
+  "production_touched": false,
+  "source_or_privileged_kit_changed": false,
+  "attempt_record": ".ops/reports/P1/REPAIR_2_DEPLOYMENT_ATTEMPT.json",
+  "recorded_at_utc": "2026-10-06T13:37:17.941803+00:00",
+  "next_allowed_action": "Human decision on exhausted P1 repair budget and failed runtime-health requirement. No further deployment, automatic retry, repair, cleanup or P2 is authorized."
+}

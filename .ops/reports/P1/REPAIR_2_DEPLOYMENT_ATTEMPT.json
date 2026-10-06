@@ -1,0 +1,188 @@
+{
+  "schema_version": 1,
+  "part": "P1",
+  "cycle": "REPAIR_2",
+  "repair_cycle": 2,
+  "source_commit": "0ac34ba50ab3192abfe2ae425c4283879484258e",
+  "archive_sha256": "958c6833da7e63d7843996a3171e540bf74b6978dcdfaf521c1eb55a39587ced",
+  "expected_snapshot_sha256": "44b5b3b45036ce787f2b9c4ecb20ae21c37db323904b6f18c7c341b976d528ae",
+  "promoted_image_id": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a",
+  "source_artifact": "/home/codexperf/projects/gcreation-performance/.ops/source-artifacts/0ac34ba50ab3192abfe2ae425c4283879484258e.tar.gz",
+  "source_artifact_bytes": "EXACT_REVIEWED_DETERMINISTIC_COMMITTED_ARCHIVE; NO WORKSPACE EXPORT",
+  "request": {
+    "action": "deploy",
+    "commit": "0ac34ba50ab3192abfe2ae425c4283879484258e",
+    "archive_sha256": "958c6833da7e63d7843996a3171e540bf74b6978dcdfaf521c1eb55a39587ced"
+  },
+  "prepared_at_utc": "2026-10-06T13:31:06.787428+00:00",
+  "submission_state": "SUBMITTED_ONCE",
+  "attempts_used": 1,
+  "max_attempts": 1,
+  "automatic_retries": 0,
+  "initial_attempt": "FAILED_CONSUMED",
+  "repair_1_attempt": "FAILED_CONSUMED_1_OF_1",
+  "repeat_submission": false,
+  "production_touched": false,
+  "pre_submission": {
+    "verified_at_utc": "2026-10-06T13:31:06.782027+00:00",
+    "head": "81e0fb3507eae51ba215ca7d36d0137a3e6875aa",
+    "origin_develop": "81e0fb3507eae51ba215ca7d36d0137a3e6875aa",
+    "clean_tree_at_start": true,
+    "required_ancestor_preserved": true,
+    "submitter": "codexperf",
+    "effective_uid": 10023,
+    "no_overwrite_rename_fixture": "PASS",
+    "archive_source": {
+      "sha256": "958c6833da7e63d7843996a3171e540bf74b6978dcdfaf521c1eb55a39587ced",
+      "bytes": 335338,
+      "regular": true,
+      "symlink": false,
+      "link_count": 1,
+      "visible_uid": 10023,
+      "visible_gid": 10023,
+      "mode": "0600"
+    },
+    "watcher_source_data": {
+      "sha256": "958c6833da7e63d7843996a3171e540bf74b6978dcdfaf521c1eb55a39587ced",
+      "bytes": 335338,
+      "regular": true,
+      "symlink": false,
+      "link_count": 1,
+      "visible_uid": 10023,
+      "visible_gid": 10023,
+      "mode": "0600",
+      "reused_exact_existing": false
+    },
+    "ordinarily_readable_installed_image_pointer": {
+      "sha256": "43fc7fb85c386e270f8e45e77fef15a492e00d5919f2ad6d8ba8ef95b8f201ef",
+      "bytes": 72,
+      "regular": true,
+      "symlink": false,
+      "link_count": 1,
+      "visible_uid": 65534,
+      "visible_gid": 65534,
+      "mode": "0644",
+      "image_id": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a"
+    },
+    "ordinarily_readable_installed_dockerfile": {
+      "sha256": "21ee8641969bc2eb92a91d1dcde28ed90e6420433bb022f1a25d1237c7eec152",
+      "bytes": 1231,
+      "regular": true,
+      "symlink": false,
+      "link_count": 1,
+      "visible_uid": 65534,
+      "visible_gid": 65534,
+      "mode": "0644"
+    },
+    "ordinarily_readable_installed_controller": {
+      "sha256": "029c5d5714a13fbdd3565901bdc08341e36319c1ab90cf30ea6d4ab7e58c4039",
+      "bytes": 21585,
+      "regular": true,
+      "symlink": false,
+      "link_count": 1,
+      "visible_uid": 65534,
+      "visible_gid": 65534,
+      "mode": "0644"
+    },
+    "host_root_ownership_not_directly_verified": true,
+    "pre_submission_request_and_claim_absent": true,
+    "historical_status_preserved": {
+      "state": "FAILED",
+      "commit": "134ddfbe393168ce7cef99c44817329c84a8d6eb",
+      "error": "RuntimeError",
+      "stage": "runtime-health",
+      "rollback": false
+    },
+    "historical_status_sha256": "c3de2e32558c02f21819f4e7c1b773cf935daaed5b10c8fd4bb280da25b22987"
+  },
+  "observations": [
+    {
+      "observed_at_utc": "2026-10-06T13:31:06.829770+00:00",
+      "elapsed_seconds": 0.016,
+      "status_sha256": "c3de2e32558c02f21819f4e7c1b773cf935daaed5b10c8fd4bb280da25b22987",
+      "status": {
+        "state": "FAILED",
+        "commit": "134ddfbe393168ce7cef99c44817329c84a8d6eb",
+        "error": "RuntimeError",
+        "stage": "runtime-health",
+        "rollback": false
+      },
+      "exact_commit_archive_match": false,
+      "request_and_claim": {
+        "request_present": true,
+        "claim_files": []
+      }
+    },
+    {
+      "observed_at_utc": "2026-10-06T13:31:11.840956+00:00",
+      "elapsed_seconds": 5.027,
+      "status_sha256": "db2254002913bc5e8cfe8ff33fb672bc15ebd31f6f311c89b3626e05cd71f6c0",
+      "status": {
+        "state": "RUNNING",
+        "commit": "0ac34ba50ab3192abfe2ae425c4283879484258e",
+        "archive_sha256": "958c6833da7e63d7843996a3171e540bf74b6978dcdfaf521c1eb55a39587ced"
+      },
+      "exact_commit_archive_match": true,
+      "request_and_claim": {
+        "request_present": false,
+        "claim_files": [
+          "deploy-dev.claimed-42f2ba4be49ba2bc39abb2f3f6635581"
+        ]
+      }
+    },
+    {
+      "observed_at_utc": "2026-10-06T13:32:36.920287+00:00",
+      "elapsed_seconds": 90.107,
+      "status_sha256": "623e3044bbb74990e1d6c823f0b06ad18af866b43ac61e86270c995d8ef13ad2",
+      "status": {
+        "state": "FAILED",
+        "commit": "0ac34ba50ab3192abfe2ae425c4283879484258e",
+        "error": "RuntimeError",
+        "stage": "runtime-health",
+        "rollback": false
+      },
+      "exact_commit_archive_match": false,
+      "request_and_claim": {
+        "request_present": false,
+        "claim_files": []
+      }
+    }
+  ],
+  "submitted_at_utc": "2026-10-06T13:31:06.813753+00:00",
+  "request_publication_count": 1,
+  "request_sha256": "b7b4109f66eb5def767c977982cdf80bbb29f89b1abc19c9bb0626f0124c2abe",
+  "request_publication": "FSYNCED_ORDINARY_FILE_ATOMIC_RENAMEAT2_NOREPLACE",
+  "request_published_by_uid": 10023,
+  "observation_ceiling_seconds": 900,
+  "terminal_state": "FAILED",
+  "terminal_observed_at_utc": "2026-10-06T13:32:36.927239+00:00",
+  "terminal_status": {
+    "state": "FAILED",
+    "commit": "0ac34ba50ab3192abfe2ae425c4283879484258e",
+    "error": "RuntimeError",
+    "stage": "runtime-health",
+    "rollback": false
+  },
+  "terminal_status_sha256": "623e3044bbb74990e1d6c823f0b06ad18af866b43ac61e86270c995d8ef13ad2",
+  "terminal_exact_commit_archive_match": false,
+  "terminal_attribution": "PRIOR_EXACT_RUNNING_IDENTITY_AND_SAME_COMMIT_FAILED; TERMINAL_ARCHIVE_FIELD_ABSENT",
+  "elapsed_seconds": 90.114,
+  "terminal_request_and_claim": {
+    "request_present": false,
+    "claim_files": []
+  },
+  "request_consumed": true,
+  "claim_absent_at_terminal": true,
+  "governance_disposition": "HARD_BLOCKED",
+  "repair_budget_exhausted": true,
+  "root_cause": "NOT_ESTABLISHED_FROM_AUTHORIZED_STATUS_EVIDENCE",
+  "exact_exception_message": "NOT_EXPOSED_BY_SANITIZED_WATCHER_STATUS",
+  "deployed_snapshot_sha256_observed": null,
+  "running_image_identity_observed": null,
+  "post_failure_http_probes_performed": false,
+  "post_failure_diagnostics_performed": false,
+  "agent_privileged_execution_performed": false,
+  "next_allowed_action": "Human decision on exhausted P1 repair budget and failed runtime-health requirement. No further deployment, automatic retry, repair, cleanup or P2 is authorized.",
+  "recorded_at_utc": "2026-10-06T13:37:17.941803+00:00",
+  "attribution_limit": "FAILED status omits archive_sha256. Attribution uses the one published pinned request, subsequent exact commit/archive RUNNING observation, same-commit FAILED, and absent request/claim. Terminal archive or snapshot equality is not claimed."
+}

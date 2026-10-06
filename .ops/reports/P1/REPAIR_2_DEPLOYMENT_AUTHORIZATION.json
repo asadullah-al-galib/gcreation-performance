@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "part": "P1",
+  "repair": "REPAIR_2",
+  "human_owner_authorization": "EXPLICIT_ONE_SHOT",
+  "authorization_attachment_path": "/home/codexperf/.codex/attachments/669387c4-9cf4-41e7-a820-a2e2d025fc9e/Pasted text.txt",
+  "authorization_attachment_sha256": "b2eb083428f20c307c205f9f932ad078f96ab58843b66e0eb9bc444b4c7b37c7",
+  "checkpoint": "81e0fb3507eae51ba215ca7d36d0137a3e6875aa",
+  "source_commit": "0ac34ba50ab3192abfe2ae425c4283879484258e",
+  "archive_sha256": "958c6833da7e63d7843996a3171e540bf74b6978dcdfaf521c1eb55a39587ced",
+  "expected_snapshot_sha256": "44b5b3b45036ce787f2b9c4ecb20ae21c37db323904b6f18c7c341b976d528ae",
+  "promoted_image_id": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a",
+  "promoted_dockerfile_sha256": "21ee8641969bc2eb92a91d1dcde28ed90e6420433bb022f1a25d1237c7eec152",
+  "installed_controller_sha256": "029c5d5714a13fbdd3565901bdc08341e36319c1ab90cf30ea6d4ab7e58c4039",
+  "designated_submitter": "codexperf",
+  "max_requests": 1,
+  "automatic_retries": 0,
+  "agent_privileged_access_authorized": false,
+  "p2_authorized": false,
+  "production_authorized": false,
+  "post_submission_stop": "HUMAN_CAPABILITY_GATE_IF_COMPLETED_ELSE_HARD_BLOCKED_IF_VERIFIED_FAILED",
+  "recorded_at_utc": "2026-10-06T13:31:06.782059+00:00"
+}

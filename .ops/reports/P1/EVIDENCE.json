@@ -2,15 +2,15 @@
   "schema_version": 1,
   "project": "gCreation Performance Doctor MVP v0.1",
   "part": "P1",
-  "execution_state": "IN_PROGRESS",
-  "orchestrator_state": "HUMAN_CAPABILITY_GATE",
+  "execution_state": "BLOCKED",
+  "orchestrator_state": "HARD_BLOCKED",
   "independent_review": "PENDING",
-  "repair_cycle": 1,
+  "repair_cycle": 2,
   "generated_at": "2026-10-06T03:31:48+00:00",
-  "source_commit": "8217aa4a13c0265efd8cb81473dd7f00c68d2c34",
-  "governance_commit": "5db7fde1e17b1f8097a80bf38881184bb1b88b29",
-  "approved_archive_sha256": "ecef5a23ef175096cc6312ca99dc0b306ecd76dc3cd4af8aca7de94c6e0443a7",
-  "expected_snapshot_sha256": "3ba8634a292f04079430f1401cf4c5a84fd77157fe1c25257e88b046a381c378",
+  "source_commit": "0ac34ba50ab3192abfe2ae425c4283879484258e",
+  "governance_commit": "81e0fb3507eae51ba215ca7d36d0137a3e6875aa",
+  "approved_archive_sha256": "958c6833da7e63d7843996a3171e540bf74b6978dcdfaf521c1eb55a39587ced",
+  "expected_snapshot_sha256": "44b5b3b45036ce787f2b9c4ecb20ae21c37db323904b6f18c7c341b976d528ae",
   "production_touched": false,
   "items": [
     {
@@ -807,32 +807,90 @@
         "automatic_retries": 0
       },
       "limitations": "Readable handoff/local identity verification only; no direct privileged inspection, runtime acceptance or full P1 PASS. Single REPAIR_2 deployment still requires independent authorization."
+    },
+    {
+      "criterion_id": "P1-REPAIR2-ONE-SHOT-REQUEST",
+      "part": "P1",
+      "requirement": "Exactly one owner-authorized pinned watcher request, no automatic retry",
+      "result": "PASS",
+      "evidence_class": "ORDINARY_USER_REQUEST_AND_SANITIZED_WATCHER_STATUS_OBSERVED",
+      "timestamp": "2026-10-06T13:37:17.941803+00:00",
+      "source_commit": "0ac34ba50ab3192abfe2ae425c4283879484258e",
+      "candidate_archive_sha256": "958c6833da7e63d7843996a3171e540bf74b6978dcdfaf521c1eb55a39587ced",
+      "evidence_reference": "REPAIR_2_DEPLOYMENT_ATTEMPT.json",
+      "observed": {
+        "attempts_used": 1,
+        "max_attempts": 1,
+        "automatic_retries": 0,
+        "submitted_at_utc": "2026-10-06T13:31:06.813753+00:00",
+        "request_consumed": true,
+        "claim_absent": true
+      },
+      "limitations": "No direct root/Docker/systemd inspection or post-failure diagnostic/HTTP action. Terminal status omits archive_sha256; only RUNNING has exact commit/archive. No unsupported exception text/root cause or successful deployment/runtime claim."
+    },
+    {
+      "criterion_id": "P1-REPAIR2-RUNTIME-HEALTH",
+      "part": "P1",
+      "requirement": "Authorized REPAIR_2 deployment reaches successful runtime-health exit",
+      "result": "FAIL",
+      "evidence_class": "ORDINARY_USER_REQUEST_AND_SANITIZED_WATCHER_STATUS_OBSERVED",
+      "timestamp": "2026-10-06T13:37:17.941803+00:00",
+      "source_commit": "0ac34ba50ab3192abfe2ae425c4283879484258e",
+      "candidate_archive_sha256": "958c6833da7e63d7843996a3171e540bf74b6978dcdfaf521c1eb55a39587ced",
+      "evidence_reference": "REPAIR_2_DEPLOYMENT_ATTEMPT.json",
+      "observed": {
+        "terminal_status": {
+          "state": "FAILED",
+          "commit": "0ac34ba50ab3192abfe2ae425c4283879484258e",
+          "error": "RuntimeError",
+          "stage": "runtime-health",
+          "rollback": false
+        },
+        "root_cause": "NOT_ESTABLISHED",
+        "failed_repair_cycles": 2,
+        "terminal_archive_field_present": false,
+        "prior_exact_running_archive_observed": true
+      },
+      "limitations": "No direct root/Docker/systemd inspection or post-failure diagnostic/HTTP action. Terminal status omits archive_sha256; only RUNNING has exact commit/archive. No unsupported exception text/root cause or successful deployment/runtime claim."
+    },
+    {
+      "criterion_id": "P1-REPAIR2-FULL-RUNTIME-ACCEPTANCE",
+      "part": "P1",
+      "requirement": "Effective deployed runtime containment/resource/network/retention evidence",
+      "result": "NOT_VERIFIED",
+      "evidence_class": "ORDINARY_USER_REQUEST_AND_SANITIZED_WATCHER_STATUS_OBSERVED",
+      "timestamp": "2026-10-06T13:37:17.941803+00:00",
+      "source_commit": "0ac34ba50ab3192abfe2ae425c4283879484258e",
+      "candidate_archive_sha256": "958c6833da7e63d7843996a3171e540bf74b6978dcdfaf521c1eb55a39587ced",
+      "evidence_reference": "REPAIR_2_RUNTIME_VALIDATION.json",
+      "observed": {
+        "runtime_result": "FAIL",
+        "running_image_id": null,
+        "deployed_snapshot_sha256": null,
+        "full_p1_pass": false
+      },
+      "limitations": "No direct root/Docker/systemd inspection or post-failure diagnostic/HTTP action. Terminal status omits archive_sha256; only RUNNING has exact commit/archive. No unsupported exception text/root cause or successful deployment/runtime claim."
     }
   ],
-  "updated_at": "2026-10-06T10:50:27.735379+00:00",
-  "repair_path": "REPAIR_1",
-  "repair_state": "SECURITY_REVIEW_REQUIRED",
-  "current_candidate_commit": "134ddfbe393168ce7cef99c44817329c84a8d6eb",
+  "updated_at": "2026-10-06T13:37:17.941803+00:00",
+  "repair_path": "REPAIR_2",
+  "repair_state": "FAILED_CONSUMED_HARD_BLOCKED",
+  "current_candidate_commit": "0ac34ba50ab3192abfe2ae425c4283879484258e",
   "runtime_repair": {
-    "candidate_commit": "134ddfbe393168ce7cef99c44817329c84a8d6eb",
-    "status": "SOURCE_ACCEPTED",
-    "independent_review": "PASS",
+    "candidate_commit": "0ac34ba50ab3192abfe2ae425c4283879484258e",
+    "status": "FAILED_CONSUMED",
+    "independent_review": "PASS_EXACT_SOURCE_PATCH",
     "deployment_authorized": false,
-    "evidence_reference": "runtime-repair-1/REPORT.md",
-    "approval_record": "REPAIR_1_ACCEPTANCE.json",
-    "controller_refresh_authorized": true,
-    "deployment_condition": "P0.2\u00a79: only after verified successful refresh; attempts0/1/retries0",
-    "authorization_reference": "docs/P0_2_AUTONOMOUS_AUTHORIZATION.md",
-    "controller_refresh_operator_reported": "PASS",
-    "controller_refresh_verification": "PASS",
-    "next_proposal": ".ops/reports/P1/gateway-repair-2-proposal"
+    "evidence_reference": "REPAIR_2_RUNTIME_VALIDATION.json",
+    "automatic_retries": 0,
+    "root_cause": "NOT_ESTABLISHED"
   },
   "repair_independent_review": "PASS",
   "authorization_reference": "docs/P0_2_AUTONOMOUS_AUTHORIZATION.md",
   "candidate_source_commit": "0ac34ba50ab3192abfe2ae425c4283879484258e",
   "candidate_archive_sha256": "958c6833da7e63d7843996a3171e540bf74b6978dcdfaf521c1eb55a39587ced",
-  "current_repair": "REPAIR_2_DEPLOYMENT_AUTHORIZATION_PENDING",
-  "repair_2_attempts": 0,
+  "current_repair": "REPAIR_2_FAILED_CONSUMED",
+  "repair_2_attempts": 1,
   "image_gate_a": "PASS",
   "image_gate_b": "PASS",
   "image_gate_c": "PASS",
@@ -840,5 +898,30 @@
   "image_evidence_class": "HUMAN_OPERATOR_ATTESTED_VERIFIED_HANDOFF",
   "promoted_image_id": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a",
   "promoted_dockerfile_sha256": "21ee8641969bc2eb92a91d1dcde28ed90e6420433bb022f1a25d1237c7eec152",
-  "repair_2_runtime_acceptance": "PENDING"
+  "repair_2_runtime_acceptance": "FAIL",
+  "initial_baseline": {
+    "source_commit": "8217aa4a13c0265efd8cb81473dd7f00c68d2c34",
+    "governance_commit": "5db7fde1e17b1f8097a80bf38881184bb1b88b29",
+    "approved_archive_sha256": "ecef5a23ef175096cc6312ca99dc0b306ecd76dc3cd4af8aca7de94c6e0443a7",
+    "expected_snapshot_sha256": "3ba8634a292f04079430f1401cf4c5a84fd77157fe1c25257e88b046a381c378",
+    "generated_at": "2026-10-06T03:31:48+00:00"
+  },
+  "runtime_repair_history": [
+    {
+      "candidate_commit": "134ddfbe393168ce7cef99c44817329c84a8d6eb",
+      "status": "SOURCE_ACCEPTED",
+      "independent_review": "PASS",
+      "deployment_authorized": false,
+      "evidence_reference": "runtime-repair-1/REPORT.md",
+      "approval_record": "REPAIR_1_ACCEPTANCE.json",
+      "controller_refresh_authorized": true,
+      "deployment_condition": "P0.2\u00a79: only after verified successful refresh; attempts0/1/retries0",
+      "authorization_reference": "docs/P0_2_AUTONOMOUS_AUTHORIZATION.md",
+      "controller_refresh_operator_reported": "PASS",
+      "controller_refresh_verification": "PASS",
+      "next_proposal": ".ops/reports/P1/gateway-repair-2-proposal"
+    }
+  ],
+  "failed_repair_cycles": 2,
+  "repair_budget_exhausted": true
 }

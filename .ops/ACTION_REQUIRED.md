@@ -1,17 +1,47 @@
 STATUS:
-P1 HUMAN_CAPABILITY_GATE — REPAIR_2 DEPLOYMENT AUTHORIZATION PENDING
+P1 HARD_BLOCKED — HUMAN DECISION REQUIRED
 
-Gate A/B/C PASS recorded as HUMAN_OPERATOR_ATTESTED_VERIFIED_HANDOFF. Promoted image sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a and Dockerfile SHA256 21ee8641969bc2eb92a91d1dcde28ed90e6420433bb022f1a25d1237c7eec152 match the accepted candidate. Backups, promotion order, unchanged controller, retained old/rejected images and watcher state are operator-attested. Official runtime not started; REPAIR_2 runtime acceptance PENDING. Codex performed no privileged/runtime action. P1 IN_PROGRESS / full independent review PENDING; HUMAN_CAPABILITY_GATE; INITIAL consumed; last consumed runtime repair_cycle1; REPAIR_1 failed/consumed1/1; REPAIR_2 deployment0/1; automatic retries0; P2–P7 NOT_STARTED; production/main untouched. Next allowed action: Human independent authorization of exactly one candidate-pinned REPAIR_2 DEV deployment. No automatic retry. No deployment request is authorized by this checkpoint. Evidence: .ops/reports/P1/REPAIR_2_GATE_C_VERIFICATION.json.
+PART / PROCESS:
+P1 / repair2-deployment-failed
 
-EXACT PROPOSED DEPLOYMENT IDENTITY:
-Candidate commit: 0ac34ba50ab3192abfe2ae425c4283879484258e
-Archive SHA256: 958c6833da7e63d7843996a3171e540bf74b6978dcdfaf521c1eb55a39587ced
-Expected snapshot digest: 44b5b3b45036ce787f2b9c4ecb20ae21c37db323904b6f18c7c341b976d528ae
-Promoted image: sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a
-Promoted Dockerfile SHA256: 21ee8641969bc2eb92a91d1dcde28ed90e6420433bb022f1a25d1237c7eec152
+REPAIR_2:
+FAILED / CONSUMED — 1/1; automatic retries0; repair_cycle2; failed repair cycles2.
+INITIAL and REPAIR_1 remain failed/consumed. P2–P7 NOT_STARTED. Full P1 review PENDING.
 
-HUMAN ACTION:
-Human independent authorization of exactly one candidate-pinned REPAIR_2 DEV deployment. No automatic retry. No deployment request is authorized by this checkpoint.
+EXACT OBSERVED FAILURE:
+Single authorized source0ac34ba watcher deployment reached RUNNING with the exact archive, then FAILED / runtime-health / RuntimeError / rollback=false.
+No underlying exception text or evidence-supported current root cause is available. No diagnostic retry or post-failure health probe was performed.
 
-AUTHORIZATION BOUNDARY:
-Exactly one future candidate-pinned watcher deployment must receive explicit independent authorization after this promotion-evidence checkpoint. REPAIR_2 attempts remain0/1, automatic retries0. This file creates no request and grants no deployment permission. Current task is evidence ingestion only; do not rerun image gates/build/promotion, modify installed files, start/restart/reload services, execute Docker or start P2. Source artifacts must come from the accepted committed candidate, never mutable workspace bytes.
+TERMINAL STATUS:
+{"state":"FAILED","commit":"0ac34ba50ab3192abfe2ae425c4283879484258e","error":"RuntimeError","stage":"runtime-health","rollback":false}
+
+ATTRIBUTION LIMIT:
+FAILED omits archive_sha256. The attempt journal preserves exact pinned publication and RUNNING archive identity, then same-commit FAILED. No exact terminal archive, deployed snapshot or running-image equality is claimed.
+
+SOURCE:
+0ac34ba50ab3192abfe2ae425c4283879484258e
+
+ARCHIVE SHA256:
+958c6833da7e63d7843996a3171e540bf74b6978dcdfaf521c1eb55a39587ced
+
+PROMOTED IMAGE INPUT — NOT A RUNNING-IMAGE OBSERVATION:
+sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a
+
+TIMESTAMPS (UTC):
+Published: 2026-10-06T13:31:06.813753+00:00
+Failure observed: 2026-10-06T13:32:36.927239+00:00
+Observation ended after90.114s within900s; request consumed; claim absent.
+
+EXACT NEXT ACTION:
+Human decision on exhausted P1 repair budget and failed runtime-health requirement. No further deployment, automatic retry, repair, cleanup or P2 is authorized.
+
+PRESERVATION / BOUNDARY:
+Preserve all stages, releases, networks, images, controller, configuration and failure evidence. Do not reset counters or use REPAIR_3. No installer/image/promotion/service/configuration/WordPress/Plesk/nginx change, deployment request, cleanup or production/main action is authorized by this handoff. A human decision must define any future scope; Codex remains unprivileged.
+
+EVIDENCE:
+.ops/reports/P1/REPAIR_2_DEPLOYMENT_AUTHORIZATION.json
+.ops/reports/P1/REPAIR_2_DEPLOYMENT_ATTEMPT.json
+.ops/reports/P1/REPAIR_2_RUNTIME_VALIDATION.json
+
+PRODUCTION:
+UNTOUCHED

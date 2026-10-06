@@ -8,16 +8,16 @@ P0 remains FROZEN / human review PASS at approved governance 1c6303e0c17b04952ee
 
 V4 static security: PASS. Privileged DEV installation: HOLD pending separate human/operator installation/configuration. Real DEV/runtime/E2E acceptance is NOT_VERIFIED. Production untouched.
 
-| Part | Completion state | Workflow state | Cycle record                              |
-| ---- | ---------------- | -------------- | ----------------------------------------- |
-| P0   | FROZEN           | FROZEN         | Human PASS; repair 1/repair 2 not used      |
+| Part | Completion state | Workflow state           | Cycle record                              |
+| ---- | ---------------- | ------------------------ | ----------------------------------------- |
+| P0   | FROZEN           | FROZEN                   | Human PASS; repair 1/repair 2 not used    |
 | P1   | IN_PROGRESS      | SECURITY_REVIEW_REQUIRED | Initial cycle; independent review PENDING |
-| P2   | NOT_STARTED      | NOT_STARTED    | No cycle started                          |
-| P3   | NOT_STARTED      | NOT_STARTED    | No cycle started                          |
-| P4   | NOT_STARTED      | NOT_STARTED    | No cycle started                          |
-| P5   | NOT_STARTED      | NOT_STARTED    | No cycle started                          |
-| P6   | NOT_STARTED      | NOT_STARTED    | No cycle started                          |
-| P7   | NOT_STARTED      | NOT_STARTED    | No cycle started                          |
+| P2   | NOT_STARTED      | NOT_STARTED              | No cycle started                          |
+| P3   | NOT_STARTED      | NOT_STARTED              | No cycle started                          |
+| P4   | NOT_STARTED      | NOT_STARTED              | No cycle started                          |
+| P5   | NOT_STARTED      | NOT_STARTED              | No cycle started                          |
+| P6   | NOT_STARTED      | NOT_STARTED              | No cycle started                          |
+| P7   | NOT_STARTED      | NOT_STARTED              | No cycle started                          |
 
 ## Preserved baseline and evidence
 

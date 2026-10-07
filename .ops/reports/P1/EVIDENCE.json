@@ -1155,9 +1155,21 @@
         "future_deployment_requires_new_explicit_human_budget_authorization": true
       },
       "limitations": "Operator snapshot/246 parsed lines entirely after target; no in-window caller or cross-layer identity. Prior processed2 requests/unparsed1 remain unexplained. Human decision required, no further protected read proposed; no source/runtime/counter authority."
+    },
+    {
+      "criterion": "P1 Stage1 diagnostic instrumentation source exception",
+      "implementation": "Bounded fixed-field journal events; original health/retry semantics preserved.",
+      "evidence_class": "LOCAL_MOCKED_STATIC_VERIFIED",
+      "local_tests": "75 PASS;18 local security assessments PASS",
+      "real_dev_acceptance": "NOT_PERFORMED; NO_RUNTIME_AUTHORIZATION",
+      "source_commit": "b060ff430854046df7490875ac402d9df909b43a",
+      "report": ".ops/reports/P1/diagnostic-instrumentation-stage1/REPORT.md",
+      "record": ".ops/reports/P1/diagnostic-instrumentation-stage1/REVIEW.json",
+      "human_review": "REQUIRED",
+      "completion": "PASS_REVIEW_READY_SOURCE_ONLY; P1_REMAINS_BLOCKED"
     }
   ],
-  "updated_at": "2026-10-07T08:02:53.298710+00:00",
+  "updated_at": "2026-10-07T08:29:06.899384+00:00",
   "repair_path": "REPAIR_2",
   "repair_state": "FAILED_CONSUMED_HARD_BLOCKED",
   "current_candidate_commit": "0ac34ba50ab3192abfe2ae425c4283879484258e",
@@ -1360,5 +1372,18 @@
     "repair_authorized": false,
     "deployment_authorized": false,
     "repair_counters_changed": false
+  },
+  "diagnostic_instrumentation_stage1": {
+    "result": "PASS_REVIEW_READY",
+    "source_commit": "b060ff430854046df7490875ac402d9df909b43a",
+    "report": ".ops/reports/P1/diagnostic-instrumentation-stage1/REPORT.md",
+    "record": ".ops/reports/P1/diagnostic-instrumentation-stage1/REVIEW.json",
+    "old_installed_controller_sha256": "029c5d5714a13fbdd3565901bdc08341e36319c1ab90cf30ea6d4ab7e58c4039",
+    "candidate_controller_sha256": "be656cc95fbc3d1df09c57852577f8343401916a47aeec2b12459b4be5de414f",
+    "installed": false,
+    "runtime_validated": false,
+    "deployment_authorized": false,
+    "repair_counters_changed": false,
+    "independent_human_review": "REQUIRED"
   }
 }

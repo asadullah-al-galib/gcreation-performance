@@ -1,0 +1,317 @@
+{
+  "schema_version": 1,
+  "authorization_class": "P1_DIAGNOSTIC_INSTRUMENTATION_EXCEPTION_STAGE1",
+  "status": "P1_DIAGNOSTIC_INSTRUMENTATION_STAGE1_REVIEW_READY",
+  "result": "PASS_REVIEW_READY",
+  "recorded_at_utc": "2026-10-07T08:29:06.899384+00:00",
+  "baseline_commit": "9c1adb0884e9f88ca8771f8ddb0f5fa0c93f8fae",
+  "candidate_commit": "b060ff430854046df7490875ac402d9df909b43a",
+  "candidate_parent": "9c1adb0884e9f88ca8771f8ddb0f5fa0c93f8fae",
+  "accepted_application_source": "0ac34ba50ab3192abfe2ae425c4283879484258e",
+  "accepted_application_archive_sha256": "958c6833da7e63d7843996a3171e540bf74b6978dcdfaf521c1eb55a39587ced",
+  "old_installed_controller_sha256": "029c5d5714a13fbdd3565901bdc08341e36319c1ab90cf30ea6d4ab7e58c4039",
+  "old_installed_hash_evidence": "PRIOR_OPERATOR_ATTESTED; NOT FRESHLY INSPECTED IN THIS TASK",
+  "candidate_controller_sha256": "be656cc95fbc3d1df09c57852577f8343401916a47aeec2b12459b4be5de414f",
+  "candidate_controller_installed": false,
+  "candidate_runtime_validated": false,
+  "candidate_host_controller_accepted": false,
+  "candidate_source_changed_files": [
+    "ops/dev/deploy_controller.py",
+    "tests/test_controller_health_diagnostics.py"
+  ],
+  "recording_changed_files": [
+    ".ops/ACTION_REQUIRED.md",
+    ".ops/ORCHESTRATOR_STATUS.json",
+    ".ops/PROJECT_STATE.md",
+    ".ops/PROJECT_STATUS.md",
+    ".ops/oversight/LATEST_CHECKPOINT.json",
+    ".ops/oversight/LATEST_CHECKPOINT.md",
+    ".ops/oversight/events/0018-P1-diagnostic-instrumentation-stage1.json",
+    ".ops/reports/P1/CHECKSUMS.sha256",
+    ".ops/reports/P1/EVIDENCE.json",
+    ".ops/reports/P1/REPORT.md",
+    ".ops/reports/P1/diagnostic-instrumentation-stage1/AUTHORIZATION.txt",
+    ".ops/reports/P1/diagnostic-instrumentation-stage1/CHECKSUMS.sha256",
+    ".ops/reports/P1/diagnostic-instrumentation-stage1/CONTROLLER.patch",
+    ".ops/reports/P1/diagnostic-instrumentation-stage1/REPORT.md",
+    ".ops/reports/P1/diagnostic-instrumentation-stage1/REVIEW.json"
+  ],
+  "all_changed_files_since_baseline": [
+    ".ops/ACTION_REQUIRED.md",
+    ".ops/ORCHESTRATOR_STATUS.json",
+    ".ops/PROJECT_STATE.md",
+    ".ops/PROJECT_STATUS.md",
+    ".ops/oversight/LATEST_CHECKPOINT.json",
+    ".ops/oversight/LATEST_CHECKPOINT.md",
+    ".ops/oversight/events/0018-P1-diagnostic-instrumentation-stage1.json",
+    ".ops/reports/P1/CHECKSUMS.sha256",
+    ".ops/reports/P1/EVIDENCE.json",
+    ".ops/reports/P1/REPORT.md",
+    ".ops/reports/P1/diagnostic-instrumentation-stage1/AUTHORIZATION.txt",
+    ".ops/reports/P1/diagnostic-instrumentation-stage1/CHECKSUMS.sha256",
+    ".ops/reports/P1/diagnostic-instrumentation-stage1/CONTROLLER.patch",
+    ".ops/reports/P1/diagnostic-instrumentation-stage1/REPORT.md",
+    ".ops/reports/P1/diagnostic-instrumentation-stage1/REVIEW.json",
+    "ops/dev/deploy_controller.py",
+    "tests/test_controller_health_diagnostics.py"
+  ],
+  "test_file_sha256": "f00f54d3e61a00467bbbf4d06c7b28b883fd5b398274371921829a91be7bd8d3",
+  "controller_patch_sha256": "4f53e0eab880adc19660eacaf91801b76ece6eed0a46b9469c8b5152aea24f0b",
+  "authorization_sha256": "32e378c69ba4d95bfe19ec8d40245bfe478047a4527e9f709992f418ef5539cf",
+  "diagnostic_schema": {
+    "prefix": "GCREATION_HEALTH_DIAG ",
+    "event": "gcreation_health_diagnostic",
+    "timestamp_utc": "YYYY-MM-DDTHH:MM:SSZ",
+    "phase": [
+      "readiness",
+      "final-health"
+    ],
+    "attempt": "plain integer1..30 for readiness; null for final-health",
+    "predicate": [
+      "LOCALHOST_ENGINE_HEALTH",
+      "DEV_HOMEPAGE_HEALTH"
+    ],
+    "result": [
+      "PASS",
+      "FAIL"
+    ],
+    "http_status": "plain integer100..599 or null",
+    "exception_class": [
+      "HTTPError",
+      "TimeoutError",
+      "socket.timeout",
+      "URLError",
+      "JSONDecodeError",
+      "OSError",
+      "RuntimeError",
+      "AttributeError",
+      "TypeError",
+      "ValueError",
+      "Exception",
+      null
+    ],
+    "reason": [
+      "OK",
+      "HTTP_ERROR",
+      "TIMEOUT",
+      "URL_ERROR",
+      "INVALID_JSON",
+      "IDENTITY_MISMATCH",
+      "NON_200_STATUS",
+      "NETWORK_OR_OS_ERROR",
+      "UNEXPECTED_EXCEPTION"
+    ]
+  },
+  "journal_bounds": {
+    "per_readiness_call_events": 60,
+    "final_health_events": 2,
+    "existing_rollback_readiness_events": 60,
+    "per_deploy_invocation_events": 122,
+    "per_event_bytes_including_newline": 512,
+    "per_deploy_added_journal_bytes": 62464
+  },
+  "test_results": [
+    {
+      "command": "python3 -B tests/test_controller_health_diagnostics.py -v",
+      "tests": 22,
+      "exit_code": 0,
+      "result": "PASS"
+    },
+    {
+      "command": "python3 -B tests/test_deployment_kit.py",
+      "tests": 12,
+      "exit_code": 0,
+      "result": "PASS"
+    },
+    {
+      "command": "python3 -B tests/test_security_review_v3.py",
+      "tests": 21,
+      "exit_code": 0,
+      "result": "PASS"
+    },
+    {
+      "command": "python3 -B tests/test_security_review_v4.py",
+      "tests": 13,
+      "exit_code": 0,
+      "result": "PASS"
+    },
+    {
+      "command": "python3 -B tests/test_source_permissions.py",
+      "tests": 3,
+      "exit_code": 0,
+      "result": "PASS"
+    },
+    {
+      "command": "python3 -B tests/test_installer_bytecode.py",
+      "tests": 4,
+      "exit_code": 0,
+      "result": "PASS"
+    }
+  ],
+  "test_total": 75,
+  "python_version": "3.6.8",
+  "static_security_review": "PASS",
+  "static_review_class": "CODEX_LOCAL_STATIC_SECURITY_REVIEW; HUMAN_ACCEPTANCE_PENDING",
+  "static_checklist": [
+    {
+      "id": 1,
+      "criterion": "health semantics changed?",
+      "result": "PASS",
+      "assessment": "NO: normalized health AST equals baseline; predicate order/identity/status/exception regressions PASS."
+    },
+    {
+      "id": 2,
+      "criterion": "retry semantics changed?",
+      "result": "PASS",
+      "assessment": "NO: 30 attempts, 2-second failed-attempt sleeps, original outer deadline unchanged; readiness regressions PASS."
+    },
+    {
+      "id": 3,
+      "criterion": "timeout changed?",
+      "result": "PASS",
+      "assessment": "NO: fixed localhost 10s and homepage 15s unchanged; mocked exact calls checked."
+    },
+    {
+      "id": 4,
+      "criterion": "redirect behavior changed?",
+      "result": "PASS",
+      "assessment": "NO: NoRedirect byte/AST logic unchanged; real urllib redirect dispatch tested for 301/302/303/307/308 without sockets."
+    },
+    {
+      "id": 5,
+      "criterion": "security boundary changed?",
+      "result": "PASS",
+      "assessment": "NO: enforcement model unchanged; all other controller functions/classes/entrypoint and source constants AST-identical; frozen files untouched."
+    },
+    {
+      "id": 6,
+      "criterion": "new filesystem write introduced?",
+      "result": "PASS",
+      "assessment": "NO: emitter calls only fixed serialization/time/type checks/print; existing journal stdout path used, no host evidence file/directory."
+    },
+    {
+      "id": 7,
+      "criterion": "new network operation introduced?",
+      "result": "PASS",
+      "assessment": "NO: the same two existing fixed HTTP operations/order are retained; no fallback or probe performed."
+    },
+    {
+      "id": 8,
+      "criterion": "Docker behavior changed?",
+      "result": "PASS",
+      "assessment": "NO: start_runtime AST identical after only retry-attribution normalization; other Docker/build/network functions unchanged."
+    },
+    {
+      "id": 9,
+      "criterion": "secret/env access changed?",
+      "result": "PASS",
+      "assessment": "NO: no added env/file/header/body access; received JSON used only by unchanged acceptance predicate."
+    },
+    {
+      "id": 10,
+      "criterion": "raw exception leakage possible?",
+      "result": "PASS",
+      "assessment": "NO added diagnostic leakage: fixed base-family labels and closed reasons; no str/repr/traceback/type(error).__name__ in emitter; opaque/custom-class sentinels PASS."
+    },
+    {
+      "id": 11,
+      "criterion": "response body leakage possible?",
+      "result": "PASS",
+      "assessment": "NO: no body, parsed JSON, service/environment values or headers appear in event; body/header/query/env sentinel tests PASS."
+    },
+    {
+      "id": 12,
+      "criterion": "journal volume bounded?",
+      "result": "PASS",
+      "assessment": "YES: <=60 events per readiness call, <=2 final-health, <=60 existing rollback readiness; <=122 per deploy invocation, <=512 bytes/event including newline, <=62464 bytes."
+    },
+    {
+      "id": 13,
+      "criterion": "attempt range bounded?",
+      "result": "PASS",
+      "assessment": "YES: exactly 1\u201330; invalid/bool/out-of-range attribution rejected; final-health attempt=null."
+    },
+    {
+      "id": 14,
+      "criterion": "diagnostic logger can break health behavior?",
+      "result": "PASS",
+      "assessment": "NO for ordinary Exception failures: helper is best-effort; output/clock/serialization failures preserve original health success/error object."
+    },
+    {
+      "id": 15,
+      "criterion": "Python compatibility preserved?",
+      "result": "PASS",
+      "assessment": "YES: all 75 relevant tests ran on Python 3.6.8; UTC time.gmtime/strftime; no fromisoformat or new dependency."
+    },
+    {
+      "id": 16,
+      "criterion": "final-health behavior preserved?",
+      "result": "PASS",
+      "assessment": "YES: deploy final health call AST unchanged; default phase final-health/attempt=null; identical predicates."
+    },
+    {
+      "id": 17,
+      "criterion": "production behavior touched?",
+      "result": "PASS",
+      "assessment": "NO: no production/runtime action; remote main read-only identity unchanged at c724ac3b50bc44d71f8620bb4ac0cccfae890de2."
+    },
+    {
+      "id": 18,
+      "criterion": "installed controller touched?",
+      "result": "PASS",
+      "assessment": "NO: only repository candidate changed; no installed-path read/write/refresh or privileged action. Old installed hash is prior attested evidence, not a fresh host measurement."
+    }
+  ],
+  "static_comparison": {
+    "all_other_controller_source_ast_unchanged": true,
+    "health_predicates_endpoints_order_timeouts_and_raises_equivalent": true,
+    "retry_loop_except_attribution_identical": true,
+    "source_and_test_compile_in_memory": "PASS"
+  },
+  "formatting": {
+    "command": "scripts/repo-git.sh diff --check",
+    "result": "PASS"
+  },
+  "root_cause": "NOT_ESTABLISHED",
+  "failed_predicate": "NOT_ESTABLISHED",
+  "orchestrator_state": "HARD_BLOCKED",
+  "p1": "BLOCKED",
+  "full_p1_independent_review": "PENDING",
+  "repair_cycle": 2,
+  "failed_repair_cycles": 2,
+  "repair_2": "FAILED_CONSUMED_1_OF_1",
+  "automatic_retries": 0,
+  "repair_budget_exhausted": true,
+  "repair_3_authorized": false,
+  "p2": "NOT_STARTED",
+  "production_touched": false,
+  "main_remote_identity_read_only": "c724ac3b50bc44d71f8620bb4ac0cccfae890de2",
+  "security_boundary_changed": false,
+  "installed_controller_changed": false,
+  "runtime_execution": false,
+  "deployment_request_created": false,
+  "deployment_archive_generated_or_mutated": false,
+  "image_action_performed": false,
+  "privileged_action_performed": false,
+  "repair_counter_change": false,
+  "diagnostic_instrumentation_stage1_authorized": true,
+  "diagnostic_instrumentation_stage1_result": "PASS_REVIEW_READY",
+  "authorization_consumed_for": "SOURCE_REVIEW_ONLY",
+  "deployment_authorized": false,
+  "diagnostic_runtime_execution_authorized": false,
+  "controller_install_authorized": false,
+  "stage2_authorized": false,
+  "human_review": "REQUIRED",
+  "next_action": "HUMAN REVIEW REQUIRED: decide whether to accept the instrumentation candidate and separately authorize any future controller installation / diagnostic execution. No installation procedure or Stage2 authority is prepared.",
+  "limitations": [
+    "Local mocked/static tests cannot establish real runtime acceptance or historical root cause.",
+    "Final health defaults to final-health/null; rollback readiness reuses readiness1..30, as bounded existing control flow.",
+    "Invalid JSON failure retains null status when parsing fails before the original status read.",
+    "Exception labels describe fixed base families; unknown custom class names are never serialized.",
+    "Existing terminal traceback/status handling remains unchanged; no new per-event raw traceback/message is logged.",
+    "Fixture tar data in existing unit regressions is not a deployment source archive; no actual deployment artifact was generated or altered."
+  ],
+  "controller_patch_format": "UNIFIED_ZERO_CONTEXT; EXACT SOURCE DIFF",
+  "authorization_input_sha256": "60bd699937d6ec1bd26e4b48afb60382072f20dfa5ae55ce41c1d4c472b6a6df",
+  "authorization_line_endings": "CRLF_NORMALIZED_TO_LF; TEXT_UNCHANGED"
+}

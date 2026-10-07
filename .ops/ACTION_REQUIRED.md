@@ -1,52 +1,43 @@
 STATUS:
-P1 HARD_BLOCKED — HUMAN DECISION REQUIRED
+P1 HARD_BLOCKED — DIAGNOSTIC INSTRUMENTATION STAGE1 HUMAN REVIEW REQUIRED
 
-PART / PROCESS:
-P1 / repair2-proxy-access-ssl-analysis
+PROCESS:
+diagnostic-instrumentation-stage1
 
-PROXY SSL HANDOFF SHA256 / BYTES:
-48c9933b7940497980bab554b24fc4fd177b1d0c71d8b4f75f5c3c04af258fae / 1144
+STAGE1:
+APPROVED_AND_CONSUMED_FOR_SOURCE_REVIEW_ONLY / PASS_REVIEW_READY
 
-FILE HISTORICAL COVERAGE:
-AFTER — parsed range2026-10-06T22:20:21Z..2026-10-07T07:53:50Z;246/246 parsed,unparsed0.
+CANDIDATE COMMIT:
+b060ff430854046df7490875ac402d9df909b43a
 
-ANY REQUESTS IN WINDOW / GET / MATCHES / PYTHON_URLLIB GET / / STATUS SET:
-0 / 0 / 0 / NONE — INPUT_BYTES and caller first/last UTC absent; no numbered ROW records.
+OLD INSTALLED CONTROLLER SHA256 (PRIOR OPERATOR EVIDENCE):
+029c5d5714a13fbdd3565901bdc08341e36319c1ab90cf30ea6d4ab7e58c4039
 
-WATCHER ATTRIBUTION / INTERNAL HEALTH BEFORE HOMEPAGE:
-NOT_PROVEN / NOT_PROVEN
+NEW REPOSITORY CANDIDATE SHA256 (NOT INSTALLED):
+be656cc95fbc3d1df09c57852577f8343401916a47aeec2b12459b4be5de414f
 
-DEV HOMEPAGE PREDICATE / FAILED PREDICATE / ROOT CAUSE / COMPONENT:
-NOT_ESTABLISHED / NOT_ESTABLISHED / NOT_ESTABLISHED / NOT_ESTABLISHED
+HUMAN ACTION:
+HUMAN REVIEW REQUIRED: decide whether to accept the instrumentation candidate and separately authorize any future controller installation / diagnostic execution. No installation procedure or Stage2 authority is prepared.
 
-CONTROL FLOW CONTRADICTION:
-NO — none demonstrated
+REVIEW PACKAGE:
+.ops/reports/P1/diagnostic-instrumentation-stage1/REPORT.md
+.ops/reports/P1/diagnostic-instrumentation-stage1/REVIEW.json
+.ops/reports/P1/diagnostic-instrumentation-stage1/CONTROLLER.patch
+.ops/reports/P1/diagnostic-instrumentation-stage1/AUTHORIZATION.txt
+.ops/reports/P1/diagnostic-instrumentation-stage1/CHECKSUMS.sha256
+Candidate source/test files are pinned by the source commit and report hashes.
 
-CROSS-LOG LIMIT:
-Current access_ssl_log AFTER; processed SSL OVERLAPS with2 parsed requests/0 exact GET / and1 unparsed line;
-current proxy SSL AFTER. No common request identity, cross-layer stage difference or watcher binding established.
-
-NEXT ACTION:
-HUMAN DECISION REQUIRED: decide how to address the missing exact historical inner health exception or uniquely watcher-attributable in-window request/error evidence. No further protected-file read is proposed; no repair, retry, runtime reproduction, deployment or repair-budget extension is authorized.
-
-EXACT MISSING CRITERION:
-Historical inner health exception or uniquely watcher-attributable in-window request/error identifying the failed
-localhost engine or DEV-homepage predicate. Existing metadata supplies no uniquely strong next read source.
-No file is selected; no protected read, broad search, reproduction or privileged command is proposed or authorized.
-
-COUNTERS / STOP:
+COUNTERS / STATE:
+P1 BLOCKED; full independent review PENDING; orchestrator HARD_BLOCKED.
 INITIAL failed/consumed; REPAIR_1 failed/consumed1/1; REPAIR_2 failed/consumed1/1.
-repair_cycle2; failed repair cycles2; automatic retries0; repair budget exhausted=true.
-P1 BLOCKED/full review PENDING; P2–P7 NOT_STARTED; production/main untouched.
+repair_cycle2; failed repair cycles2; budget EXHAUSTED; automatic retries0; counters unchanged.
+Root cause / failed predicate NOT_ESTABLISHED. P0 FROZEN/human PASS; P2–P7 NOT_STARTED.
+Production/main untouched.
 
-BOUNDARY:
-No repair, exception repair, REPAIR_3, budget extension/reset, request/retry/deployment, runtime reproduction,
-container/service/image action, promotion/rollback, source/environment/configuration/WordPress/Plesk/nginx change or cleanup.
-Preserve evidence and failed resources. Any future repair/deployment requires NEW explicit human repair-budget
-authorization and applicable security review. This analysis grants no additional protected read.
+NO AUTHORITY:
+Controller installation/refresh=false; diagnostic runtime execution=false; deployment=false;
+REPAIR_3=false; Stage2=false; repair-budget reset/extension=false. No request or attempt consumed.
+No privileged/protected-host operation, operator execution recipe, HTTP runtime probing, image/service/network action,
+WordPress/Plesk/nginx change or cleanup. Existing failed runtime/evidence remains preserved.
 
-EVIDENCE:
-.ops/reports/P1/REPAIR_2_PROXY_ACCESS_SSL_ANALYSIS.json
-.ops/reports/P1/REPAIR_2_PROXY_ACCESS_SSL_REPORT.md
-.ops/reports/P1/REPAIR_2_PROXY_ACCESS_SSL_OPERATOR_HANDOFF.txt
-All prior failure/review/metadata/handoff/oversight records remain unchanged.
+NO CONTROLLER INSTALLATION, RUNTIME EXECUTION, REPAIR OR DEPLOYMENT IS AUTHORIZED.

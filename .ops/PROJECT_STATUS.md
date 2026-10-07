@@ -5,7 +5,7 @@ CURRENT PART / STATE:
 P1 / HARD_BLOCKED
 
 PROCESS:
-repair2-proxy-access-ssl-analysis
+diagnostic-instrumentation-stage1
 
 P0:
 FROZEN / HUMAN REVIEW PASS
@@ -13,29 +13,24 @@ FROZEN / HUMAN REVIEW PASS
 P1 EXECUTION / FULL REVIEW:
 BLOCKED / INCOMPLETE; INDEPENDENT REVIEW PENDING
 
+STAGE1 AUTHORIZATION / RESULT:
+APPROVED_AND_CONSUMED_FOR_SOURCE_REVIEW_ONLY / PASS_REVIEW_READY
+
+CANDIDATE:
+b060ff430854046df7490875ac402d9df909b43a
+
+OLD INSTALLED / NEW CANDIDATE CONTROLLER SHA256:
+029c5d5714a13fbdd3565901bdc08341e36319c1ab90cf30ea6d4ab7e58c4039 / be656cc95fbc3d1df09c57852577f8343401916a47aeec2b12459b4be5de414f
+Old identity is prior operator evidence; new candidate is NOT INSTALLED or runtime-validated.
+
+LOCAL TESTS / STATIC SECURITY:
+75 PASS / 18 assessments PASS; independent human acceptance REQUIRED.
+
+ROOT CAUSE / FAILED PREDICATE:
+NOT_ESTABLISHED / NOT_ESTABLISHED
+
 REPAIR_2:
 FAILED_CONSUMED_1_OF_1 — runtime-health; rollback=false
-
-FILE HISTORICAL COVERAGE:
-AFTER — parsed range2026-10-06T22:20:21Z..2026-10-07T07:53:50Z;246/246 parsed,unparsed0.
-
-ANY REQUESTS IN WINDOW / GET / MATCHES / PYTHON_URLLIB GET / / STATUS SET:
-0 / 0 / 0 / NONE — INPUT_BYTES and caller first/last UTC absent; no numbered ROW records.
-
-WATCHER ATTRIBUTION / INTERNAL HEALTH BEFORE HOMEPAGE:
-NOT_PROVEN / NOT_PROVEN
-
-DEV HOMEPAGE PREDICATE / FAILED PREDICATE / ROOT CAUSE / COMPONENT:
-NOT_ESTABLISHED / NOT_ESTABLISHED / NOT_ESTABLISHED / NOT_ESTABLISHED
-
-CONTROL FLOW CONTRADICTION:
-NO — none demonstrated
-
-PROVEN OUTER ERROR:
-RuntimeError: Runtime readiness deadline exceeded
-
-HANDOFF SHA256 / BYTES:
-48c9933b7940497980bab554b24fc4fd177b1d0c71d8b4f75f5c3c04af258fae / 1144
 
 REPAIR CYCLE / FAILED REPAIR CYCLES:
 2 / 2 — BUDGET EXHAUSTED; counters unchanged
@@ -52,15 +47,15 @@ NOT_STARTED
 PRODUCTION/MAIN:
 UNTOUCHED
 
+DEPLOYMENT / DIAGNOSTIC RUNTIME / CONTROLLER INSTALL / STAGE2 / REPAIR_3 AUTHORIZED:
+false / false / false / false / false
+
 NEXT ACTION:
-HUMAN DECISION REQUIRED: decide how to address the missing exact historical inner health exception or uniquely watcher-attributable in-window request/error evidence. No further protected-file read is proposed; no repair, retry, runtime reproduction, deployment or repair-budget extension is authorized.
+HUMAN REVIEW REQUIRED: decide whether to accept the instrumentation candidate and separately authorize any future controller installation / diagnostic execution. No installation procedure or Stage2 authority is prepared.
+
+ACTION FILE:
+.ops/ACTION_REQUIRED.md
 
 EVIDENCE:
-.ops/reports/P1/REPAIR_2_PROXY_ACCESS_SSL_ANALYSIS.json
-.ops/reports/P1/REPAIR_2_PROXY_ACCESS_SSL_REPORT.md
-
-AUTHORIZATION:
-ANALYSIS ONLY — no additional protected read, repair, deployment, runtime action or budget extension.
-
-OVERSIGHT:
-.ops/oversight/LATEST_CHECKPOINT.json / .md; EXTERNAL PENDING / NON-BLOCKING
+.ops/reports/P1/diagnostic-instrumentation-stage1/REPORT.md
+.ops/reports/P1/diagnostic-instrumentation-stage1/REVIEW.json

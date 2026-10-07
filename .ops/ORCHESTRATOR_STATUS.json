@@ -55,8 +55,8 @@
   "human_gate": {
     "part": "P1",
     "repair": "REPAIR_2",
-    "purpose": "Human decision on insufficient historical predicate evidence",
-    "status": "HARD_BLOCKED_HUMAN_DECISION_REQUIRED",
+    "purpose": "Human review of Stage1 diagnostic source candidate only",
+    "status": "HARD_BLOCKED_STAGE1_REVIEW_READY",
     "action_file": ".ops/ACTION_REQUIRED.md",
     "accepted_source_commit": "0ac34ba50ab3192abfe2ae425c4283879484258e",
     "archive_sha256": "958c6833da7e63d7843996a3171e540bf74b6978dcdfaf521c1eb55a39587ced",
@@ -67,16 +67,17 @@
     "max_new_deployment_requests": 0,
     "automatic_retries": 0,
     "capability_verified": false,
-    "human_action": "HUMAN DECISION REQUIRED: decide how to address the missing exact historical inner health exception or uniquely watcher-attributable in-window request/error evidence. No further protected-file read is proposed; no repair, retry, runtime reproduction, deployment or repair-budget extension is authorized.",
+    "human_action": "HUMAN REVIEW REQUIRED: decide whether to accept the instrumentation candidate and separately authorize any future controller installation / diagnostic execution. No installation procedure or Stage2 authority is prepared.",
     "old_image_preserved": "sha256:f2bb2401f1f296115cd0d3dd5609ca6514446f55d4484f1884639f308a456f24",
-    "action_file_sha256": "ecd48bd58b43e0baf7f36e9d42e7c92d82a515848959f4de00142ab7b4ca273d",
+    "action_file_sha256": "cbde672720ca09748dacba78fb7832544e197c07cdf6bb831a2c3663183e0723",
     "gate_a": "PASS",
     "gate_b": "PASS",
     "gate_c": "PASS",
     "new_proven_image_id": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a",
     "image_acceptance_evidence_class": "HUMAN_OPERATOR_ATTESTED_VERIFIED_HANDOFF",
-    "verification_record": ".ops/reports/P1/REPAIR_2_PROXY_ACCESS_SSL_ANALYSIS.json",
-    "promoted_image_id": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a"
+    "verification_record": ".ops/reports/P1/diagnostic-instrumentation-stage1/REVIEW.json",
+    "promoted_image_id": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a",
+    "instrumentation_candidate_commit": "b060ff430854046df7490875ac402d9df909b43a"
   },
   "hard_blocker": {
     "criterion": "P1 runtime start/health",
@@ -108,7 +109,7 @@
   },
   "production_touched": false,
   "p7": "NOT_STARTED",
-  "updated_at": "2026-10-07T08:02:53.298710+00:00",
+  "updated_at": "2026-10-07T08:29:06.899384+00:00",
   "p7_authorization": "SEPARATE_HUMAN_REQUIRED",
   "security_review": {
     "part": "P1",
@@ -307,8 +308,8 @@
     "diagnosis": "Outer readiness exception proven from new journal; inner failing health endpoint/component and root cause NOT_ESTABLISHED.",
     "evidence_file": ".ops/reports/P1/REPAIR_2_DEPLOYMENT_ATTEMPT.json",
     "status": "HARD_BLOCKED",
-    "next_action": "HUMAN DECISION REQUIRED: decide how to address the missing exact historical inner health exception or uniquely watcher-attributable in-window request/error evidence. No further protected-file read is proposed; no repair, retry, runtime reproduction, deployment or repair-budget extension is authorized.",
-    "smallest_remediation": "Human decision required; no further file read or repair proposed.",
+    "next_action": "HUMAN REVIEW REQUIRED: decide whether to accept the instrumentation candidate and separately authorize any future controller installation / diagnostic execution. No installation procedure or Stage2 authority is prepared.",
+    "smallest_remediation": "No remediation authorized; source-only instrumentation candidate awaits human review.",
     "source_remediation_status": "PASS_SOURCE_TESTS",
     "runtime_remediation_status": "REPAIR_2_FAILED_CONSUMED",
     "current_pending_criterion": "P1 runtime-health failed; repair budget exhausted",
@@ -340,16 +341,16 @@
     "max_new_deployment_requests": 0
   },
   "capability_gate": {
-    "process": "repair2-proxy-access-ssl-analysis",
-    "status": "HARD_BLOCKED_HUMAN_DECISION_REQUIRED",
+    "process": "diagnostic-instrumentation-stage1",
+    "status": "HARD_BLOCKED_STAGE1_REVIEW_READY",
     "scope_class": "SECURITY_CRITICAL",
     "business_mapping": [
       "RELIABILITY",
       "SECURITY",
       "MVP_RELEASE"
     ],
-    "evidence_file": ".ops/reports/P1/REPAIR_2_PROXY_ACCESS_SSL_ANALYSIS.json",
-    "reason": "Proxy SSL parsed range AFTER; prior processed overlap supplies no attributable homepage row. Historical predicate unknown; no uniquely strong next read source proposed.",
+    "evidence_file": ".ops/reports/P1/diagnostic-instrumentation-stage1/REVIEW.json",
+    "reason": "Stage1 source-only candidate complete. Installation/diagnostic execution/Stage2 are not authorized; repair budget exhausted.",
     "root_interface_available": false,
     "approval_already_granted": false,
     "repair_cycle_consumed": true,
@@ -383,7 +384,7 @@
   "oversight_checkpoint": {
     "latest_json": ".ops/oversight/LATEST_CHECKPOINT.json",
     "latest_markdown": ".ops/oversight/LATEST_CHECKPOINT.md",
-    "event": ".ops/oversight/events/0017-P1-repair2-proxy-access-ssl-analysis.json"
+    "event": ".ops/oversight/events/0018-P1-diagnostic-instrumentation-stage1.json"
   },
   "controller_refresh": {
     "operator_reported_result": "PASS",
@@ -642,5 +643,29 @@
     "repair_authorized": false,
     "deployment_authorized": false,
     "repair_counters_changed": false
+  },
+  "diagnostic_instrumentation_stage1": {
+    "authorization_class": "P1_DIAGNOSTIC_INSTRUMENTATION_EXCEPTION_STAGE1",
+    "status": "P1_DIAGNOSTIC_INSTRUMENTATION_STAGE1_REVIEW_READY",
+    "result": "PASS_REVIEW_READY",
+    "candidate_commit": "b060ff430854046df7490875ac402d9df909b43a",
+    "old_installed_controller_sha256": "029c5d5714a13fbdd3565901bdc08341e36319c1ab90cf30ea6d4ab7e58c4039",
+    "candidate_controller_sha256": "be656cc95fbc3d1df09c57852577f8343401916a47aeec2b12459b4be5de414f",
+    "candidate_controller_installed": false,
+    "candidate_runtime_validated": false,
+    "diagnostic_instrumentation_stage1_authorized": true,
+    "diagnostic_instrumentation_stage1_result": "PASS_REVIEW_READY",
+    "authorization_consumed_for": "SOURCE_REVIEW_ONLY",
+    "deployment_authorized": false,
+    "diagnostic_runtime_execution_authorized": false,
+    "controller_install_authorized": false,
+    "stage2_authorized": false,
+    "repair_3_authorized": false,
+    "repair_counter_change": false,
+    "human_review": "REQUIRED",
+    "next_action": "HUMAN REVIEW REQUIRED: decide whether to accept the instrumentation candidate and separately authorize any future controller installation / diagnostic execution. No installation procedure or Stage2 authority is prepared.",
+    "static_review_class": "CODEX_LOCAL_STATIC_SECURITY_REVIEW; HUMAN_ACCEPTANCE_PENDING",
+    "evidence_file": ".ops/reports/P1/diagnostic-instrumentation-stage1/REVIEW.json",
+    "report": ".ops/reports/P1/diagnostic-instrumentation-stage1/REPORT.md"
   }
 }

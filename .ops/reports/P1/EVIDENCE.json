@@ -870,9 +870,33 @@
         "full_p1_pass": false
       },
       "limitations": "No direct root/Docker/systemd inspection or post-failure diagnostic/HTTP action. Terminal status omits archive_sha256; only RUNNING has exact commit/archive. No unsupported exception text/root cause or successful deployment/runtime claim."
+    },
+    {
+      "criterion_id": "P1-REPAIR2-POSTFAILURE-DIAGNOSTIC-ANALYSIS",
+      "part": "P1",
+      "requirement": "Analyze the approved historical read-only handoff without another repair, runtime action or budget change",
+      "result": "ANALYSIS_COMPLETE_ROOT_CAUSE_NOT_ESTABLISHED",
+      "evidence_class": "HUMAN_OPERATOR_READONLY_HANDOFF; CODEX_VERIFIED_HASH_SOURCE_AND_INTERNAL_CONSISTENCY",
+      "timestamp": "2026-10-07T06:10:56.635957+00:00",
+      "source_commit": "0ac34ba50ab3192abfe2ae425c4283879484258e",
+      "candidate_archive_sha256": "958c6833da7e63d7843996a3171e540bf74b6978dcdfaf521c1eb55a39587ced",
+      "evidence_reference": "REPAIR_2_POSTFAILURE_DIAGNOSTIC_ANALYSIS.json",
+      "observed": {
+        "handoff_sha256": "5d6a17eb8a205bbff38d01adc2aab53d09b3f7daec09ea6bc9afed083a25e128",
+        "proven_outer_exception": "RuntimeError: Runtime readiness deadline exceeded",
+        "builder_exit_code": 0,
+        "reported_launch_image_id": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a",
+        "reported_failed_source_snapshot": "44b5b3b45036ce787f2b9c4ecb20ae21c37db323904b6f18c7c341b976d528ae",
+        "root_cause_class": "NOT_ESTABLISHED",
+        "failed_component": "NOT_ESTABLISHED",
+        "differential_items": 16,
+        "repair_2_attempts": 1,
+        "automatic_retries": 0
+      },
+      "limitations": "Operator-supplied host observations; no direct privileged verification or HTTP/run/reproduction. Exact outer aggregate exception does not identify the suppressed health error. Full P1 acceptance remains blocked; counters/budget unchanged."
     }
   ],
-  "updated_at": "2026-10-06T13:37:17.941803+00:00",
+  "updated_at": "2026-10-07T06:10:56.635957+00:00",
   "repair_path": "REPAIR_2",
   "repair_state": "FAILED_CONSUMED_HARD_BLOCKED",
   "current_candidate_commit": "0ac34ba50ab3192abfe2ae425c4283879484258e",
@@ -923,5 +947,21 @@
     }
   ],
   "failed_repair_cycles": 2,
-  "repair_budget_exhausted": true
+  "repair_budget_exhausted": true,
+  "post_failure_diagnostic_analysis": {
+    "kind": "POST_FAILURE_DIAGNOSTIC_ANALYSIS",
+    "result": "NOT_ESTABLISHED",
+    "process": "repair2-postfailure-diagnostic-analysis",
+    "handoff_sha256": "5d6a17eb8a205bbff38d01adc2aab53d09b3f7daec09ea6bc9afed083a25e128",
+    "evidence_file": ".ops/reports/P1/REPAIR_2_POSTFAILURE_DIAGNOSTIC_ANALYSIS.json",
+    "report": ".ops/reports/P1/REPAIR_2_POSTFAILURE_DIAGNOSTIC_REPORT.md",
+    "proven_failed_operation": "start_runtime readiness loop; controller340",
+    "exact_observed_error": "RuntimeError: Runtime readiness deadline exceeded",
+    "inner_health_exception": "NOT_RETAINED",
+    "failed_component": "NOT_ESTABLISHED",
+    "next_readonly_observation": "One human/operator read-only extraction of retained DEV-only homepage access/error log records for 2026-10-06T13:31:34Z through 13:32:36Z, with coverage/retention and caller-attribution limits. No runtime reproduction, new request, repair, retry or deployment; exhausted budget remains unchanged.",
+    "repair_authorized": false,
+    "deployment_authorized": false,
+    "repair_counters_changed": false
+  }
 }

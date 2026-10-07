@@ -1,0 +1,638 @@
+{
+  "schema_version": 1,
+  "part": "P1",
+  "process": "repair2-postfailure-diagnostic-analysis",
+  "kind": "POST_FAILURE_DIAGNOSTIC_ANALYSIS",
+  "recorded_at_utc": "2026-10-07T06:10:56.635957+00:00",
+  "client_timezone": "Asia/Dhaka",
+  "baseline_checkpoint": "ce1f1b4f81a2ba2166a82c1bd87897d37789aa98",
+  "authorization_attachment": "/home/codexperf/.codex/attachments/337a34b9-045a-4fef-8559-add9e01dcba9/Pasted text.txt",
+  "authorization_attachment_sha256": "3fa5a2441982857cc60869e134ce401a8033b85372021fe0ab6b00f4d9e9d250",
+  "authorization_scope": "PROVIDED_HANDOFF_AND_COMMITTED_SOURCE_ANALYSIS_ONLY; NO_REPAIR_RETRY_OR_DEPLOYMENT",
+  "handoff_path": "/home/codexperf/p1-repair2-postfailure-readonly-diagnostic.txt",
+  "retained_handoff": ".ops/reports/P1/REPAIR_2_POSTFAILURE_OPERATOR_HANDOFF.txt",
+  "handoff_sha256": "5d6a17eb8a205bbff38d01adc2aab53d09b3f7daec09ea6bc9afed083a25e128",
+  "handoff_bytes": 12328,
+  "handoff_lines": 139,
+  "sections_reviewed": [
+    {
+      "name": "CURRENT OFFICIAL STATUS",
+      "start_line": 9,
+      "end_line": 13
+    },
+    {
+      "name": "SYSTEMD SERVICE STATE",
+      "start_line": 14,
+      "end_line": 25
+    },
+    {
+      "name": "DEPLOY SERVICE JOURNAL WINDOW",
+      "start_line": 26,
+      "end_line": 40
+    },
+    {
+      "name": "KERNEL/OOM WINDOW",
+      "start_line": 41,
+      "end_line": 42
+    },
+    {
+      "name": "CURRENT REVIEWED CONTAINER PRESENCE",
+      "start_line": 43,
+      "end_line": 52
+    },
+    {
+      "name": "DOCKER EVENT WINDOW \u2014 REVIEWED CONTAINERS ONLY",
+      "start_line": 53,
+      "end_line": 78
+    },
+    {
+      "name": "NETWORK IDENTITIES / MEMBERS \u2014 SANITIZED",
+      "start_line": 79,
+      "end_line": 86
+    },
+    {
+      "name": "RELEASE INVENTORY",
+      "start_line": 87,
+      "end_line": 91
+    },
+    {
+      "name": "ACTIVE RELEASE POINTER",
+      "start_line": 92,
+      "end_line": 94
+    },
+    {
+      "name": "MOST RECENT RELEASE STRUCTURE",
+      "start_line": 95,
+      "end_line": 112
+    },
+    {
+      "name": "DATA DIRECTORY METADATA ONLY",
+      "start_line": 113,
+      "end_line": 118
+    },
+    {
+      "name": "INSTALLED TRUST IDENTITIES",
+      "start_line": 119,
+      "end_line": 123
+    },
+    {
+      "name": "IMMUTABLE IMAGE PRESENCE",
+      "start_line": 124,
+      "end_line": 128
+    },
+    {
+      "name": "DIAGNOSTIC BOUNDARY",
+      "start_line": 129,
+      "end_line": 139
+    }
+  ],
+  "evidence_class": "HUMAN_OPERATOR_READONLY_HANDOFF; CODEX_VERIFIED_HASH_SOURCE_AND_INTERNAL_CONSISTENCY",
+  "source_commit": "0ac34ba50ab3192abfe2ae425c4283879484258e",
+  "archive_sha256": "958c6833da7e63d7843996a3171e540bf74b6978dcdfaf521c1eb55a39587ced",
+  "expected_snapshot_sha256": "44b5b3b45036ce787f2b9c4ecb20ae21c37db323904b6f18c7c341b976d528ae",
+  "promoted_image_id": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a",
+  "promoted_dockerfile_sha256": "21ee8641969bc2eb92a91d1dcde28ed90e6420433bb022f1a25d1237c7eec152",
+  "installed_controller_sha256": "029c5d5714a13fbdd3565901bdc08341e36319c1ab90cf30ea6d4ab7e58c4039",
+  "root_cause_class": "NOT_ESTABLISHED",
+  "root_cause": "All30 aggregate health attempts threw inside start_runtime; their exceptions were suppressed. Historical evidence does not identify the failing localhost/gateway/app or DEV homepage check or the underlying cause.",
+  "failed_component": "NOT_ESTABLISHED",
+  "proven_failed_operation": "deploy()->start_runtime(release) readiness loop; RuntimeError at controller340",
+  "exact_observed_exception": "RuntimeError: Runtime readiness deadline exceeded",
+  "inner_health_exception": "NOT_RETAINED_IN_PROVIDED_EVIDENCE",
+  "terminal_status": {
+    "state": "FAILED",
+    "commit": "0ac34ba50ab3192abfe2ae425c4283879484258e",
+    "error": "RuntimeError",
+    "stage": "runtime-health",
+    "rollback": false
+  },
+  "terminal_status_sha256": "623e3044bbb74990e1d6c823f0b06ad18af866b43ac61e86270c995d8ef13ad2",
+  "terminal_archive_field_present": false,
+  "correlation": {
+    "systemd": {
+      "handoff_lines": "14-39",
+      "result": "exit-code",
+      "exec_main_code": 1,
+      "exec_main_status": 1,
+      "n_restarts": 0,
+      "active_state": "failed",
+      "traceback_controller_lines": [
+        438,
+        392,
+        340
+      ],
+      "service_start_utc": "2026-10-06T13:31:06Z",
+      "failure_utc": "2026-10-06T13:32:35Z"
+    },
+    "kernel_oom": {
+      "handoff_lines": "41-42",
+      "section_empty": true,
+      "oom_exclusion_proven": false,
+      "effective_cgroup_evidence_supplied": false
+    },
+    "current_reviewed_containers": {
+      "handoff_lines": "43-51",
+      "build": "ABSENT",
+      "app": "ABSENT",
+      "proxy": "ABSENT",
+      "gateway": "ABSENT",
+      "limitation": "Post-failure current absence does not identify startup or health failure."
+    },
+    "lifecycle_events": [
+      {
+        "handoff_line": 55,
+        "timestamp_ns": 1791293467524894112,
+        "timestamp_utc": "2026-10-06T13:31:07.524894112Z",
+        "action": "create",
+        "container_id": "c8316ab5330b41a4184863cc568da9d0beb911ef6ed154cfad2301817974204e",
+        "container_name": "gcreation-perf-dev-build",
+        "image_id": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a",
+        "exit_code": null,
+        "oom_field": null
+      },
+      {
+        "handoff_line": 56,
+        "timestamp_ns": 1791293467528637036,
+        "timestamp_utc": "2026-10-06T13:31:07.528637036Z",
+        "action": "attach",
+        "container_id": "c8316ab5330b41a4184863cc568da9d0beb911ef6ed154cfad2301817974204e",
+        "container_name": "gcreation-perf-dev-build",
+        "image_id": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a",
+        "exit_code": null,
+        "oom_field": null
+      },
+      {
+        "handoff_line": 57,
+        "timestamp_ns": 1791293467831894869,
+        "timestamp_utc": "2026-10-06T13:31:07.831894869Z",
+        "action": "start",
+        "container_id": "c8316ab5330b41a4184863cc568da9d0beb911ef6ed154cfad2301817974204e",
+        "container_name": "gcreation-perf-dev-build",
+        "image_id": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a",
+        "exit_code": null,
+        "oom_field": null
+      },
+      {
+        "handoff_line": 58,
+        "timestamp_ns": 1791293492150219126,
+        "timestamp_utc": "2026-10-06T13:31:32.150219126Z",
+        "action": "die",
+        "container_id": "c8316ab5330b41a4184863cc568da9d0beb911ef6ed154cfad2301817974204e",
+        "container_name": "gcreation-perf-dev-build",
+        "image_id": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a",
+        "exit_code": 0,
+        "oom_field": null
+      },
+      {
+        "handoff_line": 59,
+        "timestamp_ns": 1791293492167588443,
+        "timestamp_utc": "2026-10-06T13:31:32.167588443Z",
+        "action": "destroy",
+        "container_id": "c8316ab5330b41a4184863cc568da9d0beb911ef6ed154cfad2301817974204e",
+        "container_name": "gcreation-perf-dev-build",
+        "image_id": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a",
+        "exit_code": null,
+        "oom_field": null
+      },
+      {
+        "handoff_line": 61,
+        "timestamp_ns": 1791293493087856299,
+        "timestamp_utc": "2026-10-06T13:31:33.087856299Z",
+        "action": "create",
+        "container_id": "a4b42353ffbbf09929782a20e29c34d81449d3ac3f4e24a281add64fe6f0d06e",
+        "container_name": "gcreation-perf-dev-app",
+        "image_id": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a",
+        "exit_code": null,
+        "oom_field": null
+      },
+      {
+        "handoff_line": 62,
+        "timestamp_ns": 1791293493476281860,
+        "timestamp_utc": "2026-10-06T13:31:33.476281860Z",
+        "action": "start",
+        "container_id": "a4b42353ffbbf09929782a20e29c34d81449d3ac3f4e24a281add64fe6f0d06e",
+        "container_name": "gcreation-perf-dev-app",
+        "image_id": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a",
+        "exit_code": null,
+        "oom_field": null
+      },
+      {
+        "handoff_line": 63,
+        "timestamp_ns": 1791293554551586990,
+        "timestamp_utc": "2026-10-06T13:32:34.551586990Z",
+        "action": "kill",
+        "container_id": "a4b42353ffbbf09929782a20e29c34d81449d3ac3f4e24a281add64fe6f0d06e",
+        "container_name": "gcreation-perf-dev-app",
+        "image_id": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a",
+        "exit_code": null,
+        "oom_field": null
+      },
+      {
+        "handoff_line": 64,
+        "timestamp_ns": 1791293554737903213,
+        "timestamp_utc": "2026-10-06T13:32:34.737903213Z",
+        "action": "die",
+        "container_id": "a4b42353ffbbf09929782a20e29c34d81449d3ac3f4e24a281add64fe6f0d06e",
+        "container_name": "gcreation-perf-dev-app",
+        "image_id": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a",
+        "exit_code": 137,
+        "oom_field": null
+      },
+      {
+        "handoff_line": 65,
+        "timestamp_ns": 1791293554749351564,
+        "timestamp_utc": "2026-10-06T13:32:34.749351564Z",
+        "action": "destroy",
+        "container_id": "a4b42353ffbbf09929782a20e29c34d81449d3ac3f4e24a281add64fe6f0d06e",
+        "container_name": "gcreation-perf-dev-app",
+        "image_id": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a",
+        "exit_code": null,
+        "oom_field": null
+      },
+      {
+        "handoff_line": 67,
+        "timestamp_ns": 1791293492503492224,
+        "timestamp_utc": "2026-10-06T13:31:32.503492224Z",
+        "action": "create",
+        "container_id": "3a539d8be2a42b6aafcada1d43d6b36796888992116049181604c41d826736c8",
+        "container_name": "gcreation-perf-dev-proxy",
+        "image_id": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a",
+        "exit_code": null,
+        "oom_field": null
+      },
+      {
+        "handoff_line": 68,
+        "timestamp_ns": 1791293492873650976,
+        "timestamp_utc": "2026-10-06T13:31:32.873650976Z",
+        "action": "start",
+        "container_id": "3a539d8be2a42b6aafcada1d43d6b36796888992116049181604c41d826736c8",
+        "container_name": "gcreation-perf-dev-proxy",
+        "image_id": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a",
+        "exit_code": null,
+        "oom_field": null
+      },
+      {
+        "handoff_line": 69,
+        "timestamp_ns": 1791293554809911835,
+        "timestamp_utc": "2026-10-06T13:32:34.809911835Z",
+        "action": "kill",
+        "container_id": "3a539d8be2a42b6aafcada1d43d6b36796888992116049181604c41d826736c8",
+        "container_name": "gcreation-perf-dev-proxy",
+        "image_id": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a",
+        "exit_code": null,
+        "oom_field": null
+      },
+      {
+        "handoff_line": 70,
+        "timestamp_ns": 1791293555061289991,
+        "timestamp_utc": "2026-10-06T13:32:35.061289991Z",
+        "action": "die",
+        "container_id": "3a539d8be2a42b6aafcada1d43d6b36796888992116049181604c41d826736c8",
+        "container_name": "gcreation-perf-dev-proxy",
+        "image_id": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a",
+        "exit_code": 137,
+        "oom_field": null
+      },
+      {
+        "handoff_line": 71,
+        "timestamp_ns": 1791293555071387751,
+        "timestamp_utc": "2026-10-06T13:32:35.071387751Z",
+        "action": "destroy",
+        "container_id": "3a539d8be2a42b6aafcada1d43d6b36796888992116049181604c41d826736c8",
+        "container_name": "gcreation-perf-dev-proxy",
+        "image_id": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a",
+        "exit_code": null,
+        "oom_field": null
+      },
+      {
+        "handoff_line": 73,
+        "timestamp_ns": 1791293493602696513,
+        "timestamp_utc": "2026-10-06T13:31:33.602696513Z",
+        "action": "create",
+        "container_id": "31ca5435f7d0d8bed6d3b3b192a35506abd746e3cdaada64e3c4b2b4372366cb",
+        "container_name": "gcreation-perf-dev-gateway",
+        "image_id": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a",
+        "exit_code": null,
+        "oom_field": null
+      },
+      {
+        "handoff_line": 74,
+        "timestamp_ns": 1791293494172842282,
+        "timestamp_utc": "2026-10-06T13:31:34.172842282Z",
+        "action": "start",
+        "container_id": "31ca5435f7d0d8bed6d3b3b192a35506abd746e3cdaada64e3c4b2b4372366cb",
+        "container_name": "gcreation-perf-dev-gateway",
+        "image_id": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a",
+        "exit_code": null,
+        "oom_field": null
+      },
+      {
+        "handoff_line": 75,
+        "timestamp_ns": 1791293555121560005,
+        "timestamp_utc": "2026-10-06T13:32:35.121560005Z",
+        "action": "kill",
+        "container_id": "31ca5435f7d0d8bed6d3b3b192a35506abd746e3cdaada64e3c4b2b4372366cb",
+        "container_name": "gcreation-perf-dev-gateway",
+        "image_id": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a",
+        "exit_code": null,
+        "oom_field": null
+      },
+      {
+        "handoff_line": 76,
+        "timestamp_ns": 1791293555297911772,
+        "timestamp_utc": "2026-10-06T13:32:35.297911772Z",
+        "action": "die",
+        "container_id": "31ca5435f7d0d8bed6d3b3b192a35506abd746e3cdaada64e3c4b2b4372366cb",
+        "container_name": "gcreation-perf-dev-gateway",
+        "image_id": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a",
+        "exit_code": 137,
+        "oom_field": null
+      },
+      {
+        "handoff_line": 77,
+        "timestamp_ns": 1791293555310722977,
+        "timestamp_utc": "2026-10-06T13:32:35.310722977Z",
+        "action": "destroy",
+        "container_id": "31ca5435f7d0d8bed6d3b3b192a35506abd746e3cdaada64e3c4b2b4372366cb",
+        "container_name": "gcreation-perf-dev-gateway",
+        "image_id": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a",
+        "exit_code": null,
+        "oom_field": null
+      }
+    ],
+    "derived_intervals": {
+      "builder_start_to_exit_seconds": 24.318324257,
+      "app_start_to_kill_seconds": 61.07530513,
+      "proxy_start_to_kill_seconds": 61.936260859,
+      "gateway_start_to_kill_seconds": 60.948717723,
+      "derivation_scope": "Arithmetic on operator-supplied lifecycle timestamps; not a new runtime measurement or proof of an HTTP response."
+    },
+    "event_assessment": "Builder exit0. Proxy/app/gateway starts precede controller deadline; reported kills precede137/destroy in the same app/proxy/gateway order as failure cleanup. No health response or OOM cause is inferred.",
+    "networks": [
+      {
+        "handoff_line": 81,
+        "name": "gcreation-perf-dev-internal",
+        "id": "e94996e300b479ee92c339e460cd408edd48995093f4d5089db44e69515719f3",
+        "driver": "bridge",
+        "scope": "local",
+        "internal": true,
+        "role": "dev-audit",
+        "member_rows_supplied": 0
+      },
+      {
+        "handoff_line": 84,
+        "name": "gcreation-perf-dev-egress",
+        "id": "4cd763d7c6537ac2225c68b33aa0fe9ab41aa82c2582a981455e4e4dbb767f97",
+        "driver": "bridge",
+        "scope": "local",
+        "internal": false,
+        "role": "dev-audit-egress",
+        "member_rows_supplied": 0
+      }
+    ],
+    "network_scope": "No current member rows are supplied; no complete Containers map is present. Source traceback excludes fail-closed validator rejection before readiness, not transport or isolation faults. Full effective network membership acceptance is not inferred.",
+    "release_inventory": {
+      "handoff_lines": "87-111",
+      "release_paths": [
+        "/var/lib/gcreation-perf-dev/release-1791262758159429",
+        "/var/lib/gcreation-perf-dev/release-1791281013322493",
+        "/var/lib/gcreation-perf-dev/release-1791293466993919"
+      ],
+      "active_json": "ABSENT",
+      "latest_release": "/var/lib/gcreation-perf-dev/release-1791293466993919",
+      "latest_source_mode": "0755",
+      "latest_output_mode": "0700",
+      "latest_output_owner_names": "UNKNOWN:UNKNOWN",
+      "marker": "0ac34ba50ab3192abfe2ae425c4283879484258e",
+      "marker_sha256": "b97daf81ecc8ab37c21092684929b70d473d044d099e26746a6a1d912401a330",
+      "source_snapshot_sha256": "44b5b3b45036ce787f2b9c4ecb20ae21c37db323904b6f18c7c341b976d528ae",
+      "source_file_count": 182,
+      "output_main_js_sha256": "77d9b0d8d2d5fb2b36ca486d08e76492acc0c5b69251112f27fc56c08440ad7f",
+      "output_proxy_main_js_sha256": "25b1c8f64c731d9dbe2107602a0029b8a185f8973c16f899d9ff7e9b187a5fd7",
+      "node_modules_symlink_target": "/opt/gcreation-deps/node_modules",
+      "successful_active_deployment_claimed": false
+    },
+    "data_metadata": {
+      "handoff_lines": "113-117",
+      "directory_mode": "0700",
+      "directory_owner_names": "UNKNOWN:UNKNOWN",
+      "reported_files": [
+        "audits.sqlite-shm",
+        "audits.sqlite",
+        "audits.sqlite-wal"
+      ],
+      "reported_file_uid_gid": "10001:10001",
+      "shm_mtime_utc": "2026-10-06T13:31:35.153590533Z",
+      "sqlite_contents_read": false,
+      "directory_numeric_uid_gid_supplied": false,
+      "access_or_migration_pass_claimed": false
+    },
+    "trusted_identities": {
+      "handoff_lines": "119-127",
+      "installed_image_pointer": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a",
+      "dockerfile_sha256": "21ee8641969bc2eb92a91d1dcde28ed90e6420433bb022f1a25d1237c7eec152",
+      "controller_sha256": "029c5d5714a13fbdd3565901bdc08341e36319c1ab90cf30ea6d4ab7e58c4039",
+      "all_reported_event_image_ids_match": true,
+      "present_images": [
+        "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a",
+        "sha256:f2bb2401f1f296115cd0d3dd5609ca6514446f55d4484f1884639f308a456f24",
+        "sha256:d09888bbe949d9241c26682798793bbd5a2cdf668a586a35bd673a7f6795e756"
+      ],
+      "reported_user": "10001:10001",
+      "reported_workdir": "/app"
+    }
+  },
+  "source_inspection": {
+    "commit": "0ac34ba50ab3192abfe2ae425c4283879484258e",
+    "file_sha256": {
+      "ops/dev/deploy_controller.py": "029c5d5714a13fbdd3565901bdc08341e36319c1ab90cf30ea6d4ab7e58c4039",
+      "ops/dev/runtime.Dockerfile": "21ee8641969bc2eb92a91d1dcde28ed90e6420433bb022f1a25d1237c7eec152",
+      "ops/dev/trusted/gateway.mjs": "d9616a205b5f7a7e2d11779a2a98a1a5367ec76d992b2d3b8bb51e5a25343c4c",
+      "apps/audit-service/src/main.ts": "5039bc4573364b57b1bbdd742f724659e91208a7ba8d365e502800673c4f23f2",
+      "apps/audit-service/src/server.ts": "366975a3a25115ca961c00dc5a2f74c0eccd35efe717d5fb3c313c630e45cf38",
+      "apps/audit-service/src/store.ts": "fcaf9b70af27c45307a05a9c994a9ed686b649a352038cdfa575f2fb6503a4ea",
+      "packages/scanner/src/proxy-main.ts": "4d071d5d2e2de572a35cfce4ba6731f20096216bee23c675fc3b850a955bc242"
+    },
+    "controller_start_order": [
+      "validate internal/egress",
+      "launch proxy",
+      "attach proxy egress",
+      "launch app",
+      "launch gateway",
+      "validate internal/egress again",
+      "readiness loop",
+      "internal gateway/app health",
+      "DEV homepage health"
+    ],
+    "health_urls": [
+      "http://127.0.0.1:3101/health",
+      "https://dev.gcreation.agency/"
+    ],
+    "redirects_disabled": true,
+    "readiness_iterations": 30,
+    "retry_sleep_seconds": 2,
+    "health_exception_details_retained_by_controller": false,
+    "gateway_health_forwards_to_app": true,
+    "app_opens_sqlite_before_listen": true,
+    "proxy_start_requires_fetch_secret": true,
+    "historical_repair1_cause_reused": false
+  },
+  "differential_analysis": [
+    {
+      "id": 1,
+      "possibility": "Gateway startup failure",
+      "classification": "POSSIBLE",
+      "assessment": "L73-77 report create/start then kill/die/destroy, with no earlier death in the supplied sequence. Reaching controller340 excludes a failed Docker-launch command, but does not prove gateway module startup/listen or response readiness. No gateway logs or historical process state are supplied.",
+      "source_reference": "deploy_controller.py:328-340; gateway.mjs:142-154"
+    },
+    {
+      "id": 2,
+      "possibility": "App startup failure",
+      "classification": "POSSIBLE",
+      "assessment": "L61-65 report create/start followed by kill after about61s. L115 shows SQLite SHM mtime13:31:35, compatible with database access, not proof that app.listen completed. No app stdout/stderr or process/listen result identifies startup success/failure.",
+      "source_reference": "main.ts:7-23; store.ts:15-19"
+    },
+    {
+      "id": 3,
+      "possibility": "Proxy startup failure",
+      "classification": "POSSIBLE",
+      "assessment": "L67-71 report start and later kill; no earlier crash in this supplied sequence. Docker launch and egress attach returned before readiness. No proxy process logs/listen verification; direct app health does not require a proxy health response.",
+      "source_reference": "deploy_controller.py:328-333; proxy-main.ts:1-8"
+    },
+    {
+      "id": 4,
+      "possibility": "Gateway to app health failure",
+      "classification": "POSSIBLE",
+      "assessment": "Gateway forwards GET /health to gcreation-perf-dev-app:3101 and returns502 on upstream errors. No preserved gateway/app HTTP status, response JSON or per-attempt exception identifies whether this path failed.",
+      "source_reference": "gateway.mjs:23-24,74-135,148-152; deploy_controller.py:304-309"
+    },
+    {
+      "id": 5,
+      "possibility": "Localhost bind/health failure",
+      "classification": "POSSIBLE",
+      "assessment": "Reaching controller340 excludes a nonzero Docker publish/bind-launch command. It does not prove a listener/valid HTTP200 with service/environment at127.0.0.1:3101. No historical socket/HTTP result is supplied.",
+      "source_reference": "deploy_controller.py:306-309,331-340"
+    },
+    {
+      "id": 6,
+      "possibility": "DEV website health failure",
+      "classification": "POSSIBLE",
+      "assessment": "health() checks https://dev.gcreation.agency/ only after successful internal health; redirects are disabled. Both checks share one suppressed exception path. No DEV homepage request/status/TLS/DNS evidence identifies whether this second check was reached or failed.",
+      "source_reference": "deploy_controller.py:304-317,334-340"
+    },
+    {
+      "id": 7,
+      "possibility": "Network membership/identity validation rejection",
+      "classification": "PROVEN_EXCLUDED",
+      "assessment": "The exact traceback reaches340 after both post-launch ensure_* calls332-333, outside the health exception handler. Their fail-closed metadata/ID/member/role/attachment rejections would propagate before340. L81/84 report expected bridge/local/internal flags/labels. This excludes controller validation rejection; it does not prove DNS or packet connectivity.",
+      "source_reference": "deploy_controller.py:133-177,332-340"
+    },
+    {
+      "id": 8,
+      "possibility": "Stale/unexpected container or network conflict rejected by controller",
+      "classification": "PROVEN_EXCLUDED",
+      "assessment": "The same post-launch validations completed and fresh reviewed container IDs were started before340. A rejected unexpected member, changed ID or failed name/port launch command cannot produce this traceback. No current member rows are supplied and containers are reported absent after failure; neither observation proves earlier transport health or full membership.",
+      "source_reference": "L44-85; deploy_controller.py:153-169,320-340"
+    },
+    {
+      "id": 9,
+      "possibility": "SQLite/data permission failure",
+      "classification": "NOT_TESTABLE_FROM_CURRENT_EVIDENCE",
+      "assessment": "L114 gives directory mode0700 with owner namesUNKNOWN, not numeric directory UID/GID; L115-117 give files10001:10001. Controller chowns data10001 and app opens WAL before listening. SHM mtime is compatible with access. No SQLite exception, historical access result or full ancestor metadata proves a permission failure or its exclusion.",
+      "source_reference": "L113-117; deploy_controller.py:390; main.ts:7-12; store.ts:15-19"
+    },
+    {
+      "id": 10,
+      "possibility": "Release output/build artifact problem",
+      "classification": "POSSIBLE",
+      "assessment": "Builder exit0 and L104-109 show main.js/proxy-main.js and expected node_modules symlink, excluding a failed build command or absence of these listed artifacts. All transitive artifacts, numeric output owner/permissions and runtime import/read results are not supplied. UNKNOWN owner names and0700 alone do not prove denial to UID10001.",
+      "source_reference": "L55-59,103-109; deploy_controller.py:330,343-344,379-390"
+    },
+    {
+      "id": 11,
+      "possibility": "OOM/cgroup/resource termination",
+      "classification": "NOT_TESTABLE_FROM_CURRENT_EVIDENCE",
+      "assessment": "Kernel/OOM sectionL41-42 is empty; no explicit OOMKilled/cgroup counter/history or completeness bound is supplied. All reported137 deaths follow kill events and match failure cleanup order, so137 is not evidence of OOM. Effective resource pressure/throttling or other historical constraints remain unmeasured.",
+      "source_reference": "L41-77; deploy_controller.py:397-407"
+    },
+    {
+      "id": 12,
+      "possibility": "Seccomp/capability/read-only filesystem failure",
+      "classification": "NOT_TESTABLE_FROM_CURRENT_EVIDENCE",
+      "assessment": "Flags are present in reviewed source, but no process exception/denial or effective inspect/kernel record is supplied. Docker start events do not establish successful required syscalls, writes or actual enforcement. No relaxation is proposed.",
+      "source_reference": "deploy_controller.py:115-116,326-331; L41-77"
+    },
+    {
+      "id": 13,
+      "possibility": "Environment/secret separation/startup validation failure",
+      "classification": "NOT_TESTABLE_FROM_CURRENT_EVIDENCE",
+      "assessment": "Host secure_environment/write_runtime_environments ran before RUNNING, excluding failure of that initial host preflight for this attempt. Receiver values/validation results are not disclosed, as required; no app/proxy/gateway startup error exists. No current receiver fault or secret leak is inferred.",
+      "source_reference": "deploy_controller.py:365-371; main.ts:6,20-23; gateway.mjs:6-11,147-152; proxy-main.ts:2-4"
+    },
+    {
+      "id": 14,
+      "possibility": "Promoted image identity mismatch",
+      "classification": "PROVEN_EXCLUDED",
+      "assessment": "L120/125 identify acceptedc1 image; all20 lifecycle event rows for the builder and three runtime IDs use that exactsha256. L121/122 match accepted Dockerfile/controller hashes. This excludes mismatch of reported launched image identity, not all content/permission/runtime behavior.",
+      "source_reference": "L55-77,119-127; exact candidate Git hashes"
+    },
+    {
+      "id": 15,
+      "possibility": "Failed release source/snapshot mismatch",
+      "classification": "PROVEN_EXCLUDED",
+      "assessment": "L101 marker0ac, L100 marker hash, L110 digest44b5 and L111 count182 match independently verified reviewed archive/candidate inputs. This excludes mismatch of the preserved failed-release source snapshot. No successful active deployment/output-content equivalence is claimed.",
+      "source_reference": "L95-111; reviewed archive182 regular members; controller snapshot_digest"
+    },
+    {
+      "id": 16,
+      "possibility": "Other current root cause",
+      "classification": "NOT_TESTABLE_FROM_CURRENT_EVIDENCE",
+      "assessment": "No additional underlying cause is identified. The source proves loss of diagnostic detail: health exceptions from either endpoint are discarded and replaced with a generic readiness exception. This is an observability limitation, not proof of why health failed.",
+      "source_reference": "L29-36; deploy_controller.py:334-340"
+    }
+  ],
+  "smallest_additional_readonly_diagnostic": {
+    "request": "One human/operator read-only extraction of retained DEV-only homepage access/error log records for 2026-10-06T13:31:34Z through 13:32:36Z, with coverage/retention and caller-attribution limits. No runtime reproduction, new request, repair, retry or deployment; exhausted budget remains unchanged.",
+    "execution_by_agent_authorized": false,
+    "historical_window_start_utc": "2026-10-06T13:31:34Z",
+    "historical_window_end_utc": "2026-10-06T13:32:36Z",
+    "scope": "Existing retained access/error records for DEV hostname and GET / only; actual configured DEV log paths identified by the designated operator, not invented.",
+    "limits": "One extraction, maximum64 matching rows/16KiB total, no live HTTP probe, no reproduction, no config/log-level change.",
+    "sanitization": "UTC timestamp, method, path=/ without query, response/upstream status, duration, safe error class and an attribution flag for the watcher Python-urllib caller. Omit raw IPs, headers, cookies, secrets, tokens, request/response bodies, unrelated paths/domains.",
+    "coverage_required": "Report readable/retained/rotated coverage for the exact window and whether both reverse-proxy/front and backend records are represented. Do not fabricate inaccessible/non-retained logs.",
+    "reason": "An attributable DEV homepage request proves the internal health step reached its success path for that iteration. An attributable HTTP error/redirect can identify failure of the second health predicate without any runtime action.",
+    "limitation": "No attributable request, missing coverage or unavailable logs does not prove an internal failure or exclude DNS/TLS/proxy errors before reaching DEV logs. Root cause must then remain NOT_ESTABLISHED."
+  },
+  "governance": {
+    "state": "HARD_BLOCKED",
+    "P1": "BLOCKED",
+    "repair_2": "FAILED_CONSUMED_1_OF_1",
+    "repair_cycle": 2,
+    "failed_repair_cycles": 2,
+    "repair_budget_exhausted": true,
+    "automatic_retries": 0,
+    "repair_2_attempts": 1,
+    "repair_2_max_attempts": 1,
+    "P2": "NOT_STARTED",
+    "production_touched": false,
+    "repair_authorized": false,
+    "new_deployment_authorized": false,
+    "exception_repair_proposed": false,
+    "future_deployment_requires_new_explicit_human_budget_authorization": true
+  },
+  "analysis_actions": {
+    "agent_root_or_docker_execution": false,
+    "runtime_mutation": false,
+    "request_publication": false,
+    "runtime_reproduction": false,
+    "service_or_image_action": false,
+    "configuration_or_wordpress_action": false,
+    "application_or_privileged_source_changed": false,
+    "counters_changed": false
+  },
+  "limitations": [
+    "All host/container/service/log/private-release observations are operator-supplied handoff evidence. Codex verifies SHA, committed source, time/order and identity consistency, not root-private state directly.",
+    "Original failed-attempt journal/status evidence remains immutable; new post-failure analysis supplies the exact outer readiness exception and reported launch/source identities without changing the historical failure evidence.",
+    "Docker start and image identity do not prove process/listener health, effective containment, resource limits, secret receiver correctness or successful deployment. No source repair or security-boundary change is proposed."
+  ]
+}

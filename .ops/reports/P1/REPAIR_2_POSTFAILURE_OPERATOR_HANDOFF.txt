@@ -1,0 +1,139 @@
+P1 REPAIR_2 POST-FAILURE READ-ONLY DIAGNOSTIC
+DIAGNOSTIC_SCOPE=READ_ONLY_NO_RUNTIME_REPRODUCTION
+CANDIDATE=0ac34ba50ab3192abfe2ae425c4283879484258e
+ARCHIVE_SHA256=958c6833da7e63d7843996a3171e540bf74b6978dcdfaf521c1eb55a39587ced
+EXPECTED_SNAPSHOT_SHA256=44b5b3b45036ce787f2b9c4ecb20ae21c37db323904b6f18c7c341b976d528ae
+PROMOTED_IMAGE=sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a
+PROMOTED_DOCKERFILE_SHA256=21ee8641969bc2eb92a91d1dcde28ed90e6420433bb022f1a25d1237c7eec152
+
+=== CURRENT OFFICIAL STATUS ===
+STATUS_META owner=root:root mode=644 links=1 size=145 mtime=2026-10-06 13:32:35.347594310 +0000
+{"state": "FAILED", "commit": "0ac34ba50ab3192abfe2ae425c4283879484258e", "error": "RuntimeError", "stage": "runtime-health", "rollback": false}
+STATUS_SHA256=623e3044bbb74990e1d6c823f0b06ad18af866b43ac61e86270c995d8ef13ad2
+
+=== SYSTEMD SERVICE STATE ===
+Result=exit-code
+NRestarts=0
+ExecMainCode=1
+ExecMainStatus=1
+ActiveState=failed
+SubState=failed
+StateChangeTimestamp=Tue 2026-10-06 13:32:35 UTC
+ActiveEnterTimestamp=
+ActiveExitTimestamp=
+InactiveEnterTimestamp=Tue 2026-10-06 13:32:35 UTC
+
+=== DEPLOY SERVICE JOURNAL WINDOW ===
+-- Logs begin at Sun 2026-10-04 08:52:11 UTC, end at Wed 2026-10-07 05:54:55 UTC. --
+2026-10-06T13:31:06+0000 ipv4-62-86.99itbd.com systemd[1]: Starting Fixed-path gCreation DEV deploy controller (human-installed)...
+2026-10-06T13:32:35+0000 ipv4-62-86.99itbd.com deploy-dev.sh[3203063]: Traceback (most recent call last):
+2026-10-06T13:32:35+0000 ipv4-62-86.99itbd.com deploy-dev.sh[3203063]:   File "/usr/local/lib/gcreation-perf-dev/deploy_controller.py", line 438, in <module>
+2026-10-06T13:32:35+0000 ipv4-62-86.99itbd.com deploy-dev.sh[3203063]:     deploy()
+2026-10-06T13:32:35+0000 ipv4-62-86.99itbd.com deploy-dev.sh[3203063]:   File "/usr/local/lib/gcreation-perf-dev/deploy_controller.py", line 392, in deploy
+2026-10-06T13:32:35+0000 ipv4-62-86.99itbd.com deploy-dev.sh[3203063]:     start_runtime(release)
+2026-10-06T13:32:35+0000 ipv4-62-86.99itbd.com deploy-dev.sh[3203063]:   File "/usr/local/lib/gcreation-perf-dev/deploy_controller.py", line 340, in start_runtime
+2026-10-06T13:32:35+0000 ipv4-62-86.99itbd.com deploy-dev.sh[3203063]:     raise RuntimeError('Runtime readiness deadline exceeded')
+2026-10-06T13:32:35+0000 ipv4-62-86.99itbd.com deploy-dev.sh[3203063]: RuntimeError: Runtime readiness deadline exceeded
+2026-10-06T13:32:35+0000 ipv4-62-86.99itbd.com systemd[1]: gcreation-perf-dev-deploy.service: Main process exited, code=exited, status=1/FAILURE
+2026-10-06T13:32:35+0000 ipv4-62-86.99itbd.com systemd[1]: gcreation-perf-dev-deploy.service: Failed with result 'exit-code'.
+2026-10-06T13:32:35+0000 ipv4-62-86.99itbd.com systemd[1]: Failed to start Fixed-path gCreation DEV deploy controller (human-installed).
+
+=== KERNEL/OOM WINDOW ===
+
+=== CURRENT REVIEWED CONTAINER PRESENCE ===
+--- gcreation-perf-dev-build ---
+CONTAINER=ABSENT
+--- gcreation-perf-dev-app ---
+CONTAINER=ABSENT
+--- gcreation-perf-dev-proxy ---
+CONTAINER=ABSENT
+--- gcreation-perf-dev-gateway ---
+CONTAINER=ABSENT
+
+=== DOCKER EVENT WINDOW — REVIEWED CONTAINERS ONLY ===
+--- gcreation-perf-dev-build ---
+1791293467524894112 action=create id=c8316ab5330b41a4184863cc568da9d0beb911ef6ed154cfad2301817974204e actor_name=gcreation-perf-dev-build image=sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a exitCode= oom=
+1791293467528637036 action=attach id=c8316ab5330b41a4184863cc568da9d0beb911ef6ed154cfad2301817974204e actor_name=gcreation-perf-dev-build image=sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a exitCode= oom=
+1791293467831894869 action=start id=c8316ab5330b41a4184863cc568da9d0beb911ef6ed154cfad2301817974204e actor_name=gcreation-perf-dev-build image=sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a exitCode= oom=
+1791293492150219126 action=die id=c8316ab5330b41a4184863cc568da9d0beb911ef6ed154cfad2301817974204e actor_name=gcreation-perf-dev-build image=sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a exitCode=0 oom=
+1791293492167588443 action=destroy id=c8316ab5330b41a4184863cc568da9d0beb911ef6ed154cfad2301817974204e actor_name=gcreation-perf-dev-build image=sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a exitCode= oom=
+--- gcreation-perf-dev-app ---
+1791293493087856299 action=create id=a4b42353ffbbf09929782a20e29c34d81449d3ac3f4e24a281add64fe6f0d06e actor_name=gcreation-perf-dev-app image=sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a exitCode= oom=
+1791293493476281860 action=start id=a4b42353ffbbf09929782a20e29c34d81449d3ac3f4e24a281add64fe6f0d06e actor_name=gcreation-perf-dev-app image=sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a exitCode= oom=
+1791293554551586990 action=kill id=a4b42353ffbbf09929782a20e29c34d81449d3ac3f4e24a281add64fe6f0d06e actor_name=gcreation-perf-dev-app image=sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a exitCode= oom=
+1791293554737903213 action=die id=a4b42353ffbbf09929782a20e29c34d81449d3ac3f4e24a281add64fe6f0d06e actor_name=gcreation-perf-dev-app image=sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a exitCode=137 oom=
+1791293554749351564 action=destroy id=a4b42353ffbbf09929782a20e29c34d81449d3ac3f4e24a281add64fe6f0d06e actor_name=gcreation-perf-dev-app image=sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a exitCode= oom=
+--- gcreation-perf-dev-proxy ---
+1791293492503492224 action=create id=3a539d8be2a42b6aafcada1d43d6b36796888992116049181604c41d826736c8 actor_name=gcreation-perf-dev-proxy image=sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a exitCode= oom=
+1791293492873650976 action=start id=3a539d8be2a42b6aafcada1d43d6b36796888992116049181604c41d826736c8 actor_name=gcreation-perf-dev-proxy image=sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a exitCode= oom=
+1791293554809911835 action=kill id=3a539d8be2a42b6aafcada1d43d6b36796888992116049181604c41d826736c8 actor_name=gcreation-perf-dev-proxy image=sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a exitCode= oom=
+1791293555061289991 action=die id=3a539d8be2a42b6aafcada1d43d6b36796888992116049181604c41d826736c8 actor_name=gcreation-perf-dev-proxy image=sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a exitCode=137 oom=
+1791293555071387751 action=destroy id=3a539d8be2a42b6aafcada1d43d6b36796888992116049181604c41d826736c8 actor_name=gcreation-perf-dev-proxy image=sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a exitCode= oom=
+--- gcreation-perf-dev-gateway ---
+1791293493602696513 action=create id=31ca5435f7d0d8bed6d3b3b192a35506abd746e3cdaada64e3c4b2b4372366cb actor_name=gcreation-perf-dev-gateway image=sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a exitCode= oom=
+1791293494172842282 action=start id=31ca5435f7d0d8bed6d3b3b192a35506abd746e3cdaada64e3c4b2b4372366cb actor_name=gcreation-perf-dev-gateway image=sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a exitCode= oom=
+1791293555121560005 action=kill id=31ca5435f7d0d8bed6d3b3b192a35506abd746e3cdaada64e3c4b2b4372366cb actor_name=gcreation-perf-dev-gateway image=sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a exitCode= oom=
+1791293555297911772 action=die id=31ca5435f7d0d8bed6d3b3b192a35506abd746e3cdaada64e3c4b2b4372366cb actor_name=gcreation-perf-dev-gateway image=sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a exitCode=137 oom=
+1791293555310722977 action=destroy id=31ca5435f7d0d8bed6d3b3b192a35506abd746e3cdaada64e3c4b2b4372366cb actor_name=gcreation-perf-dev-gateway image=sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a exitCode= oom=
+
+=== NETWORK IDENTITIES / MEMBERS — SANITIZED ===
+--- gcreation-perf-dev-internal ---
+NAME=gcreation-perf-dev-internal ID=e94996e300b479ee92c339e460cd408edd48995093f4d5089db44e69515719f3 DRIVER=bridge SCOPE=local INTERNAL=true LABELS={"gcreation.role":"dev-audit"}
+
+--- gcreation-perf-dev-egress ---
+NAME=gcreation-perf-dev-egress ID=4cd763d7c6537ac2225c68b33aa0fe9ab41aa82c2582a981455e4e4dbb767f97 DRIVER=bridge SCOPE=local INTERNAL=false LABELS={"gcreation.role":"dev-audit-egress"}
+
+
+=== RELEASE INVENTORY ===
+RELEASE path=/var/lib/gcreation-perf-dev/release-1791262758159429 mtime=2026-10-06T04:59:18.2022721120Z owner=root:root mode=700
+RELEASE path=/var/lib/gcreation-perf-dev/release-1791281013322493 mtime=2026-10-06T10:03:33.3708903120Z owner=root:root mode=755
+RELEASE path=/var/lib/gcreation-perf-dev/release-1791293466993919 mtime=2026-10-06T13:31:07.0745887700Z owner=root:root mode=755
+
+=== ACTIVE RELEASE POINTER ===
+ACTIVE_JSON=ABSENT
+
+=== MOST RECENT RELEASE STRUCTURE ===
+LATEST_RELEASE=/var/lib/gcreation-perf-dev/release-1791293466993919
+LATEST_META owner=root:root mode=755 links=4 mtime=2026-10-06 13:31:07.074588770 +0000
+PATH=/var/lib/gcreation-perf-dev/release-1791293466993919/source type=directory owner=root:root mode=755 links=10 size=4096 mtime=2026-10-06 13:31:07.053588768 +0000
+PATH=/var/lib/gcreation-perf-dev/release-1791293466993919/source/REVIEW_SOURCE_COMMIT type=regular file owner=root:root mode=644 links=1 size=41 mtime=2026-10-06 13:31:07.039588768 +0000
+SHA256 /var/lib/gcreation-perf-dev/release-1791293466993919/source/REVIEW_SOURCE_COMMIT b97daf81ecc8ab37c21092684929b70d473d044d099e26746a6a1d912401a330
+MARKER=0ac34ba50ab3192abfe2ae425c4283879484258e
+
+PATH=/var/lib/gcreation-perf-dev/release-1791293466993919/output type=directory owner=UNKNOWN:UNKNOWN mode=700 links=11 size=4096 mtime=2026-10-06 13:31:31.836590325 +0000
+PATH=/var/lib/gcreation-perf-dev/release-1791293466993919/output/dist/apps/audit-service/src/main.js type=regular file owner=UNKNOWN:UNKNOWN mode=644 links=1 size=1274 mtime=2026-10-06 13:31:31.952590332 +0000
+SHA256 /var/lib/gcreation-perf-dev/release-1791293466993919/output/dist/apps/audit-service/src/main.js 77d9b0d8d2d5fb2b36ca486d08e76492acc0c5b69251112f27fc56c08440ad7f
+PATH=/var/lib/gcreation-perf-dev/release-1791293466993919/output/dist/packages/scanner/src/proxy-main.js type=regular file owner=UNKNOWN:UNKNOWN mode=644 links=1 size=531 mtime=2026-10-06 13:31:31.960590332 +0000
+SHA256 /var/lib/gcreation-perf-dev/release-1791293466993919/output/dist/packages/scanner/src/proxy-main.js 25b1c8f64c731d9dbe2107602a0029b8a185f8973c16f899d9ff7e9b187a5fd7
+PATH=/var/lib/gcreation-perf-dev/release-1791293466993919/output/node_modules type=symbolic link owner=UNKNOWN:UNKNOWN mode=777 links=1 size=32 mtime=2026-10-06 13:31:07.853588819 +0000
+SYMLINK_TARGET /var/lib/gcreation-perf-dev/release-1791293466993919/output/node_modules -> /opt/gcreation-deps/node_modules
+LATEST_SOURCE_SNAPSHOT_SHA256=44b5b3b45036ce787f2b9c4ecb20ae21c37db323904b6f18c7c341b976d528ae
+LATEST_SOURCE_FILE_COUNT=182
+
+=== DATA DIRECTORY METADATA ONLY ===
+DATA_DIR owner=UNKNOWN:UNKNOWN mode=700 links=2 mtime=2026-10-06 10:04:04.207887474 +0000
+DATA_ENTRY name=audits.sqlite-shm type=f owner=10001:10001 mode=644 size=32768 mtime=2026-10-06T13:31:35.1535905330Z
+DATA_ENTRY name=audits.sqlite type=f owner=10001:10001 mode=644 size=4096 mtime=2026-10-06T10:04:04.2038874740Z
+DATA_ENTRY name=audits.sqlite-wal type=f owner=10001:10001 mode=644 size=197792 mtime=2026-10-06T10:04:04.2268874720Z
+
+=== INSTALLED TRUST IDENTITIES ===
+RUNTIME_IMAGE_ID=sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a
+RUNTIME_DOCKERFILE_SHA256=21ee8641969bc2eb92a91d1dcde28ed90e6420433bb022f1a25d1237c7eec152
+CONTROLLER_SHA256=029c5d5714a13fbdd3565901bdc08341e36319c1ab90cf30ea6d4ab7e58c4039
+
+=== IMMUTABLE IMAGE PRESENCE ===
+IMAGE=sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a USER="10001:10001" WORKDIR="/app"
+IMAGE=sha256:f2bb2401f1f296115cd0d3dd5609ca6514446f55d4484f1884639f308a456f24 USER="10001:10001" WORKDIR="/app"
+IMAGE=sha256:d09888bbe949d9241c26682798793bbd5a2cdf668a586a35bd673a7f6795e756 USER="10001:10001" WORKDIR="/app"
+
+=== DIAGNOSTIC BOUNDARY ===
+RUNTIME_MUTATION=NO
+CONTAINER_START=NO
+IMAGE_BUILD=NO
+IMAGE_TAG_MUTATION=NO
+SERVICE_MUTATION=NO
+DEPLOYMENT_REQUEST=NO
+REPAIR_COUNTER_CHANGE=NO
+REPAIR_3_AUTHORIZED=NO
+P2_STARTED=NO
+PRODUCTION_MAIN_TOUCHED=NO

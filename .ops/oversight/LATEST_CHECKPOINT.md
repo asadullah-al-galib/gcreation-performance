@@ -1,43 +1,32 @@
 MVP CHECKPOINT
 
 PART / PROCESS:
-P1 / repair2-deployment-failed
+P1 / repair2-postfailure-diagnostic-analysis
 
 RESULT / STATE:
-REPAIR_2_DEPLOYMENT_FAILED / HARD_BLOCKED
+POST_FAILURE_DIAGNOSTIC_ANALYSIS / HARD_BLOCKED
 
-SOURCE / ARCHIVE:
-0ac34ba50ab3192abfe2ae425c4283879484258e
-958c6833da7e63d7843996a3171e540bf74b6978dcdfaf521c1eb55a39587ced
+DIAGNOSTIC HANDOFF SHA256:
+5d6a17eb8a205bbff38d01adc2aab53d09b3f7daec09ea6bc9afed083a25e128
 
-PROMOTED IMAGE INPUT:
-sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a
+ROOT CAUSE CLASS / FAILED COMPONENT:
+NOT_ESTABLISHED / NOT_ESTABLISHED
 
-DEPLOYED SNAPSHOT / RUNNING IMAGE:
-NOT_OBSERVED / NOT_VERIFIED
+PROVEN FAILED OPERATION:
+deploy()->start_runtime(release); controller340 raises RuntimeError: Runtime readiness deadline exceeded.
+All30 aggregate health calls threw. Inner localhost or DEV homepage exceptions are suppressed; the failing endpoint/cause is unknown.
 
-TERMINAL STATUS:
-{"state":"FAILED","commit":"0ac34ba50ab3192abfe2ae425c4283879484258e","error":"RuntimeError","stage":"runtime-health","rollback":false}
+KEY CORRELATION:
+Journal line392/340 matches exact installed controller029c5d57. Builder exit0. All reported runtime image IDs matchc1ab6bc3. Preserved source marker0ac/digest44b5/count182 match reviewed archive958c. Reported runtime137 exits follow explicit kill events and match failure cleanup, not proof of OOM. Networks validate before readiness; current containers/active.json absent. Full16-case differential recorded.
 
-EXACT ATTRIBUTION AND LIMIT:
-One pinned ordinary-user request was atomically published. Matching commit/archive RUNNING preceded same-commit FAILED. Terminal FAILED omits archive_sha256; no exact terminal archive/snapshot match is claimed. RuntimeError underlying text and current root cause are NOT_ESTABLISHED.
-
-TIMESTAMPS (UTC):
-Published: 2026-10-06T13:31:06.813753+00:00
-Failure observed: 2026-10-06T13:32:36.927239+00:00
-Observed90.114s within900s. Request consumed; claim absent.
+EVIDENCE SCOPE:
+SHA/source/static/time/identity consistency independently checked; private host observations are operator-supplied, not direct root inspection. No HTTP, Docker, service, image, source, configuration, runtime reproduction, cleanup or deployment action by Codex. Previous failed-attempt/review/event evidence unchanged.
 
 REPAIR COUNTERS:
-INITIAL failed/consumed; REPAIR_1 failed/consumed1/1; REPAIR_2 failed/consumed1/1; repair_cycle2; failed repair cycles2; automatic retries0. Budget exhausted.
-
-GATE A/B/C:
-PASS retained operator-attested image/preparation/promotion evidence; no new image action.
-
-VERIFICATION SCOPE:
-Preconditions/ordinary installed-byte reads/no-overwrite fixture PASS. Watcher status FAIL. Offline build exit0 inferred from reviewed stage progression only. No post-failure HTTP, Docker/systemd inspection, mutation, diagnosis, retry, restart, rebuild, promotion or cleanup. Source, privileged kit, prior review artifacts and old events unchanged. Effective runtime/container/security/resource/network/retention/rollback acceptance NOT_VERIFIED.
+INITIAL failed/consumed; REPAIR_1 failed/consumed1/1; REPAIR_2 failed/consumed1/1; repair_cycle2; failed repair cycles2; automatic retries0; repair budget exhausted=true. Analysis changes no counters.
 
 P1 / FULL REVIEW:
-BLOCKED / PENDING; no P1 PASS or runtime acceptance.
+BLOCKED / PENDING — no acceptance PASS
 
 P2–P7:
 NOT_STARTED
@@ -46,12 +35,14 @@ PRODUCTION/MAIN:
 UNTOUCHED
 
 EXACT NEXT ACTION:
-Human decision on exhausted P1 repair budget and failed runtime-health requirement. No further deployment, automatic retry, repair, cleanup or P2 is authorized.
+One human/operator read-only extraction of retained DEV-only homepage access/error log records for 2026-10-06T13:31:34Z through 13:32:36Z, with coverage/retention and caller-attribution limits. No runtime reproduction, new request, repair, retry or deployment; exhausted budget remains unchanged.
 
-HUMAN ACTION / EVIDENCE:
-.ops/ACTION_REQUIRED.md
-.ops/reports/P1/REPAIR_2_DEPLOYMENT_ATTEMPT.json
-.ops/reports/P1/REPAIR_2_RUNTIME_VALIDATION.json
+EVIDENCE:
+.ops/reports/P1/REPAIR_2_POSTFAILURE_OPERATOR_HANDOFF.txt
+.ops/reports/P1/REPAIR_2_POSTFAILURE_DIAGNOSTIC_ANALYSIS.json
+.ops/reports/P1/REPAIR_2_POSTFAILURE_DIAGNOSTIC_REPORT.md
 
 EXTERNAL OVERSIGHT:
 PENDING / NON-BLOCKING
+
+NO REPAIR OR DEPLOYMENT IS AUTHORIZED BY THIS ANALYSIS.

@@ -55,8 +55,8 @@
   "human_gate": {
     "part": "P1",
     "repair": "REPAIR_2",
-    "purpose": "Human decision after exhausted P1 runtime repair budget",
-    "status": "HARD_BLOCKED_HUMAN_DECISION_REQUIRED",
+    "purpose": "Single smallest additional historical read-only DEV log observation",
+    "status": "HARD_BLOCKED_READONLY_DIAGNOSTIC_EVIDENCE_REQUIRED",
     "action_file": ".ops/ACTION_REQUIRED.md",
     "accepted_source_commit": "0ac34ba50ab3192abfe2ae425c4283879484258e",
     "archive_sha256": "958c6833da7e63d7843996a3171e540bf74b6978dcdfaf521c1eb55a39587ced",
@@ -67,22 +67,22 @@
     "max_new_deployment_requests": 0,
     "automatic_retries": 0,
     "capability_verified": false,
-    "human_action": "Human decision on exhausted P1 repair budget and failed runtime-health requirement. No further deployment, automatic retry, repair, cleanup or P2 is authorized.",
+    "human_action": "One human/operator read-only extraction of retained DEV-only homepage access/error log records for 2026-10-06T13:31:34Z through 13:32:36Z, with coverage/retention and caller-attribution limits. No runtime reproduction, new request, repair, retry or deployment; exhausted budget remains unchanged.",
     "old_image_preserved": "sha256:f2bb2401f1f296115cd0d3dd5609ca6514446f55d4484f1884639f308a456f24",
-    "action_file_sha256": "b33c92029fb8dac622007d9477b194022acae259464913376ccd18b31554d204",
+    "action_file_sha256": "1fd4dd56fc3fe7d08948301d26b7f9128adc72949da24736c410f6896fc03f93",
     "gate_a": "PASS",
     "gate_b": "PASS",
     "gate_c": "PASS",
     "new_proven_image_id": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a",
     "image_acceptance_evidence_class": "HUMAN_OPERATOR_ATTESTED_VERIFIED_HANDOFF",
-    "verification_record": ".ops/reports/P1/REPAIR_2_RUNTIME_VALIDATION.json",
+    "verification_record": ".ops/reports/P1/REPAIR_2_POSTFAILURE_DIAGNOSTIC_ANALYSIS.json",
     "promoted_image_id": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a"
   },
   "hard_blocker": {
     "criterion": "P1 runtime start/health",
-    "command_or_operation": "Single candidate-pinned installed watcher request; terminal reported stage runtime-health",
-    "exact_observed_error": "RuntimeError",
-    "underlying_exception_message": null,
+    "command_or_operation": "deploy()->start_runtime(release) readiness loop; controller340",
+    "exact_observed_error": "RuntimeError: Runtime readiness deadline exceeded",
+    "underlying_exception_message": "Runtime readiness deadline exceeded (outer aggregate exception); inner health exception not retained",
     "stage": "runtime-health",
     "rollback": false,
     "terminal_status": {
@@ -95,14 +95,15 @@
     "evidence_file": ".ops/reports/P1/REPAIR_2_DEPLOYMENT_ATTEMPT.json",
     "recorded_at_utc": "2026-10-06T13:37:17.941803+00:00",
     "root_cause": "NOT_ESTABLISHED",
-    "smallest_proposed_remediation": "No evidence-supported source remediation established; human decision required before any further diagnosis/action after the exhausted repair budget.",
+    "smallest_proposed_remediation": "No source remediation established; One human/operator read-only extraction of retained DEV-only homepage access/error log records for 2026-10-06T13:31:34Z through 13:32:36Z, with coverage/retention and caller-attribution limits. No runtime reproduction, new request, repair, retry or deployment; exhausted budget remains unchanged.",
     "repair_cycle": 2,
     "failed_repair_cycles": 2,
-    "automatic_retries": 0
+    "automatic_retries": 0,
+    "diagnostic_analysis": ".ops/reports/P1/REPAIR_2_POSTFAILURE_DIAGNOSTIC_ANALYSIS.json"
   },
   "production_touched": false,
   "p7": "NOT_STARTED",
-  "updated_at": "2026-10-06T13:37:17.941803+00:00",
+  "updated_at": "2026-10-07T06:10:56.635957+00:00",
   "p7_authorization": "SEPARATE_HUMAN_REQUIRED",
   "security_review": {
     "part": "P1",
@@ -296,16 +297,17 @@
   },
   "blocker": {
     "criterion": "P1 runtime start/health",
-    "command": "Exactly one candidate-pinned installed watcher request; terminal reports runtime-health stage. Underlying failed command is not exposed by sanitized status.",
-    "error": "RuntimeError; terminal FAILED/runtime-health",
-    "diagnosis": "Current REPAIR_2 root cause NOT_ESTABLISHED; no post-failure diagnosis authorized.",
+    "command": "start_runtime() readiness loop calling sequential internal and DEV homepage health checks",
+    "error": "RuntimeError: Runtime readiness deadline exceeded",
+    "diagnosis": "Outer readiness exception proven from new journal; inner failing health endpoint/component and root cause NOT_ESTABLISHED.",
     "evidence_file": ".ops/reports/P1/REPAIR_2_DEPLOYMENT_ATTEMPT.json",
     "status": "HARD_BLOCKED",
-    "next_action": "Human decision on exhausted P1 repair budget and failed runtime-health requirement. No further deployment, automatic retry, repair, cleanup or P2 is authorized.",
-    "smallest_remediation": "Human decision; no evidence-supported new source repair proposed.",
+    "next_action": "One human/operator read-only extraction of retained DEV-only homepage access/error log records for 2026-10-06T13:31:34Z through 13:32:36Z, with coverage/retention and caller-attribution limits. No runtime reproduction, new request, repair, retry or deployment; exhausted budget remains unchanged.",
+    "smallest_remediation": "No authorized repair; one additional historical read-only DEV log extraction.",
     "source_remediation_status": "PASS_SOURCE_TESTS",
     "runtime_remediation_status": "REPAIR_2_FAILED_CONSUMED",
-    "current_pending_criterion": "P1 runtime-health failed; repair budget exhausted"
+    "current_pending_criterion": "P1 runtime-health failed; repair budget exhausted",
+    "diagnostic_analysis": ".ops/reports/P1/REPAIR_2_POSTFAILURE_DIAGNOSTIC_ANALYSIS.json"
   },
   "external_oversight": "PENDING",
   "deployment_authority": {
@@ -328,16 +330,16 @@
     "max_new_deployment_requests": 0
   },
   "capability_gate": {
-    "process": "repair2-deployment-failed",
-    "status": "HARD_BLOCKED_HUMAN_DECISION_REQUIRED",
+    "process": "repair2-postfailure-diagnostic-analysis",
+    "status": "HARD_BLOCKED_READONLY_DIAGNOSTIC_EVIDENCE_REQUIRED",
     "scope_class": "SECURITY_CRITICAL",
     "business_mapping": [
       "RELIABILITY",
       "SECURITY",
       "MVP_RELEASE"
     ],
-    "evidence_file": ".ops/reports/P1/REPAIR_2_RUNTIME_VALIDATION.json",
-    "reason": "Second and final repair deployment failed at runtime-health; one-shot budget exhausted.",
+    "evidence_file": ".ops/reports/P1/REPAIR_2_POSTFAILURE_DIAGNOSTIC_ANALYSIS.json",
+    "reason": "Exhausted repair budget remains intact; inner health cause not recorded; only historical read-only evidence proposed.",
     "root_interface_available": false,
     "approval_already_granted": false,
     "repair_cycle_consumed": true,
@@ -371,7 +373,7 @@
   "oversight_checkpoint": {
     "latest_json": ".ops/oversight/LATEST_CHECKPOINT.json",
     "latest_markdown": ".ops/oversight/LATEST_CHECKPOINT.md",
-    "event": ".ops/oversight/events/0011-P1-repair2-deployment-failed.json"
+    "event": ".ops/oversight/events/0012-P1-repair2-postfailure-diagnostic-analysis.json"
   },
   "controller_refresh": {
     "operator_reported_result": "PASS",
@@ -394,7 +396,9 @@
     "rollback": false,
     "terminal_archive_field_present": false,
     "attribution": "PRIOR_EXACT_RUNNING_IDENTITY_AND_SAME_COMMIT_FAILED; TERMINAL_ARCHIVE_FIELD_ABSENT",
-    "root_cause": "NOT_ESTABLISHED"
+    "root_cause": "NOT_ESTABLISHED",
+    "post_failure_diagnostic_analysis": ".ops/reports/P1/REPAIR_2_POSTFAILURE_DIAGNOSTIC_ANALYSIS.json",
+    "exact_error_from_post_failure_journal": "Runtime readiness deadline exceeded"
   },
   "runtime_acceptance": {
     "result": "FAIL",
@@ -476,5 +480,21 @@
       "exact_error": "Runtime readiness deadline exceeded",
       "root_cause": "UID10001_DIRECTORY_TRAVERSAL_FAILURE"
     }
-  ]
+  ],
+  "post_failure_diagnostic_analysis": {
+    "kind": "POST_FAILURE_DIAGNOSTIC_ANALYSIS",
+    "result": "NOT_ESTABLISHED",
+    "process": "repair2-postfailure-diagnostic-analysis",
+    "handoff_sha256": "5d6a17eb8a205bbff38d01adc2aab53d09b3f7daec09ea6bc9afed083a25e128",
+    "evidence_file": ".ops/reports/P1/REPAIR_2_POSTFAILURE_DIAGNOSTIC_ANALYSIS.json",
+    "report": ".ops/reports/P1/REPAIR_2_POSTFAILURE_DIAGNOSTIC_REPORT.md",
+    "proven_failed_operation": "start_runtime readiness loop; controller340",
+    "exact_observed_error": "RuntimeError: Runtime readiness deadline exceeded",
+    "inner_health_exception": "NOT_RETAINED",
+    "failed_component": "NOT_ESTABLISHED",
+    "next_readonly_observation": "One human/operator read-only extraction of retained DEV-only homepage access/error log records for 2026-10-06T13:31:34Z through 13:32:36Z, with coverage/retention and caller-attribution limits. No runtime reproduction, new request, repair, retry or deployment; exhausted budget remains unchanged.",
+    "repair_authorized": false,
+    "deployment_authorized": false,
+    "repair_counters_changed": false
+  }
 }

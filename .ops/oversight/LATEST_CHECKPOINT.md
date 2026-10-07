@@ -1,20 +1,19 @@
 MVP CHECKPOINT
 
 PART / PROCESS:
-P1 / repair2-access-ssl-single-file-analysis
+P1 / repair2-access-ssl-processed-analysis
 
 RESULT / STATE:
-ANALYSIS_COMPLETE_CASE_A_RANGE_AFTER_ROOT_CAUSE_NOT_ESTABLISHED / HARD_BLOCKED
+ANALYSIS_COMPLETE_CASE_B_OVERLAPS_NO_PARSED_GET_ROOT_ROOT_CAUSE_NOT_ESTABLISHED / HARD_BLOCKED
 
 HANDOFF SHA256 / BYTES:
-138a8a5536ec37a9875e6534a19f0a30618895b63caa3ba7319786af64b9d9c5 / 1073
+dc6149b0b04209ddcf03801558fe825a94fbd5ad65a04a1da6f3120ea53a46af / 1176
 
 FILE HISTORICAL COVERAGE:
-AFTER — parsed2026-10-07T00:23:53Z..06:48:33Z; 53/53 lines parsed, unparsed0.
-Target2026-10-06T13:31:34Z..13:32:36Z. Earliest39077 seconds after window end; CaseA.
+OVERLAPS — parsed range2026-10-04T17:22:02Z..2026-10-06T17:30:20Z; total12561/parsed12560/unparsed1.
 
-GET / MATCHES / PYTHON_URLLIB GET / / STATUS SET:
-0 / 0 / NONE; first/last Python-urllib timestamps absent; no numbered ROW records.
+ANY REQUESTS IN WINDOW / GET / MATCHES / PYTHON_URLLIB GET / / STATUS SET:
+2 / 0 / 0 / NONE — parser-recognized counts; first/last Python-urllib times absent, no numbered ROW entries.
 
 WATCHER ATTRIBUTION / INTERNAL HEALTH BEFORE HOMEPAGE:
 NOT_PROVEN / NOT_PROVEN
@@ -22,10 +21,13 @@ NOT_PROVEN / NOT_PROVEN
 DEV HOMEPAGE PREDICATE / FAILED PREDICATE / ROOT CAUSE / COMPONENT:
 NOT_ESTABLISHED / NOT_ESTABLISHED / NOT_ESTABLISHED / NOT_ESTABLISHED
 
+CONTROL FLOW CONTRADICTION:
+NO — none demonstrated
+
 KEY EVIDENCE:
-Exact SHA/size/all33 fields independently checked. Parsed range is entirely after the readiness window.
-No attributable historical row or status200 contradiction. Accepted controller/static flow unchanged;
-outer RuntimeError: Runtime readiness deadline exceeded still cannot identify the suppressed health failure.
+All35 fields/SHA/size verified. Pinned source metadata matches ENTRY_04; CaseB.
+Two in-window requests and1 unparsed line have no row context. No status200/caller contradiction or failed predicate is established.
+Submission/RUNNING/investigation/FAILED anchors correlate; no per-attempt times manufactured.
 
 REPAIR COUNTERS:
 INITIAL failed/consumed; REPAIR_1 failed/consumed1/1; REPAIR_2 failed/consumed1/1.
@@ -41,12 +43,12 @@ PRODUCTION/MAIN:
 UNTOUCHED
 
 NEXT PROPOSAL:
-PROPOSED_NEXT_SINGLE_EVIDENCE_READ — NOT AUTHORIZED: one future human/operator extraction from /var/www/vhosts/system/dev.gcreation.agency/logs/access_ssl_log.processed for 2026-10-06T13:31:34Z..2026-10-06T13:32:36Z, GET / only, maximum 64 rows/16 KiB; sanitize client IPs, headers, raw user agents, query strings, cookies, tokens, secrets and bodies. No symlink following, other file read or runtime action.
+PROPOSED_NEXT_SINGLE_EVIDENCE_READ — NOT AUTHORIZED: one future human/operator extraction from /var/www/vhosts/system/dev.gcreation.agency/logs/proxy_access_ssl_log for 2026-10-06T13:31:34Z..2026-10-06T13:32:36Z, GET / only, maximum 64 rows/16 KiB; sanitize client IPs, headers, raw user agents, query strings, cookies, tokens, secrets and bodies. No symlink following, other file read or runtime action.
 
 EVIDENCE:
-.ops/reports/P1/REPAIR_2_ACCESS_SSL_SINGLE_FILE_OPERATOR_HANDOFF.txt
-.ops/reports/P1/REPAIR_2_ACCESS_SSL_SINGLE_FILE_ANALYSIS.json
-.ops/reports/P1/REPAIR_2_ACCESS_SSL_SINGLE_FILE_REPORT.md
+.ops/reports/P1/REPAIR_2_ACCESS_SSL_PROCESSED_OPERATOR_HANDOFF.txt
+.ops/reports/P1/REPAIR_2_ACCESS_SSL_PROCESSED_ANALYSIS.json
+.ops/reports/P1/REPAIR_2_ACCESS_SSL_PROCESSED_REPORT.md
 
 EXTERNAL OVERSIGHT:
 PENDING / NON-BLOCKING

@@ -1,0 +1,34 @@
+P1 REPAIR_2 DEV LOG DIRECTORY METADATA INVENTORY
+RESULT=COMPLETE
+DOMAIN=dev.gcreation.agency
+PATH=/var/www/vhosts/system/dev.gcreation.agency/logs
+SCOPE=METADATA_ONLY_EXACT_DIRECTORY
+MAX_ENTRIES=32
+MAX_OUTPUT_BYTES=8192
+DIRECTORY_EXISTS=YES
+DIRECTORY_TYPE=directory
+DIRECTORY_MODE=0700
+DIRECTORY_UID=980
+DIRECTORY_GID=0
+DIRECTORY_MTIME_UTC=2026-10-06T21:43:17Z
+DIRECTORY_READABLE=YES
+ENTRY_COUNT_TOTAL_OBSERVED=8
+ENTRY_COUNT_REPORTED=8
+TRUNCATED_BY_ENTRY_LIMIT=NO
+ENTRY_01 basename=access_log type=regular size=0 mtime_utc=2026-10-04T14:07:52Z mode=0644 uid=0 gid=0 links=2
+ENTRY_02 basename=access_log.processed type=regular size=9059 mtime_utc=2026-10-06T21:29:31Z mode=0644 uid=0 gid=0 links=2
+ENTRY_03 basename=access_ssl_log type=regular size=13309 mtime_utc=2026-10-07T06:48:34Z mode=0644 uid=0 gid=0 links=2
+ENTRY_04 basename=access_ssl_log.processed type=regular size=2859156 mtime_utc=2026-10-06T21:29:31Z mode=0644 uid=0 gid=0 links=2
+ENTRY_05 basename=error_log type=regular size=184 mtime_utc=2026-10-04T14:07:52Z mode=0644 uid=0 gid=0 links=2
+ENTRY_06 basename=proxy_access_log type=regular size=666 mtime_utc=2026-10-07T04:03:05Z mode=0644 uid=0 gid=0 links=2
+ENTRY_07 basename=proxy_access_ssl_log type=regular size=42426 mtime_utc=2026-10-07T06:51:19Z mode=0644 uid=0 gid=0 links=2
+ENTRY_08 basename=proxy_error_log type=regular size=1033 mtime_utc=2026-10-05T04:08:00Z mode=0644 uid=0 gid=0 links=2
+LOG_CONTENT_READ=NO
+SYMLINK_FOLLOWED=NO
+PARENT_OR_OTHER_VHOST_TRAVERSAL=NO
+RUNTIME_MUTATION=NO
+DEPLOYMENT_REQUEST=NO
+REPAIR_COUNTER_CHANGE=NO
+REPAIR_3_AUTHORIZED=NO
+P2_STARTED=NO
+PRODUCTION_MAIN_TOUCHED=NO

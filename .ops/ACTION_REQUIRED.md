@@ -1,41 +1,49 @@
 STATUS:
-P1 HARD_BLOCKED — DEV LOG COVERAGE METADATA NEEDED
+P1 HARD_BLOCKED — PROPOSED SINGLE FILE READ NOT AUTHORIZED
 
 PART / PROCESS:
-P1 / repair2-dev-homepage-log-analysis
+P1 / repair2-dev-logdir-metadata-analysis
 
-DEV LOG COVERAGE / COLLECTION:
-UNAVAILABLE / RESULT=COMPLETE
-Zero recognized retained files; zero homepage GET/error matches; zero Python-urllib requests. No coverage rows, status set or first/last request times supplied. No health predicate or root cause established.
+METADATA HANDOFF:
+SHA256 bf791778f0fe31c4feec821d4535e71258455c25f88a0ed4bba9b38cf3fd73ac; 1622 bytes; collection COMPLETE.
+Existing readable DEV directory; 8/8 regular entries; no truncation or symlinks.
+Layout MIXED — regular access/error candidates plus two .processed access equivalents.
 
-INTERNAL HEALTH / DEV HOMEPAGE PREDICATE:
-NOT_PROVEN / NOT_ESTABLISHED
+PRIOR ZERO-RECOGNIZED REASON:
+NOT_ESTABLISHED — metadata insufficient; prior recognition rules and time-matched observations absent.
 
-ROOT CAUSE CLASS / FAILED PREDICATE / UNDERLYING COMPONENT:
+BEST LOG CANDIDATE:
+/var/www/vhosts/system/dev.gcreation.agency/logs/access_ssl_log
+ACCESS — regular, 13309 bytes, UID0/GID0, 0644, links2, mtime2026-10-07T06:48:34Z.
+Historical window coverage POTENTIALLY_COVERS_WINDOW / NOT_PROVEN.
+
+NEXT PROPOSAL:
+PROPOSED_SINGLE_FILE_READ — NOT AUTHORIZED: one human/operator read-only extraction from /var/www/vhosts/system/dev.gcreation.agency/logs/access_ssl_log for 2026-10-06T13:31:34Z..2026-10-06T13:32:36Z, GET / only, maximum 64 rows/16 KiB; sanitize client IPs, headers, user agents, query strings, cookies, tokens, secrets and bodies. No symlink following, other file reads or runtime action.
+
+AUTHORIZATION STATUS:
+NOT_AUTHORIZED. Separate explicit human authorization is required before any content extraction.
+Codex must not open the protected file. No second candidate or broad filesystem search is proposed.
+If separately authorized, the human must confirm the exact path remains regular with no symlink traversal;
+stop if its type/path identity changes. Report only sanitized matching rows and coverage/no-match/truncation limits.
+No-match/unknown coverage cannot prove internal health failure. No runtime reproduction or unchanged retry.
+
+ROOT CAUSE / FAILED PREDICATE / COMPONENT:
 NOT_ESTABLISHED / NOT_ESTABLISHED / NOT_ESTABLISHED
-
-HANDOFF SHA256:
-ff36565d9133061ec4cadbeecf41c2fd35020050c1de4da4b8bc3a94a1e8875e
-
-EXACTLY ONE SMALLEST REMAINING READ-ONLY EVIDENCE SOURCE:
-One human/operator metadata-only inventory of /var/www/vhosts/system/dev.gcreation.agency/logs to establish filenames, types, link targets, sizes and retention timestamps after zero recognized files. Maximum 32 entries/8KiB; no log contents, symlink following, runtime action, repair, retry or deployment.
-
-OPERATOR SCOPE:
-Metadata only at the already reported DEV directory. Report observed directory readability/existence plus entry basename/type/size/mtimeUTC and symlink target strings without following. Maximum32 entries/8KiB total. No log contents, link following, parent/other directory traversal, configuration read/change, unrelated domain/subscription access or runtime action. If unavailable, state that exact limitation. This is a proposed human read-only observation; Codex receives no root/log access.
-
-WHY THIS SOURCE:
-Zero recognized files leaves filename/retention coverage unresolved. The handoff does not supply a directory inventory or recognition criteria. Specific retained container logs are not known to exist; prior events and release/source/image metadata are already analyzed. No exact DEV error row is supplied. This one inventory may identify available file metadata but cannot itself establish historical HTTP health. Unavailable evidence never proves localhost failure.
+Internal health before homepage NOT_PROVEN; homepage predicate NOT_ESTABLISHED.
 
 COUNTERS / STOP:
 INITIAL failed/consumed; REPAIR_1 failed/consumed1/1; REPAIR_2 failed/consumed1/1.
-repair_cycle2; failed repair cycles2; automatic retries0; budget exhausted=true.
-P1 BLOCKED; full independent review PENDING; P2–P7 NOT_STARTED; production/main untouched.
+repair_cycle2; failed repair cycles2; automatic retries0; repair budget exhausted=true.
+P1 BLOCKED/full independent review PENDING; P2–P7 NOT_STARTED; production/main untouched.
 
 BOUNDARY:
-No repair, exception repair, REPAIR_3, counter extension/reset, request, deployment, runtime reproduction, container action, service start/restart/reload, image build/tag/promotion/rollback, cleanup, environment/source/WordPress/Plesk/nginx mutation or production/main action is authorized. Any future repair/deployment requires NEW explicit human repair-budget authorization and applicable security review. Preserve all evidence and failed resources.
+No repair, exception repair, REPAIR_3, counter extension/reset, deployment request, retry, runtime reproduction,
+container/service/image action, promotion/rollback, cleanup, source/environment/configuration change,
+WordPress/Plesk/nginx action or production/main action is authorized.
+Any future repair/deployment requires NEW explicit human repair-budget authorization and applicable security review.
 
 EVIDENCE:
-.ops/reports/P1/REPAIR_2_DEV_HOMEPAGE_LOG_OPERATOR_HANDOFF.txt
-.ops/reports/P1/REPAIR_2_DEV_HOMEPAGE_LOG_ANALYSIS.json
-.ops/reports/P1/REPAIR_2_DEV_HOMEPAGE_LOG_REPORT.md
-Original failed-attempt, runtime-validation, prior diagnostic and review artifacts are unchanged.
+.ops/reports/P1/REPAIR_2_DEV_LOGDIR_METADATA_ANALYSIS.json
+.ops/reports/P1/REPAIR_2_DEV_LOGDIR_METADATA_REPORT.md
+.ops/reports/P1/REPAIR_2_DEV_LOGDIR_METADATA_OPERATOR_HANDOFF.txt
+All earlier handoffs, failure records, review artifacts and historical events remain unchanged.

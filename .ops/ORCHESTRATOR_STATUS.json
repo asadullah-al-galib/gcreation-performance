@@ -55,8 +55,8 @@
   "human_gate": {
     "part": "P1",
     "repair": "REPAIR_2",
-    "purpose": "Single metadata-only inventory of the reported DEV log directory",
-    "status": "HARD_BLOCKED_LOG_COVERAGE_METADATA_REQUIRED",
+    "purpose": "One proposed regular DEV access-file extraction \u2014 NOT AUTHORIZED",
+    "status": "HARD_BLOCKED_SINGLE_FILE_READ_NOT_AUTHORIZED",
     "action_file": ".ops/ACTION_REQUIRED.md",
     "accepted_source_commit": "0ac34ba50ab3192abfe2ae425c4283879484258e",
     "archive_sha256": "958c6833da7e63d7843996a3171e540bf74b6978dcdfaf521c1eb55a39587ced",
@@ -67,15 +67,15 @@
     "max_new_deployment_requests": 0,
     "automatic_retries": 0,
     "capability_verified": false,
-    "human_action": "One human/operator metadata-only inventory of /var/www/vhosts/system/dev.gcreation.agency/logs to establish filenames, types, link targets, sizes and retention timestamps after zero recognized files. Maximum 32 entries/8KiB; no log contents, symlink following, runtime action, repair, retry or deployment.",
+    "human_action": "PROPOSED_SINGLE_FILE_READ \u2014 NOT AUTHORIZED: one human/operator read-only extraction from /var/www/vhosts/system/dev.gcreation.agency/logs/access_ssl_log for 2026-10-06T13:31:34Z..2026-10-06T13:32:36Z, GET / only, maximum 64 rows/16 KiB; sanitize client IPs, headers, user agents, query strings, cookies, tokens, secrets and bodies. No symlink following, other file reads or runtime action.",
     "old_image_preserved": "sha256:f2bb2401f1f296115cd0d3dd5609ca6514446f55d4484f1884639f308a456f24",
-    "action_file_sha256": "fefe0f2ee598cef7df85ad0de614def2e55b36575a0914b29e722f295b958c7b",
+    "action_file_sha256": "092123ee18b054452aca19f00e388941a124134299a7a825d684c214ac207be0",
     "gate_a": "PASS",
     "gate_b": "PASS",
     "gate_c": "PASS",
     "new_proven_image_id": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a",
     "image_acceptance_evidence_class": "HUMAN_OPERATOR_ATTESTED_VERIFIED_HANDOFF",
-    "verification_record": ".ops/reports/P1/REPAIR_2_DEV_HOMEPAGE_LOG_ANALYSIS.json",
+    "verification_record": ".ops/reports/P1/REPAIR_2_DEV_LOGDIR_METADATA_ANALYSIS.json",
     "promoted_image_id": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a"
   },
   "hard_blocker": {
@@ -95,16 +95,17 @@
     "evidence_file": ".ops/reports/P1/REPAIR_2_DEPLOYMENT_ATTEMPT.json",
     "recorded_at_utc": "2026-10-06T13:37:17.941803+00:00",
     "root_cause": "NOT_ESTABLISHED",
-    "smallest_proposed_remediation": "No established source/config remediation; One human/operator metadata-only inventory of /var/www/vhosts/system/dev.gcreation.agency/logs to establish filenames, types, link targets, sizes and retention timestamps after zero recognized files. Maximum 32 entries/8KiB; no log contents, symlink following, runtime action, repair, retry or deployment.",
+    "smallest_proposed_remediation": "No source/config remediation established. PROPOSED_SINGLE_FILE_READ \u2014 NOT AUTHORIZED: one human/operator read-only extraction from /var/www/vhosts/system/dev.gcreation.agency/logs/access_ssl_log for 2026-10-06T13:31:34Z..2026-10-06T13:32:36Z, GET / only, maximum 64 rows/16 KiB; sanitize client IPs, headers, user agents, query strings, cookies, tokens, secrets and bodies. No symlink following, other file reads or runtime action.",
     "repair_cycle": 2,
     "failed_repair_cycles": 2,
     "automatic_retries": 0,
     "diagnostic_analysis": ".ops/reports/P1/REPAIR_2_POSTFAILURE_DIAGNOSTIC_ANALYSIS.json",
-    "dev_homepage_log_analysis": ".ops/reports/P1/REPAIR_2_DEV_HOMEPAGE_LOG_ANALYSIS.json"
+    "dev_homepage_log_analysis": ".ops/reports/P1/REPAIR_2_DEV_HOMEPAGE_LOG_ANALYSIS.json",
+    "dev_log_directory_metadata_analysis": ".ops/reports/P1/REPAIR_2_DEV_LOGDIR_METADATA_ANALYSIS.json"
   },
   "production_touched": false,
   "p7": "NOT_STARTED",
-  "updated_at": "2026-10-07T06:40:45.974458+00:00",
+  "updated_at": "2026-10-07T07:01:24.975193+00:00",
   "p7_authorization": "SEPARATE_HUMAN_REQUIRED",
   "security_review": {
     "part": "P1",
@@ -303,13 +304,14 @@
     "diagnosis": "Outer readiness exception proven from new journal; inner failing health endpoint/component and root cause NOT_ESTABLISHED.",
     "evidence_file": ".ops/reports/P1/REPAIR_2_DEPLOYMENT_ATTEMPT.json",
     "status": "HARD_BLOCKED",
-    "next_action": "One human/operator metadata-only inventory of /var/www/vhosts/system/dev.gcreation.agency/logs to establish filenames, types, link targets, sizes and retention timestamps after zero recognized files. Maximum 32 entries/8KiB; no log contents, symlink following, runtime action, repair, retry or deployment.",
-    "smallest_remediation": "No authorized repair; one metadata-only DEV log directory inventory proposed.",
+    "next_action": "PROPOSED_SINGLE_FILE_READ \u2014 NOT AUTHORIZED: one human/operator read-only extraction from /var/www/vhosts/system/dev.gcreation.agency/logs/access_ssl_log for 2026-10-06T13:31:34Z..2026-10-06T13:32:36Z, GET / only, maximum 64 rows/16 KiB; sanitize client IPs, headers, user agents, query strings, cookies, tokens, secrets and bodies. No symlink following, other file reads or runtime action.",
+    "smallest_remediation": "No authorized repair or content read; one bounded access-file read proposed.",
     "source_remediation_status": "PASS_SOURCE_TESTS",
     "runtime_remediation_status": "REPAIR_2_FAILED_CONSUMED",
     "current_pending_criterion": "P1 runtime-health failed; repair budget exhausted",
     "diagnostic_analysis": ".ops/reports/P1/REPAIR_2_POSTFAILURE_DIAGNOSTIC_ANALYSIS.json",
-    "dev_homepage_log_analysis": ".ops/reports/P1/REPAIR_2_DEV_HOMEPAGE_LOG_ANALYSIS.json"
+    "dev_homepage_log_analysis": ".ops/reports/P1/REPAIR_2_DEV_HOMEPAGE_LOG_ANALYSIS.json",
+    "dev_log_directory_metadata_analysis": ".ops/reports/P1/REPAIR_2_DEV_LOGDIR_METADATA_ANALYSIS.json"
   },
   "external_oversight": "PENDING",
   "deployment_authority": {
@@ -332,16 +334,16 @@
     "max_new_deployment_requests": 0
   },
   "capability_gate": {
-    "process": "repair2-dev-homepage-log-analysis",
-    "status": "HARD_BLOCKED_LOG_COVERAGE_METADATA_REQUIRED",
+    "process": "repair2-dev-logdir-metadata-analysis",
+    "status": "HARD_BLOCKED_SINGLE_FILE_READ_NOT_AUTHORIZED",
     "scope_class": "SECURITY_CRITICAL",
     "business_mapping": [
       "RELIABILITY",
       "SECURITY",
       "MVP_RELEASE"
     ],
-    "evidence_file": ".ops/reports/P1/REPAIR_2_DEV_HOMEPAGE_LOG_ANALYSIS.json",
-    "reason": "Historical extraction complete with zero recognized files; health cause unknown; only one DEV-path metadata observation proposed.",
+    "evidence_file": ".ops/reports/P1/REPAIR_2_DEV_LOGDIR_METADATA_ANALYSIS.json",
+    "reason": "Metadata collection complete; one regular access candidate selected, content coverage/root cause unknown; no content-read or repair authority.",
     "root_interface_available": false,
     "approval_already_granted": false,
     "repair_cycle_consumed": true,
@@ -375,7 +377,7 @@
   "oversight_checkpoint": {
     "latest_json": ".ops/oversight/LATEST_CHECKPOINT.json",
     "latest_markdown": ".ops/oversight/LATEST_CHECKPOINT.md",
-    "event": ".ops/oversight/events/0013-P1-repair2-dev-homepage-log-analysis.json"
+    "event": ".ops/oversight/events/0014-P1-repair2-dev-logdir-metadata-analysis.json"
   },
   "controller_refresh": {
     "operator_reported_result": "PASS",
@@ -514,6 +516,32 @@
     "failed_predicate": "NOT_ESTABLISHED",
     "underlying_component": "NOT_ESTABLISHED",
     "next_readonly_observation": "One human/operator metadata-only inventory of /var/www/vhosts/system/dev.gcreation.agency/logs to establish filenames, types, link targets, sizes and retention timestamps after zero recognized files. Maximum 32 entries/8KiB; no log contents, symlink following, runtime action, repair, retry or deployment.",
+    "repair_authorized": false,
+    "deployment_authorized": false,
+    "repair_counters_changed": false
+  },
+  "dev_log_directory_metadata_analysis": {
+    "kind": "DEV_LOG_DIRECTORY_METADATA_ANALYSIS",
+    "process": "repair2-dev-logdir-metadata-analysis",
+    "handoff_sha256": "bf791778f0fe31c4feec821d4535e71258455c25f88a0ed4bba9b38cf3fd73ac",
+    "handoff_bytes": 1622,
+    "total_entries_observed": 8,
+    "reported_entries": 8,
+    "log_layout_class": "MIXED",
+    "prior_zero_recognized_reason": "NOT_ESTABLISHED \u2014 METADATA_INSUFFICIENT_TO_ESTABLISH_PRIOR_EXTRACTOR_RECOGNITION_REASON",
+    "best_log_candidate": "/var/www/vhosts/system/dev.gcreation.agency/logs/access_ssl_log",
+    "candidate_type": "ACCESS",
+    "historical_window_coverage": "POTENTIALLY_COVERS_WINDOW",
+    "historical_window_coverage_proven": false,
+    "root_cause_class": "NOT_ESTABLISHED",
+    "failed_predicate": "NOT_ESTABLISHED",
+    "underlying_component": "NOT_ESTABLISHED",
+    "evidence_file": ".ops/reports/P1/REPAIR_2_DEV_LOGDIR_METADATA_ANALYSIS.json",
+    "report": ".ops/reports/P1/REPAIR_2_DEV_LOGDIR_METADATA_REPORT.md",
+    "directory_exists": "YES",
+    "directory_readable": "YES",
+    "next_proposal": "PROPOSED_SINGLE_FILE_READ \u2014 NOT AUTHORIZED: one human/operator read-only extraction from /var/www/vhosts/system/dev.gcreation.agency/logs/access_ssl_log for 2026-10-06T13:31:34Z..2026-10-06T13:32:36Z, GET / only, maximum 64 rows/16 KiB; sanitize client IPs, headers, user agents, query strings, cookies, tokens, secrets and bodies. No symlink following, other file reads or runtime action.",
+    "content_read_authorized": false,
     "repair_authorized": false,
     "deployment_authorized": false,
     "repair_counters_changed": false

@@ -1,34 +1,44 @@
 MVP CHECKPOINT
 
 PART / PROCESS:
-P1 / repair2-dev-homepage-log-analysis
+P1 / repair2-dev-logdir-metadata-analysis
 
 RESULT / STATE:
-ANALYSIS_COMPLETE_COVERAGE_UNAVAILABLE_ROOT_CAUSE_NOT_ESTABLISHED / HARD_BLOCKED
+ANALYSIS_COMPLETE_SINGLE_FILE_READ_PROPOSED_NOT_AUTHORIZED_ROOT_CAUSE_NOT_ESTABLISHED / HARD_BLOCKED
 
-HANDOFF SHA256:
-ff36565d9133061ec4cadbeecf41c2fd35020050c1de4da4b8bc3a94a1e8875e
+HANDOFF SHA256 / BYTES:
+bf791778f0fe31c4feec821d4535e71258455c25f88a0ed4bba9b38cf3fd73ac / 1622
 
-DEV LOG COVERAGE:
-UNAVAILABLE — collection COMPLETE; recognized retained files0; coverage rows not supplied
+DIRECTORY EXISTS / READABLE / TYPE:
+YES / YES / directory — human/operator metadata only
 
-PYTHON_URLLIB HOMEPAGE REQUESTS / OBSERVED STATUS:
-0 / NONE; status-set and first/last UTC fields absent
+TOTAL / REPORTED ENTRIES / TRUNCATED:
+8 / 8 / NO
 
-INTERNAL HEALTH BEFORE HOMEPAGE:
-NOT_PROVEN
+LOG LAYOUT CLASS:
+MIXED — regular access/error candidates with two .processed equivalents, no symlinks reported
 
-DEV HOMEPAGE HEALTH PREDICATE / ROOT CAUSE CLASS:
-NOT_ESTABLISHED / NOT_ESTABLISHED
+PRIOR ZERO-RECOGNIZED REASON:
+NOT_ESTABLISHED — metadata insufficient; prior recognition rules/time-matched observations absent
 
-FAILED PREDICATE / UNDERLYING COMPONENT:
-NOT_ESTABLISHED / NOT_ESTABLISHED
+BEST LOG CANDIDATE / TYPE:
+/var/www/vhosts/system/dev.gcreation.agency/logs/access_ssl_log / ACCESS
+
+HISTORICAL WINDOW COVERAGE:
+POTENTIALLY_COVERS_WINDOW / NOT_PROVEN
+Nonempty post-window mtime permits possible coverage, not a measured log time range.
+
+ROOT CAUSE CLASS / FAILED PREDICATE / UNDERLYING COMPONENT:
+NOT_ESTABLISHED / NOT_ESTABLISHED / NOT_ESTABLISHED
 
 KEY EVIDENCE:
-All26 lines/25 fields parsed and SHA verified. Retained files/access GET/error/Python-urllib matches all0. No attributable status/coverage row. Exact controller checks localhost identity before DEV homepage and suppresses health exceptions; absence with unavailable coverage does not prove the first check failed. Prior outer readiness exception and original16-case differential retain their limits.
+Exact handoff SHA/size; all34 lines/25 global fields/8 entries (64 entry fields) parsed.
+Existing/readable reported directory; 8 regular entries, all UID0/GID0, 0644, links2; no content or symlink traversal.
+The prior collector recognition cause is unknown. No health predicate or HTTP status is established.
 
 REPAIR COUNTERS:
-INITIAL failed/consumed; REPAIR_1 failed/consumed1/1; REPAIR_2 failed/consumed1/1; repair_cycle2; failed repair cycles2; automatic retries0; budget exhausted=true. Counters unchanged.
+INITIAL failed/consumed; REPAIR_1 failed/consumed1/1; REPAIR_2 failed/consumed1/1.
+repair_cycle2; failed repair cycles2; retries0; exhausted budget=true. Counters unchanged.
 
 P1 / FULL REVIEW:
 BLOCKED / PENDING
@@ -39,15 +49,15 @@ NOT_STARTED
 PRODUCTION/MAIN:
 UNTOUCHED
 
-EXACT NEXT ACTION:
-One human/operator metadata-only inventory of /var/www/vhosts/system/dev.gcreation.agency/logs to establish filenames, types, link targets, sizes and retention timestamps after zero recognized files. Maximum 32 entries/8KiB; no log contents, symlink following, runtime action, repair, retry or deployment.
+NEXT PROPOSAL:
+PROPOSED_SINGLE_FILE_READ — NOT AUTHORIZED: one human/operator read-only extraction from /var/www/vhosts/system/dev.gcreation.agency/logs/access_ssl_log for 2026-10-06T13:31:34Z..2026-10-06T13:32:36Z, GET / only, maximum 64 rows/16 KiB; sanitize client IPs, headers, user agents, query strings, cookies, tokens, secrets and bodies. No symlink following, other file reads or runtime action.
 
 EVIDENCE:
-.ops/reports/P1/REPAIR_2_DEV_HOMEPAGE_LOG_OPERATOR_HANDOFF.txt
-.ops/reports/P1/REPAIR_2_DEV_HOMEPAGE_LOG_ANALYSIS.json
-.ops/reports/P1/REPAIR_2_DEV_HOMEPAGE_LOG_REPORT.md
+.ops/reports/P1/REPAIR_2_DEV_LOGDIR_METADATA_OPERATOR_HANDOFF.txt
+.ops/reports/P1/REPAIR_2_DEV_LOGDIR_METADATA_ANALYSIS.json
+.ops/reports/P1/REPAIR_2_DEV_LOGDIR_METADATA_REPORT.md
 
 EXTERNAL OVERSIGHT:
 PENDING / NON-BLOCKING
 
-NO REPAIR OR DEPLOYMENT IS AUTHORIZED.
+NO PROTECTED CONTENT READ, REPAIR OR DEPLOYMENT IS AUTHORIZED.

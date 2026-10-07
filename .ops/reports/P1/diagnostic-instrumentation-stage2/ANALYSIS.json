@@ -1,0 +1,1013 @@
+{
+  "schema_version": 1,
+  "kind": "P1_DIAGNOSTIC_INSTRUMENTATION_STAGE2_ANALYSIS",
+  "process": "diagnostic-instrumentation-stage2-analysis",
+  "recorded_at_utc": "2026-10-07T09:14:22.864117+00:00",
+  "baseline_checkpoint": "633b81cf20618f952bec8e51981a77c12d2810fe",
+  "reviewed_candidate_commit": "b060ff430854046df7490875ac402d9df909b43a",
+  "reviewed_candidate_controller_sha256": "be656cc95fbc3d1df09c57852577f8343401916a47aeec2b12459b4be5de414f",
+  "previous_controller_sha256": "029c5d5714a13fbdd3565901bdc08341e36319c1ab90cf30ea6d4ab7e58c4039",
+  "accepted_application_source": "0ac34ba50ab3192abfe2ae425c4283879484258e",
+  "accepted_application_archive_sha256": "958c6833da7e63d7843996a3171e540bf74b6978dcdfaf521c1eb55a39587ced",
+  "expected_source_snapshot_sha256": "44b5b3b45036ce787f2b9c4ecb20ae21c37db323904b6f18c7c341b976d528ae",
+  "reviewed_runtime_image": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a",
+  "handoff_path": "/home/codexperf/p1-diagnostic-stage2-v1.txt",
+  "retained_handoff": ".ops/reports/P1/diagnostic-instrumentation-stage2/HANDOFF.txt",
+  "handoff_sha256": "8587ec1e6d011f61e81674d1511a0816215beea2645dbf9a12763745d4cc3f02",
+  "handoff_bytes": 3475,
+  "classification": {
+    "diagnostic_handoff": "VERIFIED",
+    "controller_install_attestation": "MATCHES_REVIEWED_SHA",
+    "diagnostic_execution_result": "HEALTH_FAILED",
+    "readiness_events": 30,
+    "localhost_pass": 0,
+    "localhost_fail": 30,
+    "homepage_pass": 0,
+    "homepage_fail": 0,
+    "failed_reason_counts": {
+      "URL_ERROR": 30
+    },
+    "failed_http_status_counts": {
+      "NONE": 30
+    },
+    "failed_predicate": "LOCALHOST_ENGINE_HEALTH",
+    "failed_predicate_class": "PROVEN_IN_DIAGNOSTIC_EXECUTION",
+    "internal_health": "FAIL_OBSERVED",
+    "internal_health_before_homepage": "FAIL_OBSERVED",
+    "dev_homepage": "NOT_REACHED",
+    "underlying_root_cause": "NOT_ESTABLISHED",
+    "underlying_component": "NOT_ESTABLISHED",
+    "control_flow_contradiction": false,
+    "previous_failure_reproduced": "PARTIALLY"
+  },
+  "parsed_handoff": {
+    "raw_fields": {
+      "RESULT": "COMPLETE",
+      "CONTROLLER_INSTALL_RESULT": "PASS_EXACT_CANDIDATE_INSTALLED",
+      "INSTALLED_CONTROLLER_SHA256": "be656cc95fbc3d1df09c57852577f8343401916a47aeec2b12459b4be5de414f",
+      "PREVIOUS_CONTROLLER_SHA256": "029c5d5714a13fbdd3565901bdc08341e36319c1ab90cf30ea6d4ab7e58c4039",
+      "DIAGNOSTIC_EXECUTION_RESULT": "HEALTH_FAILED",
+      "DIAG_EXCEPTION_FAMILY": "RuntimeError",
+      "DEPLOY_PATH_USED": "NO",
+      "DEPLOYMENT_REQUEST_CREATED": "NO",
+      "ACTIVE_JSON_WRITTEN_BY_STAGE2": "NO",
+      "SOURCE_BUILD_PERFORMED": "NO",
+      "SELECTED_RELEASE": "release-1791293466993919",
+      "SELECTED_SOURCE_SNAPSHOT_SHA256": "44b5b3b45036ce787f2b9c4ecb20ae21c37db323904b6f18c7c341b976d528ae",
+      "RUNTIME_IMAGE_ID": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a",
+      "READINESS_EVENT_COUNT": "30",
+      "LOCALHOST_PASS_COUNT": "0",
+      "LOCALHOST_FAIL_COUNT": "30",
+      "HOMEPAGE_PASS_COUNT": "0",
+      "HOMEPAGE_FAIL_COUNT": "0",
+      "FAILED_REASON_COUNTS": "URL_ERROR:30",
+      "FAILED_HTTP_STATUS_COUNTS": "NONE:30",
+      "FIRST_FAILURE": "{\"attempt\":1,\"event\":\"gcreation_health_diagnostic\",\"exception_class\":\"URLError\",\"http_status\":null,\"phase\":\"readiness\",\"predicate\":\"LOCALHOST_ENGINE_HEALTH\",\"reason\":\"URL_ERROR\",\"result\":\"FAIL\",\"timestamp_utc\":\"2026-10-07T08:59:46Z\"}",
+      "LAST_FAILURE": "{\"attempt\":30,\"event\":\"gcreation_health_diagnostic\",\"exception_class\":\"URLError\",\"http_status\":null,\"phase\":\"readiness\",\"predicate\":\"LOCALHOST_ENGINE_HEALTH\",\"reason\":\"URL_ERROR\",\"result\":\"FAIL\",\"timestamp_utc\":\"2026-10-07T09:00:44Z\"}",
+      "DIAGNOSTIC_RUNTIME_CONTAINERS_AFTER": "ABSENT",
+      "OTHER_PROTECTED_FILE_READ": "NO",
+      "SYMLINK_FOLLOWED": "NO",
+      "DEPLOYMENT_REQUEST": "NO",
+      "REPAIR_COUNTER_CHANGE": "NO",
+      "REPAIR_3_AUTHORIZED": "NO",
+      "REPAIR_BUDGET_RESET": "NO",
+      "P2_STARTED": "NO",
+      "PRODUCTION_MAIN_TOUCHED": "NO"
+    },
+    "field_count": 31,
+    "line_count": 62,
+    "attempt_count": 30,
+    "attempts": [
+      {
+        "attempt": 1,
+        "raw": "ATTEMPT_01 LOCALHOST=FAIL:URL_ERROR:NONE HOMEPAGE=NOT_REACHED",
+        "localhost": {
+          "result": "FAIL",
+          "reason": "URL_ERROR",
+          "http_status": null,
+          "event_emitted": true,
+          "timestamp_utc": null,
+          "timestamp_reported": false,
+          "exception_class": null,
+          "exception_class_reported": false
+        },
+        "homepage": {
+          "result": "NOT_REACHED",
+          "reason": null,
+          "http_status": null,
+          "event_emitted": false,
+          "timestamp_utc": null,
+          "timestamp_reported": false,
+          "exception_class": null,
+          "exception_class_reported": false
+        }
+      },
+      {
+        "attempt": 2,
+        "raw": "ATTEMPT_02 LOCALHOST=FAIL:URL_ERROR:NONE HOMEPAGE=NOT_REACHED",
+        "localhost": {
+          "result": "FAIL",
+          "reason": "URL_ERROR",
+          "http_status": null,
+          "event_emitted": true,
+          "timestamp_utc": null,
+          "timestamp_reported": false,
+          "exception_class": null,
+          "exception_class_reported": false
+        },
+        "homepage": {
+          "result": "NOT_REACHED",
+          "reason": null,
+          "http_status": null,
+          "event_emitted": false,
+          "timestamp_utc": null,
+          "timestamp_reported": false,
+          "exception_class": null,
+          "exception_class_reported": false
+        }
+      },
+      {
+        "attempt": 3,
+        "raw": "ATTEMPT_03 LOCALHOST=FAIL:URL_ERROR:NONE HOMEPAGE=NOT_REACHED",
+        "localhost": {
+          "result": "FAIL",
+          "reason": "URL_ERROR",
+          "http_status": null,
+          "event_emitted": true,
+          "timestamp_utc": null,
+          "timestamp_reported": false,
+          "exception_class": null,
+          "exception_class_reported": false
+        },
+        "homepage": {
+          "result": "NOT_REACHED",
+          "reason": null,
+          "http_status": null,
+          "event_emitted": false,
+          "timestamp_utc": null,
+          "timestamp_reported": false,
+          "exception_class": null,
+          "exception_class_reported": false
+        }
+      },
+      {
+        "attempt": 4,
+        "raw": "ATTEMPT_04 LOCALHOST=FAIL:URL_ERROR:NONE HOMEPAGE=NOT_REACHED",
+        "localhost": {
+          "result": "FAIL",
+          "reason": "URL_ERROR",
+          "http_status": null,
+          "event_emitted": true,
+          "timestamp_utc": null,
+          "timestamp_reported": false,
+          "exception_class": null,
+          "exception_class_reported": false
+        },
+        "homepage": {
+          "result": "NOT_REACHED",
+          "reason": null,
+          "http_status": null,
+          "event_emitted": false,
+          "timestamp_utc": null,
+          "timestamp_reported": false,
+          "exception_class": null,
+          "exception_class_reported": false
+        }
+      },
+      {
+        "attempt": 5,
+        "raw": "ATTEMPT_05 LOCALHOST=FAIL:URL_ERROR:NONE HOMEPAGE=NOT_REACHED",
+        "localhost": {
+          "result": "FAIL",
+          "reason": "URL_ERROR",
+          "http_status": null,
+          "event_emitted": true,
+          "timestamp_utc": null,
+          "timestamp_reported": false,
+          "exception_class": null,
+          "exception_class_reported": false
+        },
+        "homepage": {
+          "result": "NOT_REACHED",
+          "reason": null,
+          "http_status": null,
+          "event_emitted": false,
+          "timestamp_utc": null,
+          "timestamp_reported": false,
+          "exception_class": null,
+          "exception_class_reported": false
+        }
+      },
+      {
+        "attempt": 6,
+        "raw": "ATTEMPT_06 LOCALHOST=FAIL:URL_ERROR:NONE HOMEPAGE=NOT_REACHED",
+        "localhost": {
+          "result": "FAIL",
+          "reason": "URL_ERROR",
+          "http_status": null,
+          "event_emitted": true,
+          "timestamp_utc": null,
+          "timestamp_reported": false,
+          "exception_class": null,
+          "exception_class_reported": false
+        },
+        "homepage": {
+          "result": "NOT_REACHED",
+          "reason": null,
+          "http_status": null,
+          "event_emitted": false,
+          "timestamp_utc": null,
+          "timestamp_reported": false,
+          "exception_class": null,
+          "exception_class_reported": false
+        }
+      },
+      {
+        "attempt": 7,
+        "raw": "ATTEMPT_07 LOCALHOST=FAIL:URL_ERROR:NONE HOMEPAGE=NOT_REACHED",
+        "localhost": {
+          "result": "FAIL",
+          "reason": "URL_ERROR",
+          "http_status": null,
+          "event_emitted": true,
+          "timestamp_utc": null,
+          "timestamp_reported": false,
+          "exception_class": null,
+          "exception_class_reported": false
+        },
+        "homepage": {
+          "result": "NOT_REACHED",
+          "reason": null,
+          "http_status": null,
+          "event_emitted": false,
+          "timestamp_utc": null,
+          "timestamp_reported": false,
+          "exception_class": null,
+          "exception_class_reported": false
+        }
+      },
+      {
+        "attempt": 8,
+        "raw": "ATTEMPT_08 LOCALHOST=FAIL:URL_ERROR:NONE HOMEPAGE=NOT_REACHED",
+        "localhost": {
+          "result": "FAIL",
+          "reason": "URL_ERROR",
+          "http_status": null,
+          "event_emitted": true,
+          "timestamp_utc": null,
+          "timestamp_reported": false,
+          "exception_class": null,
+          "exception_class_reported": false
+        },
+        "homepage": {
+          "result": "NOT_REACHED",
+          "reason": null,
+          "http_status": null,
+          "event_emitted": false,
+          "timestamp_utc": null,
+          "timestamp_reported": false,
+          "exception_class": null,
+          "exception_class_reported": false
+        }
+      },
+      {
+        "attempt": 9,
+        "raw": "ATTEMPT_09 LOCALHOST=FAIL:URL_ERROR:NONE HOMEPAGE=NOT_REACHED",
+        "localhost": {
+          "result": "FAIL",
+          "reason": "URL_ERROR",
+          "http_status": null,
+          "event_emitted": true,
+          "timestamp_utc": null,
+          "timestamp_reported": false,
+          "exception_class": null,
+          "exception_class_reported": false
+        },
+        "homepage": {
+          "result": "NOT_REACHED",
+          "reason": null,
+          "http_status": null,
+          "event_emitted": false,
+          "timestamp_utc": null,
+          "timestamp_reported": false,
+          "exception_class": null,
+          "exception_class_reported": false
+        }
+      },
+      {
+        "attempt": 10,
+        "raw": "ATTEMPT_10 LOCALHOST=FAIL:URL_ERROR:NONE HOMEPAGE=NOT_REACHED",
+        "localhost": {
+          "result": "FAIL",
+          "reason": "URL_ERROR",
+          "http_status": null,
+          "event_emitted": true,
+          "timestamp_utc": null,
+          "timestamp_reported": false,
+          "exception_class": null,
+          "exception_class_reported": false
+        },
+        "homepage": {
+          "result": "NOT_REACHED",
+          "reason": null,
+          "http_status": null,
+          "event_emitted": false,
+          "timestamp_utc": null,
+          "timestamp_reported": false,
+          "exception_class": null,
+          "exception_class_reported": false
+        }
+      },
+      {
+        "attempt": 11,
+        "raw": "ATTEMPT_11 LOCALHOST=FAIL:URL_ERROR:NONE HOMEPAGE=NOT_REACHED",
+        "localhost": {
+          "result": "FAIL",
+          "reason": "URL_ERROR",
+          "http_status": null,
+          "event_emitted": true,
+          "timestamp_utc": null,
+          "timestamp_reported": false,
+          "exception_class": null,
+          "exception_class_reported": false
+        },
+        "homepage": {
+          "result": "NOT_REACHED",
+          "reason": null,
+          "http_status": null,
+          "event_emitted": false,
+          "timestamp_utc": null,
+          "timestamp_reported": false,
+          "exception_class": null,
+          "exception_class_reported": false
+        }
+      },
+      {
+        "attempt": 12,
+        "raw": "ATTEMPT_12 LOCALHOST=FAIL:URL_ERROR:NONE HOMEPAGE=NOT_REACHED",
+        "localhost": {
+          "result": "FAIL",
+          "reason": "URL_ERROR",
+          "http_status": null,
+          "event_emitted": true,
+          "timestamp_utc": null,
+          "timestamp_reported": false,
+          "exception_class": null,
+          "exception_class_reported": false
+        },
+        "homepage": {
+          "result": "NOT_REACHED",
+          "reason": null,
+          "http_status": null,
+          "event_emitted": false,
+          "timestamp_utc": null,
+          "timestamp_reported": false,
+          "exception_class": null,
+          "exception_class_reported": false
+        }
+      },
+      {
+        "attempt": 13,
+        "raw": "ATTEMPT_13 LOCALHOST=FAIL:URL_ERROR:NONE HOMEPAGE=NOT_REACHED",
+        "localhost": {
+          "result": "FAIL",
+          "reason": "URL_ERROR",
+          "http_status": null,
+          "event_emitted": true,
+          "timestamp_utc": null,
+          "timestamp_reported": false,
+          "exception_class": null,
+          "exception_class_reported": false
+        },
+        "homepage": {
+          "result": "NOT_REACHED",
+          "reason": null,
+          "http_status": null,
+          "event_emitted": false,
+          "timestamp_utc": null,
+          "timestamp_reported": false,
+          "exception_class": null,
+          "exception_class_reported": false
+        }
+      },
+      {
+        "attempt": 14,
+        "raw": "ATTEMPT_14 LOCALHOST=FAIL:URL_ERROR:NONE HOMEPAGE=NOT_REACHED",
+        "localhost": {
+          "result": "FAIL",
+          "reason": "URL_ERROR",
+          "http_status": null,
+          "event_emitted": true,
+          "timestamp_utc": null,
+          "timestamp_reported": false,
+          "exception_class": null,
+          "exception_class_reported": false
+        },
+        "homepage": {
+          "result": "NOT_REACHED",
+          "reason": null,
+          "http_status": null,
+          "event_emitted": false,
+          "timestamp_utc": null,
+          "timestamp_reported": false,
+          "exception_class": null,
+          "exception_class_reported": false
+        }
+      },
+      {
+        "attempt": 15,
+        "raw": "ATTEMPT_15 LOCALHOST=FAIL:URL_ERROR:NONE HOMEPAGE=NOT_REACHED",
+        "localhost": {
+          "result": "FAIL",
+          "reason": "URL_ERROR",
+          "http_status": null,
+          "event_emitted": true,
+          "timestamp_utc": null,
+          "timestamp_reported": false,
+          "exception_class": null,
+          "exception_class_reported": false
+        },
+        "homepage": {
+          "result": "NOT_REACHED",
+          "reason": null,
+          "http_status": null,
+          "event_emitted": false,
+          "timestamp_utc": null,
+          "timestamp_reported": false,
+          "exception_class": null,
+          "exception_class_reported": false
+        }
+      },
+      {
+        "attempt": 16,
+        "raw": "ATTEMPT_16 LOCALHOST=FAIL:URL_ERROR:NONE HOMEPAGE=NOT_REACHED",
+        "localhost": {
+          "result": "FAIL",
+          "reason": "URL_ERROR",
+          "http_status": null,
+          "event_emitted": true,
+          "timestamp_utc": null,
+          "timestamp_reported": false,
+          "exception_class": null,
+          "exception_class_reported": false
+        },
+        "homepage": {
+          "result": "NOT_REACHED",
+          "reason": null,
+          "http_status": null,
+          "event_emitted": false,
+          "timestamp_utc": null,
+          "timestamp_reported": false,
+          "exception_class": null,
+          "exception_class_reported": false
+        }
+      },
+      {
+        "attempt": 17,
+        "raw": "ATTEMPT_17 LOCALHOST=FAIL:URL_ERROR:NONE HOMEPAGE=NOT_REACHED",
+        "localhost": {
+          "result": "FAIL",
+          "reason": "URL_ERROR",
+          "http_status": null,
+          "event_emitted": true,
+          "timestamp_utc": null,
+          "timestamp_reported": false,
+          "exception_class": null,
+          "exception_class_reported": false
+        },
+        "homepage": {
+          "result": "NOT_REACHED",
+          "reason": null,
+          "http_status": null,
+          "event_emitted": false,
+          "timestamp_utc": null,
+          "timestamp_reported": false,
+          "exception_class": null,
+          "exception_class_reported": false
+        }
+      },
+      {
+        "attempt": 18,
+        "raw": "ATTEMPT_18 LOCALHOST=FAIL:URL_ERROR:NONE HOMEPAGE=NOT_REACHED",
+        "localhost": {
+          "result": "FAIL",
+          "reason": "URL_ERROR",
+          "http_status": null,
+          "event_emitted": true,
+          "timestamp_utc": null,
+          "timestamp_reported": false,
+          "exception_class": null,
+          "exception_class_reported": false
+        },
+        "homepage": {
+          "result": "NOT_REACHED",
+          "reason": null,
+          "http_status": null,
+          "event_emitted": false,
+          "timestamp_utc": null,
+          "timestamp_reported": false,
+          "exception_class": null,
+          "exception_class_reported": false
+        }
+      },
+      {
+        "attempt": 19,
+        "raw": "ATTEMPT_19 LOCALHOST=FAIL:URL_ERROR:NONE HOMEPAGE=NOT_REACHED",
+        "localhost": {
+          "result": "FAIL",
+          "reason": "URL_ERROR",
+          "http_status": null,
+          "event_emitted": true,
+          "timestamp_utc": null,
+          "timestamp_reported": false,
+          "exception_class": null,
+          "exception_class_reported": false
+        },
+        "homepage": {
+          "result": "NOT_REACHED",
+          "reason": null,
+          "http_status": null,
+          "event_emitted": false,
+          "timestamp_utc": null,
+          "timestamp_reported": false,
+          "exception_class": null,
+          "exception_class_reported": false
+        }
+      },
+      {
+        "attempt": 20,
+        "raw": "ATTEMPT_20 LOCALHOST=FAIL:URL_ERROR:NONE HOMEPAGE=NOT_REACHED",
+        "localhost": {
+          "result": "FAIL",
+          "reason": "URL_ERROR",
+          "http_status": null,
+          "event_emitted": true,
+          "timestamp_utc": null,
+          "timestamp_reported": false,
+          "exception_class": null,
+          "exception_class_reported": false
+        },
+        "homepage": {
+          "result": "NOT_REACHED",
+          "reason": null,
+          "http_status": null,
+          "event_emitted": false,
+          "timestamp_utc": null,
+          "timestamp_reported": false,
+          "exception_class": null,
+          "exception_class_reported": false
+        }
+      },
+      {
+        "attempt": 21,
+        "raw": "ATTEMPT_21 LOCALHOST=FAIL:URL_ERROR:NONE HOMEPAGE=NOT_REACHED",
+        "localhost": {
+          "result": "FAIL",
+          "reason": "URL_ERROR",
+          "http_status": null,
+          "event_emitted": true,
+          "timestamp_utc": null,
+          "timestamp_reported": false,
+          "exception_class": null,
+          "exception_class_reported": false
+        },
+        "homepage": {
+          "result": "NOT_REACHED",
+          "reason": null,
+          "http_status": null,
+          "event_emitted": false,
+          "timestamp_utc": null,
+          "timestamp_reported": false,
+          "exception_class": null,
+          "exception_class_reported": false
+        }
+      },
+      {
+        "attempt": 22,
+        "raw": "ATTEMPT_22 LOCALHOST=FAIL:URL_ERROR:NONE HOMEPAGE=NOT_REACHED",
+        "localhost": {
+          "result": "FAIL",
+          "reason": "URL_ERROR",
+          "http_status": null,
+          "event_emitted": true,
+          "timestamp_utc": null,
+          "timestamp_reported": false,
+          "exception_class": null,
+          "exception_class_reported": false
+        },
+        "homepage": {
+          "result": "NOT_REACHED",
+          "reason": null,
+          "http_status": null,
+          "event_emitted": false,
+          "timestamp_utc": null,
+          "timestamp_reported": false,
+          "exception_class": null,
+          "exception_class_reported": false
+        }
+      },
+      {
+        "attempt": 23,
+        "raw": "ATTEMPT_23 LOCALHOST=FAIL:URL_ERROR:NONE HOMEPAGE=NOT_REACHED",
+        "localhost": {
+          "result": "FAIL",
+          "reason": "URL_ERROR",
+          "http_status": null,
+          "event_emitted": true,
+          "timestamp_utc": null,
+          "timestamp_reported": false,
+          "exception_class": null,
+          "exception_class_reported": false
+        },
+        "homepage": {
+          "result": "NOT_REACHED",
+          "reason": null,
+          "http_status": null,
+          "event_emitted": false,
+          "timestamp_utc": null,
+          "timestamp_reported": false,
+          "exception_class": null,
+          "exception_class_reported": false
+        }
+      },
+      {
+        "attempt": 24,
+        "raw": "ATTEMPT_24 LOCALHOST=FAIL:URL_ERROR:NONE HOMEPAGE=NOT_REACHED",
+        "localhost": {
+          "result": "FAIL",
+          "reason": "URL_ERROR",
+          "http_status": null,
+          "event_emitted": true,
+          "timestamp_utc": null,
+          "timestamp_reported": false,
+          "exception_class": null,
+          "exception_class_reported": false
+        },
+        "homepage": {
+          "result": "NOT_REACHED",
+          "reason": null,
+          "http_status": null,
+          "event_emitted": false,
+          "timestamp_utc": null,
+          "timestamp_reported": false,
+          "exception_class": null,
+          "exception_class_reported": false
+        }
+      },
+      {
+        "attempt": 25,
+        "raw": "ATTEMPT_25 LOCALHOST=FAIL:URL_ERROR:NONE HOMEPAGE=NOT_REACHED",
+        "localhost": {
+          "result": "FAIL",
+          "reason": "URL_ERROR",
+          "http_status": null,
+          "event_emitted": true,
+          "timestamp_utc": null,
+          "timestamp_reported": false,
+          "exception_class": null,
+          "exception_class_reported": false
+        },
+        "homepage": {
+          "result": "NOT_REACHED",
+          "reason": null,
+          "http_status": null,
+          "event_emitted": false,
+          "timestamp_utc": null,
+          "timestamp_reported": false,
+          "exception_class": null,
+          "exception_class_reported": false
+        }
+      },
+      {
+        "attempt": 26,
+        "raw": "ATTEMPT_26 LOCALHOST=FAIL:URL_ERROR:NONE HOMEPAGE=NOT_REACHED",
+        "localhost": {
+          "result": "FAIL",
+          "reason": "URL_ERROR",
+          "http_status": null,
+          "event_emitted": true,
+          "timestamp_utc": null,
+          "timestamp_reported": false,
+          "exception_class": null,
+          "exception_class_reported": false
+        },
+        "homepage": {
+          "result": "NOT_REACHED",
+          "reason": null,
+          "http_status": null,
+          "event_emitted": false,
+          "timestamp_utc": null,
+          "timestamp_reported": false,
+          "exception_class": null,
+          "exception_class_reported": false
+        }
+      },
+      {
+        "attempt": 27,
+        "raw": "ATTEMPT_27 LOCALHOST=FAIL:URL_ERROR:NONE HOMEPAGE=NOT_REACHED",
+        "localhost": {
+          "result": "FAIL",
+          "reason": "URL_ERROR",
+          "http_status": null,
+          "event_emitted": true,
+          "timestamp_utc": null,
+          "timestamp_reported": false,
+          "exception_class": null,
+          "exception_class_reported": false
+        },
+        "homepage": {
+          "result": "NOT_REACHED",
+          "reason": null,
+          "http_status": null,
+          "event_emitted": false,
+          "timestamp_utc": null,
+          "timestamp_reported": false,
+          "exception_class": null,
+          "exception_class_reported": false
+        }
+      },
+      {
+        "attempt": 28,
+        "raw": "ATTEMPT_28 LOCALHOST=FAIL:URL_ERROR:NONE HOMEPAGE=NOT_REACHED",
+        "localhost": {
+          "result": "FAIL",
+          "reason": "URL_ERROR",
+          "http_status": null,
+          "event_emitted": true,
+          "timestamp_utc": null,
+          "timestamp_reported": false,
+          "exception_class": null,
+          "exception_class_reported": false
+        },
+        "homepage": {
+          "result": "NOT_REACHED",
+          "reason": null,
+          "http_status": null,
+          "event_emitted": false,
+          "timestamp_utc": null,
+          "timestamp_reported": false,
+          "exception_class": null,
+          "exception_class_reported": false
+        }
+      },
+      {
+        "attempt": 29,
+        "raw": "ATTEMPT_29 LOCALHOST=FAIL:URL_ERROR:NONE HOMEPAGE=NOT_REACHED",
+        "localhost": {
+          "result": "FAIL",
+          "reason": "URL_ERROR",
+          "http_status": null,
+          "event_emitted": true,
+          "timestamp_utc": null,
+          "timestamp_reported": false,
+          "exception_class": null,
+          "exception_class_reported": false
+        },
+        "homepage": {
+          "result": "NOT_REACHED",
+          "reason": null,
+          "http_status": null,
+          "event_emitted": false,
+          "timestamp_utc": null,
+          "timestamp_reported": false,
+          "exception_class": null,
+          "exception_class_reported": false
+        }
+      },
+      {
+        "attempt": 30,
+        "raw": "ATTEMPT_30 LOCALHOST=FAIL:URL_ERROR:NONE HOMEPAGE=NOT_REACHED",
+        "localhost": {
+          "result": "FAIL",
+          "reason": "URL_ERROR",
+          "http_status": null,
+          "event_emitted": true,
+          "timestamp_utc": null,
+          "timestamp_reported": false,
+          "exception_class": null,
+          "exception_class_reported": false
+        },
+        "homepage": {
+          "result": "NOT_REACHED",
+          "reason": null,
+          "http_status": null,
+          "event_emitted": false,
+          "timestamp_utc": null,
+          "timestamp_reported": false,
+          "exception_class": null,
+          "exception_class_reported": false
+        }
+      }
+    ],
+    "derived_counts": {
+      "READINESS_EVENT_COUNT": 30,
+      "LOCALHOST_PASS_COUNT": 0,
+      "LOCALHOST_FAIL_COUNT": 30,
+      "HOMEPAGE_PASS_COUNT": 0,
+      "HOMEPAGE_FAIL_COUNT": 0
+    },
+    "failed_reason_counts": {
+      "URL_ERROR": 30
+    },
+    "failed_http_status_counts": {
+      "NONE": 30
+    },
+    "first_failure": {
+      "attempt": 1,
+      "event": "gcreation_health_diagnostic",
+      "exception_class": "URLError",
+      "http_status": null,
+      "phase": "readiness",
+      "predicate": "LOCALHOST_ENGINE_HEALTH",
+      "reason": "URL_ERROR",
+      "result": "FAIL",
+      "timestamp_utc": "2026-10-07T08:59:46Z"
+    },
+    "last_failure": {
+      "attempt": 30,
+      "event": "gcreation_health_diagnostic",
+      "exception_class": "URLError",
+      "http_status": null,
+      "phase": "readiness",
+      "predicate": "LOCALHOST_ENGINE_HEALTH",
+      "reason": "URL_ERROR",
+      "result": "FAIL",
+      "timestamp_utc": "2026-10-07T09:00:44Z"
+    },
+    "sequence_result": "PASS_RETAINED_SUMMARIES_AND_ENDPOINT_EVENTS",
+    "full_raw_readiness_events_supplied": false,
+    "full_raw_readiness_event_count": 2,
+    "failure_endpoint_timestamp_span_seconds": 58
+  },
+  "operator_attestation_from_current_human_message": {
+    "P1_DIAGNOSTIC_STAGE2": "COMPLETE",
+    "CONTROLLER_INSTALL_RESULT": "PASS_EXACT_CANDIDATE_INSTALLED",
+    "INSTALLED_CONTROLLER_SHA256": "be656cc95fbc3d1df09c57852577f8343401916a47aeec2b12459b4be5de414f",
+    "OLD_CONTROLLER_BACKUP_SHA256": "029c5d5714a13fbdd3565901bdc08341e36319c1ab90cf30ea6d4ab7e58c4039",
+    "HANDOFF_SHA256": "8587ec1e6d011f61e81674d1511a0816215beea2645dbf9a12763745d4cc3f02",
+    "HANDOFF_BYTES": 3475,
+    "DIAGNOSTIC_RUNTIME_EXECUTION": "ONE_COMPLETED",
+    "DIAGNOSTIC_RUNTIME_CONTAINERS_AFTER": "ABSENT",
+    "DEPLOYMENT_REQUEST": "NO",
+    "REPAIR_COUNTER_CHANGE": "NO",
+    "REPAIR_3_AUTHORIZED": "NO",
+    "REPAIR_BUDGET_RESET": "NO",
+    "P2_STARTED": "NO",
+    "PRODUCTION_MAIN_TOUCHED": "NO"
+  },
+  "human_message_sha256": "ce0c3f4899ecb0078520b5d4df65fca2d37bc33ce97dc14e26a3041c528e4417",
+  "missing_or_unreported": {
+    "diagnostic_runtime_execution_count": {
+      "reported_in_handoff": false,
+      "recorded_value": 1,
+      "source": "CURRENT_HUMAN_OPERATOR_MESSAGE_ONE_COMPLETED"
+    },
+    "exact_terminal_exception_message": {
+      "reported_in_handoff": false,
+      "value": null
+    },
+    "old_backup_path_owner_mode_links_or_fresh_byte_comparison": {
+      "reported_in_handoff": false,
+      "value": null
+    },
+    "full_raw_events_between_first_and_last": {
+      "reported_in_handoff": false,
+      "value": null
+    },
+    "per_intermediate_attempt_timestamp_or_exception_class": {
+      "reported_in_handoff": false,
+      "value": null
+    }
+  },
+  "identity_assessment": {
+    "candidate_git_and_repository_bytes_match": true,
+    "installed_hash_attestation_matches_reviewed_candidate": true,
+    "previous_hash_attestation_matches_prior_controller": true,
+    "selected_snapshot_attestation_matches_expected": true,
+    "runtime_image_attestation_matches_reviewed": true,
+    "selected_release_matches_committed_prior_inventory": true,
+    "evidence_class": "HUMAN_OPERATOR_ATTESTATION; HANDOFF_SHA_SIZE_FIELDS_AND_COMMITTED_IDENTITIES_VERIFIED",
+    "protected_host_paths_independently_inspected": false,
+    "old_backup_contents_or_metadata_directly_verified": false
+  },
+  "previous_official_failure": {
+    "record": ".ops/reports/P1/REPAIR_2_DEPLOYMENT_ATTEMPT.json",
+    "diagnosis": ".ops/reports/P1/REPAIR_2_POSTFAILURE_DIAGNOSTIC_ANALYSIS.json",
+    "terminal_status": {
+      "state": "FAILED",
+      "commit": "0ac34ba50ab3192abfe2ae425c4283879484258e",
+      "error": "RuntimeError",
+      "stage": "runtime-health",
+      "rollback": false
+    },
+    "exact_observed_outer_error": "RuntimeError: Runtime readiness deadline exceeded",
+    "inner_failed_predicate": "NOT_ESTABLISHED",
+    "root_cause": "NOT_ESTABLISHED",
+    "not_rewritten_by_stage2": true
+  },
+  "reproduction_assessment": {
+    "result": "PARTIALLY",
+    "basis": "Runtime-health failure occurred again using operator-attested matching release/source snapshot/image; all diagnostic attempts fail the localhost predicate. The original inner predicate was not retained, so exact historical predicate/component causation is not proven.",
+    "diagnostic_failure_timestamps": [
+      "2026-10-07T08:59:46Z",
+      "2026-10-07T09:00:44Z"
+    ],
+    "exact_diagnostic_terminal_message": "NOT_SUPPLIED; RuntimeError family only",
+    "data_secret_network_or_output_identity_equivalence": "NOT_ESTABLISHED_FROM_THIS_HANDOFF"
+  },
+  "reason_interpretation": "URL_ERROR establishes a URL transport exception class only. NONE means no safe HTTP status retained, not a received HTTP status. Connection refusal, listener/container/gateway/app/DNS/timeout/network/root causes are not established.",
+  "proposed_exception_repair": {
+    "status": "PROPOSED_EXCEPTION_REPAIR \u2014 NOT AUTHORIZED",
+    "proven_failed_predicate": "LOCALHOST_ENGINE_HEALTH",
+    "proof_scope": "THIS_STAGE2_DIAGNOSTIC_EXECUTION_ONLY",
+    "failed_reason_counts": {
+      "URL_ERROR": 30
+    },
+    "failed_http_status_counts": {
+      "NONE": 30
+    },
+    "failure_scope": "ALL_30_ATTEMPTS; DEV_HOMEPAGE_NOT_REACHED",
+    "underlying_component_established": false,
+    "smallest_next_technical_remediation_hypothesis": "Restore the existing fixed localhost health transport only after the specific URLError cause is identified. Current evidence does not select a source/config/runtime fix; no change to V4 controls, acceptance, timeouts or retries is proposed.",
+    "source_change_required": "UNKNOWN",
+    "controller_change_required": "UNKNOWN",
+    "runtime_image_network_change_required": "UNKNOWN",
+    "plesk_nginx_change_required": "UNKNOWN",
+    "security_boundary_impact": "UNKNOWN_UNTIL_AN_EXACT_REPAIR_IS_DEFINED",
+    "future_repair_deployment_requires_new_explicit_human_authorization": true,
+    "repair_3_authorized": false,
+    "further_runtime_execution_authorized": false,
+    "implementation_authorized": false,
+    "deployment_authorized": false,
+    "repair_budget_reset_or_extension_authorized": false
+  },
+  "next_action": "PROPOSED_EXCEPTION_REPAIR \u2014 NOT AUTHORIZED. Human must decide whether to grant NEW explicit authority to establish the localhost URLError cause and review an exact cause-specific repair. No specific fix, further runtime execution, repair, retry or deployment is authorized.",
+  "governance": {
+    "state": "HARD_BLOCKED",
+    "p1": "BLOCKED",
+    "full_p1_independent_review": "PENDING",
+    "repair_cycle": 2,
+    "failed_repair_cycles": 2,
+    "repair_2": "FAILED_CONSUMED_1_OF_1",
+    "automatic_retries": 0,
+    "repair_budget_exhausted": true,
+    "repair_3_authorized": false,
+    "diagnostic_stage2_authorized": true,
+    "diagnostic_stage2_execution_count": 1,
+    "diagnostic_stage2_complete": true,
+    "authorization_scope": "COMPLETED_HUMAN_STAGE2_ONLY; NO_FUTURE_EXECUTION",
+    "repair_counter_change": false,
+    "deployment_authorized": false,
+    "diagnostic_runtime_execution_authorized": false,
+    "controller_install_authorized": false,
+    "p2": "NOT_STARTED",
+    "production_touched": false
+  },
+  "agent_this_task": {
+    "analysis_only": true,
+    "controller_or_runtime_execution": false,
+    "http_probe": false,
+    "privileged_action": false,
+    "protected_path_inspection": false,
+    "source_changed": false,
+    "tests_or_dependencies_changed": false,
+    "deployment_request_created": false,
+    "image_network_service_or_config_action": false,
+    "repair_counter_change": false,
+    "production_touched": false
+  },
+  "validation": {
+    "handoff_sha_size": "PASS",
+    "all_31_fields_and_30_attempt_rows_parsed": "PASS",
+    "aggregate_and_reason_status_counts": "PASS",
+    "retained_sequence_and_first_last_json": "PASS",
+    "offline_parser_checks": 16,
+    "offline_parser_result": "PASS",
+    "controller_reviewed_sha_and_static_health_order": "PASS",
+    "git_baseline_candidate_ancestry_and_main": "PASS"
+  },
+  "changed_files": [
+    ".ops/ACTION_REQUIRED.md",
+    ".ops/ORCHESTRATOR_STATUS.json",
+    ".ops/PROJECT_STATE.md",
+    ".ops/PROJECT_STATUS.md",
+    ".ops/oversight/LATEST_CHECKPOINT.json",
+    ".ops/oversight/LATEST_CHECKPOINT.md",
+    ".ops/oversight/events/0019-P1-diagnostic-instrumentation-stage2-analysis.json",
+    ".ops/reports/P1/CHECKSUMS.sha256",
+    ".ops/reports/P1/EVIDENCE.json",
+    ".ops/reports/P1/REPORT.md",
+    ".ops/reports/P1/diagnostic-instrumentation-stage2/ANALYSIS.json",
+    ".ops/reports/P1/diagnostic-instrumentation-stage2/CHECKSUMS.sha256",
+    ".ops/reports/P1/diagnostic-instrumentation-stage2/HANDOFF.txt",
+    ".ops/reports/P1/diagnostic-instrumentation-stage2/REPORT.md"
+  ],
+  "main_remote_identity_read_only": "c724ac3b50bc44d71f8620bb4ac0cccfae890de2",
+  "limitations": [
+    "The supplied sequence consists of30 attempt summaries and two full endpoint JSON events, not30 full raw journal events.",
+    "No individual intermediate attempt timestamps, unreported exception details or runtime equivalence claims are synthesized.",
+    "Installation, backup, image/snapshot identity and diagnostic cleanup are human attestations, not fresh protected-host observations.",
+    "Homepage NOT_REACHED applies to this diagnostic health sequence; it does not establish public homepage availability.",
+    "New diagnostic predicate proof does not establish which historical REPAIR_2 predicate failed or grant P1 runtime acceptance."
+  ]
+}

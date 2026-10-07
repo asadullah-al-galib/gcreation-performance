@@ -1167,9 +1167,30 @@
       "record": ".ops/reports/P1/diagnostic-instrumentation-stage1/REVIEW.json",
       "human_review": "REQUIRED",
       "completion": "PASS_REVIEW_READY_SOURCE_ONLY; P1_REMAINS_BLOCKED"
+    },
+    {
+      "criterion": "P1 Stage2 bounded diagnostic predicate attribution",
+      "result": "PROVEN_IN_DIAGNOSTIC_EXECUTION_ONLY",
+      "failed_predicate": "LOCALHOST_ENGINE_HEALTH",
+      "reason_counts": {
+        "URL_ERROR": 30
+      },
+      "http_status_counts": {
+        "NONE": 30
+      },
+      "readiness_events": 30,
+      "dev_homepage": "NOT_REACHED",
+      "underlying_component": "NOT_ESTABLISHED",
+      "historical_failure_reproduced": "PARTIALLY",
+      "report": ".ops/reports/P1/diagnostic-instrumentation-stage2/REPORT.md",
+      "record": ".ops/reports/P1/diagnostic-instrumentation-stage2/ANALYSIS.json",
+      "evidence_class": "HUMAN_OPERATOR_ATTESTED_VERIFIED_HANDOFF",
+      "full_p1_acceptance": "BLOCKED; FULL_REVIEW_PENDING",
+      "repair_counters_changed": false,
+      "repair_or_deployment_authorized": false
     }
   ],
-  "updated_at": "2026-10-07T08:29:06.899384+00:00",
+  "updated_at": "2026-10-07T09:14:22.864117+00:00",
   "repair_path": "REPAIR_2",
   "repair_state": "FAILED_CONSUMED_HARD_BLOCKED",
   "current_candidate_commit": "0ac34ba50ab3192abfe2ae425c4283879484258e",
@@ -1385,5 +1406,45 @@
     "deployment_authorized": false,
     "repair_counters_changed": false,
     "independent_human_review": "REQUIRED"
+  },
+  "diagnostic_instrumentation_stage2": {
+    "process": "diagnostic-instrumentation-stage2-analysis",
+    "record": ".ops/reports/P1/diagnostic-instrumentation-stage2/ANALYSIS.json",
+    "report": ".ops/reports/P1/diagnostic-instrumentation-stage2/REPORT.md",
+    "handoff_sha256": "8587ec1e6d011f61e81674d1511a0816215beea2645dbf9a12763745d4cc3f02",
+    "handoff_bytes": 3475,
+    "classification": {
+      "diagnostic_handoff": "VERIFIED",
+      "controller_install_attestation": "MATCHES_REVIEWED_SHA",
+      "diagnostic_execution_result": "HEALTH_FAILED",
+      "readiness_events": 30,
+      "localhost_pass": 0,
+      "localhost_fail": 30,
+      "homepage_pass": 0,
+      "homepage_fail": 0,
+      "failed_reason_counts": {
+        "URL_ERROR": 30
+      },
+      "failed_http_status_counts": {
+        "NONE": 30
+      },
+      "failed_predicate": "LOCALHOST_ENGINE_HEALTH",
+      "failed_predicate_class": "PROVEN_IN_DIAGNOSTIC_EXECUTION",
+      "internal_health": "FAIL_OBSERVED",
+      "internal_health_before_homepage": "FAIL_OBSERVED",
+      "dev_homepage": "NOT_REACHED",
+      "underlying_root_cause": "NOT_ESTABLISHED",
+      "underlying_component": "NOT_ESTABLISHED",
+      "control_flow_contradiction": false,
+      "previous_failure_reproduced": "PARTIALLY"
+    },
+    "diagnostic_stage2_authorized": true,
+    "diagnostic_stage2_execution_count": 1,
+    "diagnostic_stage2_complete": true,
+    "evidence_class": "HUMAN_OPERATOR_ATTESTATION; VERIFIED_HANDOFF_AND_REVIEWED_IDENTITIES",
+    "repair_counter_change": false,
+    "deployment_authorized": false,
+    "further_diagnostic_runtime_authorized": false,
+    "p1_acceptance": "BLOCKED"
   }
 }

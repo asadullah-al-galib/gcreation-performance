@@ -5,7 +5,7 @@ CURRENT PART / STATE:
 P1 / HARD_BLOCKED
 
 PROCESS:
-diagnostic-instrumentation-stage1
+diagnostic-instrumentation-stage2-analysis
 
 P0:
 FROZEN / HUMAN REVIEW PASS
@@ -13,21 +13,30 @@ FROZEN / HUMAN REVIEW PASS
 P1 EXECUTION / FULL REVIEW:
 BLOCKED / INCOMPLETE; INDEPENDENT REVIEW PENDING
 
-STAGE1 AUTHORIZATION / RESULT:
-APPROVED_AND_CONSUMED_FOR_SOURCE_REVIEW_ONLY / PASS_REVIEW_READY
+DIAGNOSTIC STAGE 2:
+AUTHORIZED HUMAN EXECUTION COUNT=1; COMPLETE=true; no future execution authority.
 
-CANDIDATE:
-b060ff430854046df7490875ac402d9df909b43a
+HANDOFF / CONTROLLER INSTALL ATTESTATION:
+VERIFIED / MATCHES_REVIEWED_SHA
+Handoff SHA256 8587ec1e6d011f61e81674d1511a0816215beea2645dbf9a12763745d4cc3f02; 3,475 bytes.
+Installed instrumentation SHA256 be656cc95fbc3d1df09c57852577f8343401916a47aeec2b12459b4be5de414f (human operator attestation).
+Candidate b060ff430854046df7490875ac402d9df909b43a; prior controller SHA256 029c5d5714a13fbdd3565901bdc08341e36319c1ab90cf30ea6d4ab7e58c4039.
 
-OLD INSTALLED / NEW CANDIDATE CONTROLLER SHA256:
-029c5d5714a13fbdd3565901bdc08341e36319c1ab90cf30ea6d4ab7e58c4039 / be656cc95fbc3d1df09c57852577f8343401916a47aeec2b12459b4be5de414f
-Old identity is prior operator evidence; new candidate is NOT INSTALLED or runtime-validated.
+DIAGNOSTIC RESULT / COUNTS:
+HEALTH_FAILED; readiness30; localhost PASS0/FAIL30; homepage PASS0/FAIL0.
+FAILED REASONS URL_ERROR:30; FAILED HTTP STATUSES NONE:30.
 
-LOCAL TESTS / STATIC SECURITY:
-75 PASS / 18 assessments PASS; independent human acceptance REQUIRED.
+FAILED PREDICATE / PROOF CLASS:
+LOCALHOST_ENGINE_HEALTH / PROVEN_IN_DIAGNOSTIC_EXECUTION
 
-ROOT CAUSE / FAILED PREDICATE:
+INTERNAL HEALTH / DEV HOMEPAGE:
+FAIL_OBSERVED / NOT_REACHED
+
+UNDERLYING ROOT CAUSE / COMPONENT:
 NOT_ESTABLISHED / NOT_ESTABLISHED
+
+CONTROL FLOW CONTRADICTION / PREVIOUS FAILURE REPRODUCED:
+NO / PARTIALLY — historical inner predicate remains unknown.
 
 REPAIR_2:
 FAILED_CONSUMED_1_OF_1 — runtime-health; rollback=false
@@ -41,21 +50,21 @@ FAILED_CONSUMED / FAILED_CONSUMED_1_OF_1 / FAILED_CONSUMED_1_OF_1
 AUTOMATIC RETRIES:
 0
 
+REPAIR_3 / BUDGET EXTENSION / FURTHER RUNTIME / DEPLOYMENT AUTHORIZED:
+false / false / false / false
+
 P2–P7:
 NOT_STARTED
 
 PRODUCTION/MAIN:
 UNTOUCHED
 
-DEPLOYMENT / DIAGNOSTIC RUNTIME / CONTROLLER INSTALL / STAGE2 / REPAIR_3 AUTHORIZED:
-false / false / false / false / false
-
 NEXT ACTION:
-HUMAN REVIEW REQUIRED: decide whether to accept the instrumentation candidate and separately authorize any future controller installation / diagnostic execution. No installation procedure or Stage2 authority is prepared.
+PROPOSED_EXCEPTION_REPAIR — NOT AUTHORIZED. Human must decide whether to grant NEW explicit authority to establish the localhost URLError cause and review an exact cause-specific repair. No specific fix, further runtime execution, repair, retry or deployment is authorized.
 
 ACTION FILE:
 .ops/ACTION_REQUIRED.md
 
 EVIDENCE:
-.ops/reports/P1/diagnostic-instrumentation-stage1/REPORT.md
-.ops/reports/P1/diagnostic-instrumentation-stage1/REVIEW.json
+.ops/reports/P1/diagnostic-instrumentation-stage2/REPORT.md
+.ops/reports/P1/diagnostic-instrumentation-stage2/ANALYSIS.json

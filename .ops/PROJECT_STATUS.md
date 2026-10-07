@@ -5,7 +5,7 @@ CURRENT PART / STATE:
 P1 / HARD_BLOCKED
 
 PROCESS:
-repair2-dev-logdir-metadata-analysis
+repair2-access-ssl-single-file-analysis
 
 P0:
 FROZEN / HUMAN REVIEW PASS
@@ -16,32 +16,23 @@ BLOCKED / INCOMPLETE; INDEPENDENT REVIEW PENDING
 REPAIR_2:
 FAILED_CONSUMED_1_OF_1 — runtime-health; rollback=false
 
-DIRECTORY EXISTS / READABLE / TYPE:
-YES / YES / directory — operator observation only
+FILE HISTORICAL COVERAGE:
+AFTER — parsed range2026-10-07T00:23:53Z..06:48:33Z; 53/53 parsed, unparsed0.
 
-TOTAL / REPORTED ENTRIES / TRUNCATED:
-8 / 8 / NO
+GET / MATCHES / PYTHON_URLLIB GET / / STATUS SET:
+0 / 0 / NONE — reported; Python-urllib first/last UTC absent.
 
-LOG LAYOUT CLASS:
-MIXED — regular access/error candidates plus two .processed access equivalents; no symlinks reported
+WATCHER ATTRIBUTION / INTERNAL HEALTH BEFORE HOMEPAGE:
+NOT_PROVEN / NOT_PROVEN
 
-PRIOR ZERO-RECOGNIZED REASON:
-NOT_ESTABLISHED — metadata insufficient; previous recognition rules/time-matched observations absent
-
-BEST CANDIDATE / TYPE:
-/var/www/vhosts/system/dev.gcreation.agency/logs/access_ssl_log / ACCESS
-
-HISTORICAL WINDOW COVERAGE:
-POTENTIALLY_COVERS_WINDOW / NOT_PROVEN; no contents read
-
-ROOT CAUSE CLASS / FAILED PREDICATE / UNDERLYING COMPONENT:
-NOT_ESTABLISHED / NOT_ESTABLISHED / NOT_ESTABLISHED
+DEV HOMEPAGE PREDICATE / FAILED PREDICATE / ROOT CAUSE / COMPONENT:
+NOT_ESTABLISHED / NOT_ESTABLISHED / NOT_ESTABLISHED / NOT_ESTABLISHED
 
 PROVEN OUTER ERROR:
 RuntimeError: Runtime readiness deadline exceeded
 
 HANDOFF SHA256 / BYTES:
-bf791778f0fe31c4feec821d4535e71258455c25f88a0ed4bba9b38cf3fd73ac / 1622
+138a8a5536ec37a9875e6534a19f0a30618895b63caa3ba7319786af64b9d9c5 / 1073
 
 REPAIR CYCLE / FAILED REPAIR CYCLES:
 2 / 2 — BUDGET EXHAUSTED; counters unchanged
@@ -59,14 +50,14 @@ PRODUCTION/MAIN:
 UNTOUCHED
 
 NEXT PROPOSAL:
-PROPOSED_SINGLE_FILE_READ — NOT AUTHORIZED: one human/operator read-only extraction from /var/www/vhosts/system/dev.gcreation.agency/logs/access_ssl_log for 2026-10-06T13:31:34Z..2026-10-06T13:32:36Z, GET / only, maximum 64 rows/16 KiB; sanitize client IPs, headers, user agents, query strings, cookies, tokens, secrets and bodies. No symlink following, other file reads or runtime action.
+PROPOSED_NEXT_SINGLE_EVIDENCE_READ — NOT AUTHORIZED: one future human/operator extraction from /var/www/vhosts/system/dev.gcreation.agency/logs/access_ssl_log.processed for 2026-10-06T13:31:34Z..2026-10-06T13:32:36Z, GET / only, maximum 64 rows/16 KiB; sanitize client IPs, headers, raw user agents, query strings, cookies, tokens, secrets and bodies. No symlink following, other file read or runtime action.
 
 EVIDENCE:
-.ops/reports/P1/REPAIR_2_DEV_LOGDIR_METADATA_ANALYSIS.json
-.ops/reports/P1/REPAIR_2_DEV_LOGDIR_METADATA_REPORT.md
+.ops/reports/P1/REPAIR_2_ACCESS_SSL_SINGLE_FILE_ANALYSIS.json
+.ops/reports/P1/REPAIR_2_ACCESS_SSL_SINGLE_FILE_REPORT.md
 
 AUTHORIZATION:
-ANALYSIS ONLY — no protected content read, repair, deployment, runtime action or budget extension authorized.
+ANALYSIS ONLY — no additional protected read, repair, deployment, runtime action or budget extension.
 
 OVERSIGHT:
 .ops/oversight/LATEST_CHECKPOINT.json / .md; EXTERNAL PENDING / NON-BLOCKING

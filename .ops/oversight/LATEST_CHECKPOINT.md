@@ -1,40 +1,31 @@
 MVP CHECKPOINT
 
 PART / PROCESS:
-P1 / repair2-dev-logdir-metadata-analysis
+P1 / repair2-access-ssl-single-file-analysis
 
 RESULT / STATE:
-ANALYSIS_COMPLETE_SINGLE_FILE_READ_PROPOSED_NOT_AUTHORIZED_ROOT_CAUSE_NOT_ESTABLISHED / HARD_BLOCKED
+ANALYSIS_COMPLETE_CASE_A_RANGE_AFTER_ROOT_CAUSE_NOT_ESTABLISHED / HARD_BLOCKED
 
 HANDOFF SHA256 / BYTES:
-bf791778f0fe31c4feec821d4535e71258455c25f88a0ed4bba9b38cf3fd73ac / 1622
+138a8a5536ec37a9875e6534a19f0a30618895b63caa3ba7319786af64b9d9c5 / 1073
 
-DIRECTORY EXISTS / READABLE / TYPE:
-YES / YES / directory — human/operator metadata only
+FILE HISTORICAL COVERAGE:
+AFTER — parsed2026-10-07T00:23:53Z..06:48:33Z; 53/53 lines parsed, unparsed0.
+Target2026-10-06T13:31:34Z..13:32:36Z. Earliest39077 seconds after window end; CaseA.
 
-TOTAL / REPORTED ENTRIES / TRUNCATED:
-8 / 8 / NO
+GET / MATCHES / PYTHON_URLLIB GET / / STATUS SET:
+0 / 0 / NONE; first/last Python-urllib timestamps absent; no numbered ROW records.
 
-LOG LAYOUT CLASS:
-MIXED — regular access/error candidates with two .processed equivalents, no symlinks reported
+WATCHER ATTRIBUTION / INTERNAL HEALTH BEFORE HOMEPAGE:
+NOT_PROVEN / NOT_PROVEN
 
-PRIOR ZERO-RECOGNIZED REASON:
-NOT_ESTABLISHED — metadata insufficient; prior recognition rules/time-matched observations absent
-
-BEST LOG CANDIDATE / TYPE:
-/var/www/vhosts/system/dev.gcreation.agency/logs/access_ssl_log / ACCESS
-
-HISTORICAL WINDOW COVERAGE:
-POTENTIALLY_COVERS_WINDOW / NOT_PROVEN
-Nonempty post-window mtime permits possible coverage, not a measured log time range.
-
-ROOT CAUSE CLASS / FAILED PREDICATE / UNDERLYING COMPONENT:
-NOT_ESTABLISHED / NOT_ESTABLISHED / NOT_ESTABLISHED
+DEV HOMEPAGE PREDICATE / FAILED PREDICATE / ROOT CAUSE / COMPONENT:
+NOT_ESTABLISHED / NOT_ESTABLISHED / NOT_ESTABLISHED / NOT_ESTABLISHED
 
 KEY EVIDENCE:
-Exact handoff SHA/size; all34 lines/25 global fields/8 entries (64 entry fields) parsed.
-Existing/readable reported directory; 8 regular entries, all UID0/GID0, 0644, links2; no content or symlink traversal.
-The prior collector recognition cause is unknown. No health predicate or HTTP status is established.
+Exact SHA/size/all33 fields independently checked. Parsed range is entirely after the readiness window.
+No attributable historical row or status200 contradiction. Accepted controller/static flow unchanged;
+outer RuntimeError: Runtime readiness deadline exceeded still cannot identify the suppressed health failure.
 
 REPAIR COUNTERS:
 INITIAL failed/consumed; REPAIR_1 failed/consumed1/1; REPAIR_2 failed/consumed1/1.
@@ -50,14 +41,14 @@ PRODUCTION/MAIN:
 UNTOUCHED
 
 NEXT PROPOSAL:
-PROPOSED_SINGLE_FILE_READ — NOT AUTHORIZED: one human/operator read-only extraction from /var/www/vhosts/system/dev.gcreation.agency/logs/access_ssl_log for 2026-10-06T13:31:34Z..2026-10-06T13:32:36Z, GET / only, maximum 64 rows/16 KiB; sanitize client IPs, headers, user agents, query strings, cookies, tokens, secrets and bodies. No symlink following, other file reads or runtime action.
+PROPOSED_NEXT_SINGLE_EVIDENCE_READ — NOT AUTHORIZED: one future human/operator extraction from /var/www/vhosts/system/dev.gcreation.agency/logs/access_ssl_log.processed for 2026-10-06T13:31:34Z..2026-10-06T13:32:36Z, GET / only, maximum 64 rows/16 KiB; sanitize client IPs, headers, raw user agents, query strings, cookies, tokens, secrets and bodies. No symlink following, other file read or runtime action.
 
 EVIDENCE:
-.ops/reports/P1/REPAIR_2_DEV_LOGDIR_METADATA_OPERATOR_HANDOFF.txt
-.ops/reports/P1/REPAIR_2_DEV_LOGDIR_METADATA_ANALYSIS.json
-.ops/reports/P1/REPAIR_2_DEV_LOGDIR_METADATA_REPORT.md
+.ops/reports/P1/REPAIR_2_ACCESS_SSL_SINGLE_FILE_OPERATOR_HANDOFF.txt
+.ops/reports/P1/REPAIR_2_ACCESS_SSL_SINGLE_FILE_ANALYSIS.json
+.ops/reports/P1/REPAIR_2_ACCESS_SSL_SINGLE_FILE_REPORT.md
 
 EXTERNAL OVERSIGHT:
 PENDING / NON-BLOCKING
 
-NO PROTECTED CONTENT READ, REPAIR OR DEPLOYMENT IS AUTHORIZED.
+NO ADDITIONAL PROTECTED FILE READ, REPAIR OR DEPLOYMENT IS AUTHORIZED.

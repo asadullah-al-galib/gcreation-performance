@@ -894,9 +894,33 @@
         "automatic_retries": 0
       },
       "limitations": "Operator-supplied host observations; no direct privileged verification or HTTP/run/reproduction. Exact outer aggregate exception does not identify the suppressed health error. Full P1 acceptance remains blocked; counters/budget unchanged."
+    },
+    {
+      "criterion_id": "P1-REPAIR2-DEV-HOMEPAGE-LOG-ANALYSIS",
+      "part": "P1",
+      "requirement": "Correlate historical DEV homepage logs without inferred HTTP fields, repair/deployment or counter change",
+      "result": "ANALYSIS_COMPLETE_COVERAGE_UNAVAILABLE_ROOT_CAUSE_NOT_ESTABLISHED",
+      "evidence_class": "HUMAN_OPERATOR_READONLY_HANDOFF; CODEX_VERIFIED_SHA_FIELDS_AND_COMMITTED_CONTROL_FLOW",
+      "timestamp": "2026-10-07T06:40:45.974458+00:00",
+      "source_commit": "0ac34ba50ab3192abfe2ae425c4283879484258e",
+      "evidence_reference": "REPAIR_2_DEV_HOMEPAGE_LOG_ANALYSIS.json",
+      "observed": {
+        "handoff_sha256": "ff36565d9133061ec4cadbeecf41c2fd35020050c1de4da4b8bc3a94a1e8875e",
+        "collection_result": "COMPLETE",
+        "retained_log_files_matched": 0,
+        "python_urllib_homepage_requests": 0,
+        "dev_log_coverage": "UNAVAILABLE",
+        "status_set_reported": false,
+        "internal_health_before_homepage": "NOT_PROVEN",
+        "dev_homepage_predicate": "NOT_ESTABLISHED",
+        "root_cause_class": "NOT_ESTABLISHED",
+        "repair_2_attempts": 1,
+        "automatic_retries": 0
+      },
+      "limitations": "No coverage rows/status set/first-last timestamps or attributable request/error are supplied. Zero recognized files does not prove all retained logging absent or internal health failed. Human operator evidence only; no agent root/runtime action or new repair authority."
     }
   ],
-  "updated_at": "2026-10-07T06:10:56.635957+00:00",
+  "updated_at": "2026-10-07T06:40:45.974458+00:00",
   "repair_path": "REPAIR_2",
   "repair_state": "FAILED_CONSUMED_HARD_BLOCKED",
   "current_candidate_commit": "0ac34ba50ab3192abfe2ae425c4283879484258e",
@@ -960,6 +984,25 @@
     "inner_health_exception": "NOT_RETAINED",
     "failed_component": "NOT_ESTABLISHED",
     "next_readonly_observation": "One human/operator read-only extraction of retained DEV-only homepage access/error log records for 2026-10-06T13:31:34Z through 13:32:36Z, with coverage/retention and caller-attribution limits. No runtime reproduction, new request, repair, retry or deployment; exhausted budget remains unchanged.",
+    "repair_authorized": false,
+    "deployment_authorized": false,
+    "repair_counters_changed": false
+  },
+  "dev_homepage_log_analysis": {
+    "kind": "DEV_HOMEPAGE_HISTORICAL_LOG_EVIDENCE_ANALYSIS",
+    "process": "repair2-dev-homepage-log-analysis",
+    "handoff_sha256": "ff36565d9133061ec4cadbeecf41c2fd35020050c1de4da4b8bc3a94a1e8875e",
+    "evidence_file": ".ops/reports/P1/REPAIR_2_DEV_HOMEPAGE_LOG_ANALYSIS.json",
+    "report": ".ops/reports/P1/REPAIR_2_DEV_HOMEPAGE_LOG_REPORT.md",
+    "dev_log_coverage": "UNAVAILABLE",
+    "python_urllib_homepage_requests": 0,
+    "observed_homepage_status": "NONE",
+    "internal_health_before_homepage": "NOT_PROVEN",
+    "dev_homepage_health_predicate": "NOT_ESTABLISHED",
+    "root_cause_class": "NOT_ESTABLISHED",
+    "failed_predicate": "NOT_ESTABLISHED",
+    "underlying_component": "NOT_ESTABLISHED",
+    "next_readonly_observation": "One human/operator metadata-only inventory of /var/www/vhosts/system/dev.gcreation.agency/logs to establish filenames, types, link targets, sizes and retention timestamps after zero recognized files. Maximum 32 entries/8KiB; no log contents, symlink following, runtime action, repair, retry or deployment.",
     "repair_authorized": false,
     "deployment_authorized": false,
     "repair_counters_changed": false

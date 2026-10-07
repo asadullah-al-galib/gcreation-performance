@@ -55,8 +55,8 @@
   "human_gate": {
     "part": "P1",
     "repair": "REPAIR_2",
-    "purpose": "Human decision on proven diagnostic localhost predicate; underlying cause unknown",
-    "status": "HARD_BLOCKED_EXCEPTION_REPAIR_PROPOSED_NOT_AUTHORIZED",
+    "purpose": "Human decision on gateway-only refusal and unexplained port-publication mismatch",
+    "status": "HARD_BLOCKED_HUMAN_DECISION_REQUIRED",
     "action_file": ".ops/ACTION_REQUIRED.md",
     "accepted_source_commit": "0ac34ba50ab3192abfe2ae425c4283879484258e",
     "archive_sha256": "958c6833da7e63d7843996a3171e540bf74b6978dcdfaf521c1eb55a39587ced",
@@ -67,15 +67,15 @@
     "max_new_deployment_requests": 0,
     "automatic_retries": 0,
     "capability_verified": false,
-    "human_action": "PROPOSED_EXCEPTION_REPAIR \u2014 NOT AUTHORIZED. Human must decide whether to grant NEW explicit authority to establish the localhost URLError cause and review an exact cause-specific repair. No specific fix, further runtime execution, repair, retry or deployment is authorized.",
+    "human_action": "HUMAN DECISION REQUIRED. The gateway-only handoff reports PORT_3101_EXACT_PUBLISH=NO and URL_ERROR:CONNECTION_REFUSED, but omits the actual 3101/tcp publication and the exact comparison criteria. Decide whether to authorize narrowly scoped evidence sufficient to explain that mismatch and relate it to Stage2. No additional read, probe, gateway/full-runtime execution, repair, deployment or budget extension is authorized.",
     "old_image_preserved": "sha256:f2bb2401f1f296115cd0d3dd5609ca6514446f55d4484f1884639f308a456f24",
-    "action_file_sha256": "ebcc177bb6ca246866efffbd3952913ed14b8bcf78936312605b6d1f53ef0d68",
+    "action_file_sha256": "f1ad6ece363ed9bbddeef0e6ce58dc37d5991837faa0895750310ae5ba02a3c9",
     "gate_a": "PASS",
     "gate_b": "PASS",
     "gate_c": "PASS",
     "new_proven_image_id": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a",
     "image_acceptance_evidence_class": "HUMAN_OPERATOR_ATTESTED_VERIFIED_HANDOFF",
-    "verification_record": ".ops/reports/P1/diagnostic-instrumentation-stage2/ANALYSIS.json",
+    "verification_record": ".ops/reports/P1/gateway-only-stage3/ANALYSIS.json",
     "promoted_image_id": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a",
     "instrumentation_candidate_commit": "b060ff430854046df7490875ac402d9df909b43a",
     "installed_instrumentation_controller_sha256_operator_attested": "be656cc95fbc3d1df09c57852577f8343401916a47aeec2b12459b4be5de414f"
@@ -97,7 +97,7 @@
     "evidence_file": ".ops/reports/P1/REPAIR_2_DEPLOYMENT_ATTEMPT.json",
     "recorded_at_utc": "2026-10-06T13:37:17.941803+00:00",
     "root_cause": "NOT_ESTABLISHED",
-    "smallest_proposed_remediation": "No source/config remediation established. HUMAN DECISION REQUIRED: decide how to address the missing exact historical inner health exception or uniquely watcher-attributable in-window request/error evidence. No further protected-file read is proposed; no repair, retry, runtime reproduction, deployment or repair-budget extension is authorized.",
+    "smallest_proposed_remediation": "No source/config remediation established. HUMAN DECISION REQUIRED. The gateway-only handoff reports PORT_3101_EXACT_PUBLISH=NO and URL_ERROR:CONNECTION_REFUSED, but omits the actual 3101/tcp publication and the exact comparison criteria. Decide whether to authorize narrowly scoped evidence sufficient to explain that mismatch and relate it to Stage2. No additional read, probe, gateway/full-runtime execution, repair, deployment or budget extension is authorized.",
     "repair_cycle": 2,
     "failed_repair_cycles": 2,
     "automatic_retries": 0,
@@ -106,11 +106,12 @@
     "dev_log_directory_metadata_analysis": ".ops/reports/P1/REPAIR_2_DEV_LOGDIR_METADATA_ANALYSIS.json",
     "access_ssl_single_file_analysis": ".ops/reports/P1/REPAIR_2_ACCESS_SSL_SINGLE_FILE_ANALYSIS.json",
     "access_ssl_processed_analysis": ".ops/reports/P1/REPAIR_2_ACCESS_SSL_PROCESSED_ANALYSIS.json",
-    "proxy_access_ssl_analysis": ".ops/reports/P1/REPAIR_2_PROXY_ACCESS_SSL_ANALYSIS.json"
+    "proxy_access_ssl_analysis": ".ops/reports/P1/REPAIR_2_PROXY_ACCESS_SSL_ANALYSIS.json",
+    "gateway_stage3_analysis": ".ops/reports/P1/gateway-only-stage3/ANALYSIS.json"
   },
   "production_touched": false,
   "p7": "NOT_STARTED",
-  "updated_at": "2026-10-07T09:14:22.864117+00:00",
+  "updated_at": "2026-10-07T09:41:14.478199+00:00",
   "p7_authorization": "SEPARATE_HUMAN_REQUIRED",
   "security_review": {
     "part": "P1",
@@ -309,8 +310,8 @@
     "diagnosis": "Outer readiness exception proven from new journal; inner failing health endpoint/component and root cause NOT_ESTABLISHED.",
     "evidence_file": ".ops/reports/P1/REPAIR_2_DEPLOYMENT_ATTEMPT.json",
     "status": "HARD_BLOCKED",
-    "next_action": "PROPOSED_EXCEPTION_REPAIR \u2014 NOT AUTHORIZED. Human must decide whether to grant NEW explicit authority to establish the localhost URLError cause and review an exact cause-specific repair. No specific fix, further runtime execution, repair, retry or deployment is authorized.",
-    "smallest_remediation": "Restore the existing fixed localhost health transport only after the specific URLError cause is identified. Current evidence does not select a source/config/runtime fix; no change to V4 controls, acceptance, timeouts or retries is proposed. NOT AUTHORIZED.",
+    "next_action": "HUMAN DECISION REQUIRED. The gateway-only handoff reports PORT_3101_EXACT_PUBLISH=NO and URL_ERROR:CONNECTION_REFUSED, but omits the actual 3101/tcp publication and the exact comparison criteria. Decide whether to authorize narrowly scoped evidence sufficient to explain that mismatch and relate it to Stage2. No additional read, probe, gateway/full-runtime execution, repair, deployment or budget extension is authorized.",
+    "smallest_remediation": "No exact correction established; resolve the reported port-publication mismatch evidence only under new explicit human authority. No implementation authorized.",
     "source_remediation_status": "PASS_SOURCE_TESTS",
     "runtime_remediation_status": "REPAIR_2_FAILED_CONSUMED",
     "current_pending_criterion": "P1 runtime-health failed; repair budget exhausted",
@@ -319,7 +320,8 @@
     "dev_log_directory_metadata_analysis": ".ops/reports/P1/REPAIR_2_DEV_LOGDIR_METADATA_ANALYSIS.json",
     "access_ssl_single_file_analysis": ".ops/reports/P1/REPAIR_2_ACCESS_SSL_SINGLE_FILE_ANALYSIS.json",
     "access_ssl_processed_analysis": ".ops/reports/P1/REPAIR_2_ACCESS_SSL_PROCESSED_ANALYSIS.json",
-    "proxy_access_ssl_analysis": ".ops/reports/P1/REPAIR_2_PROXY_ACCESS_SSL_ANALYSIS.json"
+    "proxy_access_ssl_analysis": ".ops/reports/P1/REPAIR_2_PROXY_ACCESS_SSL_ANALYSIS.json",
+    "gateway_stage3_analysis": ".ops/reports/P1/gateway-only-stage3/ANALYSIS.json"
   },
   "external_oversight": "PENDING",
   "deployment_authority": {
@@ -342,16 +344,16 @@
     "max_new_deployment_requests": 0
   },
   "capability_gate": {
-    "process": "diagnostic-instrumentation-stage2-analysis",
-    "status": "HARD_BLOCKED_EXCEPTION_REPAIR_PROPOSED_NOT_AUTHORIZED",
+    "process": "gateway-only-stage3-analysis",
+    "status": "HARD_BLOCKED_HUMAN_DECISION_REQUIRED",
     "scope_class": "SECURITY_CRITICAL",
     "business_mapping": [
       "RELIABILITY",
       "SECURITY",
       "MVP_RELEASE"
     ],
-    "evidence_file": ".ops/reports/P1/diagnostic-instrumentation-stage2/ANALYSIS.json",
-    "reason": "Completed Stage2 diagnostic proves localhost URL_ERROR failures only; underlying cause and exact fix unknown. Exhausted repair budget, no further authority.",
+    "evidence_file": ".ops/reports/P1/gateway-only-stage3/ANALYSIS.json",
+    "reason": "Completed human Stage3 reports running gateway, port-publication mismatch and connection refusal; exact root cause remains unproven. Exhausted repair budget; no future execution authority.",
     "root_interface_available": false,
     "approval_already_granted": false,
     "repair_cycle_consumed": true,
@@ -385,7 +387,7 @@
   "oversight_checkpoint": {
     "latest_json": ".ops/oversight/LATEST_CHECKPOINT.json",
     "latest_markdown": ".ops/oversight/LATEST_CHECKPOINT.md",
-    "event": ".ops/oversight/events/0019-P1-diagnostic-instrumentation-stage2-analysis.json"
+    "event": ".ops/oversight/events/0020-P1-gateway-only-stage3-analysis.json"
   },
   "controller_refresh": {
     "operator_reported_result": "PASS",
@@ -740,5 +742,44 @@
     "repair_3_authorized": false,
     "repair_counter_change": false,
     "next_action": "PROPOSED_EXCEPTION_REPAIR \u2014 NOT AUTHORIZED. Human must decide whether to grant NEW explicit authority to establish the localhost URLError cause and review an exact cause-specific repair. No specific fix, further runtime execution, repair, retry or deployment is authorized."
+  },
+  "gateway_stage3_analysis": {
+    "process": "gateway-only-stage3-analysis",
+    "record": ".ops/reports/P1/gateway-only-stage3/ANALYSIS.json",
+    "report": ".ops/reports/P1/gateway-only-stage3/REPORT.md",
+    "handoff_sha256": "8660233e467c3b77e5beeff66d0125109c4eb78221f1ef4bd571420e1f916ba0",
+    "handoff_bytes": 1167,
+    "classification": {
+      "stage3_handoff": "VERIFIED",
+      "gateway_docker_run": "CREATED",
+      "gateway_state": "RUNNING",
+      "gateway_exit_code": 0,
+      "gateway_restart_count": 0,
+      "gateway_oom": "NO",
+      "port_3101_exact_publish": "NO",
+      "internal_network_exact": "YES",
+      "localhost_health_probe": "URL_ERROR:CONNECTION_REFUSED",
+      "gateway_log_classification": "NO_LOG_OUTPUT",
+      "host_to_gateway_transport": "FAIL_OBSERVED",
+      "gateway_process_lifecycle": "PASS_OBSERVED",
+      "stage2_localhost_failure_reproduced": "PARTIALLY",
+      "cause_attribution_class": "GATEWAY_RUNNING_BUT_LOCALHOST_TRANSPORT_UNREACHABLE",
+      "underlying_root_cause": "NOT_ESTABLISHED",
+      "underlying_component": "NOT_ESTABLISHED",
+      "control_flow_contradiction": false,
+      "port_publication_mismatch_reported": true,
+      "gateway_only_transport": "FAIL_OBSERVED",
+      "stage2_failure_domain": "NOT_ESTABLISHED"
+    },
+    "gateway_stage3_authorized": true,
+    "gateway_stage3_execution_count": 1,
+    "gateway_stage3_complete": true,
+    "authorization_scope": "COMPLETED_HUMAN_STAGE3_ONLY; NO_FUTURE_EXECUTION",
+    "further_gateway_execution_authorized": false,
+    "evidence_class": "HUMAN_OPERATOR_ATTESTATION; EXACT_HANDOFF_SHA_SIZE_FIELDS_AND_COMMITTED_IDENTITIES_VERIFIED",
+    "repair_counter_change": false,
+    "deployment_authorized": false,
+    "further_runtime_execution_authorized": false,
+    "next_action": "HUMAN DECISION REQUIRED. The gateway-only handoff reports PORT_3101_EXACT_PUBLISH=NO and URL_ERROR:CONNECTION_REFUSED, but omits the actual 3101/tcp publication and the exact comparison criteria. Decide whether to authorize narrowly scoped evidence sufficient to explain that mismatch and relate it to Stage2. No additional read, probe, gateway/full-runtime execution, repair, deployment or budget extension is authorized."
   }
 }

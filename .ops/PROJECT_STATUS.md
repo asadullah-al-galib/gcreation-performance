@@ -5,7 +5,7 @@ CURRENT PART / STATE:
 P1 / HARD_BLOCKED
 
 PROCESS:
-diagnostic-instrumentation-stage2-analysis
+gateway-only-stage3-analysis
 
 P0:
 FROZEN / HUMAN REVIEW PASS
@@ -13,30 +13,34 @@ FROZEN / HUMAN REVIEW PASS
 P1 EXECUTION / FULL REVIEW:
 BLOCKED / INCOMPLETE; INDEPENDENT REVIEW PENDING
 
-DIAGNOSTIC STAGE 2:
-AUTHORIZED HUMAN EXECUTION COUNT=1; COMPLETE=true; no future execution authority.
+GATEWAY STAGE 3:
+AUTHORIZED=true for completed human action only; EXECUTION COUNT=1; COMPLETE=true.
+FURTHER GATEWAY EXECUTION AUTHORIZED=false.
 
-HANDOFF / CONTROLLER INSTALL ATTESTATION:
-VERIFIED / MATCHES_REVIEWED_SHA
-Handoff SHA256 8587ec1e6d011f61e81674d1511a0816215beea2645dbf9a12763745d4cc3f02; 3,475 bytes.
-Installed instrumentation SHA256 be656cc95fbc3d1df09c57852577f8343401916a47aeec2b12459b4be5de414f (human operator attestation).
-Candidate b060ff430854046df7490875ac402d9df909b43a; prior controller SHA256 029c5d5714a13fbdd3565901bdc08341e36319c1ab90cf30ea6d4ab7e58c4039.
+HANDOFF:
+VERIFIED; SHA256 8660233e467c3b77e5beeff66d0125109c4eb78221f1ef4bd571420e1f916ba0; 1,167 bytes.
 
-DIAGNOSTIC RESULT / COUNTS:
-HEALTH_FAILED; readiness30; localhost PASS0/FAIL30; homepage PASS0/FAIL0.
-FAILED REASONS URL_ERROR:30; FAILED HTTP STATUSES NONE:30.
+GATEWAY DOCKER RUN / STATE / EXIT / RESTARTS / OOM:
+CREATED / RUNNING / 0 / 0 / NO — human operator attestation.
 
-FAILED PREDICATE / PROOF CLASS:
-LOCALHOST_ENGINE_HEALTH / PROVEN_IN_DIAGNOSTIC_EXECUTION
+EXACT PORT PUBLISH / EXACT INTERNAL NETWORK:
+NO / YES; actual port mapping and check definition unreported.
 
-INTERNAL HEALTH / DEV HOMEPAGE:
-FAIL_OBSERVED / NOT_REACHED
+LOCALHOST PROBE / LOG CLASSIFICATION:
+URL_ERROR:CONNECTION_REFUSED / NO_LOG_OUTPUT
 
-UNDERLYING ROOT CAUSE / COMPONENT:
-NOT_ESTABLISHED / NOT_ESTABLISHED
+HOST-TO-GATEWAY TRANSPORT / PROCESS LIFECYCLE:
+FAIL_OBSERVED / PASS_OBSERVED at the reported observation only.
 
-CONTROL FLOW CONTRADICTION / PREVIOUS FAILURE REPRODUCED:
-NO / PARTIALLY — historical inner predicate remains unknown.
+STAGE2 LOCALHOST FAILURE REPRODUCED:
+PARTIALLY — URL_ERROR class, not exact historical cause or equivalent full-runtime conditions.
+Stage2 LOCALHOST_ENGINE_HEALTH proof/30 URL_ERROR observations remain unchanged.
+
+CAUSE ATTRIBUTION:
+GATEWAY_RUNNING_BUT_LOCALHOST_TRANSPORT_UNREACHABLE
+
+UNDERLYING ROOT CAUSE / COMPONENT / CONTROL FLOW CONTRADICTION:
+NOT_ESTABLISHED / NOT_ESTABLISHED / NO
 
 REPAIR_2:
 FAILED_CONSUMED_1_OF_1 — runtime-health; rollback=false
@@ -60,11 +64,11 @@ PRODUCTION/MAIN:
 UNTOUCHED
 
 NEXT ACTION:
-PROPOSED_EXCEPTION_REPAIR — NOT AUTHORIZED. Human must decide whether to grant NEW explicit authority to establish the localhost URLError cause and review an exact cause-specific repair. No specific fix, further runtime execution, repair, retry or deployment is authorized.
+HUMAN DECISION REQUIRED. The gateway-only handoff reports PORT_3101_EXACT_PUBLISH=NO and URL_ERROR:CONNECTION_REFUSED, but omits the actual 3101/tcp publication and the exact comparison criteria. Decide whether to authorize narrowly scoped evidence sufficient to explain that mismatch and relate it to Stage2. No additional read, probe, gateway/full-runtime execution, repair, deployment or budget extension is authorized.
 
 ACTION FILE:
 .ops/ACTION_REQUIRED.md
 
 EVIDENCE:
-.ops/reports/P1/diagnostic-instrumentation-stage2/REPORT.md
-.ops/reports/P1/diagnostic-instrumentation-stage2/ANALYSIS.json
+.ops/reports/P1/gateway-only-stage3/REPORT.md
+.ops/reports/P1/gateway-only-stage3/ANALYSIS.json

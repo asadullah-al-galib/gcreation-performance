@@ -1,41 +1,36 @@
 STATUS:
-P1 HARD_BLOCKED — PROPOSED_EXCEPTION_REPAIR / NOT AUTHORIZED
+P1 HARD_BLOCKED — HUMAN DECISION REQUIRED
 
 PART / PROCESS:
-P1 / diagnostic-instrumentation-stage2-analysis
+P1 / gateway-only-stage3-analysis
 
-STAGE 2:
-AUTHORIZED HUMAN ACTION COMPLETE; execution count=1; no further runtime authority.
-Controller install attestation MATCHES_REVIEWED_SHA; handoff VERIFIED, 3,475 bytes.
+STAGE 3:
+Completed human gateway-only action only; authorized=true, execution count=1, complete=true.
+Further gateway execution authorized=false; no future runtime authority.
 
-DIAGNOSTIC RESULT:
-HEALTH_FAILED; LOCALHOST_ENGINE_HEALTH proven in this diagnostic execution.
-Readiness30; localhost PASS0/FAIL30; homepage PASS0/FAIL0/NOT_REACHED.
-URL_ERROR:30; safe HTTP status NONE:30.
-Underlying component/root cause NOT_ESTABLISHED. Previous failure reproduced PARTIALLY.
+EVIDENCE:
+Stage 3 handoff VERIFIED SHA256 8660233e467c3b77e5beeff66d0125109c4eb78221f1ef4bd571420e1f916ba0 / 1,167 bytes. Human gateway-only execution count=1, complete=true; no further gateway/runtime execution authority. Operator reports RUNNING, ExitCode=0, restart count=0, OOM=NO, state error=NO, NO_LOG_OUTPUT; lifecycle PASS_OBSERVED at the reported observation only. PORT_3101_EXACT_PUBLISH=NO; INTERNAL_NETWORK_EXACT=YES; localhost URL_ERROR:CONNECTION_REFUSED; host-to-gateway transport FAIL_OBSERVED. Cause attribution GATEWAY_RUNNING_BUT_LOCALHOST_TRANSPORT_UNREACHABLE; underlying root cause/component NOT_ESTABLISHED; no control-flow contradiction. Stage2 localhost failure reproduced PARTIALLY (URL_ERROR class, not exact historical cause/full-runtime conditions). Actual 3101/tcp mapping, comparison criteria and observation/probe timing are unreported. Reviewed controller expects 127.0.0.1:3101:3101; a running container alone does not prove a bound listener. Controller/image/network identity attestations match committed reviewed/prior identities; no new host verification. P1 BLOCKED / HARD_BLOCKED, full review PENDING; repair_cycle=2, failed repair cycles=2, REPAIR_2 failed/consumed1/1, all official attempts consumed, automatic retries=0, budget exhausted. P2–P7 NOT_STARTED; P0 FROZEN/human PASS; production/main untouched. HUMAN DECISION REQUIRED. The gateway-only handoff reports PORT_3101_EXACT_PUBLISH=NO and URL_ERROR:CONNECTION_REFUSED, but omits the actual 3101/tcp publication and the exact comparison criteria. Decide whether to authorize narrowly scoped evidence sufficient to explain that mismatch and relate it to Stage2. No additional read, probe, gateway/full-runtime execution, repair, deployment or budget extension is authorized.
 
-PROPOSED_EXCEPTION_REPAIR — NOT AUTHORIZED:
-Restore the existing fixed localhost health transport only after the specific URLError cause is identified. Current evidence does not select a source/config/runtime fix; no change to V4 controls, acceptance, timeouts or retries is proposed.
-Failure all30 attempts; underlying component established=NO.
-Source/controller/runtime-image-network/Plesk-nginx change requirements=UNKNOWN.
-Frozen security-boundary impact UNKNOWN until an exact repair exists.
-Future repair/deployment requires NEW explicit human authorization=YES.
+EXACT MISSING CRITERION:
+Actual sanitized 3101/tcp host publication and exact comparison definition/values explaining
+PORT_3101_EXACT_PUBLISH=NO against the reviewed 127.0.0.1:3101:3101 mapping.
+Historical diagnostic command/container ID, post-start listen readiness and state/port/probe
+observation timestamps are unreported. Stage2 exact errno is also unreported.
+No exact source/config correction, security-boundary impact or historical cause is established.
 
 NEXT HUMAN ACTION:
-PROPOSED_EXCEPTION_REPAIR — NOT AUTHORIZED. Human must decide whether to grant NEW explicit authority to establish the localhost URLError cause and review an exact cause-specific repair. No specific fix, further runtime execution, repair, retry or deployment is authorized.
+HUMAN DECISION REQUIRED. The gateway-only handoff reports PORT_3101_EXACT_PUBLISH=NO and URL_ERROR:CONNECTION_REFUSED, but omits the actual 3101/tcp publication and the exact comparison criteria. Decide whether to authorize narrowly scoped evidence sufficient to explain that mismatch and relate it to Stage2. No additional read, probe, gateway/full-runtime execution, repair, deployment or budget extension is authorized.
 
 COUNTERS / STOP:
 INITIAL failed/consumed; REPAIR_1 failed/consumed1/1; REPAIR_2 failed/consumed1/1.
 repair_cycle=2; failed repair cycles=2; automatic retries=0; repair budget EXHAUSTED.
-P1 BLOCKED/full independent review PENDING; P2–P7 NOT_STARTED; P0 FROZEN/human PASS.
-Production/main untouched. No budget reset/extension, REPAIR_3, deployment or diagnostic retry.
+P1 BLOCKED / full independent review PENDING; P2–P7 NOT_STARTED; P0 FROZEN/human PASS.
+Production/main untouched. No REPAIR_3, budget extension/reset or runtime/deployment retry.
 
-EVIDENCE:
-.ops/reports/P1/diagnostic-instrumentation-stage2/REPORT.md
-.ops/reports/P1/diagnostic-instrumentation-stage2/ANALYSIS.json
-.ops/reports/P1/diagnostic-instrumentation-stage2/HANDOFF.txt
-.ops/reports/P1/diagnostic-instrumentation-stage2/CHECKSUMS.sha256
+REPORT / RECORD:
+.ops/reports/P1/gateway-only-stage3/REPORT.md
+.ops/reports/P1/gateway-only-stage3/ANALYSIS.json
 
-No specific source/config fix, protected read, root execution, controller install/restore,
-image/network/service action, HTTP probe, runtime reproduction, cleanup or P2 is authorized.
+No execution recipe, protected-file read, controller/source/image/network/config/service
+change, HTTP probe, gateway/full-runtime action, cleanup or P2 is authorized.
 NO REPAIR OR DEPLOYMENT IS AUTHORIZED.

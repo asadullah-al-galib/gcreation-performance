@@ -55,8 +55,8 @@
   "human_gate": {
     "part": "P1",
     "repair": "REPAIR_2",
-    "purpose": "Human decision on gateway-only refusal and unexplained port-publication mismatch",
-    "status": "HARD_BLOCKED_HUMAN_DECISION_REQUIRED",
+    "purpose": "Human decision on proven isolated requested/effective Docker port-publication mismatch",
+    "status": "HARD_BLOCKED_EXCEPTION_REPAIR_PROPOSED_NOT_AUTHORIZED",
     "action_file": ".ops/ACTION_REQUIRED.md",
     "accepted_source_commit": "0ac34ba50ab3192abfe2ae425c4283879484258e",
     "archive_sha256": "958c6833da7e63d7843996a3171e540bf74b6978dcdfaf521c1eb55a39587ced",
@@ -67,15 +67,15 @@
     "max_new_deployment_requests": 0,
     "automatic_retries": 0,
     "capability_verified": false,
-    "human_action": "HUMAN DECISION REQUIRED. The gateway-only handoff reports PORT_3101_EXACT_PUBLISH=NO and URL_ERROR:CONNECTION_REFUSED, but omits the actual 3101/tcp publication and the exact comparison criteria. Decide whether to authorize narrowly scoped evidence sufficient to explain that mismatch and relate it to Stage2. No additional read, probe, gateway/full-runtime execution, repair, deployment or budget extension is authorized.",
+    "human_action": "PROPOSED_EXCEPTION_REPAIR \u2014 NOT AUTHORIZED. Human decision required on the observed requested/effective Docker port-publication mismatch. Exact daemon/network mechanism and intervention remain unknown. Any further evidence collection, gateway/full-runtime execution, repair or deployment requires NEW explicit human authority; no REPAIR_3 or repair-budget extension/reset is authorized.",
     "old_image_preserved": "sha256:f2bb2401f1f296115cd0d3dd5609ca6514446f55d4484f1884639f308a456f24",
-    "action_file_sha256": "f1ad6ece363ed9bbddeef0e6ce58dc37d5991837faa0895750310ae5ba02a3c9",
+    "action_file_sha256": "890e4c8ff925e1eca57631616d22f715330f819d29352af82c74284e9bd8ac60",
     "gate_a": "PASS",
     "gate_b": "PASS",
     "gate_c": "PASS",
     "new_proven_image_id": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a",
     "image_acceptance_evidence_class": "HUMAN_OPERATOR_ATTESTED_VERIFIED_HANDOFF",
-    "verification_record": ".ops/reports/P1/gateway-only-stage3/ANALYSIS.json",
+    "verification_record": ".ops/reports/P1/gateway-stage3b/ANALYSIS.json",
     "promoted_image_id": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a",
     "instrumentation_candidate_commit": "b060ff430854046df7490875ac402d9df909b43a",
     "installed_instrumentation_controller_sha256_operator_attested": "be656cc95fbc3d1df09c57852577f8343401916a47aeec2b12459b4be5de414f"
@@ -97,7 +97,7 @@
     "evidence_file": ".ops/reports/P1/REPAIR_2_DEPLOYMENT_ATTEMPT.json",
     "recorded_at_utc": "2026-10-06T13:37:17.941803+00:00",
     "root_cause": "NOT_ESTABLISHED",
-    "smallest_proposed_remediation": "No source/config remediation established. HUMAN DECISION REQUIRED. The gateway-only handoff reports PORT_3101_EXACT_PUBLISH=NO and URL_ERROR:CONNECTION_REFUSED, but omits the actual 3101/tcp publication and the exact comparison criteria. Decide whether to authorize narrowly scoped evidence sufficient to explain that mismatch and relate it to Stage2. No additional read, probe, gateway/full-runtime execution, repair, deployment or budget extension is authorized.",
+    "smallest_proposed_remediation": "Exact historical/source/config correction remains unestablished. PROPOSED_EXCEPTION_REPAIR \u2014 NOT AUTHORIZED. Human decision required on the observed requested/effective Docker port-publication mismatch. Exact daemon/network mechanism and intervention remain unknown. Any further evidence collection, gateway/full-runtime execution, repair or deployment requires NEW explicit human authority; no REPAIR_3 or repair-budget extension/reset is authorized.",
     "repair_cycle": 2,
     "failed_repair_cycles": 2,
     "automatic_retries": 0,
@@ -107,11 +107,12 @@
     "access_ssl_single_file_analysis": ".ops/reports/P1/REPAIR_2_ACCESS_SSL_SINGLE_FILE_ANALYSIS.json",
     "access_ssl_processed_analysis": ".ops/reports/P1/REPAIR_2_ACCESS_SSL_PROCESSED_ANALYSIS.json",
     "proxy_access_ssl_analysis": ".ops/reports/P1/REPAIR_2_PROXY_ACCESS_SSL_ANALYSIS.json",
-    "gateway_stage3_analysis": ".ops/reports/P1/gateway-only-stage3/ANALYSIS.json"
+    "gateway_stage3_analysis": ".ops/reports/P1/gateway-only-stage3/ANALYSIS.json",
+    "gateway_stage3b_analysis": ".ops/reports/P1/gateway-stage3b/ANALYSIS.json"
   },
   "production_touched": false,
   "p7": "NOT_STARTED",
-  "updated_at": "2026-10-07T09:41:14.478199+00:00",
+  "updated_at": "2026-10-07T10:14:51.960457+00:00",
   "p7_authorization": "SEPARATE_HUMAN_REQUIRED",
   "security_review": {
     "part": "P1",
@@ -310,8 +311,8 @@
     "diagnosis": "Outer readiness exception proven from new journal; inner failing health endpoint/component and root cause NOT_ESTABLISHED.",
     "evidence_file": ".ops/reports/P1/REPAIR_2_DEPLOYMENT_ATTEMPT.json",
     "status": "HARD_BLOCKED",
-    "next_action": "HUMAN DECISION REQUIRED. The gateway-only handoff reports PORT_3101_EXACT_PUBLISH=NO and URL_ERROR:CONNECTION_REFUSED, but omits the actual 3101/tcp publication and the exact comparison criteria. Decide whether to authorize narrowly scoped evidence sufficient to explain that mismatch and relate it to Stage2. No additional read, probe, gateway/full-runtime execution, repair, deployment or budget extension is authorized.",
-    "smallest_remediation": "No exact correction established; resolve the reported port-publication mismatch evidence only under new explicit human authority. No implementation authorized.",
+    "next_action": "PROPOSED_EXCEPTION_REPAIR \u2014 NOT AUTHORIZED. Human decision required on the observed requested/effective Docker port-publication mismatch. Exact daemon/network mechanism and intervention remain unknown. Any further evidence collection, gateway/full-runtime execution, repair or deployment requires NEW explicit human authority; no REPAIR_3 or repair-budget extension/reset is authorized.",
+    "smallest_remediation": "Make the already requested reviewed 127.0.0.1:3101:3101 binding take effect at the Docker port-publication layer while preserving loopback-only exposure, the internal network and all V4 controls. Evidence does not select a command, source patch or daemon/network intervention. NOT AUTHORIZED.",
     "source_remediation_status": "PASS_SOURCE_TESTS",
     "runtime_remediation_status": "REPAIR_2_FAILED_CONSUMED",
     "current_pending_criterion": "P1 runtime-health failed; repair budget exhausted",
@@ -321,7 +322,8 @@
     "access_ssl_single_file_analysis": ".ops/reports/P1/REPAIR_2_ACCESS_SSL_SINGLE_FILE_ANALYSIS.json",
     "access_ssl_processed_analysis": ".ops/reports/P1/REPAIR_2_ACCESS_SSL_PROCESSED_ANALYSIS.json",
     "proxy_access_ssl_analysis": ".ops/reports/P1/REPAIR_2_PROXY_ACCESS_SSL_ANALYSIS.json",
-    "gateway_stage3_analysis": ".ops/reports/P1/gateway-only-stage3/ANALYSIS.json"
+    "gateway_stage3_analysis": ".ops/reports/P1/gateway-only-stage3/ANALYSIS.json",
+    "gateway_stage3b_analysis": ".ops/reports/P1/gateway-stage3b/ANALYSIS.json"
   },
   "external_oversight": "PENDING",
   "deployment_authority": {
@@ -344,16 +346,16 @@
     "max_new_deployment_requests": 0
   },
   "capability_gate": {
-    "process": "gateway-only-stage3-analysis",
-    "status": "HARD_BLOCKED_HUMAN_DECISION_REQUIRED",
+    "process": "gateway-stage3b-analysis",
+    "status": "HARD_BLOCKED_EXCEPTION_REPAIR_PROPOSED_NOT_AUTHORIZED",
     "scope_class": "SECURITY_CRITICAL",
     "business_mapping": [
       "RELIABILITY",
       "SECURITY",
       "MVP_RELEASE"
     ],
-    "evidence_file": ".ops/reports/P1/gateway-only-stage3/ANALYSIS.json",
-    "reason": "Completed human Stage3 reports running gateway, port-publication mismatch and connection refusal; exact root cause remains unproven. Exhausted repair budget; no future execution authority.",
+    "evidence_file": ".ops/reports/P1/gateway-stage3b/ANALYSIS.json",
+    "reason": "Completed human Stage3B supports DOCKER_PORT_PUBLICATION_LAYER component class; exact mechanism/correction unknown. Repair budget exhausted and no future runtime authority.",
     "root_interface_available": false,
     "approval_already_granted": false,
     "repair_cycle_consumed": true,
@@ -387,7 +389,7 @@
   "oversight_checkpoint": {
     "latest_json": ".ops/oversight/LATEST_CHECKPOINT.json",
     "latest_markdown": ".ops/oversight/LATEST_CHECKPOINT.md",
-    "event": ".ops/oversight/events/0020-P1-gateway-only-stage3-analysis.json"
+    "event": ".ops/oversight/events/0021-P1-gateway-stage3b-analysis.json"
   },
   "controller_refresh": {
     "operator_reported_result": "PASS",
@@ -781,5 +783,93 @@
     "deployment_authorized": false,
     "further_runtime_execution_authorized": false,
     "next_action": "HUMAN DECISION REQUIRED. The gateway-only handoff reports PORT_3101_EXACT_PUBLISH=NO and URL_ERROR:CONNECTION_REFUSED, but omits the actual 3101/tcp publication and the exact comparison criteria. Decide whether to authorize narrowly scoped evidence sufficient to explain that mismatch and relate it to Stage2. No additional read, probe, gateway/full-runtime execution, repair, deployment or budget extension is authorized."
+  },
+  "gateway_stage3b_analysis": {
+    "process": "gateway-stage3b-analysis",
+    "record": ".ops/reports/P1/gateway-stage3b/ANALYSIS.json",
+    "report": ".ops/reports/P1/gateway-stage3b/REPORT.md",
+    "handoff_sha256": "25b1a14c0cfc93c425ffbf65d4d926e54fac8e653b108f799bd523766a2aee4a",
+    "handoff_bytes": 1364,
+    "classification": {
+      "stage3b_handoff": "VERIFIED",
+      "gateway_running": "YES",
+      "hostconfig_3101_present": "YES",
+      "hostconfig_binding_count": 1,
+      "hostconfig_exact_loopback_3101": "YES",
+      "hostconfig_sanitized_binding": "IP_CLASS=IPV4_LOOPBACK_EXACT;HOST_PORT=3101",
+      "networksettings_3101_present": "NO",
+      "networksettings_binding_count": 0,
+      "networksettings_exact_loopback_3101": "NO",
+      "networksettings_sanitized_binding": "ABSENT;BINDING_COUNT=0",
+      "container_3101_listener": "STATE=LISTEN;TOTAL=1;IPV4=1;IPV6=0",
+      "host_listener_before": "EXACT_LOOPBACK=0;ANY_IPV4=0;IPV6_LOOPBACK=0;ANY_IPV6=0;TOTAL=0",
+      "host_listener_after": "EXACT_LOOPBACK=0;ANY_IPV4=0;IPV6_LOOPBACK=0;ANY_IPV6=0;TOTAL=0",
+      "localhost_health_probe": "URL_ERROR:CONNECTION_REFUSED",
+      "docker_requested_port_config": "CORRECT",
+      "docker_effective_port_publication": "MISMATCH",
+      "container_gateway_listener": "PASS_OBSERVED",
+      "host_to_gateway_transport": "FAIL_OBSERVED",
+      "stage3_port_mismatch_reproduced": "YES",
+      "stage2_localhost_failure_reproduced": "PARTIALLY",
+      "root_cause_class": "PROVEN_COMPONENT_CLASS",
+      "underlying_root_cause": "NOT_ESTABLISHED",
+      "underlying_component": "DOCKER_PORT_PUBLICATION_LAYER",
+      "control_flow_contradiction": false
+    },
+    "classification_scope": "THIS_ISOLATED_STAGE3B_OBSERVATION_ONLY",
+    "gateway_stage3b_authorized": true,
+    "gateway_stage3b_execution_count": 1,
+    "gateway_stage3b_complete": true,
+    "authorization_scope": "COMPLETED_HUMAN_STAGE3B_ONLY; NO_FUTURE_EXECUTION",
+    "further_gateway_execution_authorized": false,
+    "evidence_class": "HUMAN_OPERATOR_ATTESTATION; EXACT_HANDOFF_SHA_SIZE_FIELDS_AND_COMMITTED_IDENTITIES_VERIFIED",
+    "repair_counter_change": false,
+    "deployment_authorized": false,
+    "further_runtime_execution_authorized": false,
+    "proposed_exception_repair": {
+      "status": "PROPOSED_EXCEPTION_REPAIR \u2014 NOT AUTHORIZED",
+      "proof_scope": "THIS_ISOLATED_HUMAN_STAGE3B_OBSERVATION_ONLY",
+      "exact_proven_mismatch": "Correct requested HostConfig 3101/tcp binding; effective NetworkSettings 3101/tcp reported absent with zero bindings.",
+      "expected_requested_binding": {
+        "port_key": "3101/tcp",
+        "binding_count": 1,
+        "ip_class": "IPV4_LOOPBACK_EXACT",
+        "host_port": "3101"
+      },
+      "observed_requested_binding": {
+        "port_key_present": true,
+        "binding_count": 1,
+        "ip_class": "IPV4_LOOPBACK_EXACT",
+        "host_port": "3101"
+      },
+      "expected_effective_binding": {
+        "port_key": "3101/tcp",
+        "binding_count": 1,
+        "ip_class": "IPV4_LOOPBACK_EXACT",
+        "host_port": "3101"
+      },
+      "observed_effective_binding": {
+        "port_key_present": false,
+        "binding_count": 0,
+        "sanitized_binding_rows": []
+      },
+      "underlying_component": "DOCKER_PORT_PUBLICATION_LAYER",
+      "root_cause_class": "PROVEN_COMPONENT_CLASS",
+      "exact_mechanism": "NOT_ESTABLISHED",
+      "smallest_repair_hypothesis": "Make the already requested reviewed 127.0.0.1:3101:3101 binding take effect at the Docker port-publication layer while preserving loopback-only exposure, the internal network and all V4 controls. Evidence does not select a command, source patch or daemon/network intervention.",
+      "controller_source_change_required": "UNKNOWN",
+      "docker_daemon_runtime_configuration_change_required": "UNKNOWN",
+      "network_change_required": "UNKNOWN",
+      "gateway_image_change_required": "UNKNOWN",
+      "security_boundary_impact": "UNKNOWN",
+      "new_human_repair_deployment_authorization_required": true,
+      "implementation_authorized": false,
+      "deployment_authorized": false,
+      "repair_3_authorized": false,
+      "further_gateway_execution_authorized": false,
+      "further_runtime_execution_authorized": false,
+      "repair_budget_reset_or_extension_authorized": false
+    },
+    "next_action": "PROPOSED_EXCEPTION_REPAIR \u2014 NOT AUTHORIZED. Human decision required on the observed requested/effective Docker port-publication mismatch. Exact daemon/network mechanism and intervention remain unknown. Any further evidence collection, gateway/full-runtime execution, repair or deployment requires NEW explicit human authority; no REPAIR_3 or repair-budget extension/reset is authorized."
   }
 }

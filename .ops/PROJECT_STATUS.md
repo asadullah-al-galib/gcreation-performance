@@ -5,7 +5,7 @@ CURRENT PART / STATE:
 P1 / HARD_BLOCKED
 
 PROCESS:
-gateway-only-stage3-analysis
+gateway-stage3b-analysis
 
 P0:
 FROZEN / HUMAN REVIEW PASS
@@ -13,34 +13,41 @@ FROZEN / HUMAN REVIEW PASS
 P1 EXECUTION / FULL REVIEW:
 BLOCKED / INCOMPLETE; INDEPENDENT REVIEW PENDING
 
-GATEWAY STAGE 3:
+GATEWAY STAGE3B:
 AUTHORIZED=true for completed human action only; EXECUTION COUNT=1; COMPLETE=true.
 FURTHER GATEWAY EXECUTION AUTHORIZED=false.
 
 HANDOFF:
-VERIFIED; SHA256 8660233e467c3b77e5beeff66d0125109c4eb78221f1ef4bd571420e1f916ba0; 1,167 bytes.
+VERIFIED; SHA256 25b1a14c0cfc93c425ffbf65d4d926e54fac8e653b108f799bd523766a2aee4a; 1,364 bytes.
 
-GATEWAY DOCKER RUN / STATE / EXIT / RESTARTS / OOM:
-CREATED / RUNNING / 0 / 0 / NO — human operator attestation.
+GATEWAY RUNNING / CONTAINER 3101 LISTENER:
+YES / STATE=LISTEN;TOTAL=1;IPV4=1;IPV6=0 — human operator attestation.
 
-EXACT PORT PUBLISH / EXACT INTERNAL NETWORK:
-NO / YES; actual port mapping and check definition unreported.
+HOSTCONFIG:
+3101/tcp PRESENT=YES; COUNT=1; EXACT=YES; OTHER PORT KEYS=NO.
+IP_CLASS=IPV4_LOOPBACK_EXACT;HOST_PORT=3101.
 
-LOCALHOST PROBE / LOG CLASSIFICATION:
-URL_ERROR:CONNECTION_REFUSED / NO_LOG_OUTPUT
+NETWORKSETTINGS:
+3101/tcp PRESENT=NO; COUNT=0; EXACT=NO; OTHER PORT KEYS=NO; binding ABSENT.
 
-HOST-TO-GATEWAY TRANSPORT / PROCESS LIFECYCLE:
-FAIL_OBSERVED / PASS_OBSERVED at the reported observation only.
+DOCKER REQUESTED CONFIG / EFFECTIVE PUBLICATION:
+CORRECT / MISMATCH
 
-STAGE2 LOCALHOST FAILURE REPRODUCED:
-PARTIALLY — URL_ERROR class, not exact historical cause or equivalent full-runtime conditions.
-Stage2 LOCALHOST_ENGINE_HEALTH proof/30 URL_ERROR observations remain unchanged.
+HOST LISTENER BEFORE / AFTER:
+TOTAL=0 / TOTAL=0; supporting evidence only, not standalone publication failure proof.
 
-CAUSE ATTRIBUTION:
-GATEWAY_RUNNING_BUT_LOCALHOST_TRANSPORT_UNREACHABLE
+LOCALHOST PROBE / CONTAINER LISTENER / HOST-TO-GATEWAY TRANSPORT:
+URL_ERROR:CONNECTION_REFUSED / PASS_OBSERVED / FAIL_OBSERVED
 
-UNDERLYING ROOT CAUSE / COMPONENT / CONTROL FLOW CONTRADICTION:
-NOT_ESTABLISHED / NOT_ESTABLISHED / NO
+STAGE3 PORT MISMATCH / STAGE2 LOCALHOST FAILURE REPRODUCED:
+YES at reported-check level / PARTIALLY — exact historical causes remain unproven.
+
+ROOT CAUSE CLASS / UNDERLYING ROOT CAUSE / COMPONENT:
+PROVEN_COMPONENT_CLASS / NOT_ESTABLISHED / DOCKER_PORT_PUBLICATION_LAYER
+Scope: this isolated Stage3B observation only; historical official cause unchanged.
+
+CONTROL FLOW CONTRADICTION:
+NO
 
 REPAIR_2:
 FAILED_CONSUMED_1_OF_1 — runtime-health; rollback=false
@@ -64,11 +71,11 @@ PRODUCTION/MAIN:
 UNTOUCHED
 
 NEXT ACTION:
-HUMAN DECISION REQUIRED. The gateway-only handoff reports PORT_3101_EXACT_PUBLISH=NO and URL_ERROR:CONNECTION_REFUSED, but omits the actual 3101/tcp publication and the exact comparison criteria. Decide whether to authorize narrowly scoped evidence sufficient to explain that mismatch and relate it to Stage2. No additional read, probe, gateway/full-runtime execution, repair, deployment or budget extension is authorized.
+PROPOSED_EXCEPTION_REPAIR — NOT AUTHORIZED. Human decision required on the observed requested/effective Docker port-publication mismatch. Exact daemon/network mechanism and intervention remain unknown. Any further evidence collection, gateway/full-runtime execution, repair or deployment requires NEW explicit human authority; no REPAIR_3 or repair-budget extension/reset is authorized.
 
 ACTION FILE:
 .ops/ACTION_REQUIRED.md
 
 EVIDENCE:
-.ops/reports/P1/gateway-only-stage3/REPORT.md
-.ops/reports/P1/gateway-only-stage3/ANALYSIS.json
+.ops/reports/P1/gateway-stage3b/REPORT.md
+.ops/reports/P1/gateway-stage3b/ANALYSIS.json

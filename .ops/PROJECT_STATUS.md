@@ -5,7 +5,7 @@ CURRENT PART / STATE:
 P1 / HARD_BLOCKED
 
 PROCESS:
-repair2-access-ssl-processed-analysis
+repair2-proxy-access-ssl-analysis
 
 P0:
 FROZEN / HUMAN REVIEW PASS
@@ -17,10 +17,10 @@ REPAIR_2:
 FAILED_CONSUMED_1_OF_1 — runtime-health; rollback=false
 
 FILE HISTORICAL COVERAGE:
-OVERLAPS — parsed range2026-10-04T17:22:02Z..2026-10-06T17:30:20Z; total12561/parsed12560/unparsed1.
+AFTER — parsed range2026-10-06T22:20:21Z..2026-10-07T07:53:50Z;246/246 parsed,unparsed0.
 
 ANY REQUESTS IN WINDOW / GET / MATCHES / PYTHON_URLLIB GET / / STATUS SET:
-2 / 0 / 0 / NONE — parser-recognized counts; first/last Python-urllib times absent, no numbered ROW entries.
+0 / 0 / 0 / NONE — INPUT_BYTES and caller first/last UTC absent; no numbered ROW records.
 
 WATCHER ATTRIBUTION / INTERNAL HEALTH BEFORE HOMEPAGE:
 NOT_PROVEN / NOT_PROVEN
@@ -35,7 +35,7 @@ PROVEN OUTER ERROR:
 RuntimeError: Runtime readiness deadline exceeded
 
 HANDOFF SHA256 / BYTES:
-dc6149b0b04209ddcf03801558fe825a94fbd5ad65a04a1da6f3120ea53a46af / 1176
+48c9933b7940497980bab554b24fc4fd177b1d0c71d8b4f75f5c3c04af258fae / 1144
 
 REPAIR CYCLE / FAILED REPAIR CYCLES:
 2 / 2 — BUDGET EXHAUSTED; counters unchanged
@@ -52,12 +52,12 @@ NOT_STARTED
 PRODUCTION/MAIN:
 UNTOUCHED
 
-NEXT PROPOSAL:
-PROPOSED_NEXT_SINGLE_EVIDENCE_READ — NOT AUTHORIZED: one future human/operator extraction from /var/www/vhosts/system/dev.gcreation.agency/logs/proxy_access_ssl_log for 2026-10-06T13:31:34Z..2026-10-06T13:32:36Z, GET / only, maximum 64 rows/16 KiB; sanitize client IPs, headers, raw user agents, query strings, cookies, tokens, secrets and bodies. No symlink following, other file read or runtime action.
+NEXT ACTION:
+HUMAN DECISION REQUIRED: decide how to address the missing exact historical inner health exception or uniquely watcher-attributable in-window request/error evidence. No further protected-file read is proposed; no repair, retry, runtime reproduction, deployment or repair-budget extension is authorized.
 
 EVIDENCE:
-.ops/reports/P1/REPAIR_2_ACCESS_SSL_PROCESSED_ANALYSIS.json
-.ops/reports/P1/REPAIR_2_ACCESS_SSL_PROCESSED_REPORT.md
+.ops/reports/P1/REPAIR_2_PROXY_ACCESS_SSL_ANALYSIS.json
+.ops/reports/P1/REPAIR_2_PROXY_ACCESS_SSL_REPORT.md
 
 AUTHORIZATION:
 ANALYSIS ONLY — no additional protected read, repair, deployment, runtime action or budget extension.

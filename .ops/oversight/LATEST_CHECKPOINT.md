@@ -1,19 +1,19 @@
 MVP CHECKPOINT
 
 PART / PROCESS:
-P1 / repair2-access-ssl-processed-analysis
+P1 / repair2-proxy-access-ssl-analysis
 
 RESULT / STATE:
-ANALYSIS_COMPLETE_CASE_B_OVERLAPS_NO_PARSED_GET_ROOT_ROOT_CAUSE_NOT_ESTABLISHED / HARD_BLOCKED
+ANALYSIS_COMPLETE_CASE_A_PROXY_RANGE_AFTER_ROOT_CAUSE_NOT_ESTABLISHED_HUMAN_DECISION_REQUIRED / HARD_BLOCKED
 
 HANDOFF SHA256 / BYTES:
-dc6149b0b04209ddcf03801558fe825a94fbd5ad65a04a1da6f3120ea53a46af / 1176
+48c9933b7940497980bab554b24fc4fd177b1d0c71d8b4f75f5c3c04af258fae / 1144
 
 FILE HISTORICAL COVERAGE:
-OVERLAPS — parsed range2026-10-04T17:22:02Z..2026-10-06T17:30:20Z; total12561/parsed12560/unparsed1.
+AFTER — parsed range2026-10-06T22:20:21Z..2026-10-07T07:53:50Z;246/246 parsed,unparsed0.
 
 ANY REQUESTS IN WINDOW / GET / MATCHES / PYTHON_URLLIB GET / / STATUS SET:
-2 / 0 / 0 / NONE — parser-recognized counts; first/last Python-urllib times absent, no numbered ROW entries.
+0 / 0 / 0 / NONE — INPUT_BYTES and caller first/last UTC absent; no numbered ROW records.
 
 WATCHER ATTRIBUTION / INTERNAL HEALTH BEFORE HOMEPAGE:
 NOT_PROVEN / NOT_PROVEN
@@ -25,9 +25,10 @@ CONTROL FLOW CONTRADICTION:
 NO — none demonstrated
 
 KEY EVIDENCE:
-All35 fields/SHA/size verified. Pinned source metadata matches ENTRY_04; CaseB.
-Two in-window requests and1 unparsed line have no row context. No status200/caller contradiction or failed predicate is established.
-Submission/RUNNING/investigation/FAILED anchors correlate; no per-attempt times manufactured.
+All34 fields/SHA/size verified. Snapshot56447 bytes/mtime2026-10-07T07:53:50Z is a later observation, not pinned equality
+to prior42426-byte metadata. Current proxy range begins31665 seconds after the target window; CaseA.
+Prior processed overlap/2 requests/0 GET / and1 unparsed line remain unchanged; cross-layer identities/stages not established.
+Timeline anchors preserved; no per-attempt times or health predicate inferred. No further protected read is proposed.
 
 REPAIR COUNTERS:
 INITIAL failed/consumed; REPAIR_1 failed/consumed1/1; REPAIR_2 failed/consumed1/1.
@@ -42,13 +43,13 @@ NOT_STARTED
 PRODUCTION/MAIN:
 UNTOUCHED
 
-NEXT PROPOSAL:
-PROPOSED_NEXT_SINGLE_EVIDENCE_READ — NOT AUTHORIZED: one future human/operator extraction from /var/www/vhosts/system/dev.gcreation.agency/logs/proxy_access_ssl_log for 2026-10-06T13:31:34Z..2026-10-06T13:32:36Z, GET / only, maximum 64 rows/16 KiB; sanitize client IPs, headers, raw user agents, query strings, cookies, tokens, secrets and bodies. No symlink following, other file read or runtime action.
+NEXT ACTION:
+HUMAN DECISION REQUIRED: decide how to address the missing exact historical inner health exception or uniquely watcher-attributable in-window request/error evidence. No further protected-file read is proposed; no repair, retry, runtime reproduction, deployment or repair-budget extension is authorized.
 
 EVIDENCE:
-.ops/reports/P1/REPAIR_2_ACCESS_SSL_PROCESSED_OPERATOR_HANDOFF.txt
-.ops/reports/P1/REPAIR_2_ACCESS_SSL_PROCESSED_ANALYSIS.json
-.ops/reports/P1/REPAIR_2_ACCESS_SSL_PROCESSED_REPORT.md
+.ops/reports/P1/REPAIR_2_PROXY_ACCESS_SSL_OPERATOR_HANDOFF.txt
+.ops/reports/P1/REPAIR_2_PROXY_ACCESS_SSL_ANALYSIS.json
+.ops/reports/P1/REPAIR_2_PROXY_ACCESS_SSL_REPORT.md
 
 EXTERNAL OVERSIGHT:
 PENDING / NON-BLOCKING

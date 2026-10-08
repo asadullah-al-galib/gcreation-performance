@@ -1,0 +1,121 @@
+diff --git a/ops/dev/deploy_controller.py b/ops/dev/deploy_controller.py
+index ad4c175..bc98845 100644
+--- a/ops/dev/deploy_controller.py
++++ b/ops/dev/deploy_controller.py
+@@ -27,0 +28,7 @@ EGRESS = 'gcreation-perf-dev-egress'
++HOST_ACCESS_NETWORK = 'gcreation-perf-dev-host-access'
++HOST_ACCESS_ROLE = 'dev-host-access'
++HOST_ACCESS_SUBNET = '172.31.255.0/29'
++HOST_ACCESS_BRIDGE_GATEWAY = '172.31.255.1'
++GATEWAY_HOST_ACCESS_IP = '172.31.255.2'
++HOST_ACCESS_NETWORK_ID_FILE = 'host-access-network-id'
++ENGINE_HOST_URL = 'http://172.31.255.2:3101'
+@@ -135 +142 @@ def runtime_image():
+-def ensure_network(name, internal, role, identity_name, allowed):
++def ensure_network(name, internal, role, identity_name, allowed, require_members=False):
+@@ -138,0 +146,2 @@ def ensure_network(name, internal, role, identity_name, allowed):
++        if name == HOST_ACCESS_NETWORK:
++            flags += ['--subnet=' + HOST_ACCESS_SUBNET, '--gateway=' + HOST_ACCESS_BRIDGE_GATEWAY]
+@@ -146,0 +156,16 @@ def ensure_network(name, internal, role, identity_name, allowed):
++    if name == HOST_ACCESS_NETWORK:
++        ipam = existing.get('IPAM')
++        if (not isinstance(ipam, dict) or ipam.get('Driver') != 'default'
++                or ipam.get('Options') not in (None, {})
++                or set(ipam) - {'Driver', 'Options', 'Config'}
++                or not isinstance(ipam.get('Config'), list) or len(ipam['Config']) != 1
++                or not isinstance(ipam['Config'][0], dict)
++                or existing.get('EnableIPv6', False) is not False):
++            raise ValueError('Unsafe host-access IPAM')
++        config = ipam['Config'][0]
++        if (config.get('Subnet') != HOST_ACCESS_SUBNET
++                or config.get('Gateway') != HOST_ACCESS_BRIDGE_GATEWAY
++                or set(config) - {'Subnet', 'Gateway', 'IPRange', 'AuxiliaryAddresses'}
++                or config.get('IPRange') not in (None, '')
++                or config.get('AuxiliaryAddresses') not in (None, {})):
++            raise ValueError('Unsafe host-access subnet or gateway')
+@@ -154,0 +180 @@ def ensure_network(name, internal, role, identity_name, allowed):
++    members = set()
+@@ -155,0 +182,2 @@ def ensure_network(name, internal, role, identity_name, allowed):
++        if not isinstance(attachment, dict):
++            raise ValueError('Invalid network member')
+@@ -157 +185 @@ def ensure_network(name, internal, role, identity_name, allowed):
+-        if attached_name not in allowed or not re.fullmatch('[0-9a-f]{64}', identifier):
++        if attached_name not in allowed or attached_name in members or not re.fullmatch('[0-9a-f]{64}', identifier):
+@@ -158,0 +187 @@ def ensure_network(name, internal, role, identity_name, allowed):
++        members.add(attached_name)
+@@ -166,5 +195,4 @@ def ensure_network(name, internal, role, identity_name, allowed):
+-        expected_networks = {NETWORK, EGRESS} if attached_name == PROXY else {NETWORK}
+-        # During initial proxy startup it has only the internal interface.
+-        if attached_name == PROXY and set(networks) == {NETWORK} and name == NETWORK:
+-            expected_networks = {NETWORK}
+-        if set(networks) != expected_networks or networks[name].get('NetworkID') != existing['Id']:
++        expected_networks = ({NETWORK, EGRESS} if attached_name == PROXY else
++                             {NETWORK, HOST_ACCESS_NETWORK} if attached_name == GATEWAY else {NETWORK})
++        if (not isinstance(networks, dict) or set(networks) != expected_networks
++                or not isinstance(networks.get(name), dict) or networks[name].get('NetworkID') != existing['Id']):
+@@ -171,0 +200,18 @@ def ensure_network(name, internal, role, identity_name, allowed):
++        if attached_name == GATEWAY:
++            access = networks.get(HOST_ACCESS_NETWORK)
++            if (not isinstance(access, dict) or access.get('IPAddress') != GATEWAY_HOST_ACCESS_IP
++                    or access.get('IPPrefixLen') != 29
++                    or access.get('GlobalIPv6Address') not in (None, '')):
++                raise ValueError('Unexpected gateway host-access address')
++            host = container.get('HostConfig', {})
++            ports = container.get('NetworkSettings', {}).get('Ports')
++            if ports is None:
++                ports = {}
++            if (not isinstance(host, dict) or host.get('PortBindings') not in (None, {})
++                    or host.get('PublishAllPorts', False) is not False
++                    or not isinstance(ports, dict) or any(binding not in (None, []) for binding in ports.values())):
++                raise ValueError('Published gateway port rejected')
++            if name == HOST_ACCESS_NETWORK and attachment.get('IPv4Address') != GATEWAY_HOST_ACCESS_IP + '/29':
++                raise ValueError('Unexpected host-access member address')
++    if require_members and members != allowed:
++        raise ValueError('Missing required runtime network member')
+@@ -174,2 +220,2 @@ def ensure_network(name, internal, role, identity_name, allowed):
+-def ensure_internal_network():
+-    ensure_network(NETWORK, True, 'dev-audit', 'network-id', {APP, PROXY, GATEWAY})
++def ensure_internal_network(require_members=False):
++    ensure_network(NETWORK, True, 'dev-audit', 'network-id', {APP, PROXY, GATEWAY}, require_members)
+@@ -178,2 +224,6 @@ def ensure_internal_network():
+-def ensure_egress_network():
+-    ensure_network(EGRESS, False, 'dev-audit-egress', 'egress-network-id', {PROXY})
++def ensure_egress_network(require_members=False):
++    ensure_network(EGRESS, False, 'dev-audit-egress', 'egress-network-id', {PROXY}, require_members)
++
++
++def ensure_host_access_network(require_members=False):
++    ensure_network(HOST_ACCESS_NETWORK, True, HOST_ACCESS_ROLE, HOST_ACCESS_NETWORK_ID_FILE, {GATEWAY}, require_members)
+@@ -358 +408 @@ def health(phase='final-health', attempt=None):
+-        with opener.open('http://127.0.0.1:3101/health', timeout=10) as response:
++        with opener.open(ENGINE_HOST_URL + '/health', timeout=10) as response:
+@@ -388,0 +439 @@ def start_runtime(release):
++    ensure_host_access_network()
+@@ -397,3 +448,5 @@ def start_runtime(release):
+-    command(['docker', 'run', '-d', '--name', GATEWAY, '--network', NETWORK, '--label=gcreation.role=gateway', '--env-file=' + str(STATE / 'gateway.env'), '-p', '127.0.0.1:3101:3101'] + container_flags('100m', '0.1') + common + [image, 'node', '/opt/gcreation-trusted/ops/dev/trusted/gateway.mjs'])
+-    ensure_internal_network()
+-    ensure_egress_network()
++    command(['docker', 'run', '-d', '--name', GATEWAY, '--network', NETWORK, '--label=gcreation.role=gateway', '--env-file=' + str(STATE / 'gateway.env')] + container_flags('100m', '0.1') + common + [image, 'node', '/opt/gcreation-trusted/ops/dev/trusted/gateway.mjs'])
++    command(['docker', 'network', 'connect', '--ip', GATEWAY_HOST_ACCESS_IP, HOST_ACCESS_NETWORK, GATEWAY])
++    ensure_internal_network(require_members=True)
++    ensure_egress_network(require_members=True)
++    ensure_host_access_network(require_members=True)
+@@ -449,0 +503 @@ def deploy():
++        ensure_host_access_network()
+diff --git a/ops/dev/nginx-dev.conf.example b/ops/dev/nginx-dev.conf.example
+index e238319..2077df1 100644
+--- a/ops/dev/nginx-dev.conf.example
++++ b/ops/dev/nginx-dev.conf.example
+@@ -1 +1 @@
+-# HUMAN REVIEW ONLY: DEV-only health. WordPress PHP uses localhost directly.
++# SOURCE CANDIDATE / HUMAN REVIEW ONLY: health via the internal host-access gateway.
+@@ -4 +4 @@ location = /perf-engine/health {
+-    proxy_pass http://127.0.0.1:3101/health;
++    proxy_pass http://172.31.255.2:3101/health;
+diff --git a/wordpress/gcreation-performance/gcreation-performance.php b/wordpress/gcreation-performance/gcreation-performance.php
+index 88d31b0..074da74 100644
+--- a/wordpress/gcreation-performance/gcreation-performance.php
++++ b/wordpress/gcreation-performance/gcreation-performance.php
+@@ -14 +14 @@ function gcp_engine($path, $data = null, $method = 'GET') {
+-    $response = wp_remote_request('http://127.0.0.1:3101' . $path, array('method' => $method, 'timeout' => 20, 'redirection' => 0, 'headers' => array('X-Engine-Secret' => GCREATION_ENGINE_SECRET, 'X-Client-Key' => hash_hmac('sha256', isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : 'unknown', wp_salt('auth')), 'Content-Type' => 'application/json'), 'body' => $data === null ? null : wp_json_encode($data)));
++    $response = wp_remote_request('http://172.31.255.2:3101' . $path, array('method' => $method, 'timeout' => 20, 'redirection' => 0, 'headers' => array('X-Engine-Secret' => GCREATION_ENGINE_SECRET, 'X-Client-Key' => hash_hmac('sha256', isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : 'unknown', wp_salt('auth')), 'Content-Type' => 'application/json'), 'body' => $data === null ? null : wp_json_encode($data)));

@@ -1,0 +1,122 @@
+{
+  "source_candidate": "6726138fc26f883f4782b9113b9aa9eba4cd6730",
+  "results": [
+    {
+      "command": "python3 -B tests/test_host_access_network.py -v",
+      "result": "PASS",
+      "exit_code": 0,
+      "tests_passed": 24,
+      "evidence_class": "ORDINARY_USER_LOCAL_TEST_OR_STATIC_CHECK"
+    },
+    {
+      "command": "python3 -B tests/test_controller_health_diagnostics.py -v",
+      "result": "PASS",
+      "exit_code": 0,
+      "tests_passed": 22,
+      "evidence_class": "ORDINARY_USER_LOCAL_TEST_OR_STATIC_CHECK"
+    },
+    {
+      "command": "python3 -B tests/test_deployment_kit.py",
+      "result": "PASS",
+      "exit_code": 0,
+      "tests_passed": 12,
+      "evidence_class": "ORDINARY_USER_LOCAL_TEST_OR_STATIC_CHECK"
+    },
+    {
+      "command": "python3 -B tests/test_security_review_v3.py",
+      "result": "PASS",
+      "exit_code": 0,
+      "tests_passed": 21,
+      "evidence_class": "ORDINARY_USER_LOCAL_TEST_OR_STATIC_CHECK"
+    },
+    {
+      "command": "python3 -B tests/test_security_review_v4.py",
+      "result": "PASS",
+      "exit_code": 0,
+      "tests_passed": 13,
+      "evidence_class": "ORDINARY_USER_LOCAL_TEST_OR_STATIC_CHECK"
+    },
+    {
+      "command": "python3 -B tests/test_source_permissions.py",
+      "result": "PASS",
+      "exit_code": 0,
+      "tests_passed": 3,
+      "evidence_class": "ORDINARY_USER_LOCAL_TEST_OR_STATIC_CHECK"
+    },
+    {
+      "command": "python3 -B tests/test_installer_bytecode.py",
+      "result": "PASS",
+      "exit_code": 0,
+      "tests_passed": 4,
+      "evidence_class": "ORDINARY_USER_LOCAL_TEST_OR_STATIC_CHECK"
+    },
+    {
+      "command": ".ops/toolchain/node_modules/node/bin/node --import tsx --test tests/foundation.test.ts",
+      "result": "PASS",
+      "exit_code": 0,
+      "tests_passed": 9,
+      "evidence_class": "ORDINARY_USER_LOCAL_TEST_OR_STATIC_CHECK"
+    },
+    {
+      "command": "php -l wordpress/gcreation-performance/gcreation-performance.php",
+      "result": "PASS",
+      "exit_code": 0,
+      "tests_passed": null,
+      "evidence_class": "ORDINARY_USER_LOCAL_TEST_OR_STATIC_CHECK"
+    },
+    {
+      "command": "php tests/wordpress-integration.php",
+      "result": "PASS",
+      "exit_code": 0,
+      "tests_passed": null,
+      "evidence_class": "ORDINARY_USER_LOCAL_TEST_OR_STATIC_CHECK"
+    },
+    {
+      "command": "scripts/npm-dev.sh run format:check",
+      "result": "PASS",
+      "exit_code": 0,
+      "tests_passed": null,
+      "evidence_class": "ORDINARY_USER_LOCAL_TEST_OR_STATIC_CHECK"
+    },
+    {
+      "command": "scripts/npm-dev.sh run lint:ts",
+      "result": "PASS",
+      "exit_code": 0,
+      "tests_passed": null,
+      "evidence_class": "ORDINARY_USER_LOCAL_TEST_OR_STATIC_CHECK"
+    },
+    {
+      "command": "scripts/npm-dev.sh run typecheck",
+      "result": "PASS",
+      "exit_code": 0,
+      "tests_passed": null,
+      "evidence_class": "ORDINARY_USER_LOCAL_TEST_OR_STATIC_CHECK"
+    },
+    {
+      "command": "scripts/npm-dev.sh run build",
+      "result": "PASS",
+      "exit_code": 0,
+      "tests_passed": null,
+      "evidence_class": "ORDINARY_USER_LOCAL_TEST_OR_STATIC_CHECK"
+    },
+    {
+      "command": "scripts/repo-git.sh diff --check",
+      "result": "PASS",
+      "exit_code": 0,
+      "tests_passed": null,
+      "evidence_class": "ORDINARY_USER_LOCAL_TEST_OR_STATIC_CHECK"
+    }
+  ],
+  "python_tests": 99,
+  "typescript_tests": 9,
+  "total_counted_tests": 108,
+  "php": "Lint and both existing commerce/new host-routing stub contracts PASS; PHP harness has no numeric assertion counter.",
+  "targeted_first": true,
+  "network_access_required": false,
+  "docker_execution": false,
+  "http_probe": false,
+  "full_npm_test_executed": false,
+  "full_npm_test_not_run_reason": "Existing security and gateway suites use real HTTP sockets; Stage 1 forbids HTTP/runtime execution. Exact address/redirect SSRF tests use injected resolver/transport; foundation storage is in-memory.",
+  "installed_acceptance_claimed": false,
+  "result_basis": "Agent-observed tool results during this source-only transaction; no new live measurement."
+}

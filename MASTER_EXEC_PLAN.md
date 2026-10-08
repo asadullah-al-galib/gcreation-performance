@@ -4,20 +4,24 @@ Authoritative execution order: [PROJECT_TIMELINE.md](PROJECT_TIMELINE.md). Produ
 
 ## Current gate
 
+P1_EXCEPTION_REPAIR_DESIGN_STAGE1_REVIEW_READY: source-only candidate 6726138fc26f883f4782b9113b9aa9eba4cd6730. Local tests:99 Python +9 TypeScript (108 total), PHP lint/stub integration, formatting/lint/typecheck/build PASS; 34 local static-security checklist items PASS. Independent human/ChatGPT source review REQUIRED/PENDING. Candidate removes gateway host-port publication and fixes host ingress at http://172.31.255.2:3101 on gcreation-perf-dev-host-access Internal=true, bridge/local, role dev-host-access, subnet172.31.255.0/29, bridge gateway172.31.255.1, gatewayIP172.31.255.2. App internal-only; proxy internal+egress only; gateway internal+host-access only; builder none. Image/gateway/dependencies unchanged. Host subnet collision status NOT_VERIFIED. No installation, host/network mutation, Docker/runtime/HTTP execution, deployment request, repair or deployment. P1 BLOCKED/HARD_BLOCKED, full independent review PENDING; repair_cycle2/failed cycles2, all INITIAL/REPAIR_1/REPAIR_2 attempts failed/consumed, retries0, budget EXHAUSTED, REPAIR_3 NOT AUTHORIZED, counters unchanged. P0 FROZEN/human PASS; P2–P7 NOT_STARTED; production/main untouched. Stage3B component class DOCKER_PORT_PUBLICATION_LAYER remains isolated evidence; exact daemon/network mechanism and historical exact official REPAIR_2 root cause NOT_ESTABLISHED. STOP. No installation, runtime execution, repair or deployment is authorized.
+
+Historical checkpoint background (not current source-design authority):
+
 P0 remains FROZEN / human review PASS. Authority docs/P0_2_AUTONOMOUS_AUTHORIZATION.md. PROXY_ACCESS_SSL_ANALYSIS verified handoff SHA256 48c9933b7940497980bab554b24fc4fd177b1d0c71d8b4f75f5c3c04af258fae and1144 bytes. The operator reports a56447-byte snapshot mtime2026-10-07T07:53:50Z,246/246 parsed lines,unparsed0; parsed range2026-10-06T22:20:21Z..2026-10-07T07:53:50Z is AFTER readiness window2026-10-06T13:31:34Z..13:32:36Z. In-window requests/GET / matches/Python-urllib GET / all0; status set explicitly NONE; INPUT_BYTES and caller first/last fields absent. CaseA cannot establish either historical predicate. Prior processed SSL overlap/2 parsed requests/0 exact GET / and1 unparsed line remain unchanged; no matching caller/timestamp or cross-layer request/stage identity is established. Watcher attribution/internal health NOT_PROVEN; homepage predicate, failed predicate, component and root cause NOT_ESTABLISHED; no control-flow contradiction demonstrated. P1 BLOCKED / HARD_BLOCKED; full independent review PENDING; repair_cycle2; INITIAL failed/consumed; REPAIR_1 failed/consumed1/1; REPAIR_2 failed/consumed1/1; automatic retries0; budget exhausted. No agent protected read, source/runtime/privileged/configuration action or counter change. P2–P7 NOT_STARTED; production/main untouched. Next action: HUMAN DECISION REQUIRED: decide how to address the missing exact historical inner health exception or uniquely watcher-attributable in-window request/error evidence. No further protected-file read is proposed; no repair, retry, runtime reproduction, deployment or repair-budget extension is authorized. Evidence: .ops/reports/P1/REPAIR_2_PROXY_ACCESS_SSL_REPORT.md and .ops/reports/P1/REPAIR_2_PROXY_ACCESS_SSL_ANALYSIS.json.
 
 V4 source/security review and image gates retain their original scope. Proxy-file parsed range AFTER supplies no historical attribution; cross-log evidence cannot identify a failed predicate. HUMAN DECISION REQUIRED. Current analysis .ops/reports/P1/REPAIR_2_PROXY_ACCESS_SSL_ANALYSIS.json.
 
-| Part | Completion state | Workflow state | Cycle record                                                                   |
-| ---- | ---------------- | -------------- | ------------------------------------------------------------------------------ |
-| P0   | FROZEN           | FROZEN         | Human PASS; repair 1/repair 2 not used                                         |
-| P1   | BLOCKED          | HARD_BLOCKED   | REPAIR_2 failed/consumed1/1; two failed repair cycles; human decision required |
-| P2   | NOT_STARTED      | NOT_STARTED    | No cycle started                                                               |
-| P3   | NOT_STARTED      | NOT_STARTED    | No cycle started                                                               |
-| P4   | NOT_STARTED      | NOT_STARTED    | No cycle started                                                               |
-| P5   | NOT_STARTED      | NOT_STARTED    | No cycle started                                                               |
-| P6   | NOT_STARTED      | NOT_STARTED    | No cycle started                                                               |
-| P7   | NOT_STARTED      | NOT_STARTED    | No cycle started                                                               |
+| Part | Completion state | Workflow state | Cycle record                                                               |
+| ---- | ---------------- | -------------- | -------------------------------------------------------------------------- |
+| P0   | FROZEN           | FROZEN         | Human PASS; repair 1/repair 2 not used                                     |
+| P1   | BLOCKED          | HARD_BLOCKED   | REPAIR_2 consumed1/1; budget exhausted; Stage1 independent review required |
+| P2   | NOT_STARTED      | NOT_STARTED    | No cycle started                                                           |
+| P3   | NOT_STARTED      | NOT_STARTED    | No cycle started                                                           |
+| P4   | NOT_STARTED      | NOT_STARTED    | No cycle started                                                           |
+| P5   | NOT_STARTED      | NOT_STARTED    | No cycle started                                                           |
+| P6   | NOT_STARTED      | NOT_STARTED    | No cycle started                                                           |
+| P7   | NOT_STARTED      | NOT_STARTED    | No cycle started                                                           |
 
 ## Preserved baseline and evidence
 

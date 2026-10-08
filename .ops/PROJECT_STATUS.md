@@ -5,77 +5,19 @@ CURRENT PART / STATE:
 P1 / HARD_BLOCKED
 
 PROCESS:
-gateway-stage3b-analysis
+exception-repair-design-stage1
 
-P0:
-FROZEN / HUMAN REVIEW PASS
+RESULT:
+P1_EXCEPTION_REPAIR_DESIGN_STAGE1_REVIEW_READY
 
-P1 EXECUTION / FULL REVIEW:
-BLOCKED / INCOMPLETE; INDEPENDENT REVIEW PENDING
-
-GATEWAY STAGE3B:
-AUTHORIZED=true for completed human action only; EXECUTION COUNT=1; COMPLETE=true.
-FURTHER GATEWAY EXECUTION AUTHORIZED=false.
-
-HANDOFF:
-VERIFIED; SHA256 25b1a14c0cfc93c425ffbf65d4d926e54fac8e653b108f799bd523766a2aee4a; 1,364 bytes.
-
-GATEWAY RUNNING / CONTAINER 3101 LISTENER:
-YES / STATE=LISTEN;TOTAL=1;IPV4=1;IPV6=0 — human operator attestation.
-
-HOSTCONFIG:
-3101/tcp PRESENT=YES; COUNT=1; EXACT=YES; OTHER PORT KEYS=NO.
-IP_CLASS=IPV4_LOOPBACK_EXACT;HOST_PORT=3101.
-
-NETWORKSETTINGS:
-3101/tcp PRESENT=NO; COUNT=0; EXACT=NO; OTHER PORT KEYS=NO; binding ABSENT.
-
-DOCKER REQUESTED CONFIG / EFFECTIVE PUBLICATION:
-CORRECT / MISMATCH
-
-HOST LISTENER BEFORE / AFTER:
-TOTAL=0 / TOTAL=0; supporting evidence only, not standalone publication failure proof.
-
-LOCALHOST PROBE / CONTAINER LISTENER / HOST-TO-GATEWAY TRANSPORT:
-URL_ERROR:CONNECTION_REFUSED / PASS_OBSERVED / FAIL_OBSERVED
-
-STAGE3 PORT MISMATCH / STAGE2 LOCALHOST FAILURE REPRODUCED:
-YES at reported-check level / PARTIALLY — exact historical causes remain unproven.
-
-ROOT CAUSE CLASS / UNDERLYING ROOT CAUSE / COMPONENT:
-PROVEN_COMPONENT_CLASS / NOT_ESTABLISHED / DOCKER_PORT_PUBLICATION_LAYER
-Scope: this isolated Stage3B observation only; historical official cause unchanged.
-
-CONTROL FLOW CONTRADICTION:
-NO
-
-REPAIR_2:
-FAILED_CONSUMED_1_OF_1 — runtime-health; rollback=false
-
-REPAIR CYCLE / FAILED REPAIR CYCLES:
-2 / 2 — BUDGET EXHAUSTED; counters unchanged
-
-INITIAL / REPAIR_1 / REPAIR_2:
-FAILED_CONSUMED / FAILED_CONSUMED_1_OF_1 / FAILED_CONSUMED_1_OF_1
-
-AUTOMATIC RETRIES:
-0
-
-REPAIR_3 / BUDGET EXTENSION / FURTHER RUNTIME / DEPLOYMENT AUTHORIZED:
-false / false / false / false
-
-P2–P7:
-NOT_STARTED
-
-PRODUCTION/MAIN:
-UNTOUCHED
+P1_EXCEPTION_REPAIR_DESIGN_STAGE1_REVIEW_READY: source-only candidate 6726138fc26f883f4782b9113b9aa9eba4cd6730. Local tests:99 Python +9 TypeScript (108 total), PHP lint/stub integration, formatting/lint/typecheck/build PASS; 34 local static-security checklist items PASS. Independent human/ChatGPT source review REQUIRED/PENDING. Candidate removes gateway host-port publication and fixes host ingress at http://172.31.255.2:3101 on gcreation-perf-dev-host-access Internal=true, bridge/local, role dev-host-access, subnet172.31.255.0/29, bridge gateway172.31.255.1, gatewayIP172.31.255.2. App internal-only; proxy internal+egress only; gateway internal+host-access only; builder none. Image/gateway/dependencies unchanged. Host subnet collision status NOT_VERIFIED. No installation, host/network mutation, Docker/runtime/HTTP execution, deployment request, repair or deployment. P1 BLOCKED/HARD_BLOCKED, full independent review PENDING; repair_cycle2/failed cycles2, all INITIAL/REPAIR_1/REPAIR_2 attempts failed/consumed, retries0, budget EXHAUSTED, REPAIR_3 NOT AUTHORIZED, counters unchanged. P0 FROZEN/human PASS; P2–P7 NOT_STARTED; production/main untouched. Stage3B component class DOCKER_PORT_PUBLICATION_LAYER remains isolated evidence; exact daemon/network mechanism and historical exact official REPAIR_2 root cause NOT_ESTABLISHED. STOP. No installation, runtime execution, repair or deployment is authorized.
 
 NEXT ACTION:
-PROPOSED_EXCEPTION_REPAIR — NOT AUTHORIZED. Human decision required on the observed requested/effective Docker port-publication mismatch. Exact daemon/network mechanism and intervention remain unknown. Any further evidence collection, gateway/full-runtime execution, repair or deployment requires NEW explicit human authority; no REPAIR_3 or repair-budget extension/reset is authorized.
+HUMAN / CHATGPT INDEPENDENT SOURCE REVIEW REQUIRED. Review .ops/reports/P1/exception-repair-design-stage1/REPORT.md, REVIEW.json, SOURCE.patch and CHECKSUMS.sha256. STOP. No installation, controller refresh, host/network mutation, runtime execution, repair, deployment request or deployment is authorized. REPAIR_3/budget extension/reset not authorized; P2 not started.
 
 ACTION FILE:
 .ops/ACTION_REQUIRED.md
 
 EVIDENCE:
-.ops/reports/P1/gateway-stage3b/REPORT.md
-.ops/reports/P1/gateway-stage3b/ANALYSIS.json
+.ops/reports/P1/exception-repair-design-stage1/REPORT.md
+.ops/reports/P1/exception-repair-design-stage1/REVIEW.json

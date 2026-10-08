@@ -1,0 +1,350 @@
+{
+  "baseline": "ccd31c20a8ec918454aa5aa455972860be17e3bf",
+  "occurrences": 49,
+  "method": "Each baseline occurrence of 127.0.0.1:3101 classified by semantics before editing; no global substitution. Line content is hashed to avoid copying unrelated historical diagnostic payloads.",
+  "references": [
+    {
+      "path": "SECURITY.md",
+      "baseline_line": 7,
+      "category": "CURRENT_DOCUMENTATION",
+      "disposition": "SYNCHRONIZE_ACTIVE_CANDIDATE_STATE_ONLY",
+      "baseline_line_sha256": "d805b9e5c71be9dd736da3b1f0ccf10ae63675a38f9cf0eb49f369d32ad266bd"
+    },
+    {
+      "path": "ARCHITECTURE.md",
+      "baseline_line": 17,
+      "category": "CURRENT_DOCUMENTATION",
+      "disposition": "SYNCHRONIZE_ACTIVE_CANDIDATE_STATE_ONLY",
+      "baseline_line_sha256": "fceaec2dfbacbe6da47eda03364b223eca6ca7071265b42d7a2b781e2ac8c49f"
+    },
+    {
+      "path": "ops/dev/HUMAN_PLUGIN_ARTIFACT.md",
+      "baseline_line": 17,
+      "category": "CURRENT_DOCUMENTATION",
+      "disposition": "SYNCHRONIZE_ACTIVE_CANDIDATE_STATE_ONLY",
+      "baseline_line_sha256": "cdafe0b6ba630ed751e764c8f0082e38cd4497256dddacdceb2c3f1b49496e56"
+    },
+    {
+      "path": "ops/dev/deploy_controller.py",
+      "baseline_line": 358,
+      "category": "ACTIVE_RUNTIME_REFERENCE",
+      "disposition": "CHANGE_EXACT_ACTIVE_TRANSPORT",
+      "baseline_line_sha256": "6dd5199cf1d8fe5f1ca8bb77596ef84b3776ba1c0c75ffdcc5521f2e80358182"
+    },
+    {
+      "path": "ops/dev/deploy_controller.py",
+      "baseline_line": 397,
+      "category": "ACTIVE_RUNTIME_REFERENCE",
+      "disposition": "CHANGE_EXACT_ACTIVE_TRANSPORT",
+      "baseline_line_sha256": "f1cdbe8bebfc556d9c0c9f12816a3b258d5a4fac2f0768209a8175511e9fc4bb"
+    },
+    {
+      "path": "wordpress/gcreation-performance/gcreation-performance.php",
+      "baseline_line": 14,
+      "category": "ACTIVE_RUNTIME_REFERENCE",
+      "disposition": "CHANGE_EXACT_ACTIVE_TRANSPORT",
+      "baseline_line_sha256": "913d7435025058caae92c87d93eb1c3f49e69ca1a124820b2155578a45365474"
+    },
+    {
+      "path": "tests/security.test.ts",
+      "baseline_line": 82,
+      "category": "UNRELATED_TEST_TARGET",
+      "disposition": "PRESERVE_GENERIC_LOOPBACK_FIXTURE_NOT_RUN",
+      "baseline_line_sha256": "9fc119ff73f4e0edb498b84fc014a5d1853698f229eba202e114db09acfc82c2"
+    },
+    {
+      "path": "ops/dev/nginx-dev.conf.example",
+      "baseline_line": 4,
+      "category": "ACTIVE_RUNTIME_REFERENCE",
+      "disposition": "CHANGE_EXACT_ACTIVE_TRANSPORT",
+      "baseline_line_sha256": "89bd34b6c44e5650ae571ef36e60b601ab9341623479770333235406c0663b3f"
+    },
+    {
+      "path": "tests/test_deployment_kit.py",
+      "baseline_line": 106,
+      "category": "TEST_FIXTURE",
+      "disposition": "UPDATE_CURRENT_ASSERTION_OR_KEEP_NEGATIVE_GUARD",
+      "baseline_line_sha256": "8217651e4d359b827fbd24d7d94808325cccf09dfe2be725fc1072a530aacd6b"
+    },
+    {
+      "path": "tests/test_controller_health_diagnostics.py",
+      "baseline_line": 74,
+      "category": "TEST_FIXTURE",
+      "disposition": "UPDATE_CURRENT_ASSERTION_OR_KEEP_NEGATIVE_GUARD",
+      "baseline_line_sha256": "056947dd7a4d5097e16161b85b4580bb0e38c2ebca838b366b62df3b2117067f"
+    },
+    {
+      "path": "tests/test_security_review_v4.py",
+      "baseline_line": 53,
+      "category": "TEST_FIXTURE",
+      "disposition": "UPDATE_CURRENT_ASSERTION_OR_KEEP_NEGATIVE_GUARD",
+      "baseline_line_sha256": "5ec47c094769bc1b564698d6ecd971c688cc0485de24857c9b41e620b156c6bd"
+    },
+    {
+      "path": "ops/dev/README.md",
+      "baseline_line": 15,
+      "category": "CURRENT_DOCUMENTATION",
+      "disposition": "SYNCHRONIZE_ACTIVE_CANDIDATE_STATE_ONLY",
+      "baseline_line_sha256": "448eeb188a7ed4d7e8ede6b5865351e8535fef35b40b45b1359dd39a07b43341"
+    },
+    {
+      "path": "tests/test_security_review_v3.py",
+      "baseline_line": 181,
+      "category": "TEST_FIXTURE",
+      "disposition": "UPDATE_CURRENT_ASSERTION_OR_KEEP_NEGATIVE_GUARD",
+      "baseline_line_sha256": "5c2fc664bee01ab13e5977e9509379ddcd7a6e8d71d71db3cbd04ab2176f67b1"
+    },
+    {
+      "path": ".ops/ACTION_REQUIRED.md",
+      "baseline_line": 20,
+      "category": "CURRENT_DOCUMENTATION",
+      "disposition": "SYNCHRONIZE_ACTIVE_CANDIDATE_STATE_ONLY",
+      "baseline_line_sha256": "ddd502fb1457ac6df84e4603c9dc7b847db056c58fb0863d84ddcdb99ca1c696"
+    },
+    {
+      "path": ".ops/oversight/LATEST_CHECKPOINT.md",
+      "baseline_line": 13,
+      "category": "CURRENT_DOCUMENTATION",
+      "disposition": "SYNCHRONIZE_ACTIVE_CANDIDATE_STATE_ONLY",
+      "baseline_line_sha256": "a30846c57eba34c90374c624f72973eac11e6d7316e9cf6bbac9820204c0064a"
+    },
+    {
+      "path": "docs/DEV_VALIDATION_RUNBOOK.md",
+      "baseline_line": 17,
+      "category": "CURRENT_DOCUMENTATION",
+      "disposition": "SYNCHRONIZE_ACTIVE_CANDIDATE_STATE_ONLY",
+      "baseline_line_sha256": "e140cf09f52ece09fa303195bc44c12eff9d025e048056891713ee9d72f79194"
+    },
+    {
+      "path": ".ops/ORCHESTRATOR_STATUS.json",
+      "baseline_line": 315,
+      "category": "CURRENT_DOCUMENTATION",
+      "disposition": "UPDATE_CURRENT_PENDING_REMEDIATION; HISTORICAL_STAGE3B_OBJECT_UNCHANGED",
+      "baseline_line_sha256": "a2cace59920a7b6a44a45e3adee8bd9549a551e882a315f9c9d34a205bb677b9"
+    },
+    {
+      "path": ".ops/ORCHESTRATOR_STATUS.json",
+      "baseline_line": 859,
+      "category": "HISTORICAL_EVIDENCE",
+      "disposition": "PRESERVE_HISTORICAL_EVIDENCE",
+      "baseline_line_sha256": "330aaf5c73da2a536ef0e6f29279e6a9b09e510f84547a8bdecf596b03c7acaf"
+    },
+    {
+      "path": "docs/SECOND_SECURITY_REVIEW_RESULT.md",
+      "baseline_line": 99,
+      "category": "HISTORICAL_EVIDENCE",
+      "disposition": "PRESERVE_HISTORICAL_EVIDENCE",
+      "baseline_line_sha256": "3b98b477bc36bf22012ed1c7bc3d563bc0898c1697d0d8727f23acff12d32e60"
+    },
+    {
+      "path": "docs/MASTER_PRODUCT_SPEC.md",
+      "baseline_line": 621,
+      "category": "CURRENT_DOCUMENTATION",
+      "disposition": "PRESERVE_MASTER_SPEC; THIS_EXPLICIT_EXCEPTION_OVERRIDES_CANDIDATE_TRANSPORT_ONLY",
+      "baseline_line_sha256": "8aa0f12a6306712d0f80c8136dd2ada9c602e3412971792a0fa52b76e81fa452"
+    },
+    {
+      "path": "docs/MASTER_PRODUCT_SPEC.md",
+      "baseline_line": 650,
+      "category": "CURRENT_DOCUMENTATION",
+      "disposition": "PRESERVE_MASTER_SPEC; THIS_EXPLICIT_EXCEPTION_OVERRIDES_CANDIDATE_TRANSPORT_ONLY",
+      "baseline_line_sha256": "f2da3d600142dee1758ba2156f3e51f9180991ea5fc94391ea9be17d69415fd3"
+    },
+    {
+      "path": "docs/MASTER_PRODUCT_SPEC.md",
+      "baseline_line": 1394,
+      "category": "CURRENT_DOCUMENTATION",
+      "disposition": "PRESERVE_MASTER_SPEC; THIS_EXPLICIT_EXCEPTION_OVERRIDES_CANDIDATE_TRANSPORT_ONLY",
+      "baseline_line_sha256": "ce847e3dbc0cce8f340d3140b491422dce5c6fe5a93e3d5ad389f52d291c72be"
+    },
+    {
+      "path": ".ops/oversight/LATEST_CHECKPOINT.json",
+      "baseline_line": 162,
+      "category": "HISTORICAL_EVIDENCE",
+      "disposition": "PRESERVE_HISTORICAL_EVIDENCE",
+      "baseline_line_sha256": "5c48c676a3c83d0e2a0589e375bb847a5997baa122508e44c872ce58009015e5"
+    },
+    {
+      "path": ".ops/oversight/events/0021-P1-gateway-stage3b-analysis.json",
+      "baseline_line": 162,
+      "category": "HISTORICAL_EVIDENCE",
+      "disposition": "PRESERVE_HISTORICAL_EVIDENCE",
+      "baseline_line_sha256": "5c48c676a3c83d0e2a0589e375bb847a5997baa122508e44c872ce58009015e5"
+    },
+    {
+      "path": ".ops/reports/P1/gateway-stage3b/REPORT.md",
+      "baseline_line": 48,
+      "category": "HISTORICAL_EVIDENCE",
+      "disposition": "PRESERVE_HISTORICAL_EVIDENCE",
+      "baseline_line_sha256": "44a5f9e0f78c2c0f360eca1df11eb8133f4875e64b3be1721d72c7bb1f85dbb8"
+    },
+    {
+      "path": ".ops/reports/P1/gateway-stage3b/REPORT.md",
+      "baseline_line": 107,
+      "category": "HISTORICAL_EVIDENCE",
+      "disposition": "PRESERVE_HISTORICAL_EVIDENCE",
+      "baseline_line_sha256": "586203c82fa1808915d9a258244e7d33bbd450a3e331d72317a76836df0731be"
+    },
+    {
+      "path": ".ops/reports/P1/gateway-stage3b/ANALYSIS.json",
+      "baseline_line": 224,
+      "category": "HISTORICAL_EVIDENCE",
+      "disposition": "PRESERVE_HISTORICAL_EVIDENCE",
+      "baseline_line_sha256": "2b945aa2298d7ba7cf6361fbe4c7d9ee0fad35ea0edfa747b7d2bb44351127ce"
+    },
+    {
+      "path": ".ops/reports/P1/gateway-stage3b/ANALYSIS.json",
+      "baseline_line": 332,
+      "category": "HISTORICAL_EVIDENCE",
+      "disposition": "PRESERVE_HISTORICAL_EVIDENCE",
+      "baseline_line_sha256": "5c48c676a3c83d0e2a0589e375bb847a5997baa122508e44c872ce58009015e5"
+    },
+    {
+      "path": ".ops/oversight/events/0004-P1-repair1-runtime-failure.json",
+      "baseline_line": 57,
+      "category": "HISTORICAL_EVIDENCE",
+      "disposition": "PRESERVE_HISTORICAL_EVIDENCE",
+      "baseline_line_sha256": "60271375509570c4981a4820e10b94f9f4f7f3f7bc693f5ce3c90c684b9a3efd"
+    },
+    {
+      "path": ".ops/reports/P1/gateway-only-stage3/REPORT.md",
+      "baseline_line": 7,
+      "category": "HISTORICAL_EVIDENCE",
+      "disposition": "PRESERVE_HISTORICAL_EVIDENCE",
+      "baseline_line_sha256": "9573ce7eeec0c399f4a7d19a5de20c396dce9a3ca50cdba4723f6fa9d5305e39"
+    },
+    {
+      "path": ".ops/reports/P1/gateway-only-stage3/REPORT.md",
+      "baseline_line": 32,
+      "category": "HISTORICAL_EVIDENCE",
+      "disposition": "PRESERVE_HISTORICAL_EVIDENCE",
+      "baseline_line_sha256": "3b3441b8e5d13e5fa864552b6635f37a173ca6092f5d1dc9e87e17ba3195fb17"
+    },
+    {
+      "path": ".ops/reports/P1/gateway-only-stage3/REPORT.md",
+      "baseline_line": 42,
+      "category": "HISTORICAL_EVIDENCE",
+      "disposition": "PRESERVE_HISTORICAL_EVIDENCE",
+      "baseline_line_sha256": "05595c458358a7fac71ffd930234440c4ee55698c21c5e6e317e88df98f20d9b"
+    },
+    {
+      "path": ".ops/reports/P1/REPAIR_2_DEV_HOMEPAGE_LOG_ANALYSIS.json",
+      "baseline_line": 93,
+      "category": "HISTORICAL_EVIDENCE",
+      "disposition": "PRESERVE_HISTORICAL_EVIDENCE",
+      "baseline_line_sha256": "067272d670b9aeb833c62f9f140e67e03d282fb6ab1e5de611d32b534e30cbd7"
+    },
+    {
+      "path": ".ops/reports/P1/gateway-only-stage3/ANALYSIS.json",
+      "baseline_line": 174,
+      "category": "HISTORICAL_EVIDENCE",
+      "disposition": "PRESERVE_HISTORICAL_EVIDENCE",
+      "baseline_line_sha256": "a5159130a709b6e8488a3c1cacb260e8a46170b8046292ef8123dee06af57e56"
+    },
+    {
+      "path": ".ops/reports/P1/BOUNDED_RUNTIME_OPERATOR_EVIDENCE.json",
+      "baseline_line": 8,
+      "category": "HISTORICAL_EVIDENCE",
+      "disposition": "PRESERVE_HISTORICAL_EVIDENCE",
+      "baseline_line_sha256": "c3d414f4bf3c77973c53953f68417bcac31ab4d8458d2ca7127a3cd7a39caf42"
+    },
+    {
+      "path": ".ops/reports/P1/REPAIR_2_POSTFAILURE_DIAGNOSTIC_REPORT.md",
+      "baseline_line": 7,
+      "category": "HISTORICAL_EVIDENCE",
+      "disposition": "PRESERVE_HISTORICAL_EVIDENCE",
+      "baseline_line_sha256": "f718094e887d1fe255a8fc41a2a314414e4ef42abc003e148df6a92701e4546b"
+    },
+    {
+      "path": ".ops/reports/P1/REPAIR_2_POSTFAILURE_DIAGNOSTIC_REPORT.md",
+      "baseline_line": 31,
+      "category": "HISTORICAL_EVIDENCE",
+      "disposition": "PRESERVE_HISTORICAL_EVIDENCE",
+      "baseline_line_sha256": "fa34163e2d2bcd1e9971500fb0280d3ed3ffb1530e8e1942d99c4f7b59193f34"
+    },
+    {
+      "path": ".ops/reports/P1/REPAIR_1_HEALTH_OBSERVATIONS.json",
+      "baseline_line": 10,
+      "category": "HISTORICAL_EVIDENCE",
+      "disposition": "PRESERVE_HISTORICAL_EVIDENCE",
+      "baseline_line_sha256": "067272d670b9aeb833c62f9f140e67e03d282fb6ab1e5de611d32b534e30cbd7"
+    },
+    {
+      "path": ".ops/reports/P1/REPAIR_2_POSTFAILURE_DIAGNOSTIC_ANALYSIS.json",
+      "baseline_line": 468,
+      "category": "HISTORICAL_EVIDENCE",
+      "disposition": "PRESERVE_HISTORICAL_EVIDENCE",
+      "baseline_line_sha256": "29fc2d7fc245f2db6e76744f89941e2bd507481bed1ce95385ccb3ec365af078"
+    },
+    {
+      "path": ".ops/reports/P1/REPAIR_2_POSTFAILURE_DIAGNOSTIC_ANALYSIS.json",
+      "baseline_line": 513,
+      "category": "HISTORICAL_EVIDENCE",
+      "disposition": "PRESERVE_HISTORICAL_EVIDENCE",
+      "baseline_line_sha256": "f197bf3b2a8eaa3a36da60d2f346e241b9ab362ecd2b90b8cfa4951b87ee255b"
+    },
+    {
+      "path": ".ops/reports/P1/REPAIR_2_ACCESS_SSL_SINGLE_FILE_ANALYSIS.json",
+      "baseline_line": 91,
+      "category": "HISTORICAL_EVIDENCE",
+      "disposition": "PRESERVE_HISTORICAL_EVIDENCE",
+      "baseline_line_sha256": "067272d670b9aeb833c62f9f140e67e03d282fb6ab1e5de611d32b534e30cbd7"
+    },
+    {
+      "path": ".ops/reports/P1/diagnostic-instrumentation-stage2/REPORT.md",
+      "baseline_line": 39,
+      "category": "HISTORICAL_EVIDENCE",
+      "disposition": "PRESERVE_HISTORICAL_EVIDENCE",
+      "baseline_line_sha256": "7b319eb2f2017bc01f221810da5834a713587e2f92f7d2d73340872072a43326"
+    },
+    {
+      "path": ".ops/reports/P1/REPAIR_2_PROXY_ACCESS_SSL_ANALYSIS.json",
+      "baseline_line": 104,
+      "category": "HISTORICAL_EVIDENCE",
+      "disposition": "PRESERVE_HISTORICAL_EVIDENCE",
+      "baseline_line_sha256": "067272d670b9aeb833c62f9f140e67e03d282fb6ab1e5de611d32b534e30cbd7"
+    },
+    {
+      "path": ".ops/reports/P1/REPAIR_2_ACCESS_SSL_PROCESSED_ANALYSIS.json",
+      "baseline_line": 94,
+      "category": "HISTORICAL_EVIDENCE",
+      "disposition": "PRESERVE_HISTORICAL_EVIDENCE",
+      "baseline_line_sha256": "067272d670b9aeb833c62f9f140e67e03d282fb6ab1e5de611d32b534e30cbd7"
+    },
+    {
+      "path": ".ops/reports/P1/REPAIR_2_DEV_LOGDIR_METADATA_ANALYSIS.json",
+      "baseline_line": 371,
+      "category": "HISTORICAL_EVIDENCE",
+      "disposition": "PRESERVE_HISTORICAL_EVIDENCE",
+      "baseline_line_sha256": "067272d670b9aeb833c62f9f140e67e03d282fb6ab1e5de611d32b534e30cbd7"
+    },
+    {
+      "path": ".ops/reports/P1/CONTROLLED_DEV_RUNTIME_GATE.md",
+      "baseline_line": 46,
+      "category": "HISTORICAL_EVIDENCE",
+      "disposition": "PRESERVE_HISTORICAL_EVIDENCE",
+      "baseline_line_sha256": "bde48aa5979934a87a49518ecc58fd615d1526e689cd411840b88d19dc0f6342"
+    },
+    {
+      "path": ".ops/reports/P1/diagnostic-instrumentation-stage1/AUTHORIZATION.txt",
+      "baseline_line": 85,
+      "category": "HISTORICAL_EVIDENCE",
+      "disposition": "PRESERVE_HISTORICAL_EVIDENCE",
+      "baseline_line_sha256": "5c482eca3a8772d6d8b7fb105af676fadcf17f2ed8641ba617f553a78ca5bd6d"
+    },
+    {
+      "path": ".ops/reports/P1/REPORT.md",
+      "baseline_line": 9,
+      "category": "HISTORICAL_EVIDENCE",
+      "disposition": "PRESERVE_HISTORICAL_EVIDENCE",
+      "baseline_line_sha256": "9573ce7eeec0c399f4a7d19a5de20c396dce9a3ca50cdba4723f6fa9d5305e39"
+    },
+    {
+      "path": ".ops/reports/P1/EVIDENCE.json",
+      "baseline_line": 1630,
+      "category": "HISTORICAL_EVIDENCE",
+      "disposition": "PRESERVE_HISTORICAL_EVIDENCE",
+      "baseline_line_sha256": "330aaf5c73da2a536ef0e6f29279e6a9b09e510f84547a8bdecf596b03c7acaf"
+    }
+  ]
+}

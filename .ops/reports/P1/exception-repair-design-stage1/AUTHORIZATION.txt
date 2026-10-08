@@ -1,0 +1,1209 @@
+P1 EXCEPTION REPAIR DESIGN — STAGE 1
+SOURCE-ONLY CANDIDATE + STATIC/SECURITY REVIEW
+
+HUMAN AUTHORIZATION:
+
+APPROVE P1 Exception Repair Design Stage 1 — prepare a source-only repair candidate that removes dependency on Docker host-port publishing from the internal-only gateway network and introduces a dedicated internal host-access path with deterministic gateway addressing. Preserve proxy-only egress and all V4 security controls. Static/security review and tests only. No host/network mutation, no runtime execution, no deployment, no REPAIR_3, and no repair-budget reset.
+
+==================================================
+CURRENT GOVERNANCE
+==================================================
+
+STATE:
+HARD_BLOCKED
+
+PART:
+P1
+
+PROCESS:
+exception-repair-design-stage1
+
+BASELINE / CURRENT CHECKPOINT:
+
+ccd31c20a8ec918454aa5aa455972860be17e3bf
+
+REPAIR_2:
+FAILED_CONSUMED_1_OF_1
+
+AUTOMATIC RETRIES:
+0
+
+REPAIR BUDGET:
+EXHAUSTED
+
+REPAIR_3:
+NOT AUTHORIZED
+
+P2:
+NOT_STARTED
+
+PRODUCTION:
+UNTOUCHED
+
+THIS AUTHORIZATION:
+
+P1_EXCEPTION_REPAIR_DESIGN_STAGE1
+
+This is:
+
+SOURCE DESIGN + LOCAL TEST + STATIC SECURITY REVIEW ONLY.
+
+It is NOT:
+
+- REPAIR_3
+- repair-budget reset
+- repair-budget extension
+- controller installation
+- host/network mutation
+- Docker runtime execution
+- deployment
+- deployment request
+- production authorization
+- P2 authorization
+
+==================================================
+PROVEN FAILURE EVIDENCE
+==================================================
+
+Stage2:
+
+LOCALHOST_ENGINE_HEALTH failed 30/30.
+
+Reason:
+URL_ERROR:30
+
+HTTP status:
+NONE:30
+
+Stage3:
+
+gateway container reported RUNNING
+restart count=0
+OOM=NO
+localhost health=CONNECTION_REFUSED
+PORT_3101_EXACT_PUBLISH=NO
+
+Stage3B:
+
+HOSTCONFIG 3101 PRESENT:
+YES
+
+HOSTCONFIG BINDING COUNT:
+1
+
+HOSTCONFIG EXACT LOOPBACK:3101:
+YES
+
+Observed requested binding:
+IP_CLASS=IPV4_LOOPBACK_EXACT
+HOST_PORT=3101
+
+NETWORKSETTINGS 3101 PRESENT:
+NO
+
+NETWORKSETTINGS BINDING COUNT:
+0
+
+NETWORKSETTINGS EXACT LOOPBACK:3101:
+NO
+
+CONTAINER 3101 LISTENER:
+STATE=LISTEN;TOTAL=1;IPV4=1;IPV6=0
+
+LOCALHOST HEALTH:
+URL_ERROR:CONNECTION_REFUSED
+
+DOCKER REQUESTED PORT CONFIG:
+CORRECT
+
+DOCKER EFFECTIVE PORT PUBLICATION:
+MISMATCH
+
+UNDERLYING COMPONENT:
+DOCKER_PORT_PUBLICATION_LAYER
+
+ROOT CAUSE CLASS:
+PROVEN_COMPONENT_CLASS
+
+EXACT DAEMON/NETWORK MECHANISM:
+NOT_ESTABLISHED
+
+Historical exact REPAIR_2 root cause remains:
+NOT_ESTABLISHED
+
+Do not rewrite historical evidence as if Stage3B proves the exact historical
+daemon mechanism.
+
+==================================================
+REPAIR OBJECTIVE
+==================================================
+
+REMOVE DEPENDENCY ON:
+
+Docker host port publication:
+
+-p 127.0.0.1:3101:3101
+
+for the trusted gateway.
+
+Replace it with:
+
+a dedicated Docker INTERNAL bridge used only for host ↔ trusted gateway access.
+
+The gateway will retain the existing internal app network for communication
+with the mutable application.
+
+The gateway must NOT gain external egress.
+
+==================================================
+FIXED REPAIR ARCHITECTURE
+==================================================
+
+Add compile-time trusted constants in deploy_controller.py:
+
+HOST_ACCESS_NETWORK =
+gcreation-perf-dev-host-access
+
+HOST_ACCESS_ROLE =
+dev-host-access
+
+HOST_ACCESS_SUBNET =
+172.31.255.0/29
+
+HOST_ACCESS_BRIDGE_GATEWAY =
+172.31.255.1
+
+GATEWAY_HOST_ACCESS_IP =
+172.31.255.2
+
+HOST_ACCESS_NETWORK_ID_FILE =
+host-access-network-id
+
+ENGINE_HOST_URL =
+http://172.31.255.2:3101
+
+Do NOT make these values developer-controlled or request-controlled.
+
+Do NOT add them to deployment request JSON.
+
+Do NOT take subnet/IP/network names from untrusted repository archives.
+
+Do NOT make arbitrary runtime ENV override possible.
+
+If implementation requires a different constant naming convention, preserve
+the exact architecture and values.
+
+==================================================
+EXPECTED NETWORK TOPOLOGY
+==================================================
+
+gcreation-perf-dev-internal:
+
+Internal=true
+Driver=bridge
+Scope=local
+Role=dev-audit
+
+Members:
+
+APP
+PROXY
+GATEWAY
+
+--------------------------------------------------
+
+gcreation-perf-dev-egress:
+
+Internal=false
+Driver=bridge
+Scope=local
+Role=dev-audit-egress
+
+Members:
+
+PROXY ONLY
+
+--------------------------------------------------
+
+gcreation-perf-dev-host-access:
+
+Internal=true
+Driver=bridge
+Scope=local
+Role=dev-host-access
+
+Exact subnet:
+
+172.31.255.0/29
+
+Exact Docker bridge gateway:
+
+172.31.255.1
+
+Members:
+
+GATEWAY ONLY
+
+Gateway exact address:
+
+172.31.255.2
+
+==================================================
+SECURITY INVARIANT
+==================================================
+
+NETWORK MEMBERSHIP MUST BE:
+
+APP:
+{gcreation-perf-dev-internal}
+
+PROXY:
+{
+  gcreation-perf-dev-internal,
+  gcreation-perf-dev-egress
+}
+
+GATEWAY:
+{
+  gcreation-perf-dev-internal,
+  gcreation-perf-dev-host-access
+}
+
+BUILDER:
+network=none
+
+No other membership is valid.
+
+Gateway MUST NOT attach to:
+
+- egress network
+- default bridge
+- host network
+- external network
+- unrelated network
+
+App MUST NOT attach to host-access.
+
+Proxy MUST NOT attach to host-access.
+
+==================================================
+CONTROLLER DESIGN
+==================================================
+
+Modify only as necessary.
+
+Before runtime launch:
+
+ensure_internal_network()
+ensure_egress_network()
+ensure_host_access_network()
+
+The host-access network must use an explicit Docker create definition equivalent
+to:
+
+--driver=bridge
+--internal
+--subnet=172.31.255.0/29
+--gateway=172.31.255.1
+--label=gcreation.role=dev-host-access
+
+Do not actually execute this during Stage 1.
+
+This is source candidate logic only.
+
+Persist the exact network ID under:
+
+/var/lib/gcreation-perf-dev/host-access-network-id
+
+using the same fail-closed identity model already used by the other reviewed
+networks.
+
+Existing network with wrong identity/configuration must fail closed.
+
+Validate at minimum:
+
+Name
+Id
+Internal
+Driver
+Scope
+exact Labels
+IPAM subnet
+IPAM gateway
+Containers/membership
+
+Unexpected extra non-empty IPAM configuration must fail closed.
+
+==================================================
+GATEWAY START
+==================================================
+
+REMOVE:
+
+-p
+127.0.0.1:3101:3101
+
+There must be NO published host port on the gateway.
+
+Preferred controlled sequence:
+
+1. launch gateway on existing internal network
+2. connect gateway to HOST_ACCESS_NETWORK
+3. use:
+
+docker network connect
+--ip 172.31.255.2
+gcreation-perf-dev-host-access
+gcreation-perf-dev-gateway
+
+4. verify all network identities/membership
+5. verify gateway exact host-access IP
+
+The source candidate must fail closed if:
+
+- static IP differs
+- network ID differs
+- host-access network is not Internal=true
+- unexpected member exists
+- gateway has extra network
+- gateway gains egress
+- app/proxy gain host-access membership
+- default bridge appears
+
+Do NOT permit dynamic gateway host-access addressing.
+
+==================================================
+HEALTH ENDPOINT CHANGE
+==================================================
+
+Controller localhost predicate currently uses:
+
+http://127.0.0.1:3101/health
+
+Candidate must use exact:
+
+http://172.31.255.2:3101/health
+
+Preserve:
+
+timeout=10
+NoRedirect behavior
+HTTP 200 requirement
+service == gcreation-performance
+environment == development
+diagnostic instrumentation
+readiness attempts = 30
+sleep = 2 seconds
+final-health semantics
+
+Only endpoint transport changes.
+
+Do NOT relax health acceptance.
+
+Do NOT add fallback to localhost.
+
+Do NOT try localhost first and private IP second.
+
+Do NOT create alternate retry paths.
+
+There must be ONE deterministic host-access endpoint.
+
+==================================================
+GATEWAY SOURCE
+==================================================
+
+Prefer NO CHANGE to:
+
+ops/dev/trusted/gateway.mjs
+
+It already listens:
+
+0.0.0.0:3101
+
+and its upstream remains:
+
+http://gcreation-perf-dev-app:3101/
+
+Do not change the gateway authentication model.
+
+Do not change:
+
+ENGINE_SECRET
+APP_GATEWAY_SECRET
+FETCH_PROXY_SECRET
+
+Do not change gateway request/header/body bounds.
+
+Do not change gateway upstream authentication.
+
+If you believe gateway.mjs must change:
+
+STOP with HOLD and explain why.
+
+==================================================
+WORDPRESS HOST CONSUMER
+==================================================
+
+Current WordPress PHP calls:
+
+http://127.0.0.1:3101
+
+Candidate must consistently route the server-side WordPress request to:
+
+http://172.31.255.2:3101
+
+Preserve:
+
+- ENGINE_SECRET stays server-side
+- browser never receives ENGINE_SECRET
+- X-Engine-Secret behavior unchanged
+- X-Client-Key behavior unchanged
+- redirection=0
+- existing path validation
+- request timeout behavior unless technically required
+- browser nonce/session model
+- WooCommerce behavior
+
+Prefer the smallest safe source change.
+
+Do NOT introduce user-configurable engine host.
+
+Do NOT accept engine URL from browser/request/query/options.
+
+Do NOT expose engine address as a security credential; it is routing metadata.
+
+==================================================
+NGINX REVIEWED EXAMPLE
+==================================================
+
+Current health proxy:
+
+proxy_pass http://127.0.0.1:3101/health;
+
+Candidate:
+
+proxy_pass http://172.31.255.2:3101/health;
+
+Preserve the entire existing health-only boundary:
+
+ONLY:
+
+GET /perf-engine/health
+
+remains public.
+
+Continue:
+
+proxy_pass_request_headers off
+proxy_pass_request_body off
+empty Content-Length
+NO X-Engine-Secret forwarding
+business/admin engine routes remain 404
+
+Do not publicly expose the complete engine API.
+
+==================================================
+SSRF / SCANNER SECURITY
+==================================================
+
+The new host-access address must NEVER become a valid scan destination.
+
+Verify existing SSRF policy rejects:
+
+172.31.255.2
+
+because it is private/internal.
+
+Add an explicit regression test for the exact repair address.
+
+Do NOT whitelist:
+
+172.31.255.0/29
+
+Do NOT whitelist:
+
+172.31.255.2
+
+for browser/Lighthouse/fetch proxy destinations.
+
+Only the HOST itself is allowed to use this address for the trusted gateway.
+
+==================================================
+COLLISION / FAIL-CLOSED POLICY
+==================================================
+
+This Stage 1 cannot inspect or mutate the real host.
+
+Therefore:
+
+DO NOT claim that 172.31.255.0/29 is collision-free on the server.
+
+Source candidate must be designed so a future runtime transition fails closed
+if Docker cannot create/validate the exact subnet.
+
+Existing host-access network with:
+
+- wrong subnet
+- wrong gateway
+- wrong Internal flag
+- wrong role label
+- wrong identity
+- unexpected member
+
+must be rejected.
+
+Do NOT silently select another subnet.
+
+Do NOT auto-fallback to another IP.
+
+Do NOT dynamically pick a free subnet.
+
+If later host evidence shows a collision, that requires separate human review
+and a new reviewed source constant.
+
+==================================================
+FILES ALLOWED TO CHANGE
+==================================================
+
+Functional source SHOULD be limited to:
+
+ops/dev/deploy_controller.py
+
+wordpress/gcreation-performance/gcreation-performance.php
+
+ops/dev/nginx-dev.conf.example
+
+Relevant tests, for example:
+
+tests/test_security_review_v3.py
+tests/test_security_review_v4.py
+tests/test_deployment_kit.py
+tests/test_controller_health_diagnostics.py
+tests/wordpress-integration.php
+existing scanner/SSRF tests if required
+
+Current architecture/security/runbook documentation may be updated where it
+describes the ACTIVE design:
+
+ARCHITECTURE.md
+SECURITY.md
+ops/dev/README.md
+ops/dev/HUMAN_PLUGIN_ARTIFACT.md
+docs/DEV_VALIDATION_RUNBOOK.md
+
+and minimal Stage1 evidence/status/checkpoint files.
+
+==================================================
+FILES / AREAS NOT AUTHORIZED TO CHANGE
+==================================================
+
+Do NOT change unless a mandatory test proves the repair cannot be implemented
+without it; if so STOP HOLD instead of editing:
+
+ops/dev/trusted/gateway.mjs
+ops/dev/runtime.Dockerfile
+ops/dev/prepare_image.py
+ops/dev/install-root.sh
+ops/dev/install_preflight.py
+ops/dev/deploy-dev.sh
+systemd units
+seccomp profile
+package.json
+package-lock.json
+application audit-service source
+scanner proxy source
+database schema
+business rules
+WooCommerce product/pricing logic
+production configuration
+
+Do NOT modify historical evidence/reports.
+
+Historical files that mention 127.0.0.1:3101 must remain historical.
+
+NO global search-and-replace.
+
+Classify each occurrence before editing.
+
+==================================================
+NO IMAGE CHANGE
+==================================================
+
+The reviewed runtime image must remain:
+
+sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a
+
+for this design candidate.
+
+This Stage 1 must establish:
+
+RUNTIME IMAGE CHANGE REQUIRED:
+NO
+
+unless source inspection demonstrates otherwise.
+
+If an image rebuild/trusted gateway source change appears necessary:
+
+STOP:
+SECURITY_REVIEW_REQUIRED / HOLD
+
+Do not proceed automatically.
+
+==================================================
+TEST REQUIREMENTS
+==================================================
+
+Add focused regression coverage.
+
+At minimum test these scenarios:
+
+1.
+Host-access network creation specification is exact:
+
+name
+Internal=true
+bridge
+local
+role label
+172.31.255.0/29
+gateway 172.31.255.1
+
+2.
+Persisted host-access network ID is enforced.
+
+3.
+Changed host-access network ID fails closed.
+
+4.
+Wrong subnet fails closed.
+
+5.
+Wrong Docker bridge gateway fails closed.
+
+6.
+Wrong role label fails closed.
+
+7.
+Unexpected member on host-access fails closed.
+
+8.
+Gateway exact host-access IP must equal 172.31.255.2.
+
+9.
+Wrong gateway IP fails closed.
+
+10.
+Gateway network membership exactly:
+
+internal + host-access
+
+11.
+Gateway never attaches egress.
+
+12.
+App remains internal only.
+
+13.
+Proxy remains only internal + egress.
+
+14.
+Builder remains network=none.
+
+15.
+No runtime container uses default bridge.
+
+16.
+Gateway docker run contains NO -p / --publish.
+
+17.
+Gateway is connected to host-access using exact static IP.
+
+18.
+Controller health opens:
+
+http://172.31.255.2:3101/health
+
+with timeout10.
+
+19.
+No localhost health fallback exists.
+
+20.
+NoRedirect remains unchanged.
+
+21.
+30 readiness attempts and 2-second sleep remain unchanged.
+
+22.
+Final-health semantics remain unchanged.
+
+23.
+Diagnostic journal semantics remain unchanged except endpoint attribution.
+
+24.
+nginx health proxy points to exact new gateway IP.
+
+25.
+nginx still exposes only public health.
+
+26.
+nginx never forwards ENGINE_SECRET.
+
+27.
+WordPress engine requests use exact new host-access endpoint.
+
+28.
+WordPress ENGINE_SECRET handling remains unchanged.
+
+29.
+Browser/user input cannot override engine endpoint.
+
+30.
+Scanner/SSRF policy explicitly rejects:
+
+http://172.31.255.2/
+
+and:
+
+http://172.31.255.2:3101/
+
+31.
+No new secret/environment variable is required.
+
+32.
+No package/dependency/runtime-image input changed.
+
+33.
+Rollback start_runtime uses the same deterministic host-access architecture.
+
+34.
+A network creation/config mismatch stops before runtime containers are started.
+
+35.
+No production hostname/configuration behavior changed.
+
+==================================================
+EXISTING TEST SUITES
+==================================================
+
+Run applicable existing tests without root, Docker, HTTP or network mutation.
+
+At minimum:
+
+python3 -B tests/test_controller_health_diagnostics.py -v
+
+python3 -B tests/test_deployment_kit.py
+
+python3 -B tests/test_security_review_v3.py
+
+python3 -B tests/test_security_review_v4.py
+
+python3 -B tests/test_source_permissions.py
+
+python3 -B tests/test_installer_bytecode.py
+
+Run WordPress integration/static tests already present in the repository if
+their runtime is available.
+
+Run scanner/foundation tests needed to prove exact private gateway address is
+rejected.
+
+DO NOT:
+
+npm install
+npm ci
+docker build
+docker run
+docker network create
+docker inspect real host resources
+systemctl
+sudo
+su
+curl real endpoints
+HTTP runtime probe
+
+No network access should be required by the test phase.
+
+Also run:
+
+scripts/repo-git.sh diff --check
+
+==================================================
+STATIC SECURITY REVIEW
+==================================================
+
+Produce a dedicated checklist.
+
+Every item must be PASS or HOLD.
+
+At minimum review:
+
+1. Docker host port publication removed?
+2. Dedicated host-access network Internal=true?
+3. Host-access network exact driver/scope/label?
+4. Exact subnet fixed?
+5. Exact bridge gateway fixed?
+6. Exact gateway container IP fixed?
+7. Dynamic fallback absent?
+8. Persisted network identity enforced?
+9. Unexpected host-access members rejected?
+10. Gateway has exactly two internal networks?
+11. Gateway external egress absent?
+12. Proxy remains sole egress holder?
+13. App has no host-access attachment?
+14. Builder still network=none?
+15. Default bridge impossible?
+16. Health acceptance semantics unchanged?
+17. Health retry/timeouts unchanged?
+18. No localhost fallback?
+19. WordPress secret boundary unchanged?
+20. Browser cannot control engine endpoint?
+21. Public nginx still health-only?
+22. Private host-access IP remains SSRF-blocked?
+23. No new credentials?
+24. No raw secret logging?
+25. No runtime image/trusted gateway modification?
+26. No dependency changes?
+27. Rollback topology consistent?
+28. Existing network mismatch fails closed?
+29. Historical evidence preserved?
+30. Production/main untouched?
+31. No privileged/runtime action performed?
+32. REPAIR_3 remains false?
+33. Repair budget unchanged?
+34. P2 remains NOT_STARTED?
+
+ANY HOLD:
+
+STOP.
+
+Do not mark REVIEW_READY.
+
+==================================================
+IMPORTANT SEMANTIC REVIEW
+==================================================
+
+Do not merely string-replace localhost.
+
+Review all relevant current references to:
+
+127.0.0.1:3101
+
+Classify them as:
+
+ACTIVE_RUNTIME_REFERENCE
+CURRENT_DOCUMENTATION
+TEST_FIXTURE
+HISTORICAL_EVIDENCE
+UNRELATED_TEST_TARGET
+
+Only change ACTIVE_RUNTIME_REFERENCE / appropriate CURRENT_DOCUMENTATION /
+tests whose assertion represents current architecture.
+
+Do NOT rewrite historical reports/checkpoints.
+
+For example:
+
+tests/security.test.ts may use localhost as an isolated generic HTTP test
+fixture rather than the real gateway endpoint.
+
+Inspect semantics before changing it.
+
+==================================================
+SOURCE CHANGE BOUNDARY
+==================================================
+
+This candidate may change trusted controller behavior because that is the
+explicit repair design authorization.
+
+It must NOT:
+
+- alter customer-visible business logic
+- alter audit rules
+- alter report generation
+- alter pricing
+- alter WooCommerce order flow
+- introduce new features
+- introduce monitoring platform behavior
+- introduce automatic repair
+- introduce production behavior
+
+==================================================
+STAGE 1 REPORT
+==================================================
+
+Create a dedicated report directory, for example:
+
+.ops/reports/P1/exception-repair-design-stage1/
+
+Include:
+
+REPORT.md
+REVIEW.json
+CHECKSUMS.sha256
+CONTROLLER.patch or equivalent exact source diff
+
+Record:
+
+authorization class
+
+P1_EXCEPTION_REPAIR_DESIGN_STAGE1
+
+baseline commit
+
+ccd31c20a8ec918454aa5aa455972860be17e3bf
+
+candidate commit
+
+exact changed files
+
+old controller SHA256
+
+new candidate controller SHA256
+
+network constants
+
+endpoint changes
+
+exact Docker command semantic change
+
+network topology before/after
+
+WordPress routing change
+
+nginx routing change
+
+SSRF regression
+
+test commands/results
+
+static security checklist
+
+runtime image unchanged
+
+gateway trusted source unchanged
+
+dependencies unchanged
+
+runtime execution=false
+
+Docker execution=false
+
+host mutation=false
+
+controller installation=false
+
+deployment request=false
+
+deployment=false
+
+REPAIR_3=false
+
+repair counters unchanged
+
+repair budget exhausted=true
+
+P1 blocked
+
+P2 not started
+
+production untouched
+
+==================================================
+COMMIT MODEL
+==================================================
+
+Prefer:
+
+1. one source/test candidate commit
+2. one evidence/status/checkpoint recording commit
+
+Do not create a self-referencing candidate identity.
+
+Push develop only.
+
+Do not modify main.
+
+Final working tree must be clean.
+
+HEAD must equal origin/develop.
+
+==================================================
+GOVERNANCE AFTER SUCCESS
+==================================================
+
+Even if every test passes:
+
+STATE remains:
+HARD_BLOCKED
+
+P1 remains:
+BLOCKED
+
+Result may become:
+
+P1_EXCEPTION_REPAIR_DESIGN_STAGE1_REVIEW_READY
+
+But:
+
+candidate installed = false
+runtime validated = false
+repair executed = false
+deployment authorized = false
+REPAIR_3 authorized = false
+
+Record:
+
+EXCEPTION_REPAIR_DESIGN_STAGE1_AUTHORIZED=true
+EXCEPTION_REPAIR_DESIGN_STAGE1_COMPLETE=true
+SOURCE_CANDIDATE_ONLY=true
+HOST_MUTATION=false
+RUNTIME_EXECUTION=false
+
+==================================================
+STOP CONDITION
+==================================================
+
+STOP immediately after:
+
+- source candidate committed
+- focused tests complete
+- static security review complete
+- evidence/status checkpoint committed
+- develop pushed
+
+Do NOT prepare:
+
+- root installation script
+- controller refresh
+- Docker network creation command
+- server command
+- runtime validation
+- deployment request
+- REPAIR_3
+- P2 work
+
+==================================================
+FINAL RESPONSE FORMAT
+==================================================
+
+AUTONOMOUS EXECUTION STOP
+
+STATE:
+HARD_BLOCKED
+
+PART:
+P1
+
+PROCESS:
+exception-repair-design-stage1
+
+AUTHORIZATION:
+P1_EXCEPTION_REPAIR_DESIGN_STAGE1 — CONSUMED_FOR_SOURCE_REVIEW_ONLY
+
+BASELINE COMMIT:
+ccd31c20a8ec918454aa5aa455972860be17e3bf
+
+CANDIDATE COMMIT:
+<exact>
+
+CHECKPOINT COMMIT:
+<exact>
+
+OLD CONTROLLER SHA256:
+<exact>
+
+NEW CANDIDATE CONTROLLER SHA256:
+<exact>
+
+REPAIR ARCHITECTURE:
+DEDICATED_INTERNAL_HOST_ACCESS_NETWORK
+
+HOST ACCESS NETWORK:
+gcreation-perf-dev-host-access
+
+HOST ACCESS SUBNET:
+172.31.255.0/29
+
+HOST ACCESS BRIDGE GATEWAY:
+172.31.255.1
+
+GATEWAY HOST ACCESS IP:
+172.31.255.2
+
+DOCKER HOST PORT PUBLICATION:
+REMOVED / HOLD
+
+PROXY-ONLY EGRESS:
+PRESERVED / HOLD
+
+APP NETWORK:
+INTERNAL_ONLY / HOLD
+
+GATEWAY NETWORKS:
+INTERNAL + HOST_ACCESS_INTERNAL / HOLD
+
+ENGINE HOST ENDPOINT:
+http://172.31.255.2:3101
+
+WORDPRESS ROUTING:
+UPDATED / HOLD
+
+NGINX HEALTH ROUTING:
+UPDATED / HOLD
+
+SSRF BLOCK:
+PASS / HOLD
+
+RUNTIME IMAGE CHANGED:
+NO / HOLD
+
+TRUSTED GATEWAY SOURCE CHANGED:
+NO / HOLD
+
+DEPENDENCIES CHANGED:
+NO / HOLD
+
+TESTS:
+<exact counts/results>
+
+STATIC SECURITY REVIEW:
+PASS / HOLD
+
+HOST MUTATION:
+NO
+
+DOCKER/RUNTIME EXECUTION:
+NO
+
+CONTROLLER INSTALLED:
+NO
+
+DEPLOYMENT REQUEST:
+NO
+
+REPAIR EXECUTED:
+NO
+
+REPAIR COUNTERS CHANGED:
+NO
+
+REPAIR BUDGET:
+EXHAUSTED
+
+REPAIR_3:
+NOT AUTHORIZED
+
+P1:
+BLOCKED
+
+P2:
+NOT_STARTED
+
+PRODUCTION:
+UNTOUCHED
+
+NEXT ACTION:
+HUMAN / CHATGPT INDEPENDENT SOURCE REVIEW REQUIRED
+
+NO INSTALLATION, RUNTIME EXECUTION, REPAIR OR DEPLOYMENT IS AUTHORIZED.

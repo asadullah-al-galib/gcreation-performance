@@ -1,0 +1,499 @@
+{
+  "schema_version": 1,
+  "part": "P1",
+  "process": "exception-repair-design-stage1",
+  "authorization_class": "P1_EXCEPTION_REPAIR_DESIGN_STAGE1",
+  "authorization_consumed_for": "SOURCE_REVIEW_ONLY",
+  "authorization_original_sha256": "16f2faa42835572442af4f87ac46ee6b85c24b8171484214cff55923f921b4de",
+  "authorization_normalized_sha256": "55b6d54095918d6f7ea07b14b36c24a3158365da99b5b1101be0e006dc93501b",
+  "baseline_commit": "ccd31c20a8ec918454aa5aa455972860be17e3bf",
+  "candidate_commit": "6726138fc26f883f4782b9113b9aa9eba4cd6730",
+  "candidate_parent": "ccd31c20a8ec918454aa5aa455972860be17e3bf",
+  "timestamp_utc": "2026-10-08T04:27:05.511498+00:00",
+  "result": "P1_EXCEPTION_REPAIR_DESIGN_STAGE1_REVIEW_READY",
+  "static_security_review": "PASS",
+  "review_class": "LOCAL_SOURCE_STATIC_SELF_REVIEW_ONLY",
+  "human_chatgpt_independent_source_review": "REQUIRED / PENDING",
+  "exact_changed_files": [
+    "ARCHITECTURE.md",
+    "SECURITY.md",
+    "docs/DEV_VALIDATION_RUNBOOK.md",
+    "ops/dev/HUMAN_PLUGIN_ARTIFACT.md",
+    "ops/dev/README.md",
+    "ops/dev/deploy_controller.py",
+    "ops/dev/nginx-dev.conf.example",
+    "tests/foundation.test.ts",
+    "tests/test_controller_health_diagnostics.py",
+    "tests/test_deployment_kit.py",
+    "tests/test_host_access_network.py",
+    "tests/test_security_review_v3.py",
+    "tests/test_security_review_v4.py",
+    "tests/wordpress-integration.php",
+    "wordpress/gcreation-performance/gcreation-performance.php"
+  ],
+  "functional_changed_files": [
+    "ops/dev/deploy_controller.py",
+    "ops/dev/nginx-dev.conf.example",
+    "wordpress/gcreation-performance/gcreation-performance.php"
+  ],
+  "file_identities": {
+    "ARCHITECTURE.md": {
+      "baseline_sha256": "0bc5fc3c661d0a103115e2b4b7ba831f21e0665cf4d2917a419628ad52497912",
+      "candidate_sha256": "b6e12730d9b980feaffb083ef01d8fdf492303fbe3432ed1450cd711dd1b3eed"
+    },
+    "SECURITY.md": {
+      "baseline_sha256": "1ef32d8e2fe0fee664b46afdbb9b03b3ff2f12c67af76ee9aae15b651db63400",
+      "candidate_sha256": "dc264a38ef5e53419880de4d3f9473e68bb7f733cb84291ff73626b98a9c1e2c"
+    },
+    "docs/DEV_VALIDATION_RUNBOOK.md": {
+      "baseline_sha256": "4374b1b4fa6db5cadf4be385243bfbe404a348770efac2a91b3dae2850b0cbe6",
+      "candidate_sha256": "b8956665de55ebe44a218a20a1c0da041d5f00fd145a6fccd51f754fdf1f9291"
+    },
+    "ops/dev/HUMAN_PLUGIN_ARTIFACT.md": {
+      "baseline_sha256": "868022a6881b997b4f6e7571d8a156e1ae05866395772c59dd54d0d3ef2a671c",
+      "candidate_sha256": "34f2de3d15400dc3bcdb9d670d79eb5fc3ab651ff515c2fde2d02618f8a059be"
+    },
+    "ops/dev/README.md": {
+      "baseline_sha256": "aebc2866fc3af376bfce2e4e04d5a0c1723f3eb00f0da117bcb96a13bf87d2c0",
+      "candidate_sha256": "b25078cfc6e2bc8380e38fbaba30212b540031fe6db1abcb2af90ac48ab871f2"
+    },
+    "ops/dev/deploy_controller.py": {
+      "baseline_sha256": "be656cc95fbc3d1df09c57852577f8343401916a47aeec2b12459b4be5de414f",
+      "candidate_sha256": "658ce192284c33b5a211b2a1a5c336bd585f2b1c4518d8f6d0fd4f82026d3bd4"
+    },
+    "ops/dev/nginx-dev.conf.example": {
+      "baseline_sha256": "eaa0a325be0ae02a8c2cae2408486c4cde56150e7b3b173d123719213baadb69",
+      "candidate_sha256": "c6996ced457dc3fed2540426048dc1dca003c3383c076cbacefe4022239c8fd2"
+    },
+    "tests/foundation.test.ts": {
+      "baseline_sha256": "3737fed230805cd0cf0a4ddfe7a5fd81a6bed38bbfde1e55efe7565fdb971056",
+      "candidate_sha256": "5e6fd428dcba536e1f72dddd5766089a1faf6888e2dd1dc63a601a827c725738"
+    },
+    "tests/test_controller_health_diagnostics.py": {
+      "baseline_sha256": "f00f54d3e61a00467bbbf4d06c7b28b883fd5b398274371921829a91be7bd8d3",
+      "candidate_sha256": "563693b93fcfece4bed36ed0347516148334afde93a5809b064db399ae380e58"
+    },
+    "tests/test_deployment_kit.py": {
+      "baseline_sha256": "9ac62009a17a16ec0ecc7bd450dccf3e7dd40c77b6b9523bcf0428936717337b",
+      "candidate_sha256": "fed4f3eabf2487c8f58fb7c430de509e69f8310317a1487db58bdeaf3d3c7706"
+    },
+    "tests/test_host_access_network.py": {
+      "baseline_sha256": null,
+      "candidate_sha256": "c1993cdef0883806b2df00bd7389ece68907faa29be3a5c051a2370813d49e9c"
+    },
+    "tests/test_security_review_v3.py": {
+      "baseline_sha256": "f2c9494d80d405984684fbf9b9dfec6111ac3d37ae16cfe0fdef05a0bffd7db5",
+      "candidate_sha256": "27ab11455f9a43e6ac8aa0e30f54fe971033e5610f9960b3d2071bbc3012e184"
+    },
+    "tests/test_security_review_v4.py": {
+      "baseline_sha256": "248f944d08e0a9a1ec3b9c4a6cc74a8d62d7f31191c449de8564c48d089247d3",
+      "candidate_sha256": "44170421ae3194da6929717e52a3fe789b3d78b6632b3a5e838f5b029c76bbe1"
+    },
+    "tests/wordpress-integration.php": {
+      "baseline_sha256": "277ed7da45505e4713494057e17e7492f0fa880f3832dc0ab50ba58f3d19a297",
+      "candidate_sha256": "93b13abc7d4b6367a4889bda84f03a833f99a7acbc0aa8c0895d8093d538b872"
+    },
+    "wordpress/gcreation-performance/gcreation-performance.php": {
+      "baseline_sha256": "132da547996114933da745bbc4e7b1c71a5c42bad1e9a0f61c340704cae56c88",
+      "candidate_sha256": "4c71c02386c6cbe3f8ae52b81d56f922f4e7db944b6178adcd319a22c37d55ec"
+    }
+  },
+  "old_controller_sha256": "be656cc95fbc3d1df09c57852577f8343401916a47aeec2b12459b4be5de414f",
+  "candidate_controller_sha256": "658ce192284c33b5a211b2a1a5c336bd585f2b1c4518d8f6d0fd4f82026d3bd4",
+  "source_patch_sha256": "a3afec1d7b204b5f634b14a71fdef9d350f498ba330fa0a01c064b3d9bba1090",
+  "network_constants": {
+    "HOST_ACCESS_NETWORK": "gcreation-perf-dev-host-access",
+    "HOST_ACCESS_ROLE": "dev-host-access",
+    "HOST_ACCESS_SUBNET": "172.31.255.0/29",
+    "HOST_ACCESS_BRIDGE_GATEWAY": "172.31.255.1",
+    "GATEWAY_HOST_ACCESS_IP": "172.31.255.2",
+    "HOST_ACCESS_NETWORK_ID_FILE": "host-access-network-id",
+    "ENGINE_HOST_URL": "http://172.31.255.2:3101"
+  },
+  "topology_before": {
+    "APP": [
+      "internal"
+    ],
+    "PROXY": [
+      "internal",
+      "egress"
+    ],
+    "GATEWAY": [
+      "internal"
+    ],
+    "BUILDER": [
+      "none"
+    ],
+    "gateway_host_publish": "127.0.0.1:3101:3101"
+  },
+  "topology_candidate": {
+    "APP": [
+      "internal"
+    ],
+    "PROXY": [
+      "internal",
+      "egress"
+    ],
+    "GATEWAY": [
+      "internal",
+      "host-access-internal"
+    ],
+    "BUILDER": [
+      "none"
+    ],
+    "gateway_host_publish": null,
+    "host_access_members": [
+      "GATEWAY"
+    ]
+  },
+  "runtime_image_id_unchanged_operator_attested": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a",
+  "runtime_image_change_required": false,
+  "runtime_image_changed": false,
+  "trusted_gateway_source_changed": false,
+  "gateway_sha256": "d9616a205b5f7a7e2d11779a2a98a1a5367ec76d992b2d3b8bb51e5a25343c4c",
+  "dependencies_changed": false,
+  "host_subnet_collision_status": "NOT_VERIFIED",
+  "runtime_execution": false,
+  "docker_execution": false,
+  "host_mutation": false,
+  "controller_installation": false,
+  "candidate_installed": false,
+  "runtime_validated": false,
+  "deployment_request": false,
+  "deployment": false,
+  "deployment_authorized": false,
+  "repair_executed": false,
+  "repair_3_authorized": false,
+  "repair_counters_changed": false,
+  "repair_cycle": 2,
+  "failed_repair_cycles": 2,
+  "repair_budget_exhausted": true,
+  "automatic_retries": 0,
+  "initial": "FAILED_CONSUMED",
+  "repair_1": "FAILED_CONSUMED_1_OF_1",
+  "repair_2": "FAILED_CONSUMED_1_OF_1",
+  "p1": "BLOCKED",
+  "orchestrator_state": "HARD_BLOCKED",
+  "full_p1_independent_review": "PENDING",
+  "p2": "NOT_STARTED",
+  "p2_to_p7": "NOT_STARTED",
+  "production_touched": false,
+  "main_unchanged_sha": "c724ac3b50bc44d71f8620bb4ac0cccfae890de2",
+  "historical_exact_repair_2_root_cause": "NOT_ESTABLISHED",
+  "stage3b_underlying_component": "DOCKER_PORT_PUBLICATION_LAYER",
+  "stage3b_root_cause_class": "PROVEN_COMPONENT_CLASS",
+  "stage3b_exact_daemon_network_mechanism": "NOT_ESTABLISHED",
+  "security_boundary_assessment": "Candidate changes reviewed controller network topology and trusted host ingress routing under this explicit SOURCE-ONLY exception. V4 enforcement model retained: immutable gateway/proxy/image, offline builds, dependency baseline, identity/role/IPAM/member verification, proxy-only egress, SSRF/private denial, distinct secrets, health-only nginx, sandbox/cgroup limits, archive/root snapshot trust, bounded logs/retention and human-only PHP. No installed boundary or host state changed. Independent source review required; no runtime transition authorized.",
+  "function_preservation": {
+    "all_unchanged_controller_functions_byte_equal": [
+      "NoRedirect",
+      "artifact_snapshot",
+      "build_command",
+      "check_path",
+      "claim_request",
+      "command",
+      "container_flags",
+      "copy_entry",
+      "docker_json",
+      "emit_health_diagnostic",
+      "open_directory",
+      "prune_releases",
+      "runtime_image",
+      "snapshot_digest",
+      "status",
+      "verify_dependencies"
+    ],
+    "health_only_endpoint_changed": true,
+    "deploy_only_prelaunch_host_access_check_added": true,
+    "php_only_endpoint_changed": true,
+    "nginx_boundary_byte_equal": true,
+    "unchanged_baseline_files_verified": 237
+  },
+  "test_requirement_coverage": [
+    "exact create flags/metadata: HostAccess creation and metadata negatives",
+    "persisted ID: creation fixture0600",
+    "changed ID: persisted_identity_change",
+    "wrong subnet: wrong_subnet_fails_before_container_start",
+    "wrong bridge gateway: wrong_bridge_gateway",
+    "wrong role: wrong_role_labels",
+    "unexpected member: unexpected_host_member",
+    "exact IP: gateway_exact_address",
+    "wrong IP: gateway_wrong_ip_prefix",
+    "gateway exact two networks: gateway_missing_host_access/extra attachment",
+    "gateway no egress: gateway_egress_default_bridge_host_or_other_network",
+    "app internal-only: app_internal_only",
+    "proxy exact: proxy_internal_plus_egress_only",
+    "builder none: builder_remains_offline",
+    "no default bridge: all three topology negatives",
+    "no publish: runtime_launch and requested/effective port negatives",
+    "static connect: runtime_launch",
+    "health endpoint/timeout10: HealthDiagnostic both_pass",
+    "no fallback: frozen-source and health byte comparison",
+    "NoRedirect: HealthDiagnostic redirect_handlers and class equality",
+    "30 attempts/sleep2: HealthDiagnostic readiness_30_attempts",
+    "final-health: HealthDiagnostic final_health",
+    "bounded diagnostic semantics: HealthDiagnostic whole suite; emitter byte-equal",
+    "nginx exact IP: ThirdReview health assertion",
+    "nginx health-only: ThirdReview and boundary equality",
+    "nginx no master secret: ThirdReview and boundary equality",
+    "PHP exact endpoint: wordpress-integration",
+    "PHP secret unchanged: wordpress-integration and PHP byte equality",
+    "browser endpoint override rejected: wordpress-integration",
+    "exact SSRF URLs + redirects rejected: foundation",
+    "no new secret/env: fixed_constants and unchanged trust functions",
+    "no dependency/image input: frozen-source regression and baseline comparison",
+    "rollback same architecture: rollback_reuses_same_start_runtime",
+    "config/create mismatch before containers: wrong_subnet and creation_collision plus all prechecks",
+    "production config/hostname unchanged: health/PHP/nginx equality and allowed Git paths"
+  ],
+  "tests": {
+    "python": 99,
+    "typescript": 9,
+    "total_counted": 108,
+    "php_lint_and_stub_contracts": "PASS",
+    "format_lint_typecheck_build": "PASS",
+    "diff_check": "PASS",
+    "details": "TEST_RESULTS.json"
+  },
+  "static_security_checklist": [
+    {
+      "id": 1,
+      "item": "Docker host port publication removed",
+      "result": "PASS",
+      "finding": "Gateway argv has no -p/--publish; HostConfig and effective Ports inspection reject all nonempty bindings.",
+      "evidence": "tests/test_host_access_network.py:test_gateway_no_requested_or_effective_published_port; test_runtime_launch_has_no_publish_static_connect_and_strict_order"
+    },
+    {
+      "id": 2,
+      "item": "Dedicated host-access network Internal=true",
+      "result": "PASS",
+      "finding": "Fixed ensure_host_access_network supplies True; incorrect flag fails before launch.",
+      "evidence": "test_name_internal_driver_scope_and_invalid_identity_fail_closed"
+    },
+    {
+      "id": 3,
+      "item": "Exact driver/scope/label",
+      "result": "PASS",
+      "finding": "bridge/local and exactly gcreation.role=dev-host-access required.",
+      "evidence": "test_name_internal_driver_scope_and_invalid_identity_fail_closed; test_wrong_role_labels_and_extra_labels_fail_closed"
+    },
+    {
+      "id": 4,
+      "item": "Exact fixed subnet",
+      "result": "PASS",
+      "finding": "Compile-time 172.31.255.0/29; exact create argument and IPAM check.",
+      "evidence": "test_creation_exact_flags_and_private_persisted_identity; test_wrong_subnet_fails_before_container_start"
+    },
+    {
+      "id": 5,
+      "item": "Exact fixed bridge gateway",
+      "result": "PASS",
+      "finding": "Compile-time 172.31.255.1; exact create and IPAM check.",
+      "evidence": "test_wrong_bridge_gateway_fails_closed"
+    },
+    {
+      "id": 6,
+      "item": "Exact gateway container IP",
+      "result": "PASS",
+      "finding": "Compile-time 172.31.255.2; static attachment, endpoint IP/prefix and member IPv4Address required.",
+      "evidence": "test_gateway_exact_address_accepted_on_both_inspections; test_gateway_wrong_ip_prefix_or_ipv6_rejected"
+    },
+    {
+      "id": 7,
+      "item": "Dynamic fallback absent",
+      "result": "PASS",
+      "finding": "One fixed subnet/IP/endpoint. Docker creation failures propagate without alternative or allowed failure.",
+      "evidence": "test_creation_collision_aborts_before_runtime_launch_no_fallback"
+    },
+    {
+      "id": 8,
+      "item": "Persisted network identity enforced",
+      "result": "PASS",
+      "finding": "Existing STATE identity file uses exact 64-hex ID, exclusive creation and 0600; STATE root-private ownership is the unchanged installed trust assumption, not newly measured.",
+      "evidence": "test_creation_exact_flags_and_private_persisted_identity; test_persisted_identity_change_fails_closed"
+    },
+    {
+      "id": 9,
+      "item": "Unexpected host-access members rejected",
+      "result": "PASS",
+      "finding": "Only fixed gateway allowed; names/IDs/roles/image validated.",
+      "evidence": "test_unexpected_host_member_including_app_and_proxy_rejected; test_gateway_member_trusted_image_label_and_name_fail_closed"
+    },
+    {
+      "id": 10,
+      "item": "Gateway exactly two internal networks",
+      "result": "PASS",
+      "finding": "Exact set {internal,host-access}; preflight rejects incomplete existing topology and post-attachment requires full membership.",
+      "evidence": "test_gateway_missing_host_access_is_not_accepted_as_transition; test_strict_post_attachment_requires_all_expected_members"
+    },
+    {
+      "id": 11,
+      "item": "Gateway external egress absent",
+      "result": "PASS",
+      "finding": "Extra egress/bridge/host/unrelated attachments fail closed.",
+      "evidence": "test_gateway_egress_default_bridge_host_or_other_network_rejected"
+    },
+    {
+      "id": 12,
+      "item": "Proxy sole egress holder",
+      "result": "PASS",
+      "finding": "Exact proxy internal+egress; gateway/app cannot join egress; egress membership allows only proxy.",
+      "evidence": "test_proxy_internal_plus_egress_only_no_host_access_or_bridge; tests/test_security_review_v4.py"
+    },
+    {
+      "id": 13,
+      "item": "App no host-access attachment",
+      "result": "PASS",
+      "finding": "Exact app internal-only.",
+      "evidence": "test_app_internal_only_no_host_access_or_egress"
+    },
+    {
+      "id": 14,
+      "item": "Builder network=none",
+      "result": "PASS",
+      "finding": "build_command byte-equal; existing sandbox/offline baseline maintained.",
+      "evidence": "test_builder_remains_offline_no_extra_network_or_secret; tests/test_security_review_v4.py"
+    },
+    {
+      "id": 15,
+      "item": "Default bridge rejected",
+      "result": "PASS",
+      "finding": "Every valid runtime member requires exact network set; Docker run supplies fixed internal network. Builder has network=none.",
+      "evidence": "test_gateway_egress_default_bridge_host_or_other_network_rejected; test_app_internal_only_no_host_access_or_egress; test_proxy_internal_plus_egress_only_no_host_access_or_bridge"
+    },
+    {
+      "id": 16,
+      "item": "Health acceptance semantics unchanged",
+      "result": "PASS",
+      "finding": "health byte-equal after only endpoint substitution; HTTP200/service/environment, homepage ordering, exceptions, final semantics preserved.",
+      "evidence": "tests/test_controller_health_diagnostics.py; static equality check"
+    },
+    {
+      "id": 17,
+      "item": "Health retry/timeouts unchanged",
+      "result": "PASS",
+      "finding": "30 attempts, 2-second sleep, timeout10 internal /15 homepage; exact old readiness tail retained.",
+      "evidence": "tests/test_controller_health_diagnostics.py:test_readiness_30_attempts_2_second_sleeps_and_deadline_unchanged; test_both_pass_retains_order_timeouts_and_returns_normally"
+    },
+    {
+      "id": 18,
+      "item": "No localhost fallback",
+      "result": "PASS",
+      "finding": "One ENGINE_HOST_URL; no former endpoint anywhere in controller functional source. NoRedirect class byte-equal.",
+      "evidence": "test_no_dependencies_image_gateway_or_extra_environment_change; tests/test_controller_health_diagnostics.py:test_redirect_handlers_still_raise_without_following"
+    },
+    {
+      "id": 19,
+      "item": "WordPress secret boundary unchanged",
+      "result": "PASS",
+      "finding": "PHP bytes differ only by fixed endpoint; server X-Engine-Secret and X-Client-Key/timeout20/redirection0/path/nonce/session/commerce unchanged.",
+      "evidence": "tests/wordpress-integration.php; static PHP exact byte substitution check"
+    },
+    {
+      "id": 20,
+      "item": "Browser cannot control engine endpoint",
+      "result": "PASS",
+      "finding": "Fixed literal URL; invalid absolute/query paths do not reach stub; query/options/body engine URL cannot alter target.",
+      "evidence": "tests/wordpress-integration.php"
+    },
+    {
+      "id": 21,
+      "item": "Public nginx health-only",
+      "result": "PASS",
+      "finding": "Only GET /perf-engine/health; input headers/body off, Content-Length empty, no master secret; other engine namespace404. Body byte-equal after upstream substitution.",
+      "evidence": "tests/test_security_review_v3.py; static nginx comment-stripped equality check"
+    },
+    {
+      "id": 22,
+      "item": "Private IP remains SSRF-blocked",
+      "result": "PASS",
+      "finding": "Exact IP and URLs with/without3101 denied before DNS, redirects denied before second transport. No policy edit or whitelist.",
+      "evidence": "tests/foundation.test.ts:host-access gateway address is denied for scans and redirects before transport"
+    },
+    {
+      "id": 23,
+      "item": "No new credentials",
+      "result": "PASS",
+      "finding": "Existing three fixed secrets unchanged; no request schema/env field added; trusted constants not developer-configurable.",
+      "evidence": "test_fixed_constants_cannot_be_overridden_by_environment; container_flags/build_command/artifact_snapshot/claim_request bytes unchanged"
+    },
+    {
+      "id": 24,
+      "item": "No raw secret logging",
+      "result": "PASS",
+      "finding": "emit_health_diagnostic and command byte-equal; new validation messages are fixed strings only.",
+      "evidence": "tests/test_controller_health_diagnostics.py:test_information_disclosure_sentinels_never_escape; static function preservation"
+    },
+    {
+      "id": 25,
+      "item": "No image/trusted gateway modification",
+      "result": "PASS",
+      "finding": "gateway hash matches prior reviewed source; Dockerfile/prepare/install/source dependency inputs byte-equal. Gateway already listens0.0.0.0:3101 and fixed internal upstream unchanged.",
+      "evidence": "test_no_dependencies_image_gateway_or_extra_environment_change; full baseline file comparison"
+    },
+    {
+      "id": 26,
+      "item": "No dependency changes",
+      "result": "PASS",
+      "finding": "package.json/package-lock.json byte-equal, no npm install/ci executed.",
+      "evidence": "test_no_dependencies_image_gateway_or_extra_environment_change; baseline preservation"
+    },
+    {
+      "id": 27,
+      "item": "Rollback topology consistent",
+      "result": "PASS",
+      "finding": "Existing deploy rollback calls same start_runtime; only added host-access prebuild check in deploy.",
+      "evidence": "test_rollback_reuses_same_start_runtime_function; static deploy exact line insertion"
+    },
+    {
+      "id": 28,
+      "item": "Network mismatch fails closed",
+      "result": "PASS",
+      "finding": "ID/config/IPAM/staticIP/role/member errors propagate before startup; postattachment mismatches prevent health acceptance.",
+      "evidence": "tests/test_host_access_network.py negative fixtures; test_runtime_launch_has_no_publish_static_connect_and_strict_order"
+    },
+    {
+      "id": 29,
+      "item": "Historical evidence preserved",
+      "result": "PASS",
+      "finding": "All prior Part packages/events/source not in allowlist byte-equal; report only prepended; existing EVIDENCE entries/objects preserved.",
+      "evidence": "baseline preservation + final recording audit"
+    },
+    {
+      "id": 30,
+      "item": "Production/main untouched",
+      "result": "PASS",
+      "finding": "No production configuration/hostname behavior changed; remote main remains c724ac3b50bc44d71f8620bb4ac0cccfae890de2. No production/runtime request.",
+      "evidence": "Git exact candidate paths and remote main verification"
+    },
+    {
+      "id": 31,
+      "item": "No privileged/runtime action performed",
+      "result": "PASS",
+      "finding": "Ordinary UID10023; strict mock boundaries; Python fixture/TS injected transport/PHP stubs and compilers only. No root/Docker/systemd/Plesk/HTTP commands.",
+      "evidence": "tests/test_host_access_network.py no-subprocess/no-socket guards; tool-command audit"
+    },
+    {
+      "id": 32,
+      "item": "REPAIR_3 false",
+      "result": "PASS",
+      "finding": "No REPAIR_3 authorization/request/execution.",
+      "evidence": "unchanged consumed deployment_authority and repair counters"
+    },
+    {
+      "id": 33,
+      "item": "Repair budget unchanged",
+      "result": "PASS",
+      "finding": "repair_cycle2/failed cycles2, INITIAL/REPAIR_1/REPAIR_2 consumed, retries0, exhausted. Stage1 source review authorization consumed separately.",
+      "evidence": "baseline JSON counter identity check"
+    },
+    {
+      "id": 34,
+      "item": "P2 NOT_STARTED",
+      "result": "PASS",
+      "finding": "P2–P7 remain NOT_STARTED; P0 FROZEN/humanPASS.",
+      "evidence": "orchestrator/Part/checkpoint consistency check"
+    }
+  ],
+  "next_action": "HUMAN / CHATGPT INDEPENDENT SOURCE REVIEW REQUIRED; STOP; NO INSTALLATION, RUNTIME EXECUTION, REPAIR OR DEPLOYMENT AUTHORIZED"
+}

@@ -178,7 +178,7 @@ class ThirdReviewTests(unittest.TestCase):
         source = (ROOT / 'ops/dev/nginx-dev.conf.example').read_text()
         self.assertIn('location = /perf-engine/health', source)
         self.assertEqual(source.count('proxy_pass '), 1)
-        self.assertIn('proxy_pass http://127.0.0.1:3101/health;', source)
+        self.assertIn('proxy_pass http://172.31.255.2:3101/health;', source)
         self.assertIn('proxy_pass_request_headers off;', source)
         self.assertIn('if ($request_method != GET) { return 405; }', source)
         self.assertIn('return 404;', source)

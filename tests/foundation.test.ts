@@ -4,6 +4,7 @@ import {
   parsePublicUrl,
   isPublicIp,
   validateTarget,
+  safeFetch,
   SecurityError,
 } from "../packages/shared/src/security.js";
 import { quote } from "../packages/shared/src/pricing.js";
@@ -59,6 +60,42 @@ test("private, reserved, metadata and mapped IPv6 are blocked", () => {
     assert.equal(isPublicIp(ip), false, ip);
   for (const ip of ["8.8.8.8", "1.1.1.1", "2606:4700:4700::1111"])
     assert.equal(isPublicIp(ip), true, ip);
+});
+test("host-access gateway address is denied for scans and redirects before transport", async () => {
+  assert.equal(isPublicIp("172.31.255.2"), false);
+  for (const url of ["http://172.31.255.2/", "http://172.31.255.2:3101/"]) {
+    let resolutions = 0;
+    await assert.rejects(
+      validateTarget(url, async () => {
+        resolutions++;
+        return [{ address: "172.31.255.2", family: 4 }];
+      }),
+      SecurityError,
+    );
+    assert.equal(resolutions, 0);
+    let transports = 0;
+    await assert.rejects(
+      safeFetch("https://example.com/", {
+        resolver: async () => [{ address: "8.8.8.8", family: 4 }],
+        transport: async (target) => {
+          transports++;
+          return {
+            url: target.url.href,
+            status: 302,
+            headers: { location: url },
+            body: "",
+            ttfbMs: 1,
+          };
+        },
+      }),
+      SecurityError,
+    );
+    assert.equal(
+      transports,
+      1,
+      "Private redirect denied before second transport",
+    );
+  }
 });
 test("every DNS answer and redirect destination is revalidated", async () => {
   await assert.rejects(

@@ -71,7 +71,7 @@ class HealthDiagnosticTests(unittest.TestCase):
                 self.assertIs(caught.exception, expected_error)
         self.assertIsInstance(build.call_args[0][0], controller.NoRedirect)
         calls = opener.open.call_args_list
-        self.assertEqual(calls[0], mock.call('http://127.0.0.1:3101/health', timeout=10))
+        self.assertEqual(calls[0], mock.call('http://172.31.255.2:3101/health', timeout=10))
         if len(calls) > 1:
             self.assertEqual(calls[1], mock.call('https://dev.gcreation.agency/', timeout=15))
         return self.events(output), opener, output.getvalue()
@@ -221,6 +221,7 @@ class HealthDiagnosticTests(unittest.TestCase):
                 mock.patch.object(controller, 'command'), \
                 mock.patch.object(controller, 'ensure_internal_network'), \
                 mock.patch.object(controller, 'ensure_egress_network'), \
+                mock.patch.object(controller, 'ensure_host_access_network'), \
                 mock.patch.object(controller, 'runtime_image', return_value='sha256:' + 'e' * 64), \
                 mock.patch.object(controller.time, 'sleep') as sleep:
             try:

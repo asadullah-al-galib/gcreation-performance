@@ -37,6 +37,7 @@ class FourthReviewTests(unittest.TestCase):
         with mock.patch.multiple(controller, STATE=self.state, TRUSTED=self.trusted), \
                 mock.patch.object(controller, 'ensure_internal_network'), \
                 mock.patch.object(controller, 'ensure_egress_network'), \
+                mock.patch.object(controller, 'ensure_host_access_network'), \
                 mock.patch.object(controller, 'health'), \
                 mock.patch.object(controller, 'command') as command:
             controller.start_runtime(self.root / 'malicious-release')
@@ -50,7 +51,8 @@ class FourthReviewTests(unittest.TestCase):
             self.assertIn('sha256:' + 'e' * 64, args)
         self.assertIn('--env-file=' + str(self.state / 'proxy.env'), runs[controller.PROXY])
         self.assertNotIn('-p', runs[controller.APP])
-        self.assertIn('127.0.0.1:3101:3101', runs[controller.GATEWAY])
+        self.assertNotIn('-p', runs[controller.GATEWAY])
+        self.assertIn(['docker', 'network', 'connect', '--ip', '172.31.255.2', controller.HOST_ACCESS_NETWORK, controller.GATEWAY], [call[0][0] for call in command.call_args_list])
         self.assertIn(['docker', 'network', 'connect', controller.EGRESS, controller.PROXY], [call[0][0] for call in command.call_args_list])
         self.assertNotIn('bridge', [arg for call in command.call_args_list for arg in call[0][0]])
 

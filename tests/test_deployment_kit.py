@@ -103,7 +103,8 @@ class DeploymentBoundaryTests(unittest.TestCase):
         source = (ROOT / 'ops/dev/deploy_controller.py').read_text()
         self.assertNotIn('shell=True', source)
         self.assertNotIn('docker.sock', source)
-        self.assertIn("'127.0.0.1:3101:3101'", source)
+        self.assertNotIn("'127.0.0.1:3101:3101'", source)
+        self.assertEqual(controller.ENGINE_HOST_URL, 'http://172.31.255.2:3101')
         self.assertIn("'--internal'", source)
 
     def test_failed_release_retention_preserves_active_rollback_source(self):
@@ -178,6 +179,7 @@ class DeploymentBoundaryTests(unittest.TestCase):
                 mock.patch.object(controller, 'start_runtime') as runtime, \
                 mock.patch.object(controller, 'ensure_internal_network'), \
                 mock.patch.object(controller, 'ensure_egress_network'), \
+                mock.patch.object(controller, 'ensure_host_access_network'), \
                 mock.patch.object(preflight, 'require_root_owned'), \
                 mock.patch.object(preflight, 'resolve_dev_addresses', return_value=['103.112.63.86']), \
                 mock.patch.object(controller, 'health', side_effect=check_health):

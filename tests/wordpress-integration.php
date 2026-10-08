@@ -3,14 +3,14 @@
 define('ABSPATH', __DIR__);
 define('GCREATION_ENGINE_SECRET', str_repeat('x', 64));
 define('HOUR_IN_SECONDS', 3600); define('DAY_IN_SECONDS', 86400);
-$options = array(); $hooks = array(); $transients = array(); $requests = array(); $order = null;
+$options = array(); $hooks = array(); $transients = array(); $requests = array(); $request_args = array(); $order = null;
 class WP_Error { public $message; public function __construct($code, $message, $data = null) { $this->message = $message; } }
 function add_action($name, $fn, $priority = 10, $args = 1) { global $hooks; $hooks[$name][] = $fn; }
 function add_shortcode($name, $fn) {}
 function is_wp_error($value) { return $value instanceof WP_Error; }
 function wp_json_encode($data) { return json_encode($data); }
 function wp_remote_request($url, $args) {
-    global $requests; $data = json_decode($args['body'], true); $requests[] = array($url, $data);
+    global $requests, $request_args; $data = json_decode($args['body'], true); $requests[] = array($url, $data); $request_args[] = $args;
     if (strpos($url, '/quotes') !== false) { return array('code' => 200, 'body' => json_encode(array('amount'=>499,'currency'=>'BDT','count'=>5,'tier'=>'major5','websiteUrl'=>'https://example.com/'))); }
     if (strpos($url, '/orders/paid') !== false) { return array('code'=>201, 'body'=>json_encode(array('auditId'=>'paid-audit-id'))); }
     return array('code'=>503,'body'=>'{}');
@@ -50,4 +50,20 @@ $item=new Item();$item->meta['_gcp_selection']=WC()->cart->added['gcp'];$order=n
 gcp_paid_order(42);gcp_paid_order(42);
 $paid=array_filter($requests,function($request){return strpos($request[0],'/orders/paid')!==false;});
 check(count($paid)===1,'Payment hook duplicated paid audit');check(strlen($item->meta['_gcp_report_token'])===64,'Token is not strong');check($item->meta['_gcp_paid_audit']==='paid-audit-id','Paid audit metadata missing');
+foreach ($requests as $index => $request) {
+    check(strpos($request[0], 'http://172.31.255.2:3101/') === 0, 'Engine host routing changed');
+    $args = $request_args[$index];
+    check($args['timeout'] === 20 && $args['redirection'] === 0, 'Timeout/redirect boundary changed');
+    check($args['headers']['X-Engine-Secret'] === GCREATION_ENGINE_SECRET, 'Server secret header changed');
+    check($args['headers']['X-Client-Key'] === hash_hmac('sha256', 'unknown', wp_salt('auth')), 'Client credential behavior changed');
+}
+$before = count($requests);
+foreach (array('http://attacker.invalid/health', '//attacker.invalid/health', '/health?engine=http://attacker.invalid') as $path) {
+    check(is_wp_error(gcp_engine($path)), 'Request-controlled engine target accepted');
+}
+check(count($requests) === $before, 'Invalid path reached transport');
+$_GET['engine_host'] = 'http://attacker.invalid'; $options['engine_host'] = 'http://attacker.invalid';
+gcp_engine('/health', array('engineUrl' => 'http://attacker.invalid'));
+check($requests[count($requests) - 1][0] === 'http://172.31.255.2:3101/health', 'Engine endpoint was configurable');
+echo "Host-access routing contract: fixed endpoint, private server headers, timeout/redirection and input rejection passed.\n";
 echo "WooCommerce contract: trusted pricing, session ownership and idempotent synchronization passed.\n";

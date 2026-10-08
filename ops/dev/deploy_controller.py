@@ -25,6 +25,13 @@ TRUSTED = Path('/usr/local/lib/gcreation-perf-dev')
 IMAGE = 'gcreation-perf-dev-runtime:0.1'
 NETWORK = 'gcreation-perf-dev-internal'
 EGRESS = 'gcreation-perf-dev-egress'
+HOST_ACCESS_NETWORK = 'gcreation-perf-dev-host-access'
+HOST_ACCESS_ROLE = 'dev-host-access'
+HOST_ACCESS_SUBNET = '172.31.255.0/29'
+HOST_ACCESS_BRIDGE_GATEWAY = '172.31.255.1'
+GATEWAY_HOST_ACCESS_IP = '172.31.255.2'
+HOST_ACCESS_NETWORK_ID_FILE = 'host-access-network-id'
+ENGINE_HOST_URL = 'http://172.31.255.2:3101'
 GATEWAY = 'gcreation-perf-dev-gateway'
 APP = 'gcreation-perf-dev-app'
 PROXY = 'gcreation-perf-dev-proxy'
@@ -132,10 +139,12 @@ def runtime_image():
     return image
 
 
-def ensure_network(name, internal, role, identity_name, allowed):
+def ensure_network(name, internal, role, identity_name, allowed, require_members=False):
     listed = docker_json(['network', 'ls', '--filter', 'name=^' + name + '$', '--format', '{{json .}}'])
     if listed is None:
         flags = ['--internal'] if internal else []
+        if name == HOST_ACCESS_NETWORK:
+            flags += ['--subnet=' + HOST_ACCESS_SUBNET, '--gateway=' + HOST_ACCESS_BRIDGE_GATEWAY]
         command(['docker', 'network', 'create', '--driver=bridge'] + flags + ['--label=gcreation.role=' + role, name])
     existing = docker_json(['network', 'inspect', '--format', '{{json .}}', name])
     if (not isinstance(existing, dict) or existing.get('Name') != name
@@ -144,6 +153,22 @@ def ensure_network(name, internal, role, identity_name, allowed):
             or existing.get('Scope') != 'local' or existing.get('Labels') != {'gcreation.role': role}
             or not isinstance(existing.get('Containers', {}), dict)):
         raise ValueError('Unsafe existing Docker network')
+    if name == HOST_ACCESS_NETWORK:
+        ipam = existing.get('IPAM')
+        if (not isinstance(ipam, dict) or ipam.get('Driver') != 'default'
+                or ipam.get('Options') not in (None, {})
+                or set(ipam) - {'Driver', 'Options', 'Config'}
+                or not isinstance(ipam.get('Config'), list) or len(ipam['Config']) != 1
+                or not isinstance(ipam['Config'][0], dict)
+                or existing.get('EnableIPv6', False) is not False):
+            raise ValueError('Unsafe host-access IPAM')
+        config = ipam['Config'][0]
+        if (config.get('Subnet') != HOST_ACCESS_SUBNET
+                or config.get('Gateway') != HOST_ACCESS_BRIDGE_GATEWAY
+                or set(config) - {'Subnet', 'Gateway', 'IPRange', 'AuxiliaryAddresses'}
+                or config.get('IPRange') not in (None, '')
+                or config.get('AuxiliaryAddresses') not in (None, {})):
+            raise ValueError('Unsafe host-access subnet or gateway')
     identity = STATE / identity_name
     if identity.exists():
         if identity.read_text() != existing['Id']:
@@ -152,10 +177,14 @@ def ensure_network(name, internal, role, identity_name, allowed):
         with identity.open('x') as output:
             output.write(existing['Id'])
         identity.chmod(0o600)
+    members = set()
     for identifier, attachment in existing.get('Containers', {}).items():
+        if not isinstance(attachment, dict):
+            raise ValueError('Invalid network member')
         attached_name = attachment.get('Name')
-        if attached_name not in allowed or not re.fullmatch('[0-9a-f]{64}', identifier):
+        if attached_name not in allowed or attached_name in members or not re.fullmatch('[0-9a-f]{64}', identifier):
             raise ValueError('Unexpected network member')
+        members.add(attached_name)
         container = docker_json(['container', 'inspect', '--format', '{{json .}}', identifier])
         expected_role = {APP: 'app', PROXY: 'proxy', GATEWAY: 'gateway'}[attached_name]
         if (container.get('Id') != identifier or container.get('Name') != '/' + attached_name
@@ -163,20 +192,41 @@ def ensure_network(name, internal, role, identity_name, allowed):
                 or (container.get('Config', {}).get('Labels') or {}).get('gcreation.role') != expected_role):
             raise ValueError('Untrusted network member identity')
         networks = container.get('NetworkSettings', {}).get('Networks', {})
-        expected_networks = {NETWORK, EGRESS} if attached_name == PROXY else {NETWORK}
-        # During initial proxy startup it has only the internal interface.
-        if attached_name == PROXY and set(networks) == {NETWORK} and name == NETWORK:
-            expected_networks = {NETWORK}
-        if set(networks) != expected_networks or networks[name].get('NetworkID') != existing['Id']:
+        expected_networks = ({NETWORK, EGRESS} if attached_name == PROXY else
+                             {NETWORK, HOST_ACCESS_NETWORK} if attached_name == GATEWAY else {NETWORK})
+        if (not isinstance(networks, dict) or set(networks) != expected_networks
+                or not isinstance(networks.get(name), dict) or networks[name].get('NetworkID') != existing['Id']):
             raise ValueError('Unexpected container network attachment')
+        if attached_name == GATEWAY:
+            access = networks.get(HOST_ACCESS_NETWORK)
+            if (not isinstance(access, dict) or access.get('IPAddress') != GATEWAY_HOST_ACCESS_IP
+                    or access.get('IPPrefixLen') != 29
+                    or access.get('GlobalIPv6Address') not in (None, '')):
+                raise ValueError('Unexpected gateway host-access address')
+            host = container.get('HostConfig', {})
+            ports = container.get('NetworkSettings', {}).get('Ports')
+            if ports is None:
+                ports = {}
+            if (not isinstance(host, dict) or host.get('PortBindings') not in (None, {})
+                    or host.get('PublishAllPorts', False) is not False
+                    or not isinstance(ports, dict) or any(binding not in (None, []) for binding in ports.values())):
+                raise ValueError('Published gateway port rejected')
+            if name == HOST_ACCESS_NETWORK and attachment.get('IPv4Address') != GATEWAY_HOST_ACCESS_IP + '/29':
+                raise ValueError('Unexpected host-access member address')
+    if require_members and members != allowed:
+        raise ValueError('Missing required runtime network member')
 
 
-def ensure_internal_network():
-    ensure_network(NETWORK, True, 'dev-audit', 'network-id', {APP, PROXY, GATEWAY})
+def ensure_internal_network(require_members=False):
+    ensure_network(NETWORK, True, 'dev-audit', 'network-id', {APP, PROXY, GATEWAY}, require_members)
 
 
-def ensure_egress_network():
-    ensure_network(EGRESS, False, 'dev-audit-egress', 'egress-network-id', {PROXY})
+def ensure_egress_network(require_members=False):
+    ensure_network(EGRESS, False, 'dev-audit-egress', 'egress-network-id', {PROXY}, require_members)
+
+
+def ensure_host_access_network(require_members=False):
+    ensure_network(HOST_ACCESS_NETWORK, True, HOST_ACCESS_ROLE, HOST_ACCESS_NETWORK_ID_FILE, {GATEWAY}, require_members)
 
 
 def verify_dependencies(snapshot):
@@ -355,7 +405,7 @@ def health(phase='final-health', attempt=None):
     http_status = None; reason = 'UNEXPECTED_EXCEPTION'
     try:
         opener = urllib.request.build_opener(NoRedirect())
-        with opener.open('http://127.0.0.1:3101/health', timeout=10) as response:
+        with opener.open(ENGINE_HOST_URL + '/health', timeout=10) as response:
             data = json.load(response)
             http_status = response.status
             if http_status != 200 or data.get('service') != 'gcreation-performance' or data.get('environment') != 'development':
@@ -386,6 +436,7 @@ class NoRedirect(urllib.request.HTTPRedirectHandler):
 def start_runtime(release):
     ensure_internal_network()
     ensure_egress_network()
+    ensure_host_access_network()
     for name in (APP, PROXY, GATEWAY):
         command(['docker', 'rm', '-f', name], allow_failure=True)
     image = runtime_image()
@@ -394,9 +445,11 @@ def start_runtime(release):
     command(['docker', 'run', '-d', '--name', PROXY, '--network', NETWORK, '--label=gcreation.role=proxy', '--env-file=' + str(STATE / 'proxy.env')] + container_flags('150m', '0.5') + common + [image, 'node', '/opt/gcreation-trusted/dist/packages/scanner/src/proxy-main.js'])
     command(['docker', 'network', 'connect', EGRESS, PROXY])
     command(['docker', 'run', '-d', '--name', APP, '--network', NETWORK, '--label=gcreation.role=app', '--env-file=' + str(STATE / 'app.env'), '--env=BIND_HOST=0.0.0.0', '--env=FETCH_BRIDGE_URL=http://' + PROXY + ':3103', '--env=BROWSER_PROXY=http://' + PROXY + ':3102', '--env=DATABASE_PATH=/data/audits.sqlite', '--mount=type=bind,src=' + str(STATE / 'data') + ',dst=/data', '--mount=type=bind,src=' + str(release / 'output') + ',dst=/app,readonly'] + container_flags('1400m', '3.4') + common + [image, 'node', 'dist/apps/audit-service/src/main.js'])
-    command(['docker', 'run', '-d', '--name', GATEWAY, '--network', NETWORK, '--label=gcreation.role=gateway', '--env-file=' + str(STATE / 'gateway.env'), '-p', '127.0.0.1:3101:3101'] + container_flags('100m', '0.1') + common + [image, 'node', '/opt/gcreation-trusted/ops/dev/trusted/gateway.mjs'])
-    ensure_internal_network()
-    ensure_egress_network()
+    command(['docker', 'run', '-d', '--name', GATEWAY, '--network', NETWORK, '--label=gcreation.role=gateway', '--env-file=' + str(STATE / 'gateway.env')] + container_flags('100m', '0.1') + common + [image, 'node', '/opt/gcreation-trusted/ops/dev/trusted/gateway.mjs'])
+    command(['docker', 'network', 'connect', '--ip', GATEWAY_HOST_ACCESS_IP, HOST_ACCESS_NETWORK, GATEWAY])
+    ensure_internal_network(require_members=True)
+    ensure_egress_network(require_members=True)
+    ensure_host_access_network(require_members=True)
     for attempt in range(1, 31):
         try:
             health(phase='readiness', attempt=attempt)
@@ -447,6 +500,7 @@ def deploy():
         # constrained non-root container, never in the root host namespace.
         ensure_internal_network()
         ensure_egress_network()
+        ensure_host_access_network()
         runtime_changed = True
         for name in (APP, PROXY, GATEWAY):
             command(['docker', 'rm', '-f', name], allow_failure=True)

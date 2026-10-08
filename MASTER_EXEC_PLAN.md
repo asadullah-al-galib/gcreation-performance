@@ -4,6 +4,10 @@ Authoritative execution order: [PROJECT_TIMELINE.md](PROJECT_TIMELINE.md). Produ
 
 ## Current gate
 
+Stage2 handoff VERIFIED SHA256 27ceff5b9a28f71a5d132682ac04e6310598fb172ff1bae05347e356888d5e94 /2554 bytes. Candidate 6726138fc26f883f4782b9113b9aa9eba4cd6730, installed controller 658ce192284c33b5a211b2a1a5c336bd585f2b1c4518d8f6d0fd4f82026d3bd4 matches reviewed source; operator collision preflight and fixed host-access network validation PASS. One human-controlled exception runtime PASS; readiness attempt1 private FAIL/URL_ERROR/no status and homepage NOT_REACHED, then attempt2 private and DEV homepage PASS/HTTP200; 3 events,2 attempts, private1PASS/1FAIL, homepage1PASS/0FAIL. No extra runtime/deployment retry is inferred. Gateway publishing absent, source repair hypothesis VALIDATED for transport; exact historical REPAIR_2 root cause and daemon mechanism remain NOT_ESTABLISHED. PHP site-user CLI and standalone nginx reachability/cleanup PASS; PHP-FPM NOT_PROVEN, actual WP/Plesk nginx NOT_MUTATED. Those mutation flags do not require mutation as an acceptance act; PHP/plugin flow belongs to P3, actual public health/admin refusal remains P1/D26. Runtime containers afterward ABSENT; host-access network RETAINED. All host facts are HUMAN_OPERATOR_ATTESTED with exact handoff verified, not direct agent inspection. Full P1 final acceptance NOT_READY: successful constrained deploy/status identity, direct effective V4 trust/topology/resource proof, complete D25 structured version identity, actual D26 public health/404 boundary and controlled retention/stale-request evidence missing. First-runtime restoration separately deferred per P0.2 section19; not a current blocker. P1 BLOCKED/HARD_BLOCKED, independent review PENDING; repair_cycle2, failed cycles2, INITIAL/REPAIR_1/REPAIR_2 FAILED/CONSUMED, retries0, budget EXHAUSTED, REPAIR_3 NOT_AUTHORIZED unchanged. V1/V2/V3 retained as pre-mutation holds only; Stage2 exception authorization complete/resultPASS/runtime execution count1 separately recorded; official deployment attempt=false. P0 FROZEN/humanPASS; P2–P7 NOT_STARTED; production/main untouched. Agent analysis/evidence/Git only. STOP; no deployment, repair, P2 or production action authorized.
+
+Historical Stage1 checkpoint (then-current status, not present authority):
+
 P1_EXCEPTION_REPAIR_DESIGN_STAGE1_REVIEW_READY: source-only candidate 6726138fc26f883f4782b9113b9aa9eba4cd6730. Local tests:99 Python +9 TypeScript (108 total), PHP lint/stub integration, formatting/lint/typecheck/build PASS; 34 local static-security checklist items PASS. Independent human/ChatGPT source review REQUIRED/PENDING. Candidate removes gateway host-port publication and fixes host ingress at http://172.31.255.2:3101 on gcreation-perf-dev-host-access Internal=true, bridge/local, role dev-host-access, subnet172.31.255.0/29, bridge gateway172.31.255.1, gatewayIP172.31.255.2. App internal-only; proxy internal+egress only; gateway internal+host-access only; builder none. Image/gateway/dependencies unchanged. Host subnet collision status NOT_VERIFIED. No installation, host/network mutation, Docker/runtime/HTTP execution, deployment request, repair or deployment. P1 BLOCKED/HARD_BLOCKED, full independent review PENDING; repair_cycle2/failed cycles2, all INITIAL/REPAIR_1/REPAIR_2 attempts failed/consumed, retries0, budget EXHAUSTED, REPAIR_3 NOT AUTHORIZED, counters unchanged. P0 FROZEN/human PASS; P2–P7 NOT_STARTED; production/main untouched. Stage3B component class DOCKER_PORT_PUBLICATION_LAYER remains isolated evidence; exact daemon/network mechanism and historical exact official REPAIR_2 root cause NOT_ESTABLISHED. STOP. No installation, runtime execution, repair or deployment is authorized.
 
 Historical checkpoint background (not current source-design authority):
@@ -12,16 +16,16 @@ P0 remains FROZEN / human review PASS. Authority docs/P0_2_AUTONOMOUS_AUTHORIZAT
 
 V4 source/security review and image gates retain their original scope. Proxy-file parsed range AFTER supplies no historical attribution; cross-log evidence cannot identify a failed predicate. HUMAN DECISION REQUIRED. Current analysis .ops/reports/P1/REPAIR_2_PROXY_ACCESS_SSL_ANALYSIS.json.
 
-| Part | Completion state | Workflow state | Cycle record                                                               |
-| ---- | ---------------- | -------------- | -------------------------------------------------------------------------- |
-| P0   | FROZEN           | FROZEN         | Human PASS; repair 1/repair 2 not used                                     |
-| P1   | BLOCKED          | HARD_BLOCKED   | REPAIR_2 consumed1/1; budget exhausted; Stage1 independent review required |
-| P2   | NOT_STARTED      | NOT_STARTED    | No cycle started                                                           |
-| P3   | NOT_STARTED      | NOT_STARTED    | No cycle started                                                           |
-| P4   | NOT_STARTED      | NOT_STARTED    | No cycle started                                                           |
-| P5   | NOT_STARTED      | NOT_STARTED    | No cycle started                                                           |
-| P6   | NOT_STARTED      | NOT_STARTED    | No cycle started                                                           |
-| P7   | NOT_STARTED      | NOT_STARTED    | No cycle started                                                           |
+| Part | Completion state | Workflow state | Cycle record                                                             |
+| ---- | ---------------- | -------------- | ------------------------------------------------------------------------ |
+| P0   | FROZEN           | FROZEN         | Human PASS; repair 1/repair 2 not used                                   |
+| P1   | BLOCKED          | HARD_BLOCKED   | REPAIR_2 consumed1/1; budget exhausted; Stage2 PASS; P1 exits incomplete |
+| P2   | NOT_STARTED      | NOT_STARTED    | No cycle started                                                         |
+| P3   | NOT_STARTED      | NOT_STARTED    | No cycle started                                                         |
+| P4   | NOT_STARTED      | NOT_STARTED    | No cycle started                                                         |
+| P5   | NOT_STARTED      | NOT_STARTED    | No cycle started                                                         |
+| P6   | NOT_STARTED      | NOT_STARTED    | No cycle started                                                         |
+| P7   | NOT_STARTED      | NOT_STARTED    | No cycle started                                                         |
 
 ## Preserved baseline and evidence
 

@@ -1,0 +1,553 @@
+P1 EXCEPTION REPAIR VALIDATION STAGE 2
+EVIDENCE INGESTION + FINAL ACCEPTANCE REVIEW PREPARATION ONLY
+
+==================================================
+CURRENT AUTHORITY
+==================================================
+
+ANALYSIS / EVIDENCE / GOVERNANCE DOCUMENTATION ONLY.
+
+DO NOT:
+
+- run Docker
+- run HTTP requests/probes
+- run systemctl
+- run PHP
+- run nginx
+- use sudo/root
+- create/remove networks
+- start containers
+- install controller
+- modify WordPress
+- modify Plesk/nginx
+- create deploy-dev.request
+- call deploy()
+- perform official deployment
+- create REPAIR_3
+- reset/extend repair budget
+- start P2
+- touch production/main
+
+==================================================
+BASELINE
+==================================================
+
+SOURCE CANDIDATE:
+
+6726138fc26f883f4782b9113b9aa9eba4cd6730
+
+PREVIOUS REVIEW CHECKPOINT:
+
+e5ca71c1e35da57c963f01d4ad10830016542fd4
+
+Reviewed candidate controller SHA256:
+
+658ce192284c33b5a211b2a1a5c336bd585f2b1c4518d8f6d0fd4f82026d3bd4
+
+Expected remote main:
+
+c724ac3b50bc44d71f8620bb4ac0cccfae890de2
+
+GitHub has independently been observed as:
+
+develop =
+e5ca71c1e35da57c963f01d4ad10830016542fd4
+
+main =
+c724ac3b50bc44d71f8620bb4ac0cccfae890de2
+
+Verify repository identities independently through the repository's approved
+Git wrapper.
+
+Do not assume local refs/remotes/origin/main exists.
+
+==================================================
+HUMAN OPERATOR RESULT
+==================================================
+
+Operator reported:
+
+P1_EXCEPTION_VALIDATION_STAGE2=COMPLETE
+VALIDATION_RESULT=PASS
+
+CONTROLLER_INSTALLED=YES
+
+INSTALLED_CONTROLLER_SHA256=
+658ce192284c33b5a211b2a1a5c336bd585f2b1c4518d8f6d0fd4f82026d3bd4
+
+COLLISION_PREFLIGHT=PASS
+
+HOST_ACCESS_NETWORK_CREATED=YES
+HOST_ACCESS_NETWORK_VALIDATED=YES
+
+CONTROLLED_RUNTIME_EXECUTION=ONE_COMPLETED
+
+CONTROLLER_PRIVATE_HEALTH=PASS
+CONTROLLER_DEV_HOMEPAGE_HEALTH=PASS
+
+PHP_SITE_USER_CLI_HTTP_REACHABILITY=PASS
+NGINX_STANDALONE_PROXY_REACHABILITY=PASS
+
+PHP_FPM_CONTEXT_PROVEN=NO
+ACTUAL_WORDPRESS_PLUGIN_MUTATED=NO
+ACTUAL_PLESK_NGINX_CONFIG_MUTATED=NO
+
+DEV_RUNTIME_CONTAINERS_AFTER=ABSENT
+HOST_ACCESS_NETWORK_RETAINED=YES
+
+HANDOFF_PATH=
+/home/codexperf/p1-exception-validation-stage2-v4.txt
+
+HANDOFF_SHA256=
+27ceff5b9a28f71a5d132682ac04e6310598fb172ff1bae05347e356888d5e94
+
+HANDOFF_BYTES=
+2554
+
+OFFICIAL_DEPLOYMENT_REQUEST=NO
+REPAIR_COUNTER_CHANGE=NO
+REPAIR_3_AUTHORIZED=NO
+REPAIR_BUDGET_RESET=NO
+P2_STARTED=NO
+PRODUCTION_MAIN_TOUCHED=NO
+
+These values remain operator attestation until the exact handoff is verified.
+
+==================================================
+VERIFY EXACT HANDOFF
+==================================================
+
+Read only:
+
+/home/codexperf/p1-exception-validation-stage2-v4.txt
+
+Verify exact:
+
+SHA256 =
+27ceff5b9a28f71a5d132682ac04e6310598fb172ff1bae05347e356888d5e94
+
+SIZE =
+2554 bytes
+
+Mismatch =>
+
+STOP HARD_BLOCKED.
+
+Do not substitute another handoff.
+
+==================================================
+VERIFY PREVIOUS SAFE HOLDS
+==================================================
+
+The Stage2 sequence had three previous fail-closed pre-mutation stops.
+
+They must remain historical evidence only.
+
+Verify from the Stage2-v4 handoff, where supplied:
+
+V1 stopped pre-mutation
+V2 stopped pre-mutation
+V3 stopped pre-mutation
+
+Do not classify those as repair attempts.
+
+Do not increment:
+
+repair counters
+automatic retries
+failed repair cycles
+
+The only controlled runtime execution under this Stage2 authorization was
+the successful V4 execution.
+
+==================================================
+PARSE ALL HANDOFF FIELDS
+==================================================
+
+Parse every field supplied.
+
+At minimum capture:
+
+RESULT
+STAGE
+BLOCKER
+
+previous V1/V2/V3 handoff identities if present
+
+CANDIDATE_COMMIT
+CHECKPOINT_COMMIT
+
+OLD_CONTROLLER_SHA256
+NEW_CONTROLLER_SHA256
+CONTROLLER_INSTALLED
+
+HOST_ACCESS_NETWORK
+HOST_ACCESS_SUBNET
+HOST_ACCESS_BRIDGE_GATEWAY
+GATEWAY_HOST_ACCESS_IP
+
+HOST_ACCESS_NETWORK_CREATED
+HOST_ACCESS_NETWORK_VALIDATED
+
+RUNTIME_RESULT
+
+PHP_SITE_USER_CLI_HTTP_REACHABILITY
+NGINX_STANDALONE_PROXY_REACHABILITY
+PHP_FPM_CONTEXT_PROVEN
+
+ACTUAL_WORDPRESS_PLUGIN_MUTATED
+ACTUAL_PLESK_NGINX_CONFIG_MUTATED
+
+RUNTIME_CLEANUP
+NGINX_CLEANUP
+
+COLLISION_PREFLIGHT
+
+PRESERVED_RELEASE
+PRESERVED_SOURCE_SNAPSHOT_SHA256
+RUNTIME_IMAGE_ID
+
+CONTROLLER_PRIVATE_HEALTH
+CONTROLLER_DEV_HOMEPAGE_HEALTH
+
+HOST_ACCESS_NETWORK_RETAINED
+DEV_RUNTIME_CONTAINERS_AFTER
+
+OFFICIAL_DEPLOYMENT_REQUEST
+DEPLOY_FUNCTION_CALLED
+REPAIR_COUNTER_CHANGE
+REPAIR_3_AUTHORIZED
+REPAIR_BUDGET_RESET
+P2_STARTED
+PRODUCTION_MAIN_TOUCHED
+
+Also parse all sanitized readiness attempt summaries/counts retained by
+the handoff.
+
+Do not invent absent values.
+
+==================================================
+REQUIRED TECHNICAL CLASSIFICATION
+==================================================
+
+If the handoff confirms the operator result, classify:
+
+EXCEPTION REPAIR SOURCE CANDIDATE:
+VALIDATED_IN_ONE_CONTROLLED_DEV_RUNTIME
+
+COLLISION PREFLIGHT:
+PASS_OBSERVED
+
+CONTROLLER INSTALLATION:
+EXACT_REVIEWED_CANDIDATE_INSTALLED
+
+HOST ACCESS NETWORK:
+EXACT_CONFIGURATION_VALIDATED
+
+DOCKER HOST PORT DEPENDENCY:
+REMOVED_IN_VALIDATED_RUNTIME
+
+PRIVATE HOST → GATEWAY PATH:
+PASS_OBSERVED
+
+GATEWAY → APP HEALTH PATH:
+PASS_OBSERVED
+
+DEV HOMEPAGE HEALTH:
+PASS_OBSERVED
+
+PHP SITE-USER CLI → GATEWAY:
+PASS_OBSERVED
+
+NGINX WORKER → GATEWAY:
+PASS_OBSERVED
+
+PROXY-ONLY EGRESS:
+PRESERVED_IN_VALIDATED_TOPOLOGY
+only if the handoff retains exact topology evidence supporting it.
+
+CONTROLLED RUNTIME CLEANUP:
+PASS_OBSERVED
+
+==================================================
+IMPORTANT LIMITATIONS
+==================================================
+
+Do NOT overclaim.
+
+PHP site-user CLI PASS does NOT establish:
+
+PHP-FPM_CONTEXT_PROVEN.
+
+Standalone nginx worker PASS does NOT establish:
+
+ACTUAL_PLESK_VHOST_CONFIGURATION_VALIDATED.
+
+Actual WordPress plugin was NOT mutated.
+
+Actual Plesk nginx configuration was NOT mutated.
+
+No official deploy-dev.request was created.
+
+deploy() was NOT called.
+
+Therefore distinguish:
+
+NETWORK/RUNTIME FOUNDATION VALIDATED
+
+from:
+
+CUSTOMER-FACING WORDPRESS/PLESK INTEGRATION NOT YET APPLIED.
+
+Those future integration items must not invalidate the successful foundation
+validation unless P1 requirements explicitly require them.
+
+==================================================
+HISTORICAL ROOT CAUSE
+==================================================
+
+Do not rewrite historical REPAIR_2 evidence.
+
+Historical official REPAIR_2:
+
+FAILED
+
+Exact historical underlying root cause:
+
+NOT_ESTABLISHED
+
+Stage3B proved:
+
+DOCKER_PORT_PUBLICATION_LAYER
+as the failed component in that diagnostic execution.
+
+Stage2 V4 now proves:
+
+the replacement architecture successfully avoids the failed publication
+dependency in one controlled DEV runtime.
+
+Use wording such as:
+
+REPAIR HYPOTHESIS:
+VALIDATED
+
+Do NOT say:
+
+historical Docker daemon root cause conclusively proven.
+
+==================================================
+P1 ACCEPTANCE ASSESSMENT
+==================================================
+
+Review committed P1 requirements and determine whether the successful
+controlled Stage2 validation is sufficient for:
+
+P1_FINAL_ACCEPTANCE_REVIEW_READY
+
+or whether there is any genuinely P1-scoped missing evidence.
+
+Do NOT move P1 to PASS/FROZEN autonomously.
+
+If a missing item belongs to P2/P3 customer/runtime integration,
+do not incorrectly make it a P1 blocker.
+
+Specifically classify:
+
+PHP-FPM_CONTEXT_PROVEN=NO
+
+and
+
+ACTUAL_WORDPRESS_PLUGIN_MUTATED=NO
+
+and
+
+ACTUAL_PLESK_NGINX_CONFIG_MUTATED=NO
+
+against the existing Part boundaries.
+
+State whether each is:
+
+P1_REQUIRED
+P2_REQUIRED
+P3_REQUIRED
+LATER_ACCEPTANCE
+or NOT_REQUIRED_FOR_P1
+
+based only on committed project governance/requirements.
+
+==================================================
+GOVERNANCE
+==================================================
+
+Do not change historical repair counters.
+
+Preserve:
+
+INITIAL = FAILED_CONSUMED
+REPAIR_1 = FAILED_CONSUMED
+REPAIR_2 = FAILED_CONSUMED
+AUTOMATIC_RETRIES = 0
+REPAIR_BUDGET_EXHAUSTED = true
+REPAIR_3_AUTHORIZED = false
+
+Record separately:
+
+EXCEPTION_REPAIR_VALIDATION_STAGE2_AUTHORIZED = true
+EXCEPTION_REPAIR_VALIDATION_STAGE2_COMPLETE = true
+EXCEPTION_REPAIR_VALIDATION_STAGE2_RESULT = PASS
+CONTROLLED_RUNTIME_EXECUTION_COUNT = 1
+OFFICIAL_DEPLOYMENT_ATTEMPT = false
+
+Do not count exception validation as REPAIR_3.
+
+Until final human/ChatGPT acceptance decision:
+
+STATE = HARD_BLOCKED
+
+P1 = BLOCKED
+
+but, if requirements support it:
+
+P1_FINAL_ACCEPTANCE_REVIEW_READY = true
+
+P2 = NOT_STARTED
+
+PRODUCTION_TOUCHED = false
+
+==================================================
+EVIDENCE OUTPUT
+==================================================
+
+Create:
+
+.ops/reports/P1/exception-repair-validation-stage2/
+
+At minimum:
+
+REPORT.md
+ANALYSIS.json
+HANDOFF.txt
+CHECKSUMS.sha256
+
+Update only current governance/evidence/checkpoint documents needed to
+record this Stage2 result.
+
+Do not modify functional source.
+
+Do not modify historical reports.
+
+==================================================
+COMMIT / PUSH
+==================================================
+
+Commit documentation/evidence only to develop.
+
+Push develop.
+
+Do not modify main.
+
+Final:
+
+working tree clean
+HEAD == origin/develop
+
+==================================================
+FINAL RESPONSE FORMAT
+==================================================
+
+AUTONOMOUS EXECUTION STOP
+
+STATE:
+HARD_BLOCKED
+
+PART:
+P1
+
+PROCESS:
+exception-repair-validation-stage2-analysis
+
+HANDOFF:
+VERIFIED / MISMATCH
+
+VALIDATION RESULT:
+PASS / HOLD
+
+CONTROLLER:
+EXACT CANDIDATE INSTALLED / <result>
+
+COLLISION PREFLIGHT:
+<result>
+
+HOST ACCESS NETWORK:
+<result>
+
+CONTROLLED RUNTIME:
+<result>
+
+PRIVATE ENGINE HEALTH:
+<result>
+
+DEV HOMEPAGE HEALTH:
+<result>
+
+PHP SITE-USER CLI REACHABILITY:
+<result>
+
+PHP-FPM CONTEXT:
+<result>
+
+NGINX WORKER REACHABILITY:
+<result>
+
+ACTUAL PLESK NGINX CONFIG:
+<result>
+
+WORDPRESS PLUGIN:
+<result>
+
+RUNTIME CLEANUP:
+<result>
+
+HOST ACCESS NETWORK RETAINED:
+<result>
+
+REPAIR HYPOTHESIS:
+VALIDATED / NOT_VALIDATED
+
+HISTORICAL REPAIR_2 ROOT CAUSE:
+NOT_ESTABLISHED
+
+P1 MISSING REQUIREMENTS:
+<exact list or NONE>
+
+P1 FINAL ACCEPTANCE REVIEW:
+READY / NOT_READY
+
+REPAIR_2:
+FAILED — 1/1 CONSUMED
+
+AUTOMATIC RETRIES:
+0
+
+REPAIR BUDGET:
+EXHAUSTED
+
+REPAIR_3:
+NOT AUTHORIZED
+
+P1:
+BLOCKED — AWAITING FINAL HUMAN/CHATGPT ACCEPTANCE
+
+P2:
+NOT_STARTED
+
+PRODUCTION:
+UNTOUCHED
+
+CHECKPOINT COMMIT:
+<exact>
+
+NEXT ACTION:
+FINAL P1 ACCEPTANCE DECISION REQUIRED
+
+NO DEPLOYMENT, REPAIR_3, P2 OR PRODUCTION ACTION IS AUTHORIZED.

@@ -24,7 +24,8 @@
       "repair_independent_review": "PASS_EXACT_PATCH",
       "next_repair_cycle": null,
       "source_repair_cycle": 2,
-      "repair_budget_exhausted": true
+      "repair_budget_exhausted": true,
+      "final_acceptance_review_ready": false
     },
     "P2": {
       "execution_state": "NOT_STARTED",
@@ -55,8 +56,8 @@
   "human_gate": {
     "part": "P1",
     "repair": "REPAIR_2",
-    "purpose": "Independent source review of completed exception design Stage1 only",
-    "status": "HARD_BLOCKED_STAGE1_SOURCE_REVIEW_REQUIRED",
+    "purpose": "Final P1 acceptance decision on Stage2 evidence and committed missing P1 exits",
+    "status": "HARD_BLOCKED_STAGE2_PASS_P1_ACCEPTANCE_NOT_READY",
     "action_file": ".ops/ACTION_REQUIRED.md",
     "accepted_source_commit": "0ac34ba50ab3192abfe2ae425c4283879484258e",
     "archive_sha256": "958c6833da7e63d7843996a3171e540bf74b6978dcdfaf521c1eb55a39587ced",
@@ -67,20 +68,24 @@
     "max_new_deployment_requests": 0,
     "automatic_retries": 0,
     "capability_verified": false,
-    "human_action": "HUMAN / CHATGPT INDEPENDENT SOURCE REVIEW REQUIRED. Review .ops/reports/P1/exception-repair-design-stage1/REPORT.md, REVIEW.json, SOURCE.patch and CHECKSUMS.sha256. STOP. No installation, controller refresh, host/network mutation, runtime execution, repair, deployment request or deployment is authorized. REPAIR_3/budget extension/reset not authorized; P2 not started.",
+    "human_action": "FINAL P1 ACCEPTANCE DECISION REQUIRED. Review .ops/reports/P1/exception-repair-validation-stage2/REPORT.md and ANALYSIS.json with committed P1 exits. Stage2 transport validation PASS; full P1 final acceptance NOT_READY with five exact missing evidence groups. Human/ChatGPT must assess the retained evidence and missing criteria; no new evidence-collection procedure, runtime, request, deployment, REPAIR_3, budget reset/extension, P2 or production action is authorized. Do not grant P1 PASS/FROZEN or reinterpret customer/plugin/FPM work as P1.",
     "old_image_preserved": "sha256:f2bb2401f1f296115cd0d3dd5609ca6514446f55d4484f1884639f308a456f24",
-    "action_file_sha256": "ef6128fa2ab361e31f09834c8e82dd3fc17b807137b19eefc0b8a54b3ee76eaa",
+    "action_file_sha256": "dc75e08e1762302c780e909470d8eb48868c3ae51aa3e14c8b1b92be6c8dd750",
     "gate_a": "PASS",
     "gate_b": "PASS",
     "gate_c": "PASS",
     "new_proven_image_id": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a",
     "image_acceptance_evidence_class": "HUMAN_OPERATOR_ATTESTED_VERIFIED_HANDOFF",
-    "verification_record": ".ops/reports/P1/exception-repair-design-stage1/REVIEW.json",
+    "verification_record": ".ops/reports/P1/exception-repair-validation-stage2/ANALYSIS.json",
     "promoted_image_id": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a",
     "instrumentation_candidate_commit": "b060ff430854046df7490875ac402d9df909b43a",
     "installed_instrumentation_controller_sha256_operator_attested": "be656cc95fbc3d1df09c57852577f8343401916a47aeec2b12459b4be5de414f",
     "source_design_candidate_commit": "6726138fc26f883f4782b9113b9aa9eba4cd6730",
-    "source_only": true
+    "source_only": false,
+    "stage2_validation_result": "PASS",
+    "p1_final_acceptance_review_ready": false,
+    "current_installed_controller_sha256_operator_attested": "658ce192284c33b5a211b2a1a5c336bd585f2b1c4518d8f6d0fd4f82026d3bd4",
+    "analysis_only_current_task": true
   },
   "hard_blocker": {
     "criterion": "P1 runtime start/health",
@@ -114,7 +119,7 @@
   },
   "production_touched": false,
   "p7": "NOT_STARTED",
-  "updated_at": "2026-10-08T04:27:05.511498+00:00",
+  "updated_at": "2026-10-08T05:57:32.775853+00:00",
   "p7_authorization": "SEPARATE_HUMAN_REQUIRED",
   "security_review": {
     "part": "P1",
@@ -313,11 +318,11 @@
     "diagnosis": "Outer readiness exception proven from new journal; inner failing health endpoint/component and root cause NOT_ESTABLISHED.",
     "evidence_file": ".ops/reports/P1/REPAIR_2_DEPLOYMENT_ATTEMPT.json",
     "status": "HARD_BLOCKED",
-    "next_action": "HUMAN / CHATGPT INDEPENDENT SOURCE REVIEW REQUIRED. Review .ops/reports/P1/exception-repair-design-stage1/REPORT.md, REVIEW.json, SOURCE.patch and CHECKSUMS.sha256. STOP. No installation, controller refresh, host/network mutation, runtime execution, repair, deployment request or deployment is authorized. REPAIR_3/budget extension/reset not authorized; P2 not started.",
-    "smallest_remediation": "New explicit Stage1 source design: fixed dedicated internal host-access path replaces Docker gateway host publication; candidate complete, independent review pending, no runtime repair authority.",
+    "next_action": "FINAL P1 ACCEPTANCE DECISION REQUIRED. Review .ops/reports/P1/exception-repair-validation-stage2/REPORT.md and ANALYSIS.json with committed P1 exits. Stage2 transport validation PASS; full P1 final acceptance NOT_READY with five exact missing evidence groups. Human/ChatGPT must assess the retained evidence and missing criteria; no new evidence-collection procedure, runtime, request, deployment, REPAIR_3, budget reset/extension, P2 or production action is authorized. Do not grant P1 PASS/FROZEN or reinterpret customer/plugin/FPM work as P1.",
+    "smallest_remediation": "Evidence/acceptance decision only: five unchanged P1 exit evidence groups remain missing despite successful controlled host-transport validation. No implementation, new runtime test or deployment remedy is authorized.",
     "source_remediation_status": "PASS_SOURCE_TESTS",
     "runtime_remediation_status": "REPAIR_2_FAILED_CONSUMED",
-    "current_pending_criterion": "P1 runtime-health failed; repair budget exhausted",
+    "current_pending_criterion": "P1 successful constrained deploy, direct effective trust/containment, full D25 identity, actual D26 public-route and retention/stale-request proof",
     "diagnostic_analysis": ".ops/reports/P1/REPAIR_2_POSTFAILURE_DIAGNOSTIC_ANALYSIS.json",
     "dev_homepage_log_analysis": ".ops/reports/P1/REPAIR_2_DEV_HOMEPAGE_LOG_ANALYSIS.json",
     "dev_log_directory_metadata_analysis": ".ops/reports/P1/REPAIR_2_DEV_LOGDIR_METADATA_ANALYSIS.json",
@@ -348,22 +353,24 @@
     "max_new_deployment_requests": 0
   },
   "capability_gate": {
-    "process": "exception-repair-design-stage1",
-    "status": "HARD_BLOCKED_STAGE1_SOURCE_REVIEW_REQUIRED",
+    "process": "exception-repair-validation-stage2-analysis",
+    "status": "HARD_BLOCKED_STAGE2_PASS_P1_ACCEPTANCE_NOT_READY",
     "scope_class": "SECURITY_CRITICAL",
     "business_mapping": [
       "RELIABILITY",
       "SECURITY",
       "MVP_RELEASE"
     ],
-    "evidence_file": ".ops/reports/P1/exception-repair-design-stage1/REVIEW.json",
-    "reason": "Stage1 source-only design complete; independent source review required; runtime/installation authority absent and repair budget exhausted.",
+    "evidence_file": ".ops/reports/P1/exception-repair-validation-stage2/ANALYSIS.json",
+    "reason": "Controlled Stage2 transport hypothesis validated; committed P1 exit evidence still incomplete and final independent acceptance pending. Repair budget remains exhausted.",
     "root_interface_available": false,
     "approval_already_granted": true,
     "repair_cycle_consumed": true,
     "operator_action": ".ops/ACTION_REQUIRED.md",
     "source_review_approval_granted": false,
-    "source_design_authorization_granted": true
+    "source_design_authorization_granted": true,
+    "completed_operator_exception_validation": true,
+    "future_execution_authorized": false
   },
   "execution_policy": {
     "routine_micro_approvals_required": false,
@@ -388,12 +395,14 @@
     "agent_unrestricted_privilege_authorized": false,
     "current_task_stop_after_repair_2_terminal_checkpoint": true,
     "p2_authorized_by_current_task": false,
-    "current_task_stop_after_source_review_checkpoint": true
+    "current_task_stop_after_source_review_checkpoint": true,
+    "current_task_analysis_recording_only": true,
+    "current_task_stop_after_stage2_evidence_checkpoint": true
   },
   "oversight_checkpoint": {
     "latest_json": ".ops/oversight/LATEST_CHECKPOINT.json",
     "latest_markdown": ".ops/oversight/LATEST_CHECKPOINT.md",
-    "event": ".ops/oversight/events/0022-P1-exception-repair-design-stage1.json"
+    "event": ".ops/oversight/events/0023-P1-exception-repair-validation-stage2-analysis.json"
   },
   "controller_refresh": {
     "operator_reported_result": "PASS",
@@ -876,7 +885,7 @@
     },
     "next_action": "PROPOSED_EXCEPTION_REPAIR \u2014 NOT AUTHORIZED. Human decision required on the observed requested/effective Docker port-publication mismatch. Exact daemon/network mechanism and intervention remain unknown. Any further evidence collection, gateway/full-runtime execution, repair or deployment requires NEW explicit human authority; no REPAIR_3 or repair-budget extension/reset is authorized."
   },
-  "current_process": "exception-repair-design-stage1",
+  "current_process": "exception-repair-validation-stage2-analysis",
   "exception_repair_design_stage1": {
     "authorization_class": "P1_EXCEPTION_REPAIR_DESIGN_STAGE1",
     "authorization_consumed_for": "SOURCE_REVIEW_ONLY",
@@ -924,5 +933,422 @@
     "static_checklist_pass": 34,
     "production_touched": false,
     "source_only_security_boundary_change": "CONTROLLER_TOPOLOGY_AND_HOST_TRANSPORT; NO_INSTALLED_CHANGE; INDEPENDENT_REVIEW_REQUIRED"
+  },
+  "exception_repair_validation_stage2": {
+    "process": "exception-repair-validation-stage2-analysis",
+    "authorization_scope": "ANALYSIS_EVIDENCE_GOVERNANCE_ONLY; COMPLETED_HUMAN_STAGE2_ATTESTED",
+    "result": "STAGE2_FOUNDATION_VALIDATION_PASS_P1_FINAL_ACCEPTANCE_NOT_READY",
+    "candidate_commit": "6726138fc26f883f4782b9113b9aa9eba4cd6730",
+    "baseline_checkpoint": "e5ca71c1e35da57c963f01d4ad10830016542fd4",
+    "handoff_sha256": "27ceff5b9a28f71a5d132682ac04e6310598fb172ff1bae05347e356888d5e94",
+    "handoff_bytes": 2554,
+    "record": ".ops/reports/P1/exception-repair-validation-stage2/ANALYSIS.json",
+    "report": ".ops/reports/P1/exception-repair-validation-stage2/REPORT.md",
+    "package_checksums_sha256": "0d5ffaf98e75e7e73227abace6ffbf0a0125ab94db961a1dab6ba7aa41058e1a",
+    "evidence_class": "HUMAN_OPERATOR_ATTESTATION; EXACT_HANDOFF_AND_REPO_IDENTITIES_VERIFIED",
+    "classification": {
+      "exception_repair_source_candidate": "VALIDATED_IN_ONE_CONTROLLED_DEV_RUNTIME",
+      "collision_preflight": "PASS_OBSERVED",
+      "controller_installation": "EXACT_REVIEWED_CANDIDATE_INSTALLED",
+      "host_access_network": "EXACT_CONFIGURATION_VALIDATED_OPERATOR_ATTESTED_SUMMARY",
+      "host_access_network_detail_limit": "Supplied fixed name/subnet/bridge gateway/IP match reviewed constants; network validation reported PASS. Full driver/scope/Internal/labels/IPAM/network ID/persisted ID outputs absent; no new direct root verification.",
+      "docker_host_port_dependency": "REMOVED_IN_VALIDATED_RUNTIME",
+      "private_host_to_gateway_path": "PASS_OBSERVED",
+      "gateway_to_app_health_path": "PASS_OBSERVED",
+      "gateway_to_app_health_basis": "Operator private health HTTP200/PASS, reconciled with unchanged reviewed gateway fixed forwarding path. Reported health implies upstream acceptance; actual socket trace not collected by agent.",
+      "dev_homepage_health": "PASS_OBSERVED",
+      "php_site_user_cli_to_gateway": "PASS_OBSERVED",
+      "php_fpm_context": "NOT_PROVEN",
+      "nginx_worker_to_gateway": "PASS_OBSERVED_STANDALONE_ONLY",
+      "actual_plesk_vhost_configuration_validated": "NOT_PROVEN",
+      "actual_wordpress_plugin_applied": "NO",
+      "proxy_only_egress": "OPERATOR_SUMMARY_ATTESTED; EXACT_TOPOLOGY_EVIDENCE_NOT_RETAINED",
+      "proxy_only_egress_supported_summary": "PROXY_ONLY_EGRESS=YES and RUNTIME_TOPOLOGY=PASS retained. Exact inspected membership sets/IDs are absent; do not promote to PRESERVED_IN_VALIDATED_TOPOLOGY with direct exact-topology evidence.",
+      "controlled_runtime_cleanup": "PASS_OBSERVED",
+      "standalone_nginx_cleanup": "PASS_OBSERVED",
+      "dev_runtime_containers_after": "ABSENT_OPERATOR_ATTESTED",
+      "host_access_network_retained": "YES_OPERATOR_ATTESTED",
+      "repair_hypothesis": "VALIDATED",
+      "foundation_validation_scope": "Replacement host transport startup/reachability foundation PASS in one controlled runtime; complete P1 security/deployment acceptance NOT established.",
+      "historical_official_repair_2": "FAILED_CONSUMED_1_OF_1",
+      "historical_exact_repair_2_root_cause": "NOT_ESTABLISHED",
+      "stage3b_component": "DOCKER_PORT_PUBLICATION_LAYER",
+      "stage3b_proof_scope": "ISOLATED_DIAGNOSTIC_COMPONENT_CLASS_ONLY",
+      "stage3b_exact_daemon_network_mechanism": "NOT_ESTABLISHED"
+    },
+    "EXCEPTION_REPAIR_VALIDATION_STAGE2_AUTHORIZED": true,
+    "EXCEPTION_REPAIR_VALIDATION_STAGE2_COMPLETE": true,
+    "EXCEPTION_REPAIR_VALIDATION_STAGE2_RESULT": "PASS",
+    "CONTROLLED_RUNTIME_EXECUTION_COUNT": 1,
+    "OFFICIAL_DEPLOYMENT_ATTEMPT": false,
+    "current_installed_controller_sha256_operator_attested": "658ce192284c33b5a211b2a1a5c336bd585f2b1c4518d8f6d0fd4f82026d3bd4",
+    "previous_installed_controller_sha256_operator_attested": "be656cc95fbc3d1df09c57852577f8343401916a47aeec2b12459b4be5de414f",
+    "runtime_image_id_operator_attested": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a",
+    "P1_FINAL_ACCEPTANCE_REVIEW_READY": false,
+    "missing_p1_requirements": [
+      {
+        "id": "P1-MISSING-01",
+        "criterion": "D24 / successful constrained offline deployment",
+        "missing": "Successful terminal deploy/status and release/archive/snapshot association. No new build/deployment is authorized by this analysis."
+      },
+      {
+        "id": "P1-MISSING-02",
+        "criterion": "P1 trust/network/secret/sandbox boundaries and D27 effective limits",
+        "missing": "Exact live topology/identity and effective trust/containment/resource observations; summaries or source flags alone cannot satisfy P1/D27. Real browser/Lighthouse work remains P2/P5, not this P1 missing item."
+      },
+      {
+        "id": "P1-MISSING-03",
+        "criterion": "D25 complete structured internal-health identity evidence",
+        "missing": "Retained structured health/version evidence linked to that runtime/source observation. This does not invalidate the observed private path/health PASS."
+      },
+      {
+        "id": "P1-MISSING-04",
+        "criterion": "D26 actual public DEV health and forbidden engine routes",
+        "missing": "Actual public vhost health and forbidden-route/boundary observations. A config mutation is not itself mandatory if existing approved config satisfies the criterion; these acceptance checks are P1, not P3."
+      },
+      {
+        "id": "P1-MISSING-05",
+        "criterion": "P1 controlled retention / bounded evidence / stale-request behavior",
+        "missing": "Controlled retention/bounded evidence and stale-request refusal proof. Cleanup PASS is not retention/rollback proof. Restoration to an earlier successful runtime is separately DEFERRED per P0.2 section19 and is not used as a current blocker."
+      }
+    ],
+    "part_boundary_classification": [
+      {
+        "field": "PHP_FPM_CONTEXT_PROVEN",
+        "observed": "NO",
+        "classification": "P3_REQUIRED",
+        "p1_blocker": false,
+        "reason": "Actual approved PHP plugin/nonce-session/engine customer flow and PHP-owner/config readability belong to P3. Site-user CLI reachability does not prove FPM, but P1 does not require plugin/customer PHP execution. This is a P3 integration inference from the committed actual-flow requirement, not a new standalone FPM configuration test.",
+        "authority": [
+          "PROJECT_TIMELINE.md: P3 exact scope/entry/real DEV/exit",
+          "REQUIREMENTS.md: D15 (P3)"
+        ]
+      },
+      {
+        "field": "ACTUAL_WORDPRESS_PLUGIN_MUTATED",
+        "observed": "NO",
+        "classification": "P3_REQUIRED",
+        "literal_mutation_required_for_p1": false,
+        "p1_blocker": false,
+        "reason": "Separately approved plugin artifact installation/activation/readability and working customer flow are P3, not the watcher/P1. Mutation itself is not a required success flag if an already approved exact plugin is installed; this handoff only says it was not changed.",
+        "authority": [
+          "PROJECT_TIMELINE.md: P3 entry/real DEV/exit",
+          "REQUIREMENTS.md: D01/D15 (P3)"
+        ]
+      },
+      {
+        "field": "ACTUAL_PLESK_NGINX_CONFIG_MUTATED",
+        "observed": "NO",
+        "classification": "NOT_REQUIRED_FOR_P1",
+        "literal_mutation_required_for_p1": false,
+        "related_acceptance_classification": "P1_REQUIRED",
+        "related_acceptance": "Actual public health-only vhost route and forbidden engine-route acceptance, D26",
+        "p1_blocker": false,
+        "related_missing_p1_criterion": "P1-MISSING-04",
+        "reason": "Config mutation is not an exit criterion; a working existing approved vhost could satisfy D26 unchanged. Actual public /perf-engine/health and404/boundary proof are explicitly P1. Standalone nginx PASS does not establish that proof; it is not deferred as P3 customer integration.",
+        "authority": [
+          "PROJECT_TIMELINE.md: P1 exact exit",
+          "REQUIREMENTS.md: D26 (P1)"
+        ]
+      }
+    ],
+    "repair_counter_change": false,
+    "repair_budget_exhausted": true,
+    "repair_3_authorized": false,
+    "agent_privileged_or_runtime_execution": false,
+    "agent_host_mutation": false,
+    "functional_source_changed": false,
+    "tests_dependencies_privileged_kit_changed": false,
+    "deployment_request_authorized": false,
+    "deployment_authorized": false,
+    "max_new_deployment_requests": 0,
+    "further_runtime_execution_authorized": false,
+    "controller_install_authorized": false,
+    "p2_authorized": false,
+    "production_touched": false,
+    "independent_p1_acceptance": "PENDING",
+    "operator_observation_timestamp": null,
+    "recorded_at_utc": "2026-10-08T05:57:32.775853+00:00"
+  },
+  "p1_final_acceptance_assessment": {
+    "p1_final_acceptance_review_ready": false,
+    "P1_FINAL_ACCEPTANCE_REVIEW_READY": false,
+    "final_acceptance_review": "NOT_READY",
+    "execution_pass": false,
+    "missing_p1_requirements": [
+      {
+        "id": "P1-MISSING-01",
+        "criterion": "D24 / successful constrained offline deployment",
+        "required": "A successful constrained offline deploy reaches terminal successful status with approved commit/archive/snapshot identity; accepted non-root/offline build evidence and installed trust must be bound to that result.",
+        "observed": "No official deployment request; deploy() not called. Prior official REPAIR_2 terminal status is FAILED/runtime-health, not COMPLETED. Its build return0 remains INFERRED_EXIT_ZERO from reviewed control flow, and exact request consumption remains PASS; neither valid historical observation is discarded. Stage2 used preserved release/snapshot and tested transport, not a new offline build/deploy.",
+        "missing": "Successful terminal deploy/status and release/archive/snapshot association. No new build/deployment is authorized by this analysis.",
+        "authority": [
+          "PROJECT_TIMELINE.md: P1 exact exit/evidence criteria",
+          "REQUIREMENTS.md: D24",
+          "docs/P0_2_AUTONOMOUS_AUTHORIZATION.md: section19"
+        ],
+        "existing_evidence": [
+          ".ops/reports/P1/REPAIR_2_DEPLOYMENT_ATTEMPT.json",
+          ".ops/reports/P1/REPAIR_2_RUNTIME_VALIDATION.json"
+        ]
+      },
+      {
+        "id": "P1-MISSING-02",
+        "criterion": "P1 trust/network/secret/sandbox boundaries and D27 effective limits",
+        "required": "Direct sanitized expected container/image/role identities, exact dedicated network IDs/configuration/member sets, no direct egress, correct secret/self-host placement, non-root/sandbox controls and effective resource/log limits.",
+        "observed": "Host network name/subnet/bridge gateway/static IP and network validation flags supplied; APP/PROXY/GATEWAY running, no published gateway ports and PROXY_ONLY_EGRESS=YES are operator summaries. Per-container IDs/image/name/role/network sets and network Internal/driver/scope/label/IPAM/persisted ID outputs are absent. Current controller content hash matches reviewed source, but installation ownership/mode/link/ancestor/backup observations are not retained. Runtime UID/GID/cap-drop/no-new-privileges/seccomp/read-only/mount/socket/secret-self-host/env-ownership and CPU/memory/PID/aggregate-slice/log observations are not supplied. Prior installation/image/source evidence stays accepted within its original scope.",
+        "missing": "Exact live topology/identity and effective trust/containment/resource observations; summaries or source flags alone cannot satisfy P1/D27. Real browser/Lighthouse work remains P2/P5, not this P1 missing item.",
+        "authority": [
+          "PROJECT_TIMELINE.md: P1 requires real DEV validation/exact exit",
+          "REQUIREMENTS.md: D27",
+          "docs/P0_2_AUTONOMOUS_AUTHORIZATION.md: section19"
+        ],
+        "existing_evidence": [
+          ".ops/reports/P1/INSTALLATION_EVIDENCE.json",
+          ".ops/reports/P1/REPAIR_2_GATE_C_VERIFICATION.json",
+          ".ops/reports/P1/REPAIR_2_RUNTIME_VALIDATION.json"
+        ]
+      },
+      {
+        "id": "P1-MISSING-03",
+        "criterion": "D25 complete structured internal-health identity evidence",
+        "required": "Internal HTTP200 with development/service/version identity tied to accepted application source/snapshot.",
+        "observed": "Attempt02 PRIVATE_ENGINE=PASS:OK:200 and CONTROLLER_PRIVATE_HEALTH=PASS. Reviewed health() enforces service=gcreation-performance and environment=development; version is not checked there and no structured response/version or operator observation timestamp is supplied. Preserved source digest matches accepted0ac34ba... snapshot, not a new mutable source deployment.",
+        "missing": "Retained structured health/version evidence linked to that runtime/source observation. This does not invalidate the observed private path/health PASS.",
+        "authority": [
+          "PROJECT_TIMELINE.md: P1 exact exit/evidence criteria",
+          "REQUIREMENTS.md: D25"
+        ]
+      },
+      {
+        "id": "P1-MISSING-04",
+        "criterion": "D26 actual public DEV health and forbidden engine routes",
+        "required": "Actual DEV GET /perf-engine/health expected HTTP200/structured development/service/version identity after human proxy setup; public business/admin engine routes404 and no forwarded client credentials/body.",
+        "observed": "DEV homepage PASS is GET /, not /perf-engine/health. Standalone nginx worker-to-gateway reachability PASS does not test actual Plesk vhost/public route. Actual nginx config mutation is NO, and no actual public health/admin route observations are supplied.",
+        "missing": "Actual public vhost health and forbidden-route/boundary observations. A config mutation is not itself mandatory if existing approved config satisfies the criterion; these acceptance checks are P1, not P3.",
+        "authority": [
+          "PROJECT_TIMELINE.md: P1 internal/public health exit",
+          "REQUIREMENTS.md: D26",
+          "docs/P0_2_AUTONOMOUS_AUTHORIZATION.md: section19"
+        ]
+      },
+      {
+        "id": "P1-MISSING-05",
+        "criterion": "P1 controlled retention / bounded evidence / stale-request behavior",
+        "required": "Controlled retained release/artifact/evidence bounds and actual stale-request refusal; first-runtime restoration may remain pending only under the explicit section19 exception.",
+        "observed": "Preserved release/snapshot reported, runtime/nginx cleanup PASS, containers absent and host-access network retained. No retained release counts/bounds, failed-release treatment, effective artifact/log retention or actual stale-trigger refusal observations are supplied. Prior official request consumed once remains recorded PASS. Historical REPAIR_2 rollback=false remains unchanged.",
+        "missing": "Controlled retention/bounded evidence and stale-request refusal proof. Cleanup PASS is not retention/rollback proof. Restoration to an earlier successful runtime is separately DEFERRED per P0.2 section19 and is not used as a current blocker.",
+        "authority": [
+          "PROJECT_TIMELINE.md: P1 real DEV/exit criteria and P0.2 amendment",
+          "REQUIREMENTS.md: D24",
+          "docs/P0_2_AUTONOMOUS_AUTHORIZATION.md: section19"
+        ]
+      }
+    ],
+    "part_boundary_classification": [
+      {
+        "field": "PHP_FPM_CONTEXT_PROVEN",
+        "observed": "NO",
+        "classification": "P3_REQUIRED",
+        "p1_blocker": false,
+        "reason": "Actual approved PHP plugin/nonce-session/engine customer flow and PHP-owner/config readability belong to P3. Site-user CLI reachability does not prove FPM, but P1 does not require plugin/customer PHP execution. This is a P3 integration inference from the committed actual-flow requirement, not a new standalone FPM configuration test.",
+        "authority": [
+          "PROJECT_TIMELINE.md: P3 exact scope/entry/real DEV/exit",
+          "REQUIREMENTS.md: D15 (P3)"
+        ]
+      },
+      {
+        "field": "ACTUAL_WORDPRESS_PLUGIN_MUTATED",
+        "observed": "NO",
+        "classification": "P3_REQUIRED",
+        "literal_mutation_required_for_p1": false,
+        "p1_blocker": false,
+        "reason": "Separately approved plugin artifact installation/activation/readability and working customer flow are P3, not the watcher/P1. Mutation itself is not a required success flag if an already approved exact plugin is installed; this handoff only says it was not changed.",
+        "authority": [
+          "PROJECT_TIMELINE.md: P3 entry/real DEV/exit",
+          "REQUIREMENTS.md: D01/D15 (P3)"
+        ]
+      },
+      {
+        "field": "ACTUAL_PLESK_NGINX_CONFIG_MUTATED",
+        "observed": "NO",
+        "classification": "NOT_REQUIRED_FOR_P1",
+        "literal_mutation_required_for_p1": false,
+        "related_acceptance_classification": "P1_REQUIRED",
+        "related_acceptance": "Actual public health-only vhost route and forbidden engine-route acceptance, D26",
+        "p1_blocker": false,
+        "related_missing_p1_criterion": "P1-MISSING-04",
+        "reason": "Config mutation is not an exit criterion; a working existing approved vhost could satisfy D26 unchanged. Actual public /perf-engine/health and404/boundary proof are explicitly P1. Standalone nginx PASS does not establish that proof; it is not deferred as P3 customer integration.",
+        "authority": [
+          "PROJECT_TIMELINE.md: P1 exact exit",
+          "REQUIREMENTS.md: D26 (P1)"
+        ]
+      }
+    ],
+    "p0_2_section19_criterion_assessment": [
+      {
+        "criterion": "Accepted controller repair installed correctly",
+        "result": "PARTIAL_OPERATOR_ATTESTED",
+        "evidence_or_limitation": "Exact candidate bytes/hash installation PASS; ownership/mode/link/ancestors/backup details not retained."
+      },
+      {
+        "criterion": "Approved immutable runtime identity used",
+        "result": "PASS_OPERATOR_ATTESTED_ID",
+        "evidence_or_limitation": "RUNTIME_IMAGE_ID equals accepted promoted image; per-container IDs/image bindings not retained."
+      },
+      {
+        "criterion": "Constrained non-root build succeeds",
+        "result": "PRIOR_INFERRED_EXIT_ZERO; EFFECTIVE_PROOF_PENDING",
+        "evidence_or_limitation": "Prior REPAIR_2 reached runtime-health after build return0. Stage2 executes preserved output, not build/deploy; sandbox/builder direct evidence absent."
+      },
+      {
+        "criterion": "Application starts",
+        "result": "PASS_OBSERVED",
+        "evidence_or_limitation": "APP_RUNNING=YES and upstream private health PASS; operator attestation."
+      },
+      {
+        "criterion": "Expected container identities",
+        "result": "NOT_VERIFIED",
+        "evidence_or_limitation": "Exact IDs/names/roles/per-container image identities not supplied."
+      },
+      {
+        "criterion": "Expected dedicated network membership",
+        "result": "SUMMARY_ONLY",
+        "evidence_or_limitation": "RUNTIME_TOPOLOGY=PASS/PROXY_ONLY_EGRESS=YES; exact sets/IDs/Internal/config outputs absent."
+      },
+      {
+        "criterion": "No inappropriate direct egress",
+        "result": "SUMMARY_ONLY",
+        "evidence_or_limitation": "Proxy-only summary YES; no direct exact topology proof retained."
+      },
+      {
+        "criterion": "Expected secret separation",
+        "result": "NOT_VERIFIED",
+        "evidence_or_limitation": "No recipient/permission/self-host deny/env ownership observations retained; no secret values requested."
+      },
+      {
+        "criterion": "No secret exposure in evidence/logs",
+        "result": "PASS_SANITIZED_HANDOFF; RUNTIME_LOG_SCOPE_PENDING",
+        "evidence_or_limitation": "Supplied handoff has status/identity metadata only; actual credential/environment or live logs not read."
+      },
+      {
+        "criterion": "Expected UID/GID",
+        "result": "NOT_VERIFIED",
+        "evidence_or_limitation": "Effective runtime10001:10001 not supplied."
+      },
+      {
+        "criterion": "Cap drop",
+        "result": "NOT_VERIFIED",
+        "evidence_or_limitation": "No effective ALL-drop observation."
+      },
+      {
+        "criterion": "No new privileges",
+        "result": "NOT_VERIFIED",
+        "evidence_or_limitation": "No effective value supplied."
+      },
+      {
+        "criterion": "Seccomp",
+        "result": "NOT_VERIFIED",
+        "evidence_or_limitation": "No effective seccomp observation."
+      },
+      {
+        "criterion": "PID limit",
+        "result": "NOT_VERIFIED",
+        "evidence_or_limitation": "No effective container/slice PID observations."
+      },
+      {
+        "criterion": "CPU/memory limits",
+        "result": "NOT_VERIFIED",
+        "evidence_or_limitation": "No effective per-container/build limits."
+      },
+      {
+        "criterion": "Aggregate slice limits",
+        "result": "NOT_VERIFIED",
+        "evidence_or_limitation": "No effective slice CPU/memory/tasks evidence."
+      },
+      {
+        "criterion": "Internal health works",
+        "result": "PASS_OBSERVED_CONTROLLED_SCOPE",
+        "evidence_or_limitation": "Attempt02 PASS:OK:200; raw structured version/body not retained for complete D25."
+      },
+      {
+        "criterion": "Allowed public health route works",
+        "result": "NOT_VERIFIED",
+        "evidence_or_limitation": "Homepage GET / and standalone proxy do not establish actual /perf-engine/health."
+      },
+      {
+        "criterion": "Forbidden/admin paths not public",
+        "result": "NOT_VERIFIED",
+        "evidence_or_limitation": "No actual public404/boundary observations supplied."
+      },
+      {
+        "criterion": "Request consumed exactly once",
+        "result": "PASS_PRIOR_OFFICIAL_REPAIR2_ONLY",
+        "evidence_or_limitation": "Prior exact one-shot request consumed once, final claim/request absent. Stage2 request count0, not a replacement deployment."
+      },
+      {
+        "criterion": "Release identity persisted",
+        "result": "PARTIAL_OPERATOR_ATTESTED",
+        "evidence_or_limitation": "Preserved release name and matching prior source snapshot supplied; no successful deployed release/status association."
+      },
+      {
+        "criterion": "Retained evidence bounded",
+        "result": "NOT_VERIFIED",
+        "evidence_or_limitation": "Cleanup assertions/preserved release do not supply effective retained count/bounds."
+      },
+      {
+        "criterion": "No production touched",
+        "result": "PASS_OPERATOR_SCOPE_AND_GIT",
+        "evidence_or_limitation": "Operator flag NO; agent evidence/Git only, remote main unchanged; no production inspection."
+      }
+    ],
+    "first_runtime_restoration": {
+      "result": "DEFERRED_PENDING_LATER_CONTROLLED_VALIDATION",
+      "authority": "docs/P0_2_AUTONOMOUS_AUTHORIZATION.md section19 and PROJECT_TIMELINE.md P0.2 amendment/P1 exit",
+      "current_blocker": false,
+      "reason": "No prior successful official runtime/deployment restoration is recorded. Do not fabricate rollback evidence, require a third repair, or treat preserved release/cleanup as successful restoration."
+    },
+    "later_part_non_blockers": [
+      "P2 browser/Lighthouse/discovery/jobs/rules measurement acceptance",
+      "P3 actual PHP-FPM/plugin/customer/WooCommerce integration"
+    ],
+    "requirements_redefined": false,
+    "acceptance_decision": "Successful scoped Stage2 transport validation is accepted as evidence; not sufficient for full P1 review-ready under unchanged committed exits. Final human/ChatGPT P1 decision required; missing evidence or a concrete governance decision is needed before technical acceptance can be granted."
+  },
+  "current_blocker": {
+    "scope": "P1_FINAL_TECHNICAL_ACCEPTANCE",
+    "status": "HARD_BLOCKED",
+    "foundation_transport_validation": "PASS_OPERATOR_ATTESTED",
+    "missing_criteria": [
+      {
+        "id": "P1-MISSING-01",
+        "criterion": "D24 / successful constrained offline deployment",
+        "missing": "Successful terminal deploy/status and release/archive/snapshot association. No new build/deployment is authorized by this analysis."
+      },
+      {
+        "id": "P1-MISSING-02",
+        "criterion": "P1 trust/network/secret/sandbox boundaries and D27 effective limits",
+        "missing": "Exact live topology/identity and effective trust/containment/resource observations; summaries or source flags alone cannot satisfy P1/D27. Real browser/Lighthouse work remains P2/P5, not this P1 missing item."
+      },
+      {
+        "id": "P1-MISSING-03",
+        "criterion": "D25 complete structured internal-health identity evidence",
+        "missing": "Retained structured health/version evidence linked to that runtime/source observation. This does not invalidate the observed private path/health PASS."
+      },
+      {
+        "id": "P1-MISSING-04",
+        "criterion": "D26 actual public DEV health and forbidden engine routes",
+        "missing": "Actual public vhost health and forbidden-route/boundary observations. A config mutation is not itself mandatory if existing approved config satisfies the criterion; these acceptance checks are P1, not P3."
+      },
+      {
+        "id": "P1-MISSING-05",
+        "criterion": "P1 controlled retention / bounded evidence / stale-request behavior",
+        "missing": "Controlled retention/bounded evidence and stale-request refusal proof. Cleanup PASS is not retention/rollback proof. Restoration to an earlier successful runtime is separately DEFERRED per P0.2 section19 and is not used as a current blocker."
+      }
+    ],
+    "next_action": "FINAL P1 ACCEPTANCE DECISION REQUIRED. Review .ops/reports/P1/exception-repair-validation-stage2/REPORT.md and ANALYSIS.json with committed P1 exits. Stage2 transport validation PASS; full P1 final acceptance NOT_READY with five exact missing evidence groups. Human/ChatGPT must assess the retained evidence and missing criteria; no new evidence-collection procedure, runtime, request, deployment, REPAIR_3, budget reset/extension, P2 or production action is authorized. Do not grant P1 PASS/FROZEN or reinterpret customer/plugin/FPM work as P1.",
+    "source_fix_proposed": false,
+    "repair_authorized": false,
+    "runtime_action_authorized": false
   }
 }

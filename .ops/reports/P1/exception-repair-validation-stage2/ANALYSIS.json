@@ -1,0 +1,1822 @@
+{
+  "schema_version": 1,
+  "kind": "P1_EXCEPTION_REPAIR_VALIDATION_STAGE2_ANALYSIS",
+  "process": "exception-repair-validation-stage2-analysis",
+  "part": "P1",
+  "baseline_checkpoint": "e5ca71c1e35da57c963f01d4ad10830016542fd4",
+  "candidate_commit": "6726138fc26f883f4782b9113b9aa9eba4cd6730",
+  "recorded_at_utc": "2026-10-08T05:57:32.775853+00:00",
+  "operator_observation_timestamp": null,
+  "human_message_sha256": "5ece1e0d5dacfd3d13b597e4c21b93bc76b2ea688221370d1315aaeffe7ad229",
+  "normalized_authorization_sha256": "a421a0f2cfbae68825b1956035834ab074738f2f69298abd8900e920b2d24046",
+  "authority_scope": "ANALYSIS_EVIDENCE_GOVERNANCE_ONLY; completed operator Stage2 attested, no new execution authority",
+  "handoff_original_path": "/home/codexperf/p1-exception-validation-stage2-v4.txt",
+  "retained_handoff": ".ops/reports/P1/exception-repair-validation-stage2/HANDOFF.txt",
+  "handoff_sha256": "27ceff5b9a28f71a5d132682ac04e6310598fb172ff1bae05347e356888d5e94",
+  "handoff_bytes": 2554,
+  "handoff_verification": "VERIFIED",
+  "validation_result": "PASS",
+  "result": "STAGE2_FOUNDATION_VALIDATION_PASS_P1_FINAL_ACCEPTANCE_NOT_READY",
+  "evidence_class": "HUMAN_OPERATOR_ATTESTATION; EXACT_HANDOFF_SHA_SIZE_FIELDS_SOURCE_IDENTITIES_AND_INTERNAL_CONSISTENCY_VERIFIED",
+  "verification_domain": "READ_ONLY_REPOSITORY_AND_EXACT_SANITIZED_HANDOFF; NOT_DIRECT_PRIVILEGED_OR_RUNTIME_OBSERVATION",
+  "parsed_handoff": {
+    "heading": "P1 EXCEPTION REPAIR VALIDATION STAGE2",
+    "line_count": 67,
+    "key_value_occurrences": 64,
+    "unique_key_count": 58,
+    "raw_field_records": [
+      {
+        "line": 2,
+        "name": "RESULT",
+        "value": "PASS"
+      },
+      {
+        "line": 3,
+        "name": "STAGE",
+        "value": "complete"
+      },
+      {
+        "line": 4,
+        "name": "BLOCKER",
+        "value": "NONE"
+      },
+      {
+        "line": 5,
+        "name": "PREVIOUS_V1_HANDOFF_SHA256",
+        "value": "ad3c330676ae7de2e5e634c05e2ae285eca949b9e3a2e64b1226b9167324715c"
+      },
+      {
+        "line": 6,
+        "name": "PREVIOUS_V1_STOPPED_PRE_MUTATION",
+        "value": "YES"
+      },
+      {
+        "line": 7,
+        "name": "PREVIOUS_V2_HANDOFF_SHA256",
+        "value": "2c57b4c18ef20c8dc121c8145df3a04cf941a241bae7962f7ab9fcf726eeea02"
+      },
+      {
+        "line": 8,
+        "name": "PREVIOUS_V2_STOPPED_PRE_MUTATION",
+        "value": "YES"
+      },
+      {
+        "line": 9,
+        "name": "PREVIOUS_V3_HANDOFF_SHA256",
+        "value": "8763a312f5d5028efc5922e0f2638c56a838b28679926def8dbed9e30815c4a2"
+      },
+      {
+        "line": 10,
+        "name": "PREVIOUS_V3_STOPPED_PRE_MUTATION",
+        "value": "YES"
+      },
+      {
+        "line": 11,
+        "name": "CANDIDATE_COMMIT",
+        "value": "6726138fc26f883f4782b9113b9aa9eba4cd6730"
+      },
+      {
+        "line": 12,
+        "name": "CHECKPOINT_COMMIT",
+        "value": "e5ca71c1e35da57c963f01d4ad10830016542fd4"
+      },
+      {
+        "line": 13,
+        "name": "OLD_CONTROLLER_SHA256",
+        "value": "be656cc95fbc3d1df09c57852577f8343401916a47aeec2b12459b4be5de414f"
+      },
+      {
+        "line": 14,
+        "name": "NEW_CONTROLLER_SHA256",
+        "value": "658ce192284c33b5a211b2a1a5c336bd585f2b1c4518d8f6d0fd4f82026d3bd4"
+      },
+      {
+        "line": 15,
+        "name": "CONTROLLER_INSTALLED",
+        "value": "YES"
+      },
+      {
+        "line": 16,
+        "name": "HOST_ACCESS_NETWORK",
+        "value": "gcreation-perf-dev-host-access"
+      },
+      {
+        "line": 17,
+        "name": "HOST_ACCESS_SUBNET",
+        "value": "172.31.255.0/29"
+      },
+      {
+        "line": 18,
+        "name": "HOST_ACCESS_BRIDGE_GATEWAY",
+        "value": "172.31.255.1"
+      },
+      {
+        "line": 19,
+        "name": "GATEWAY_HOST_ACCESS_IP",
+        "value": "172.31.255.2"
+      },
+      {
+        "line": 20,
+        "name": "HOST_ACCESS_NETWORK_CREATED",
+        "value": "YES"
+      },
+      {
+        "line": 21,
+        "name": "HOST_ACCESS_NETWORK_VALIDATED",
+        "value": "YES"
+      },
+      {
+        "line": 22,
+        "name": "RUNTIME_RESULT",
+        "value": "PASS"
+      },
+      {
+        "line": 23,
+        "name": "PHP_SITE_USER_CLI_HTTP_REACHABILITY",
+        "value": "PASS"
+      },
+      {
+        "line": 24,
+        "name": "NGINX_STANDALONE_PROXY_REACHABILITY",
+        "value": "PASS"
+      },
+      {
+        "line": 25,
+        "name": "PHP_FPM_CONTEXT_PROVEN",
+        "value": "NO"
+      },
+      {
+        "line": 26,
+        "name": "ACTUAL_WORDPRESS_PLUGIN_MUTATED",
+        "value": "NO"
+      },
+      {
+        "line": 27,
+        "name": "ACTUAL_PLESK_NGINX_CONFIG_MUTATED",
+        "value": "NO"
+      },
+      {
+        "line": 28,
+        "name": "RUNTIME_CLEANUP",
+        "value": "PASS"
+      },
+      {
+        "line": 29,
+        "name": "NGINX_CLEANUP",
+        "value": "PASS"
+      },
+      {
+        "line": 30,
+        "name": "OFFICIAL_DEPLOYMENT_REQUEST",
+        "value": "NO"
+      },
+      {
+        "line": 31,
+        "name": "DEPLOY_FUNCTION_CALLED",
+        "value": "NO"
+      },
+      {
+        "line": 32,
+        "name": "REPAIR_COUNTER_CHANGE",
+        "value": "NO"
+      },
+      {
+        "line": 33,
+        "name": "REPAIR_3_AUTHORIZED",
+        "value": "NO"
+      },
+      {
+        "line": 34,
+        "name": "REPAIR_BUDGET_RESET",
+        "value": "NO"
+      },
+      {
+        "line": 35,
+        "name": "P2_STARTED",
+        "value": "NO"
+      },
+      {
+        "line": 36,
+        "name": "PRODUCTION_MAIN_TOUCHED",
+        "value": "NO"
+      },
+      {
+        "line": 37,
+        "name": "CONTROLLED_RUNTIME_RESULT",
+        "value": "PASS"
+      },
+      {
+        "line": 38,
+        "name": "CONTROLLED_RUNTIME_EXCEPTION_FAMILY",
+        "value": "NONE"
+      },
+      {
+        "line": 39,
+        "name": "READINESS_EVENT_COUNT",
+        "value": "3"
+      },
+      {
+        "line": 40,
+        "name": "PRIVATE_ENGINE_PASS_COUNT",
+        "value": "1"
+      },
+      {
+        "line": 41,
+        "name": "PRIVATE_ENGINE_FAIL_COUNT",
+        "value": "1"
+      },
+      {
+        "line": 42,
+        "name": "DEV_HOMEPAGE_PASS_COUNT",
+        "value": "1"
+      },
+      {
+        "line": 43,
+        "name": "DEV_HOMEPAGE_FAIL_COUNT",
+        "value": "0"
+      },
+      {
+        "line": 44,
+        "name": "FAILED_REASON_COUNTS",
+        "value": "URL_ERROR:1"
+      },
+      {
+        "line": 45,
+        "name": "FAILED_HTTP_STATUS_COUNTS",
+        "value": "NONE:1"
+      },
+      {
+        "line": 48,
+        "name": "RUNTIME_TOPOLOGY",
+        "value": "PASS"
+      },
+      {
+        "line": 49,
+        "name": "APP_RUNNING",
+        "value": "YES"
+      },
+      {
+        "line": 50,
+        "name": "PROXY_RUNNING",
+        "value": "YES"
+      },
+      {
+        "line": 51,
+        "name": "GATEWAY_RUNNING",
+        "value": "YES"
+      },
+      {
+        "line": 52,
+        "name": "GATEWAY_PUBLISHED_PORTS",
+        "value": "NO"
+      },
+      {
+        "line": 53,
+        "name": "GATEWAY_HOST_ACCESS_IP",
+        "value": "172.31.255.2"
+      },
+      {
+        "line": 54,
+        "name": "PROXY_ONLY_EGRESS",
+        "value": "YES"
+      },
+      {
+        "line": 55,
+        "name": "COLLISION_PREFLIGHT",
+        "value": "PASS"
+      },
+      {
+        "line": 56,
+        "name": "PRESERVED_RELEASE",
+        "value": "release-1791293466993919"
+      },
+      {
+        "line": 57,
+        "name": "PRESERVED_SOURCE_SNAPSHOT_SHA256",
+        "value": "44b5b3b45036ce787f2b9c4ecb20ae21c37db323904b6f18c7c341b976d528ae"
+      },
+      {
+        "line": 58,
+        "name": "RUNTIME_IMAGE_ID",
+        "value": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a"
+      },
+      {
+        "line": 59,
+        "name": "CONTROLLER_PRIVATE_HEALTH",
+        "value": "PASS"
+      },
+      {
+        "line": 60,
+        "name": "CONTROLLER_DEV_HOMEPAGE_HEALTH",
+        "value": "PASS"
+      },
+      {
+        "line": 61,
+        "name": "PHP_SITE_USER_CLI_HTTP_REACHABILITY",
+        "value": "PASS"
+      },
+      {
+        "line": 62,
+        "name": "NGINX_STANDALONE_PROXY_REACHABILITY",
+        "value": "PASS"
+      },
+      {
+        "line": 63,
+        "name": "PHP_FPM_CONTEXT_PROVEN",
+        "value": "NO"
+      },
+      {
+        "line": 64,
+        "name": "ACTUAL_WORDPRESS_PLUGIN_MUTATED",
+        "value": "NO"
+      },
+      {
+        "line": 65,
+        "name": "ACTUAL_PLESK_NGINX_CONFIG_MUTATED",
+        "value": "NO"
+      },
+      {
+        "line": 66,
+        "name": "HOST_ACCESS_NETWORK_RETAINED",
+        "value": "YES"
+      },
+      {
+        "line": 67,
+        "name": "DEV_RUNTIME_CONTAINERS_AFTER",
+        "value": "ABSENT"
+      }
+    ],
+    "canonical_fields": {
+      "RESULT": "PASS",
+      "STAGE": "complete",
+      "BLOCKER": "NONE",
+      "PREVIOUS_V1_HANDOFF_SHA256": "ad3c330676ae7de2e5e634c05e2ae285eca949b9e3a2e64b1226b9167324715c",
+      "PREVIOUS_V1_STOPPED_PRE_MUTATION": "YES",
+      "PREVIOUS_V2_HANDOFF_SHA256": "2c57b4c18ef20c8dc121c8145df3a04cf941a241bae7962f7ab9fcf726eeea02",
+      "PREVIOUS_V2_STOPPED_PRE_MUTATION": "YES",
+      "PREVIOUS_V3_HANDOFF_SHA256": "8763a312f5d5028efc5922e0f2638c56a838b28679926def8dbed9e30815c4a2",
+      "PREVIOUS_V3_STOPPED_PRE_MUTATION": "YES",
+      "CANDIDATE_COMMIT": "6726138fc26f883f4782b9113b9aa9eba4cd6730",
+      "CHECKPOINT_COMMIT": "e5ca71c1e35da57c963f01d4ad10830016542fd4",
+      "OLD_CONTROLLER_SHA256": "be656cc95fbc3d1df09c57852577f8343401916a47aeec2b12459b4be5de414f",
+      "NEW_CONTROLLER_SHA256": "658ce192284c33b5a211b2a1a5c336bd585f2b1c4518d8f6d0fd4f82026d3bd4",
+      "CONTROLLER_INSTALLED": "YES",
+      "HOST_ACCESS_NETWORK": "gcreation-perf-dev-host-access",
+      "HOST_ACCESS_SUBNET": "172.31.255.0/29",
+      "HOST_ACCESS_BRIDGE_GATEWAY": "172.31.255.1",
+      "GATEWAY_HOST_ACCESS_IP": "172.31.255.2",
+      "HOST_ACCESS_NETWORK_CREATED": "YES",
+      "HOST_ACCESS_NETWORK_VALIDATED": "YES",
+      "RUNTIME_RESULT": "PASS",
+      "PHP_SITE_USER_CLI_HTTP_REACHABILITY": "PASS",
+      "NGINX_STANDALONE_PROXY_REACHABILITY": "PASS",
+      "PHP_FPM_CONTEXT_PROVEN": "NO",
+      "ACTUAL_WORDPRESS_PLUGIN_MUTATED": "NO",
+      "ACTUAL_PLESK_NGINX_CONFIG_MUTATED": "NO",
+      "RUNTIME_CLEANUP": "PASS",
+      "NGINX_CLEANUP": "PASS",
+      "OFFICIAL_DEPLOYMENT_REQUEST": "NO",
+      "DEPLOY_FUNCTION_CALLED": "NO",
+      "REPAIR_COUNTER_CHANGE": "NO",
+      "REPAIR_3_AUTHORIZED": "NO",
+      "REPAIR_BUDGET_RESET": "NO",
+      "P2_STARTED": "NO",
+      "PRODUCTION_MAIN_TOUCHED": "NO",
+      "CONTROLLED_RUNTIME_RESULT": "PASS",
+      "CONTROLLED_RUNTIME_EXCEPTION_FAMILY": "NONE",
+      "READINESS_EVENT_COUNT": "3",
+      "PRIVATE_ENGINE_PASS_COUNT": "1",
+      "PRIVATE_ENGINE_FAIL_COUNT": "1",
+      "DEV_HOMEPAGE_PASS_COUNT": "1",
+      "DEV_HOMEPAGE_FAIL_COUNT": "0",
+      "FAILED_REASON_COUNTS": "URL_ERROR:1",
+      "FAILED_HTTP_STATUS_COUNTS": "NONE:1",
+      "RUNTIME_TOPOLOGY": "PASS",
+      "APP_RUNNING": "YES",
+      "PROXY_RUNNING": "YES",
+      "GATEWAY_RUNNING": "YES",
+      "GATEWAY_PUBLISHED_PORTS": "NO",
+      "PROXY_ONLY_EGRESS": "YES",
+      "COLLISION_PREFLIGHT": "PASS",
+      "PRESERVED_RELEASE": "release-1791293466993919",
+      "PRESERVED_SOURCE_SNAPSHOT_SHA256": "44b5b3b45036ce787f2b9c4ecb20ae21c37db323904b6f18c7c341b976d528ae",
+      "RUNTIME_IMAGE_ID": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a",
+      "CONTROLLER_PRIVATE_HEALTH": "PASS",
+      "CONTROLLER_DEV_HOMEPAGE_HEALTH": "PASS",
+      "HOST_ACCESS_NETWORK_RETAINED": "YES",
+      "DEV_RUNTIME_CONTAINERS_AFTER": "ABSENT"
+    },
+    "consistent_duplicate_fields": {
+      "GATEWAY_HOST_ACCESS_IP": [
+        {
+          "line": 19,
+          "name": "GATEWAY_HOST_ACCESS_IP",
+          "value": "172.31.255.2"
+        },
+        {
+          "line": 53,
+          "name": "GATEWAY_HOST_ACCESS_IP",
+          "value": "172.31.255.2"
+        }
+      ],
+      "PHP_SITE_USER_CLI_HTTP_REACHABILITY": [
+        {
+          "line": 23,
+          "name": "PHP_SITE_USER_CLI_HTTP_REACHABILITY",
+          "value": "PASS"
+        },
+        {
+          "line": 61,
+          "name": "PHP_SITE_USER_CLI_HTTP_REACHABILITY",
+          "value": "PASS"
+        }
+      ],
+      "NGINX_STANDALONE_PROXY_REACHABILITY": [
+        {
+          "line": 24,
+          "name": "NGINX_STANDALONE_PROXY_REACHABILITY",
+          "value": "PASS"
+        },
+        {
+          "line": 62,
+          "name": "NGINX_STANDALONE_PROXY_REACHABILITY",
+          "value": "PASS"
+        }
+      ],
+      "PHP_FPM_CONTEXT_PROVEN": [
+        {
+          "line": 25,
+          "name": "PHP_FPM_CONTEXT_PROVEN",
+          "value": "NO"
+        },
+        {
+          "line": 63,
+          "name": "PHP_FPM_CONTEXT_PROVEN",
+          "value": "NO"
+        }
+      ],
+      "ACTUAL_WORDPRESS_PLUGIN_MUTATED": [
+        {
+          "line": 26,
+          "name": "ACTUAL_WORDPRESS_PLUGIN_MUTATED",
+          "value": "NO"
+        },
+        {
+          "line": 64,
+          "name": "ACTUAL_WORDPRESS_PLUGIN_MUTATED",
+          "value": "NO"
+        }
+      ],
+      "ACTUAL_PLESK_NGINX_CONFIG_MUTATED": [
+        {
+          "line": 27,
+          "name": "ACTUAL_PLESK_NGINX_CONFIG_MUTATED",
+          "value": "NO"
+        },
+        {
+          "line": 65,
+          "name": "ACTUAL_PLESK_NGINX_CONFIG_MUTATED",
+          "value": "NO"
+        }
+      ]
+    },
+    "readiness_attempt_summaries": [
+      {
+        "line": 46,
+        "raw": "ATTEMPT_01 PRIVATE_ENGINE=FAIL:URL_ERROR:NONE DEV_HOMEPAGE=NOT_REACHED",
+        "attempt": 1,
+        "phases": {
+          "PRIVATE_ENGINE": {
+            "result": "FAIL",
+            "reason": "URL_ERROR",
+            "http_status": null
+          },
+          "DEV_HOMEPAGE": {
+            "result": "NOT_REACHED",
+            "reason": null,
+            "http_status": null
+          }
+        }
+      },
+      {
+        "line": 47,
+        "raw": "ATTEMPT_02 PRIVATE_ENGINE=PASS:OK:200 DEV_HOMEPAGE=PASS:OK:200",
+        "attempt": 2,
+        "phases": {
+          "PRIVATE_ENGINE": {
+            "result": "PASS",
+            "reason": "OK",
+            "http_status": 200
+          },
+          "DEV_HOMEPAGE": {
+            "result": "PASS",
+            "reason": "OK",
+            "http_status": 200
+          }
+        }
+      }
+    ],
+    "blank_lines": [],
+    "unparsed_lines": [],
+    "absent_values_not_invented": {
+      "operator_observation_times": null,
+      "operator_execution_commands_and_exit_codes": null,
+      "exact_container_ids_and_network_sets": null,
+      "host_access_network_id": null,
+      "driver_scope_internal_labels_inspection": null,
+      "effective_security_resource_controls": null,
+      "structured_health_version_body": null,
+      "public_deployed_health_and_admin_route_statuses": null,
+      "successful_official_deployment_status": null,
+      "stale_request_or_retention_observations": null,
+      "original_v1_v2_v3_handoff_content_verification": null
+    }
+  },
+  "verification_checks": [
+    {
+      "criterion": "Handoff exact SHA256",
+      "result": "PASS",
+      "observed": "27ceff5b9a28f71a5d132682ac04e6310598fb172ff1bae05347e356888d5e94",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Handoff exact byte size",
+      "result": "PASS",
+      "observed": 2554,
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Ordinary non-root analysis",
+      "result": "PASS",
+      "observed": 10023,
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Starting tree clean",
+      "result": "PASS",
+      "observed": "CLEAN",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Current branch develop",
+      "result": "PASS",
+      "observed": "develop",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Exact local baseline",
+      "result": "PASS",
+      "observed": "e5ca71c1e35da57c963f01d4ad10830016542fd4",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Exact tracking develop",
+      "result": "PASS",
+      "observed": "e5ca71c1e35da57c963f01d4ad10830016542fd4",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Exact remote develop",
+      "result": "PASS",
+      "observed": "e5ca71c1e35da57c963f01d4ad10830016542fd4",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Exact remote main read-only",
+      "result": "PASS",
+      "observed": "c724ac3b50bc44d71f8620bb4ac0cccfae890de2",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Candidate exact parent",
+      "result": "PASS",
+      "observed": "ccd31c20a8ec918454aa5aa455972860be17e3bf",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Checkpoint exact candidate parent",
+      "result": "PASS",
+      "observed": "6726138fc26f883f4782b9113b9aa9eba4cd6730",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Handoff heading",
+      "result": "PASS",
+      "observed": "P1 EXCEPTION REPAIR VALIDATION STAGE2",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Parse supplied line 2",
+      "result": "PASS",
+      "observed": "KEY_VALUE",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Parse supplied line 3",
+      "result": "PASS",
+      "observed": "KEY_VALUE",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Parse supplied line 4",
+      "result": "PASS",
+      "observed": "KEY_VALUE",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Parse supplied line 5",
+      "result": "PASS",
+      "observed": "KEY_VALUE",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Parse supplied line 6",
+      "result": "PASS",
+      "observed": "KEY_VALUE",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Parse supplied line 7",
+      "result": "PASS",
+      "observed": "KEY_VALUE",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Parse supplied line 8",
+      "result": "PASS",
+      "observed": "KEY_VALUE",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Parse supplied line 9",
+      "result": "PASS",
+      "observed": "KEY_VALUE",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Parse supplied line 10",
+      "result": "PASS",
+      "observed": "KEY_VALUE",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Parse supplied line 11",
+      "result": "PASS",
+      "observed": "KEY_VALUE",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Parse supplied line 12",
+      "result": "PASS",
+      "observed": "KEY_VALUE",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Parse supplied line 13",
+      "result": "PASS",
+      "observed": "KEY_VALUE",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Parse supplied line 14",
+      "result": "PASS",
+      "observed": "KEY_VALUE",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Parse supplied line 15",
+      "result": "PASS",
+      "observed": "KEY_VALUE",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Parse supplied line 16",
+      "result": "PASS",
+      "observed": "KEY_VALUE",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Parse supplied line 17",
+      "result": "PASS",
+      "observed": "KEY_VALUE",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Parse supplied line 18",
+      "result": "PASS",
+      "observed": "KEY_VALUE",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Parse supplied line 19",
+      "result": "PASS",
+      "observed": "KEY_VALUE",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Parse supplied line 20",
+      "result": "PASS",
+      "observed": "KEY_VALUE",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Parse supplied line 21",
+      "result": "PASS",
+      "observed": "KEY_VALUE",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Parse supplied line 22",
+      "result": "PASS",
+      "observed": "KEY_VALUE",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Parse supplied line 23",
+      "result": "PASS",
+      "observed": "KEY_VALUE",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Parse supplied line 24",
+      "result": "PASS",
+      "observed": "KEY_VALUE",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Parse supplied line 25",
+      "result": "PASS",
+      "observed": "KEY_VALUE",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Parse supplied line 26",
+      "result": "PASS",
+      "observed": "KEY_VALUE",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Parse supplied line 27",
+      "result": "PASS",
+      "observed": "KEY_VALUE",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Parse supplied line 28",
+      "result": "PASS",
+      "observed": "KEY_VALUE",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Parse supplied line 29",
+      "result": "PASS",
+      "observed": "KEY_VALUE",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Parse supplied line 30",
+      "result": "PASS",
+      "observed": "KEY_VALUE",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Parse supplied line 31",
+      "result": "PASS",
+      "observed": "KEY_VALUE",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Parse supplied line 32",
+      "result": "PASS",
+      "observed": "KEY_VALUE",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Parse supplied line 33",
+      "result": "PASS",
+      "observed": "KEY_VALUE",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Parse supplied line 34",
+      "result": "PASS",
+      "observed": "KEY_VALUE",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Parse supplied line 35",
+      "result": "PASS",
+      "observed": "KEY_VALUE",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Parse supplied line 36",
+      "result": "PASS",
+      "observed": "KEY_VALUE",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Parse supplied line 37",
+      "result": "PASS",
+      "observed": "KEY_VALUE",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Parse supplied line 38",
+      "result": "PASS",
+      "observed": "KEY_VALUE",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Parse supplied line 39",
+      "result": "PASS",
+      "observed": "KEY_VALUE",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Parse supplied line 40",
+      "result": "PASS",
+      "observed": "KEY_VALUE",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Parse supplied line 41",
+      "result": "PASS",
+      "observed": "KEY_VALUE",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Parse supplied line 42",
+      "result": "PASS",
+      "observed": "KEY_VALUE",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Parse supplied line 43",
+      "result": "PASS",
+      "observed": "KEY_VALUE",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Parse supplied line 44",
+      "result": "PASS",
+      "observed": "KEY_VALUE",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Parse supplied line 45",
+      "result": "PASS",
+      "observed": "KEY_VALUE",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Parse supplied line 48",
+      "result": "PASS",
+      "observed": "KEY_VALUE",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Parse supplied line 49",
+      "result": "PASS",
+      "observed": "KEY_VALUE",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Parse supplied line 50",
+      "result": "PASS",
+      "observed": "KEY_VALUE",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Parse supplied line 51",
+      "result": "PASS",
+      "observed": "KEY_VALUE",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Parse supplied line 52",
+      "result": "PASS",
+      "observed": "KEY_VALUE",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Parse supplied line 53",
+      "result": "PASS",
+      "observed": "KEY_VALUE",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Parse supplied line 54",
+      "result": "PASS",
+      "observed": "KEY_VALUE",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Parse supplied line 55",
+      "result": "PASS",
+      "observed": "KEY_VALUE",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Parse supplied line 56",
+      "result": "PASS",
+      "observed": "KEY_VALUE",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Parse supplied line 57",
+      "result": "PASS",
+      "observed": "KEY_VALUE",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Parse supplied line 58",
+      "result": "PASS",
+      "observed": "KEY_VALUE",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Parse supplied line 59",
+      "result": "PASS",
+      "observed": "KEY_VALUE",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Parse supplied line 60",
+      "result": "PASS",
+      "observed": "KEY_VALUE",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Parse supplied line 61",
+      "result": "PASS",
+      "observed": "KEY_VALUE",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Parse supplied line 62",
+      "result": "PASS",
+      "observed": "KEY_VALUE",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Parse supplied line 63",
+      "result": "PASS",
+      "observed": "KEY_VALUE",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Parse supplied line 64",
+      "result": "PASS",
+      "observed": "KEY_VALUE",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Parse supplied line 65",
+      "result": "PASS",
+      "observed": "KEY_VALUE",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Parse supplied line 66",
+      "result": "PASS",
+      "observed": "KEY_VALUE",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Parse supplied line 67",
+      "result": "PASS",
+      "observed": "KEY_VALUE",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Consistent duplicate GATEWAY_HOST_ACCESS_IP",
+      "result": "PASS",
+      "observed": 2,
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Consistent duplicate PHP_SITE_USER_CLI_HTTP_REACHABILITY",
+      "result": "PASS",
+      "observed": 2,
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Consistent duplicate NGINX_STANDALONE_PROXY_REACHABILITY",
+      "result": "PASS",
+      "observed": 2,
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Consistent duplicate PHP_FPM_CONTEXT_PROVEN",
+      "result": "PASS",
+      "observed": 2,
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Consistent duplicate ACTUAL_WORDPRESS_PLUGIN_MUTATED",
+      "result": "PASS",
+      "observed": 2,
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Consistent duplicate ACTUAL_PLESK_NGINX_CONFIG_MUTATED",
+      "result": "PASS",
+      "observed": 2,
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Field RESULT",
+      "result": "PASS",
+      "observed": "PASS",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Field STAGE",
+      "result": "PASS",
+      "observed": "complete",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Field BLOCKER",
+      "result": "PASS",
+      "observed": "NONE",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Field CANDIDATE_COMMIT",
+      "result": "PASS",
+      "observed": "6726138fc26f883f4782b9113b9aa9eba4cd6730",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Field CHECKPOINT_COMMIT",
+      "result": "PASS",
+      "observed": "e5ca71c1e35da57c963f01d4ad10830016542fd4",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Field OLD_CONTROLLER_SHA256",
+      "result": "PASS",
+      "observed": "be656cc95fbc3d1df09c57852577f8343401916a47aeec2b12459b4be5de414f",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Field NEW_CONTROLLER_SHA256",
+      "result": "PASS",
+      "observed": "658ce192284c33b5a211b2a1a5c336bd585f2b1c4518d8f6d0fd4f82026d3bd4",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Field CONTROLLER_INSTALLED",
+      "result": "PASS",
+      "observed": "YES",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Field HOST_ACCESS_NETWORK",
+      "result": "PASS",
+      "observed": "gcreation-perf-dev-host-access",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Field HOST_ACCESS_SUBNET",
+      "result": "PASS",
+      "observed": "172.31.255.0/29",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Field HOST_ACCESS_BRIDGE_GATEWAY",
+      "result": "PASS",
+      "observed": "172.31.255.1",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Field GATEWAY_HOST_ACCESS_IP",
+      "result": "PASS",
+      "observed": "172.31.255.2",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Field HOST_ACCESS_NETWORK_CREATED",
+      "result": "PASS",
+      "observed": "YES",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Field HOST_ACCESS_NETWORK_VALIDATED",
+      "result": "PASS",
+      "observed": "YES",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Field RUNTIME_RESULT",
+      "result": "PASS",
+      "observed": "PASS",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Field CONTROLLED_RUNTIME_RESULT",
+      "result": "PASS",
+      "observed": "PASS",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Field CONTROLLED_RUNTIME_EXCEPTION_FAMILY",
+      "result": "PASS",
+      "observed": "NONE",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Field PHP_SITE_USER_CLI_HTTP_REACHABILITY",
+      "result": "PASS",
+      "observed": "PASS",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Field NGINX_STANDALONE_PROXY_REACHABILITY",
+      "result": "PASS",
+      "observed": "PASS",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Field PHP_FPM_CONTEXT_PROVEN",
+      "result": "PASS",
+      "observed": "NO",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Field ACTUAL_WORDPRESS_PLUGIN_MUTATED",
+      "result": "PASS",
+      "observed": "NO",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Field ACTUAL_PLESK_NGINX_CONFIG_MUTATED",
+      "result": "PASS",
+      "observed": "NO",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Field RUNTIME_CLEANUP",
+      "result": "PASS",
+      "observed": "PASS",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Field NGINX_CLEANUP",
+      "result": "PASS",
+      "observed": "PASS",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Field OFFICIAL_DEPLOYMENT_REQUEST",
+      "result": "PASS",
+      "observed": "NO",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Field DEPLOY_FUNCTION_CALLED",
+      "result": "PASS",
+      "observed": "NO",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Field REPAIR_COUNTER_CHANGE",
+      "result": "PASS",
+      "observed": "NO",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Field REPAIR_3_AUTHORIZED",
+      "result": "PASS",
+      "observed": "NO",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Field REPAIR_BUDGET_RESET",
+      "result": "PASS",
+      "observed": "NO",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Field P2_STARTED",
+      "result": "PASS",
+      "observed": "NO",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Field PRODUCTION_MAIN_TOUCHED",
+      "result": "PASS",
+      "observed": "NO",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Field RUNTIME_TOPOLOGY",
+      "result": "PASS",
+      "observed": "PASS",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Field APP_RUNNING",
+      "result": "PASS",
+      "observed": "YES",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Field PROXY_RUNNING",
+      "result": "PASS",
+      "observed": "YES",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Field GATEWAY_RUNNING",
+      "result": "PASS",
+      "observed": "YES",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Field GATEWAY_PUBLISHED_PORTS",
+      "result": "PASS",
+      "observed": "NO",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Field PROXY_ONLY_EGRESS",
+      "result": "PASS",
+      "observed": "YES",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Field COLLISION_PREFLIGHT",
+      "result": "PASS",
+      "observed": "PASS",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Field RUNTIME_IMAGE_ID",
+      "result": "PASS",
+      "observed": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Field CONTROLLER_PRIVATE_HEALTH",
+      "result": "PASS",
+      "observed": "PASS",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Field CONTROLLER_DEV_HOMEPAGE_HEALTH",
+      "result": "PASS",
+      "observed": "PASS",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Field HOST_ACCESS_NETWORK_RETAINED",
+      "result": "PASS",
+      "observed": "YES",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Field DEV_RUNTIME_CONTAINERS_AFTER",
+      "result": "PASS",
+      "observed": "ABSENT",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Prior V1 referenced SHA",
+      "result": "PASS",
+      "observed": "ad3c330676ae7de2e5e634c05e2ae285eca949b9e3a2e64b1226b9167324715c",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Prior V1 stopped before mutation",
+      "result": "PASS",
+      "observed": "OPERATOR_ATTESTED; original handoff not read",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Prior V2 referenced SHA",
+      "result": "PASS",
+      "observed": "2c57b4c18ef20c8dc121c8145df3a04cf941a241bae7962f7ab9fcf726eeea02",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Prior V2 stopped before mutation",
+      "result": "PASS",
+      "observed": "OPERATOR_ATTESTED; original handoff not read",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Prior V3 referenced SHA",
+      "result": "PASS",
+      "observed": "8763a312f5d5028efc5922e0f2638c56a838b28679926def8dbed9e30815c4a2",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Prior V3 stopped before mutation",
+      "result": "PASS",
+      "observed": "OPERATOR_ATTESTED; original handoff not read",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Release identifier only",
+      "result": "PASS",
+      "observed": "release-1791293466993919",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Source candidate matches Stage1 review",
+      "result": "PASS",
+      "observed": "6726138fc26f883f4782b9113b9aa9eba4cd6730",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Controller candidate Git/local/SHA identity",
+      "result": "PASS",
+      "observed": "658ce192284c33b5a211b2a1a5c336bd585f2b1c4518d8f6d0fd4f82026d3bd4",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Old controller matches Stage1 review",
+      "result": "PASS",
+      "observed": "be656cc95fbc3d1df09c57852577f8343401916a47aeec2b12459b4be5de414f",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Compile-time identity HOST_ACCESS_NETWORK",
+      "result": "PASS",
+      "observed": "gcreation-perf-dev-host-access",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Compile-time identity HOST_ACCESS_SUBNET",
+      "result": "PASS",
+      "observed": "172.31.255.0/29",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Compile-time identity HOST_ACCESS_BRIDGE_GATEWAY",
+      "result": "PASS",
+      "observed": "172.31.255.1",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Compile-time identity GATEWAY_HOST_ACCESS_IP",
+      "result": "PASS",
+      "observed": "172.31.255.2",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Preserved snapshot matches accepted application/artifact",
+      "result": "PASS",
+      "observed": "44b5b3b45036ce787f2b9c4ecb20ae21c37db323904b6f18c7c341b976d528ae",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Runtime image matches accepted promoted immutable image",
+      "result": "PASS",
+      "observed": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Trusted gateway unchanged SHA",
+      "result": "PASS",
+      "observed": "d9616a205b5f7a7e2d11779a2a98a1a5367ec76d992b2d3b8bb51e5a25343c4c",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Attempt sequence",
+      "result": "PASS",
+      "observed": [
+        1,
+        2
+      ],
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Readiness count READINESS_EVENT_COUNT",
+      "result": "PASS",
+      "observed": 3,
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Readiness count PRIVATE_ENGINE_PASS_COUNT",
+      "result": "PASS",
+      "observed": 1,
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Readiness count PRIVATE_ENGINE_FAIL_COUNT",
+      "result": "PASS",
+      "observed": 1,
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Readiness count DEV_HOMEPAGE_PASS_COUNT",
+      "result": "PASS",
+      "observed": 1,
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Readiness count DEV_HOMEPAGE_FAIL_COUNT",
+      "result": "PASS",
+      "observed": 0,
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Failed reason counts",
+      "result": "PASS",
+      "observed": "URL_ERROR:1",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Failed HTTP counts",
+      "result": "PASS",
+      "observed": "NONE:1",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Exact attempt1 failure and homepage not reached",
+      "result": "PASS",
+      "observed": {
+        "PRIVATE_ENGINE": {
+          "result": "FAIL",
+          "reason": "URL_ERROR",
+          "http_status": null
+        },
+        "DEV_HOMEPAGE": {
+          "result": "NOT_REACHED",
+          "reason": null,
+          "http_status": null
+        }
+      },
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Exact attempt2 private and homepage success",
+      "result": "PASS",
+      "observed": {
+        "PRIVATE_ENGINE": {
+          "result": "PASS",
+          "reason": "OK",
+          "http_status": 200
+        },
+        "DEV_HOMEPAGE": {
+          "result": "PASS",
+          "reason": "OK",
+          "http_status": 200
+        }
+      },
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "Readiness flow agrees with candidate",
+      "result": "PASS",
+      "observed": "Source only; no function invocation or HTTP",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "No health fallback",
+      "result": "PASS",
+      "observed": "One fixed endpoint",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    },
+    {
+      "criterion": "No gateway host publish source",
+      "result": "PASS",
+      "observed": "Source matches reported no published ports",
+      "domain": "OFFLINE_DOCUMENT_DATA_GIT_CONSISTENCY_ONLY"
+    }
+  ],
+  "verification_check_count": 155,
+  "all_verification_checks_passed": true,
+  "prior_safe_holds": {
+    "classification": "HISTORICAL_OPERATOR_ATTESTED_PRE_MUTATION_STOPS_ONLY",
+    "identities_referenced": {
+      "V1": "ad3c330676ae7de2e5e634c05e2ae285eca949b9e3a2e64b1226b9167324715c",
+      "V2": "2c57b4c18ef20c8dc121c8145df3a04cf941a241bae7962f7ab9fcf726eeea02",
+      "V3": "8763a312f5d5028efc5922e0f2638c56a838b28679926def8dbed9e30815c4a2"
+    },
+    "original_files_read": false,
+    "counted_as_repairs_or_retries": false
+  },
+  "classification": {
+    "exception_repair_source_candidate": "VALIDATED_IN_ONE_CONTROLLED_DEV_RUNTIME",
+    "collision_preflight": "PASS_OBSERVED",
+    "controller_installation": "EXACT_REVIEWED_CANDIDATE_INSTALLED",
+    "host_access_network": "EXACT_CONFIGURATION_VALIDATED_OPERATOR_ATTESTED_SUMMARY",
+    "host_access_network_detail_limit": "Supplied fixed name/subnet/bridge gateway/IP match reviewed constants; network validation reported PASS. Full driver/scope/Internal/labels/IPAM/network ID/persisted ID outputs absent; no new direct root verification.",
+    "docker_host_port_dependency": "REMOVED_IN_VALIDATED_RUNTIME",
+    "private_host_to_gateway_path": "PASS_OBSERVED",
+    "gateway_to_app_health_path": "PASS_OBSERVED",
+    "gateway_to_app_health_basis": "Operator private health HTTP200/PASS, reconciled with unchanged reviewed gateway fixed forwarding path. Reported health implies upstream acceptance; actual socket trace not collected by agent.",
+    "dev_homepage_health": "PASS_OBSERVED",
+    "php_site_user_cli_to_gateway": "PASS_OBSERVED",
+    "php_fpm_context": "NOT_PROVEN",
+    "nginx_worker_to_gateway": "PASS_OBSERVED_STANDALONE_ONLY",
+    "actual_plesk_vhost_configuration_validated": "NOT_PROVEN",
+    "actual_wordpress_plugin_applied": "NO",
+    "proxy_only_egress": "OPERATOR_SUMMARY_ATTESTED; EXACT_TOPOLOGY_EVIDENCE_NOT_RETAINED",
+    "proxy_only_egress_supported_summary": "PROXY_ONLY_EGRESS=YES and RUNTIME_TOPOLOGY=PASS retained. Exact inspected membership sets/IDs are absent; do not promote to PRESERVED_IN_VALIDATED_TOPOLOGY with direct exact-topology evidence.",
+    "controlled_runtime_cleanup": "PASS_OBSERVED",
+    "standalone_nginx_cleanup": "PASS_OBSERVED",
+    "dev_runtime_containers_after": "ABSENT_OPERATOR_ATTESTED",
+    "host_access_network_retained": "YES_OPERATOR_ATTESTED",
+    "repair_hypothesis": "VALIDATED",
+    "foundation_validation_scope": "Replacement host transport startup/reachability foundation PASS in one controlled runtime; complete P1 security/deployment acceptance NOT established.",
+    "historical_official_repair_2": "FAILED_CONSUMED_1_OF_1",
+    "historical_exact_repair_2_root_cause": "NOT_ESTABLISHED",
+    "stage3b_component": "DOCKER_PORT_PUBLICATION_LAYER",
+    "stage3b_proof_scope": "ISOLATED_DIAGNOSTIC_COMPONENT_CLASS_ONLY",
+    "stage3b_exact_daemon_network_mechanism": "NOT_ESTABLISHED"
+  },
+  "requirements_assessment": {
+    "p1_final_acceptance_review_ready": false,
+    "P1_FINAL_ACCEPTANCE_REVIEW_READY": false,
+    "final_acceptance_review": "NOT_READY",
+    "execution_pass": false,
+    "missing_p1_requirements": [
+      {
+        "id": "P1-MISSING-01",
+        "criterion": "D24 / successful constrained offline deployment",
+        "required": "A successful constrained offline deploy reaches terminal successful status with approved commit/archive/snapshot identity; accepted non-root/offline build evidence and installed trust must be bound to that result.",
+        "observed": "No official deployment request; deploy() not called. Prior official REPAIR_2 terminal status is FAILED/runtime-health, not COMPLETED. Its build return0 remains INFERRED_EXIT_ZERO from reviewed control flow, and exact request consumption remains PASS; neither valid historical observation is discarded. Stage2 used preserved release/snapshot and tested transport, not a new offline build/deploy.",
+        "missing": "Successful terminal deploy/status and release/archive/snapshot association. No new build/deployment is authorized by this analysis.",
+        "authority": [
+          "PROJECT_TIMELINE.md: P1 exact exit/evidence criteria",
+          "REQUIREMENTS.md: D24",
+          "docs/P0_2_AUTONOMOUS_AUTHORIZATION.md: section19"
+        ],
+        "existing_evidence": [
+          ".ops/reports/P1/REPAIR_2_DEPLOYMENT_ATTEMPT.json",
+          ".ops/reports/P1/REPAIR_2_RUNTIME_VALIDATION.json"
+        ]
+      },
+      {
+        "id": "P1-MISSING-02",
+        "criterion": "P1 trust/network/secret/sandbox boundaries and D27 effective limits",
+        "required": "Direct sanitized expected container/image/role identities, exact dedicated network IDs/configuration/member sets, no direct egress, correct secret/self-host placement, non-root/sandbox controls and effective resource/log limits.",
+        "observed": "Host network name/subnet/bridge gateway/static IP and network validation flags supplied; APP/PROXY/GATEWAY running, no published gateway ports and PROXY_ONLY_EGRESS=YES are operator summaries. Per-container IDs/image/name/role/network sets and network Internal/driver/scope/label/IPAM/persisted ID outputs are absent. Current controller content hash matches reviewed source, but installation ownership/mode/link/ancestor/backup observations are not retained. Runtime UID/GID/cap-drop/no-new-privileges/seccomp/read-only/mount/socket/secret-self-host/env-ownership and CPU/memory/PID/aggregate-slice/log observations are not supplied. Prior installation/image/source evidence stays accepted within its original scope.",
+        "missing": "Exact live topology/identity and effective trust/containment/resource observations; summaries or source flags alone cannot satisfy P1/D27. Real browser/Lighthouse work remains P2/P5, not this P1 missing item.",
+        "authority": [
+          "PROJECT_TIMELINE.md: P1 requires real DEV validation/exact exit",
+          "REQUIREMENTS.md: D27",
+          "docs/P0_2_AUTONOMOUS_AUTHORIZATION.md: section19"
+        ],
+        "existing_evidence": [
+          ".ops/reports/P1/INSTALLATION_EVIDENCE.json",
+          ".ops/reports/P1/REPAIR_2_GATE_C_VERIFICATION.json",
+          ".ops/reports/P1/REPAIR_2_RUNTIME_VALIDATION.json"
+        ]
+      },
+      {
+        "id": "P1-MISSING-03",
+        "criterion": "D25 complete structured internal-health identity evidence",
+        "required": "Internal HTTP200 with development/service/version identity tied to accepted application source/snapshot.",
+        "observed": "Attempt02 PRIVATE_ENGINE=PASS:OK:200 and CONTROLLER_PRIVATE_HEALTH=PASS. Reviewed health() enforces service=gcreation-performance and environment=development; version is not checked there and no structured response/version or operator observation timestamp is supplied. Preserved source digest matches accepted0ac34ba... snapshot, not a new mutable source deployment.",
+        "missing": "Retained structured health/version evidence linked to that runtime/source observation. This does not invalidate the observed private path/health PASS.",
+        "authority": [
+          "PROJECT_TIMELINE.md: P1 exact exit/evidence criteria",
+          "REQUIREMENTS.md: D25"
+        ]
+      },
+      {
+        "id": "P1-MISSING-04",
+        "criterion": "D26 actual public DEV health and forbidden engine routes",
+        "required": "Actual DEV GET /perf-engine/health expected HTTP200/structured development/service/version identity after human proxy setup; public business/admin engine routes404 and no forwarded client credentials/body.",
+        "observed": "DEV homepage PASS is GET /, not /perf-engine/health. Standalone nginx worker-to-gateway reachability PASS does not test actual Plesk vhost/public route. Actual nginx config mutation is NO, and no actual public health/admin route observations are supplied.",
+        "missing": "Actual public vhost health and forbidden-route/boundary observations. A config mutation is not itself mandatory if existing approved config satisfies the criterion; these acceptance checks are P1, not P3.",
+        "authority": [
+          "PROJECT_TIMELINE.md: P1 internal/public health exit",
+          "REQUIREMENTS.md: D26",
+          "docs/P0_2_AUTONOMOUS_AUTHORIZATION.md: section19"
+        ]
+      },
+      {
+        "id": "P1-MISSING-05",
+        "criterion": "P1 controlled retention / bounded evidence / stale-request behavior",
+        "required": "Controlled retained release/artifact/evidence bounds and actual stale-request refusal; first-runtime restoration may remain pending only under the explicit section19 exception.",
+        "observed": "Preserved release/snapshot reported, runtime/nginx cleanup PASS, containers absent and host-access network retained. No retained release counts/bounds, failed-release treatment, effective artifact/log retention or actual stale-trigger refusal observations are supplied. Prior official request consumed once remains recorded PASS. Historical REPAIR_2 rollback=false remains unchanged.",
+        "missing": "Controlled retention/bounded evidence and stale-request refusal proof. Cleanup PASS is not retention/rollback proof. Restoration to an earlier successful runtime is separately DEFERRED per P0.2 section19 and is not used as a current blocker.",
+        "authority": [
+          "PROJECT_TIMELINE.md: P1 real DEV/exit criteria and P0.2 amendment",
+          "REQUIREMENTS.md: D24",
+          "docs/P0_2_AUTONOMOUS_AUTHORIZATION.md: section19"
+        ]
+      }
+    ],
+    "part_boundary_classification": [
+      {
+        "field": "PHP_FPM_CONTEXT_PROVEN",
+        "observed": "NO",
+        "classification": "P3_REQUIRED",
+        "p1_blocker": false,
+        "reason": "Actual approved PHP plugin/nonce-session/engine customer flow and PHP-owner/config readability belong to P3. Site-user CLI reachability does not prove FPM, but P1 does not require plugin/customer PHP execution. This is a P3 integration inference from the committed actual-flow requirement, not a new standalone FPM configuration test.",
+        "authority": [
+          "PROJECT_TIMELINE.md: P3 exact scope/entry/real DEV/exit",
+          "REQUIREMENTS.md: D15 (P3)"
+        ]
+      },
+      {
+        "field": "ACTUAL_WORDPRESS_PLUGIN_MUTATED",
+        "observed": "NO",
+        "classification": "P3_REQUIRED",
+        "literal_mutation_required_for_p1": false,
+        "p1_blocker": false,
+        "reason": "Separately approved plugin artifact installation/activation/readability and working customer flow are P3, not the watcher/P1. Mutation itself is not a required success flag if an already approved exact plugin is installed; this handoff only says it was not changed.",
+        "authority": [
+          "PROJECT_TIMELINE.md: P3 entry/real DEV/exit",
+          "REQUIREMENTS.md: D01/D15 (P3)"
+        ]
+      },
+      {
+        "field": "ACTUAL_PLESK_NGINX_CONFIG_MUTATED",
+        "observed": "NO",
+        "classification": "NOT_REQUIRED_FOR_P1",
+        "literal_mutation_required_for_p1": false,
+        "related_acceptance_classification": "P1_REQUIRED",
+        "related_acceptance": "Actual public health-only vhost route and forbidden engine-route acceptance, D26",
+        "p1_blocker": false,
+        "related_missing_p1_criterion": "P1-MISSING-04",
+        "reason": "Config mutation is not an exit criterion; a working existing approved vhost could satisfy D26 unchanged. Actual public /perf-engine/health and404/boundary proof are explicitly P1. Standalone nginx PASS does not establish that proof; it is not deferred as P3 customer integration.",
+        "authority": [
+          "PROJECT_TIMELINE.md: P1 exact exit",
+          "REQUIREMENTS.md: D26 (P1)"
+        ]
+      }
+    ],
+    "p0_2_section19_criterion_assessment": [
+      {
+        "criterion": "Accepted controller repair installed correctly",
+        "result": "PARTIAL_OPERATOR_ATTESTED",
+        "evidence_or_limitation": "Exact candidate bytes/hash installation PASS; ownership/mode/link/ancestors/backup details not retained."
+      },
+      {
+        "criterion": "Approved immutable runtime identity used",
+        "result": "PASS_OPERATOR_ATTESTED_ID",
+        "evidence_or_limitation": "RUNTIME_IMAGE_ID equals accepted promoted image; per-container IDs/image bindings not retained."
+      },
+      {
+        "criterion": "Constrained non-root build succeeds",
+        "result": "PRIOR_INFERRED_EXIT_ZERO; EFFECTIVE_PROOF_PENDING",
+        "evidence_or_limitation": "Prior REPAIR_2 reached runtime-health after build return0. Stage2 executes preserved output, not build/deploy; sandbox/builder direct evidence absent."
+      },
+      {
+        "criterion": "Application starts",
+        "result": "PASS_OBSERVED",
+        "evidence_or_limitation": "APP_RUNNING=YES and upstream private health PASS; operator attestation."
+      },
+      {
+        "criterion": "Expected container identities",
+        "result": "NOT_VERIFIED",
+        "evidence_or_limitation": "Exact IDs/names/roles/per-container image identities not supplied."
+      },
+      {
+        "criterion": "Expected dedicated network membership",
+        "result": "SUMMARY_ONLY",
+        "evidence_or_limitation": "RUNTIME_TOPOLOGY=PASS/PROXY_ONLY_EGRESS=YES; exact sets/IDs/Internal/config outputs absent."
+      },
+      {
+        "criterion": "No inappropriate direct egress",
+        "result": "SUMMARY_ONLY",
+        "evidence_or_limitation": "Proxy-only summary YES; no direct exact topology proof retained."
+      },
+      {
+        "criterion": "Expected secret separation",
+        "result": "NOT_VERIFIED",
+        "evidence_or_limitation": "No recipient/permission/self-host deny/env ownership observations retained; no secret values requested."
+      },
+      {
+        "criterion": "No secret exposure in evidence/logs",
+        "result": "PASS_SANITIZED_HANDOFF; RUNTIME_LOG_SCOPE_PENDING",
+        "evidence_or_limitation": "Supplied handoff has status/identity metadata only; actual credential/environment or live logs not read."
+      },
+      {
+        "criterion": "Expected UID/GID",
+        "result": "NOT_VERIFIED",
+        "evidence_or_limitation": "Effective runtime10001:10001 not supplied."
+      },
+      {
+        "criterion": "Cap drop",
+        "result": "NOT_VERIFIED",
+        "evidence_or_limitation": "No effective ALL-drop observation."
+      },
+      {
+        "criterion": "No new privileges",
+        "result": "NOT_VERIFIED",
+        "evidence_or_limitation": "No effective value supplied."
+      },
+      {
+        "criterion": "Seccomp",
+        "result": "NOT_VERIFIED",
+        "evidence_or_limitation": "No effective seccomp observation."
+      },
+      {
+        "criterion": "PID limit",
+        "result": "NOT_VERIFIED",
+        "evidence_or_limitation": "No effective container/slice PID observations."
+      },
+      {
+        "criterion": "CPU/memory limits",
+        "result": "NOT_VERIFIED",
+        "evidence_or_limitation": "No effective per-container/build limits."
+      },
+      {
+        "criterion": "Aggregate slice limits",
+        "result": "NOT_VERIFIED",
+        "evidence_or_limitation": "No effective slice CPU/memory/tasks evidence."
+      },
+      {
+        "criterion": "Internal health works",
+        "result": "PASS_OBSERVED_CONTROLLED_SCOPE",
+        "evidence_or_limitation": "Attempt02 PASS:OK:200; raw structured version/body not retained for complete D25."
+      },
+      {
+        "criterion": "Allowed public health route works",
+        "result": "NOT_VERIFIED",
+        "evidence_or_limitation": "Homepage GET / and standalone proxy do not establish actual /perf-engine/health."
+      },
+      {
+        "criterion": "Forbidden/admin paths not public",
+        "result": "NOT_VERIFIED",
+        "evidence_or_limitation": "No actual public404/boundary observations supplied."
+      },
+      {
+        "criterion": "Request consumed exactly once",
+        "result": "PASS_PRIOR_OFFICIAL_REPAIR2_ONLY",
+        "evidence_or_limitation": "Prior exact one-shot request consumed once, final claim/request absent. Stage2 request count0, not a replacement deployment."
+      },
+      {
+        "criterion": "Release identity persisted",
+        "result": "PARTIAL_OPERATOR_ATTESTED",
+        "evidence_or_limitation": "Preserved release name and matching prior source snapshot supplied; no successful deployed release/status association."
+      },
+      {
+        "criterion": "Retained evidence bounded",
+        "result": "NOT_VERIFIED",
+        "evidence_or_limitation": "Cleanup assertions/preserved release do not supply effective retained count/bounds."
+      },
+      {
+        "criterion": "No production touched",
+        "result": "PASS_OPERATOR_SCOPE_AND_GIT",
+        "evidence_or_limitation": "Operator flag NO; agent evidence/Git only, remote main unchanged; no production inspection."
+      }
+    ],
+    "first_runtime_restoration": {
+      "result": "DEFERRED_PENDING_LATER_CONTROLLED_VALIDATION",
+      "authority": "docs/P0_2_AUTONOMOUS_AUTHORIZATION.md section19 and PROJECT_TIMELINE.md P0.2 amendment/P1 exit",
+      "current_blocker": false,
+      "reason": "No prior successful official runtime/deployment restoration is recorded. Do not fabricate rollback evidence, require a third repair, or treat preserved release/cleanup as successful restoration."
+    },
+    "later_part_non_blockers": [
+      "P2 browser/Lighthouse/discovery/jobs/rules measurement acceptance",
+      "P3 actual PHP-FPM/plugin/customer/WooCommerce integration"
+    ],
+    "requirements_redefined": false,
+    "acceptance_decision": "Successful scoped Stage2 transport validation is accepted as evidence; not sufficient for full P1 review-ready under unchanged committed exits. Final human/ChatGPT P1 decision required; missing evidence or a concrete governance decision is needed before technical acceptance can be granted."
+  },
+  "EXCEPTION_REPAIR_VALIDATION_STAGE2_AUTHORIZED": true,
+  "EXCEPTION_REPAIR_VALIDATION_STAGE2_COMPLETE": true,
+  "EXCEPTION_REPAIR_VALIDATION_STAGE2_RESULT": "PASS",
+  "CONTROLLED_RUNTIME_EXECUTION_COUNT": 1,
+  "OFFICIAL_DEPLOYMENT_ATTEMPT": false,
+  "authorization_scope_note": "These flags record the completed human/operator exception validation, not agent execution, fresh authority, a repair cycle or independent full-Part PASS. Only V4 ran; V1/V2/V3 stopped pre-mutation per retained attestation.",
+  "current_installed_controller_sha256_operator_attested": "658ce192284c33b5a211b2a1a5c336bd585f2b1c4518d8f6d0fd4f82026d3bd4",
+  "previous_installed_controller_sha256_operator_attested": "be656cc95fbc3d1df09c57852577f8343401916a47aeec2b12459b4be5de414f",
+  "application_source_identity_from_prior_accepted_snapshot": {
+    "prior_source_commit": "0ac34ba50ab3192abfe2ae425c4283879484258e",
+    "prior_source_archive_sha256": "958c6833da7e63d7843996a3171e540bf74b6978dcdfaf521c1eb55a39587ced",
+    "preserved_release_operator_attested": "release-1791293466993919",
+    "preserved_source_snapshot_sha256_operator_attested": "44b5b3b45036ce787f2b9c4ecb20ae21c37db323904b6f18c7c341b976d528ae",
+    "comparison": "Matches prior accepted REPAIR_2 expected snapshot and image Gate C; this is retained DATA/source provenance, not a new candidate archive deployment. Protected release contents/output were not read."
+  },
+  "runtime_image_id_operator_attested": "sha256:c1ab6bc3d731e10291b1f81965e20936a28cfba73378a1af551c913e184bea4a",
+  "repair_cycle": 2,
+  "failed_repair_cycles": 2,
+  "initial": "FAILED_CONSUMED",
+  "repair_1": "FAILED_CONSUMED_1_OF_1",
+  "repair_2": "FAILED_CONSUMED_1_OF_1",
+  "automatic_retries": 0,
+  "repair_budget_exhausted": true,
+  "repair_3_authorized": false,
+  "repair_counters_changed": false,
+  "official_deployment_attempt": false,
+  "new_official_deployment_requests": 0,
+  "agent_privileged_or_runtime_execution": false,
+  "agent_host_mutation": false,
+  "agent_http_requests": false,
+  "agent_docker_execution": false,
+  "agent_php_nginx_systemd_execution": false,
+  "agent_controller_installation": false,
+  "functional_source_changed": false,
+  "tests_dependencies_privileged_kit_changed": false,
+  "orchestrator_state": "HARD_BLOCKED",
+  "p1_execution_state": "BLOCKED",
+  "p1_independent_review": "PENDING",
+  "P1_FINAL_ACCEPTANCE_REVIEW_READY": false,
+  "p2_to_p7": "NOT_STARTED",
+  "production_touched": false,
+  "main_unchanged_expected": "c724ac3b50bc44d71f8620bb4ac0cccfae890de2",
+  "next_action": "FINAL P1 ACCEPTANCE DECISION REQUIRED; missing committed P1 evidence identified; no runtime/deployment/REPAIR_3/P2/production authority granted."
+}
